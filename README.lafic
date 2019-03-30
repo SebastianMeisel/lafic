@@ -5,7 +5,7 @@ Introduction to LaFiC
 LaFiC means layout an format in comments, as all layout and
 format information is put into comment lines. So layout and
 content are fully separated.
-% layout…format:   emphasize 
+% layout…format: emphasize
 % fully: emphasize
 
 % heading2

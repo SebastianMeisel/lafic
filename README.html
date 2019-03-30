@@ -4,17 +4,17 @@
 <head>
   <meta charset="utf-8">
   <link rel="stylesheet" href="standard.css">
-<title>Introduction to LAFIC</title>
+<title>Introduction to LaFiC</title>
 <meta name="author"content="Sebastian Meisel">
 
 </head>
 
 <body>
   
-<H1>Introduction to LAFIC</H1>
+<H1>Introduction to LaFiC</H1>
 
 <p>
-LAFIC means <em>layout an format</em> in comments, as all layout and
+LaFiC means <emphasize >layout an format</emphasize > in comments, as all layout and
 format information is put into comment lines. So layout and
 content are <em>fully</em> separated.
 </p>
@@ -39,7 +39,7 @@ export PATH=${PATH}:~/lafic
 
 </pre>
 
-<H2>Writing text in LAFIC</H2>
+<H2>Writing text in LaFiC</H2>
 
 <H3>Lines and paragraphs</H3>
 
@@ -50,8 +50,9 @@ the most basic layout: There are <em>lines</em> and <em>paragraphs</em>.
 
 <p>
 The difference is not so much the length, but lines include
-none of the punctation marks ”.”, ”?”, ”!”. If no further layout
-information is provided, these are interpreted as headings.
+none of the punctation marks <em>».«, »?«, »!«, »:«</em>. If no
+further layout information is provided, these are
+interpreted as headings.
 </p>
 
 <p>
@@ -79,14 +80,27 @@ spaces. These lines or paragraphs must, however, be
 separated by empty line from the content.
 </p>
 
+<pre>
+  % This is a comment.
 
+  % This is a longer comment, that spreads over several
+  % lines. It is important that it is not connected to a line
+  % of the general content.
+
+</pre>
 
 <p>
 It is recommended, however, to start comments with two % chars.
-Else there may occur problems, when there is a ”:” somewhere
+Else there may occur problems, when there is a »:« somewhere
 in the comment. You also can start a longer comment this way
 and don“t need to repeat it in every line.
 </p>
+
+<pre>
+  %% This is a comment! No mistake!
+  Even when a go on with no leading % it's still a comment.
+
+</pre>
 
 
 <H3>Formated paragraphs</H3>
@@ -97,6 +111,12 @@ paragraph, that starts with a % char, followed by a single
 word. There are some predefined keywords, like quote or
 quotation for&nbsp;– well a quotation.
 </p>
+
+<pre>
+  % quote
+  This is a quotation.
+
+</pre>
 
 <blockquote>
 This is a quotation.
@@ -116,11 +136,11 @@ to macros (LaTeX) oder &lt;span&gt; names (HTML). Know keywords
 are H1&nbsp;… H6 for headings.
 </p>
 
-<blockquote>
-  % H4<br />
+<pre>
+  % heading4<br />
   This is a subsection<br />
 
-</blockquote>
+</pre>
 
 <H4>This is a subsection</H4>
 
@@ -144,7 +164,7 @@ a paragraph. It has two parts:
 </ol>
 
 <p>
-The both are separated by a ”:”.
+The both are separated by a »:«.
 </p>
 
 <p>
@@ -159,10 +179,16 @@ If the keyword is unknown, it is converted to a macro
 <H3>Images</H3>
 
 <p>
-The simplest way to put an image into a LAFIC file is a
+The simplest way to put an image into a LaFiC file is a
 line with the image name, with a know extention: png, jpg,
 jpeg, gif.
 </p>
+
+<pre>
+  Image.png
+  % height = 40%
+
+</pre>
 
 <img style="height: 40%;" src="/home/sebastian/lafic/Image.png">
 
@@ -172,6 +198,14 @@ files, so the image won“t float this way. For this to
 achieve to have to put % image, %img or %figure before the
 line. You don“t need the extention then.
 </p>
+
+<pre>
+  %image
+  Image.png
+  % width = 40%
+  % caption = "Moon and Mars"
+
+</pre>
 
 <figure role="group">
 <img style="width: 40%;" src="/home/sebastian/lafic/Image.png">
