@@ -1,0 +1,889 @@
+#!/usr/bin/perl
+# dtf2tex - convert dtf to latex
+# Copyright (C) 2019  Sebastian Meisel
+
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public
+# License along with this program; if not, write to the Free
+# Software Foundation, Inc., 51 Franklin Street, Fifth
+# Floor, Boston, MA  02110-1301, USA.  
+
+use strict;
+use warnings;
+
+use warnings::register;
+
+use File::Basename;
+use Cwd;
+use Cwd 'abs_path';
+use FindBin qw($RealBin);
+
+
+use Data::Dumper;
+
+
+#######
+# License statment
+#########
+
+print "    –––––––––––––––––––––––––––
+    lafic2tex [version 0.1] Copyright (C) 2019 by Sebastian Meisel
+    This program comes with ABSOLUTELY NO WARRANTY; 
+    This is free software, and you are welcome to redistribute it
+    under certain conditions; read LICENCE for details.
+    –––––––––––––––––––––––––––––––\n\n";
+
+
+#######
+# lafic directory
+#########
+my $lafic_dir = $RealBin;
+use lib "$RealBin/modules";
+no lib ".";
+
+######
+# read lafic.config.pl
+#####
+my %config = do "$lafic_dir/lafic.config.pl"; 
+
+# if lang defined and module exist load lang module
+my $modules_dir = "$lafic_dir/modules";
+
+
+ SELECT:{
+     if ($config{"lang"} =~ /^de_DE$/){
+ 	 my $module = "$lafic_dir/modules/lafic/de_DE.pm"; 
+ 	 if (-e $module) {
+ 	     print "use $module\n";
+	     use lafic::de_DE;
+	     }
+	 last SELECT}
+}
+
+######
+# variables and hashes
+######
+
+# hash for known line macros
+my %macros = (
+    # headings
+    "h1" => "title",
+    "heading1" => "title",
+    "title" => "title",
+    "h2" => "part",
+    "heading2" => "part",
+    "part" => "part",
+    "h3" => "section",
+    "heading3" => "section",
+    "section" => "section",
+    "h4" => "subsection",
+    "heading4" => "subsection",
+    "subsection" => "subsection",
+    "h5" => "subsubsection",
+    "heading5" => "subsubsection",
+    "subsubsection" => "subsubsection",
+    "h6" => "paragraph",
+    "heading6" => "paragraph",
+    "paragraph" => "paragraph",
+    "h" => "addsec",
+    "heading" => "addsec",
+    );
+
+
+# hash for known environments
+my %environments = (
+    # quotations
+    "quote" => "quote",
+    "quotation" => "quotation",
+    # center
+    "center" => "center",
+    "c" => "center",
+    # lists
+    "enumerate" => "enumerate",
+    "ol" => "enumerate",
+    "itemize" => "itemize",
+    "list" => "itemize",
+    "ul" => "itemize",
+    ######
+    # figures 
+    "image" => "figure",
+    "img" => "figure",
+    "figure" => "figure"
+    );
+
+
+# hash for known inline macros
+my %il_macros = (
+    "bold" => "textbf",
+    "emphasize" => "emph",
+    "italic" => "textit",
+    "smallcaps" => "textsc",
+    "superscript" => "textsuperscript",
+    "subscript" => "textsubscript"
+    );
+
+# hash for keywords like "break lines"
+my %keywords = (
+    "break lines" => "br",
+    "br" => "br"
+    );
+
+# list of list environments
+my @list_environments = (
+    "enumerate", 
+    "itemize"
+    );
+
+
+######
+# Language specific
+########
+ SELECT: {
+     # german
+     if ($config{"lang"} =~ /^de_DE$/) {
+	 # macros
+	 my $lang_macro_file = "$lafic_dir/de_DE/LaTeX.macros.pl";
+	 if (-e $lang_macro_file) {
+	     print "load $lang_macro_file.\n";
+	     %macros = (%macros, do $lang_macro_file);
+	 }
+	 # inline macros
+	 $lang_macro_file = "$lafic_dir/de_DE/LaTeX.il_macros.pl";
+	 if (-e $lang_macro_file) {
+	     print "load $lang_macro_file.\n";
+	     %il_macros = (%il_macros, do $lang_macro_file);
+	 }
+	 # environments
+	 $lang_macro_file = "$lafic_dir/de_DE/LaTeX.environments.pl";
+	 if (-e $lang_macro_file) {
+	     print "load $lang_macro_file.\n";
+	     %environments = (%environments, do $lang_macro_file);
+	 }
+	 # keywords
+	 $lang_macro_file = "$lafic_dir/de_DE/LaTeX.keywords.pl";
+	 if (-e $lang_macro_file) {
+	     print "load $lang_macro_file.\n";
+	     %keywords = (%keywords, do $lang_macro_file);
+	 }
+	 last SELECT}
+}
+    
+
+
+# declare $template variable for template filehandler
+my $template;
+
+
+#########
+# TODO: add german keywords
+##########
+
+##################################
+#my $lafic_file = basename($ARGV[0]);
+my ($basename,$path,$ext) = fileparse(abs_path($ARGV[0]), qr/\.[^.]*/); 
+my $lafic_file = "$path$basename$ext";
+#my $path = dirname(abs_path($ARGV[0])); 
+my $tex_file = "$path$basename.tex";
+###############################
+
+# open output file
+
+open(OUTPUT, ">$tex_file") or
+    (die  "Could not open $tex_file");
+
+open(INPUT, "<$lafic_file") or
+    (die   "Could not open $lafic_file");
+
+
+local $/;
+my $data = <INPUT>;
+# and parse it
+parseFile($data);
+
+###########################################
+## SUBS
+################
+
+### Print template preamble to marker for input
+sub startTemplate {
+    # If template isn't allready open for input
+    # open Standard template.
+    #####
+    # TODO add path
+    #####
+    unless (defined $template) {
+	my $temp_file;
+	# german standard template 
+	if ($config{"lang"} =~ /^de_DE$/ ) {
+	    $temp_file = "$lafic_dir/Standard_de_DE.tmp.tex";
+	}
+	#english standard template
+	else {
+	    $temp_file = "$lafic_dir/Standard.tmp.tex";
+	}
+	open(TEMPLATE, "<$temp_file") or
+	    die "Could not open $temp_file";
+	print "use $temp_file\n";
+	local $/;
+	$template = <TEMPLATE>;
+    }
+
+    my $marker = shift;
+    
+    # Print template to %$marker% line
+    while ($template =~ /^(.*?)$/mg) {
+	my $line = $1;
+	
+	# stop at %TITLE%
+	if ($line =~ /\%$marker\%/){last}
+
+	print OUTPUT "$line\n";
+    }
+}
+
+# make proper LaTeX code
+sub LaTeX {
+
+    # work variable
+    my $par = shift;
+  
+    # quotation marks
+    my $outerquotes=0;
+    my $innerquotes=0;
+    # TODO german / english quotation marks
+    my $oqm = "\"`"; # "„";
+    my $cqm = "\"'"; # "“";
+    my $osqm = "\"'"; # "‚";
+    my $csqm = "\"'"; #"‘";
+  
+    # special chars
+    $par =~ s/\\/\\textbackslash /mg;
+    $par =~ s/([\[\]%\{}\$])/\\$1/mg;
+    $par =~ s/~/\\textasciitilde/mg;
+    
+    # Non breaking space befor -- and ... 
+    $par =~ s/\s(--|\{\\ldots)/~$1/mg;
+  
+    # And between ?|! and quotation marks
+    $par =~ s/(\?|!)``/$1\\,``/mg;
+    
+    # And before /
+    $par =~ s/\s\\slash/~\\slash/mg;
+
+    #language specific code
+  SELECT: {
+      # german only
+      if ($config{"lang"} =~ /^de_DE$/) {
+	  $par = lafic::de_DE::LaTeX($par);
+      }
+    }
+    
+    # and after digits
+    $par =~ s/([0-9]\.?)\s/$1~/mg;
+    
+
+    # Genitiv 's
+    $par =~ s/(’|´)s/'s/mg;
+
+    # quotation marks
+    $par =~ s/(\W|^)('|‘|’|‚)(\w|[{ÄÖÜäöü\.\?\!:,;…])/$1$osqm$3/mg ;
+    $par =~ s/(\w|[}ÄÖÜäöü\.\?\!:,;…])(‘|’|‚|')(\W|$)/$1$csqm$3/mg;
+    $par =~ s/(\W|^)("|„|``)(\w|[{ÄÖÜäöü\.\?\!:,;…])/$1$oqm$3/mg ;
+    $par =~ s/(\w|[}ÄÖÜäöü\.\?\!:,;…])(''|"|„|“|``)(?!'|`)(\W|$)/$1$cqm$3/mg;
+    
+    # hack for item: no \
+    $par =~ s/\\textbackslash item/\\item/mg;
+
+    # hack for \\ 
+    # TODO: is there a better way
+    $par =~ s/\\textbackslash \\textbackslash $/\\\\/mg;
+    
+    return $par;
+}
+
+#################
+# Handle parameters of macros or environments
+#################
+sub handleParameter {
+    ########
+    # TODO: check which environment / macro?
+    ########
+    my ($env_mac, %parameter) = @_;
+    
+
+    my @return;
+    
+    if (keys %parameter) {
+	if ($env_mac =~ /^(figure|includegraphics)$/) { 
+	    my $optional = "[";
+	    # figure / includegraphics
+	    if ($parameter{"width"}){
+		$parameter{"width"} =~ s/(1?)([0-9]?)([0-9])[%]/$1.$2$3\\linewidth/;
+		$optional = "$optional width=$parameter{'width'},";
+	    }
+	    if ($parameter{"height"}){
+		$parameter{"height"} =~ s/(1?)([0-9]?)([0-9])[%]/$1.$2$3\\textheight/;
+		$optional = "$optional height=$parameter{'height'},";
+	    }
+	    
+	    # delete leading space
+	    $optional =~ s/^\[\s/\[/;
+	    # delete trailing space and comma
+	    $optional =~ s/,\s*$//;
+
+	    # add final bracket
+	    $optional = "$optional]";
+	    # prevent empty optional brackets
+	    $optional =~ s/^\[\]$//;
+	    @return = $optional;
+	}
+	if ($env_mac =~ /^figure$/) {
+	    if (! $parameter{"caption"} =~ /^$/) {
+		@return = (@return, $parameter{"caption"});
+	    }  
+	}
+    }
+    
+    return @return;
+}
+
+
+####################
+# Output of lines / paragraphs
+########################
+sub outputLines {
+    # get parameters
+    my ($par , $parstyle, $macro, $title, $environment, $prev_env, $c_env, $newfile, $newpar, %parameter) = @_;
+
+    # check if continious environment needs to be closed
+    unless ($environment eq $prev_env or $prev_env eq "") {
+	print OUTPUT "\\end\{$prev_env\}\n\n";
+    }
+
+#    print "$c_env : $environment: $prev_env : $parstyle\n";
+    
+    # close macro or environment  
+  SELECT: {
+      # no content
+      if ($par =~ /^(\s*)$/) {last SELECT}
+      
+      # line / macro
+      if ($parstyle == 0 || $parstyle == 3) {
+		  # check if it is first line / paragraph
+		  if ($newfile == 1) {
+		      startTemplate("TITLE");
+		      $newfile = 0;
+		  }
+		  
+		  
+		  print OUTPUT "\\$macro\{$par\}\n";
+		  # save title and run startTemplate
+		  if ($macro =~ /title/) {
+		      $title = $par;
+		      print OUTPUT "\\$macro\{$par\}\n";
+		      if ($config{"author"}){
+			  print OUTPUT "\\author\{$config{'author'}\}\n";
+		      }
+
+		      startTemplate("TEXT");
+		      # }		
+		  }
+		  last SELECT}
+	      # paragraph
+	      if ($parstyle == 1) {
+		  # check if it is first line / paragraph
+		  if ($newfile == 1) {
+		      startTemplate("TITLE");
+		      $newfile = 0;
+		  };
+		  # check if it's an image
+		  #####
+		  # TODO: image attributes
+		  #####
+		  if (lc($par) =~ /\.(png|jpg|jpeg|gif)$/){
+		      # get optional parameters
+		      $macro = "includegraphics";
+		      my $optional = "";
+		      ($optional) = handleParameter($macro, %parameter);
+		      print OUTPUT "\\$macro$optional\{$par\}\n";
+		  }
+		  else {print OUTPUT "$par\n";}
+		  last SELECT}
+	      # comment
+	      if ($parstyle == 2) {
+		  # for the moment we skip comments
+		  # print OUTPUT "$par\n";
+		  last SELECT}
+	      # formated paragraph
+	      if ($parstyle == 4) {
+		  # check if it is first line / paragraph
+		  if ($newfile == 1) {
+		      startTemplate("TITLE");
+		      # check if title is defined
+		      unless (defined $title) {
+			  # run startTemplate
+			  print OUTPUT "\\title\{Unbekannt\}\n";
+			  startTemplate("TEXT");
+		      } 
+		  };
+		  # figures are special
+		  #####
+		  # TODO: image attributes
+		  #####
+		  if ($environment =~ /^figure$/) {
+		      # optional parameters
+		      my $optional = "";
+		      my $caption = "";
+
+		      ($optional, $caption) = handleParameter($environment, %parameter);
+		      
+		      print OUTPUT "\\begin{figure}[hbt]\n";
+		      print OUTPUT "\\includegraphics$optional\{$par\}\n";
+		      if (! $caption =~ /^$/ ) {
+			  print OUTPUT "\\caption{$caption}\n";
+		      }
+		      print OUTPUT "\\end{figure}\n";
+		  }
+		  # other environment
+		  else {
+		      unless ($c_env == 1) {
+			  print OUTPUT "\\begin\{$environment\}\n";
+		      }
+		      print OUTPUT "$par\n";
+		  }
+		  last SELECT}
+    }
+    
+    # print newline
+    print OUTPUT "\n";
+
+    return $newfile;
+}
+
+######################################
+# Main Parser
+#################################
+    
+sub parseFile {
+    my $file = shift;
+
+    print  "Parsing $lafic_file …\n";
+    print  "output to $tex_file …\n";
+    
+    
+    my $par = ""; # paragraphs / lines
+    
+    # marker for beginning of file 
+    my $newfile = 1;
+
+    # marker for beginning of line / paragraph 
+    my $newpar = 1;
+    # Count paragraphs / lines
+    # my $parnumber = 0; 
+    
+    # parstyles:
+    # 0 = single line
+    # 1 = paragraph
+    # 2 = comment
+    # 3 = formated line
+    # 4 = formated paragraph
+    my $parstyle = 0;
+
+    # Keyword for line / paragraph layout
+    my $parkey = "";
+
+    # macro / environment name
+    my $macro = "";
+    my $environment = "";
+    # previous environment
+    my $prev_env = "";
+    # marker for continous environment
+    my $c_env = 0;
+    # title
+    my $title = "";
+
+    # marker for format block
+    my $formbl = 0;
+
+    # parameter hash
+    my %parameter;
+
+    
+    while ($file =~ /^(.*?)$/mg) {
+	print ".";
+	# line to parse
+	my $line = $1;
+
+    	# First line of paragraph or line
+    	if ($newpar == 1) {
+    	    # then check for line / paragraph layout line
+    	    if ($line =~ /^[%](.*?)$/) {
+    		my $lc = $1; # content of line
+    		# hardcoded comment?
+		if ($lc =~ /^[%]/) {
+		    $parstyle = 2;
+		    $newpar=0;
+		    $par = "";
+		    next}
+    		# layout line or comment?
+    		elsif ($lc =~ /^(\s*)([0-9a-zA-Z_À-ÿ\.]+?)(\s*)$/) {
+    		    # at least formated line
+    		    # check later if it is formated par
+    		    $parstyle = 3;
+    		    # save keyword for line or paragraph layout
+    		    $parkey = $2;
+
+		    #  check, if it's begin of Document
+		    if ($newfile == 1){
+			# parkey is template name
+			# open template
+			#######
+			# TODO: add search path
+			########
+			# set language based on template
+			if ($parkey =~ /de_DE$/) {
+			    # german
+			    $config{"lang"} = "de_DE";
+			}
+			else {
+			    # english
+			    $config{"lang"} = "en_EN";
+			}
+
+			open(TEMPLATE, "<$lafic_dir/$parkey.tmp.tex") or
+			    die "Could not open $lafic_dir/$parkey.tmp.tex";
+			print "use $lafic_dir/$parkey.tmp.tex\n";
+			local $/;
+		        $template = <TEMPLATE>;
+			
+			# clear up
+			$parkey = "";
+			$parstyle = 0;
+			$par = "";
+		    }
+
+		    # make parkey lowercase for other options
+		    $parkey = lc($parkey);
+			
+    		    next}
+    		else {
+    		    # comment
+    		    $parstyle = 2;
+		    # 
+		    $newpar = 0;
+    		    next}
+    	    }
+	    # check for leading * : list
+	    elsif ($line =~ /^\*/){
+		# make sure, this is seen as formated paragraph
+		$parstyle = 4;
+		    
+		# known environment
+		if (exists $environments{$parkey}){
+		    $environment = $environments{$parkey};
+		}
+		
+		# make sure this is an list environment
+		unless ($environment ~~ @list_environments) {
+		    $environment = "itemize";
+		}
+
+		# make * \item
+		$line =~ s/^\*(\s*)/\\item /;
+		$par =  "\n" . $line;
+
+		$newpar = 0;
+	    }
+	    
+	    # if ".", "?", "!" then paragraph 
+	    elsif ($line =~ /[.?!:]/g) {
+		# increase parstyle by 1
+		$parstyle++;
+
+		# add line to par
+		$par = $line;
+
+		SELECT: {
+		# normal paragraph    
+		if ($parstyle == 1) {
+		    # close continious environment
+		    $c_env = 0;
+		    
+		    last SELECT}
+		# formated paragraph
+		if ($parstyle == 4) {
+		    # TOD0: other keywords
+		  SELECT:{
+		      # known environment
+		      if (exists $environments{$parkey}){
+			  $environment = $environments{$parkey};
+			  
+			  # check if continous environment
+			  if ($prev_env =~ /$environment/) {
+			      $c_env = 1}
+			  else {$c_env = 0}
+
+
+			  last SELECT;}
+		      # unknown environement
+		      else {
+			  $environment = $parkey;
+
+			  # check if continous environment
+			  if ($prev_env =~ /$environment/) {
+			      $c_env = 1}
+			  else {$c_env = 0}
+			  
+			  last SELECT;}		   
+		    }
+		    last SELECT}
+		}
+		$newpar = 0;
+#		$newfile = 0;
+	    }
+	    # else line
+	    else {
+		# skip repeated empty lines
+		if ($line =~ /^(\s*)$/){next}
+		
+		# add line to par
+		$par = $line;
+
+		# close continious environment 
+		$c_env = 0;
+		
+		SELECT: {
+		    # section heading    
+		    if ($parstyle == 0) {
+			if ($newfile == 1) {
+			    #######
+			    # TODO: put to preamble
+			    #######
+			    $macro = "title";
+			}
+			else{
+			    $macro = "section";
+			}
+			last SELECT}
+		    # formated line
+		    if ($parstyle == 3) {
+			# known macros
+			if (exists $macros{$parkey}){
+			    $macro = $macros{$parkey};
+			    last SELECT}
+			# check if paragraphstyle is forced
+			elsif (exists $environments{$parkey}){
+			    $environment = $environments{$parkey};
+			    $parstyle = 4;
+			    
+			    # check if continous environment
+			    if ($prev_env =~ /$environment/) {
+				$c_env = 1}
+			    else {$c_env = 0}
+
+			    last SELECT}
+			# unknown keyword:
+			else {$macro = $parkey}
+			last SELECT}
+		}
+		$newpar = 0;
+	    }
+    	}
+	# further content of paragraph / line
+    	else {
+	    # first check if its a comment
+	    if ($parstyle == 2 ){
+		# add line to paragraph/line content
+		# $par = $par . " " . $line;
+		#skip for now
+		}
+	    # than check for format line  
+	    elsif($line =~ /^[%](\s*?)(\S.*)$/) {
+		my $fline = $2;
+		# format or parameter
+		if ($fline =~ /:/) {
+		    # split into searchstring an format key
+		    my ($searchstring, $fkey) = split /:\s*/ , $fline;
+
+		    # some LaTeX addoptions
+		    $searchstring = LaTeX("$searchstring");
+		    $searchstring =~ s/(\.|\?)/\\$1/g;
+
+		    # check if formatblock begins
+		    ########
+		    # TODO: use for warnings
+		    #######
+		    if ($formbl == 0) {
+			# first make proper LaTeX code
+			$par = LaTeX($par);
+			# mark as formatbl
+			$formbl = 1;
+		    }
+		    
+
+		    # make format key lowercase 
+		    $fkey = lc($fkey);
+		    my $format = $fkey;
+		    # check if know keyword
+		    if (exists $il_macros{$fkey}) {
+			$format = $il_macros{$fkey};
+		    }
+
+	
+		    # range or single word
+		    if ($searchstring =~ /(\.{3,3}|…)/ ) {
+			my @pattern = split /$1/ , $searchstring;
+			
+			# check for context
+			my @context = ("" , "");
+			my $i = 0;
+			for (@pattern) {
+			    if ($pattern[$i] =~ /[(](.*?)[)]/) {
+				$context[$i] = $1;
+				$pattern[$i] =~ s/([(].*?[)])//;
+			    }
+			    $i ++;
+			}
+			
+			$par =~ s/$context[0]($pattern[0](.*?)$pattern[1])$context[1]/$context[0]\\$format\{$1}$context[1]/g;		
+		    }
+		    else {
+			# check for context
+			my @context = ("" , "");
+			# Zeilenanfang
+			if ($searchstring =~ /^[(](.*?)[)]/){
+			    $context[0] = $1}
+			# Zeilenende
+			if ($searchstring =~ /[(](.*?)[)]$/){
+			    $context[1] = $1}
+			
+			# context entfernen
+			$searchstring =~ s/[(](.*?)[)]//mg;
+			
+			$par =~ s/$context[0]($searchstring)$context[1]/$context[0]\\$format\{$1\}$context[1]/g;
+		    }
+		}
+		# Parameter
+		elsif ($fline =~ /=/) {
+		    # split into searchstring an format key
+		    %parameter = (%parameter, split /\s*=\s*/ , $fline);
+		}
+		else {
+		    # keywords like linebreaks, etc.
+		    if ($keywords{"$fline"}){
+			if ($keywords{"$fline"} =~ /^br$/){
+			    $par =~ s/$/\\\\/mg;
+			}
+			else {
+			    print STDERR "warning: keyword '$fline' is unknown.\n";
+			}
+		    }
+		    else {
+			print STDERR "warning: keyword '$fline' unknown.\n";
+		    }
+		}
+	    }
+	    # check for leading * : list
+	    elsif ($line =~ /^\*/){
+		# make * \item
+		$line =~ s/^\*(\s*)/\\item /;
+		$par = $par . "\n" . $line;
+	    }
+	    # check for ".", "?", "!" : paragraph
+	    elsif ($line =~ /[.?!]/g) {
+		# check if $parstyle is paragraphstyle 
+		# or make it so:
+		if ($parstyle == 0) {$parstyle = 1}
+		elsif ($parstyle == 3) {
+		    $parstyle = 4;
+		    $environment = $parkey;
+		}
+		# add line to paragraph/line content
+		$par = $par . "\n" . $line;
+	    }
+	    # odinary content of line or paragraph
+	    else {
+		# add line to paragraph/line content
+		$par = $par . "\n" . $line;
+	    }
+	    
+    	}
+    	#  empty line:
+	if ($line =~ /^(\s*)$/) {
+	    #clear spaces at lineend
+	    $par =~ s/(\s*)$//;
+	
+
+	    # If not done jet
+	    if ($formbl == 0){
+		# make proper LaTeX code
+		$par = LaTeX($par);
+	    }
+
+
+	    # output lines / paragraphs
+	    $newfile = outputLines ($par , $parstyle, $macro, $title, $environment, $prev_env, $c_env, $newfile, $newpar, %parameter);
+	    
+	    # better clean up
+	    $parkey = "";
+	    $macro = "";
+	    $prev_env = $environment;
+	    $environment = "";
+	    $par = "";
+	    $parstyle = 0;
+	    $formbl = 0;
+
+	    undef %parameter;
+
+	    
+	    # set newpar to 1 (true)
+	    $newpar = 1;
+	    
+	    next}
+
+    }
+    # One last look, if file closes without newline
+    $par =~ s/(\s*)$//;
+
+    # If not done jet
+    if ($formbl == 0){
+	# make proper LaTeX code
+	$par = LaTeX($par);
+    }
+
+    # output lines / paragraphs
+    $newfile = outputLines ($par , $parstyle, $macro, $title, $environment, $prev_env, $c_env, $newfile, $newpar, %parameter);
+    
+    # better clean up
+    $parkey = "";
+    $macro = "";
+    $prev_env = $environment;
+    $environment = "";
+    $par = "";
+    $parstyle = 0;
+    $formbl = 0;
+    undef %parameter;
+
+    # set newpar to 1 (true)
+    $newpar = 1;
+
+}
+
+close (INPUT);
+# print rest of template.
+while ($template =~ /^(.*?)$/mg) {
+    my $line = $1;
+    print OUTPUT "$line\n";
+}
+
+close (TEMPLATE);
+close (OUTPUT);

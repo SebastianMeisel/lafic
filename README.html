@@ -1,0 +1,183 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="standard.css">
+<title>Introduction to LAFIC</title>
+<meta name="author"content="Sebastian Meisel">
+
+</head>
+
+<body>
+  
+<H1>Introduction to LAFIC</H1>
+
+<p>
+LAFIC means <em>layout an format</em> in comments, as all layout and
+format information is put into comment lines. So layout and$
+content are <em>fully</em> separated.
+</p>
+
+<H2>Installation</H2>
+
+<p>
+Get source from github using:
+</p>
+
+<blockquote>
+git clone https://github.com/SebastianMeisel/lafic.git
+
+</blockquote>
+
+<p>
+Add lafic directory to $PATH, e.g.:
+</p>
+
+<blockquote>
+export PATH=${PATH}:~/lafic
+
+</blockquote>
+
+<H2>Writing text in LAFIC</H2>
+
+<H3>Lines and paragraphs</H3>
+
+<p>
+The content is presented in two forms, which also include
+the most basic layout: There are <em>lines</em> and <em>paragraphs</em>.
+</p>
+
+<p>
+The difference is not so much the length, but lines include
+none of the punctation marks ”.”, ”?”, ”!”. If no further layout
+information is provided, these are interpreted as headings.
+</p>
+
+<p>
+The first line is interpreted as the title and presented as
+this is as &lt;h1&gt;, when converted to HTML, and \title, when 
+converted to LaTeX.
+</p>
+
+<p>
+Further line will be converted to &lt;h3&gt; (<span class="sc">Html</span>) or \section
+(LaTeX), if no otherwise specified.
+</p>
+
+<p>
+This way simple Documents may be structured with no explicit
+layout information at all.
+</p>
+
+<H3>Comments</H3>
+
+<p>
+You can add comments to your text, by starting a single line
+or each line of a paragraph with a % char with no leading
+spaces. These lines or paragraphs must, however, be
+separated by empty line from the content.
+</p>
+
+
+
+<p>
+It is recommended, however, to start comments with two % chars.
+Else there may occur problems, when there is a ”:” somewhere
+in the comment. You also can start a longer comment this way
+and don“t need to repeat it in every line.
+</p>
+
+
+<H3>Formated paragraphs</H3>
+
+<p>
+Paragraphs can be formated by adding a line before the
+paragraph, that starts with a % char, followed by a single
+word. There are some predefined keywords, like quote or
+quotation for&nbsp;– well a quotation.
+</p>
+
+<blockquote>
+This is a quotation.
+
+</blockquote>
+
+<p>
+If the keyword is unknown, it will be converted to an environment
+name in LaTeX or the name of a &lt;div&gt; in Html.
+</p>
+
+<H3>Formated lines</H3>
+
+<p>
+Line are formated in the same way, only they are converted
+to macros (LaTeX) oder &lt;span&gt; names (HTML). Know keywords
+are H1&nbsp;… H6 for headings.
+</p>
+
+<blockquote>
+  % H4<br />
+  This is a subsection<br />
+
+</blockquote>
+
+<H4>This is a subsection</H4>
+
+<H3>Inline formation</H3>
+
+<p>
+If you want to format words or sequences in a paragraph (or
+line if needed), you add format lines with a leading % after
+a paragraph. It has two parts:
+</p>
+
+<ol>
+
+
+<li> the word or the sequence to be formated in the form
+  start…end. </li>
+
+<li> a keyword.
+
+</li>
+</ol>
+
+<p>
+The both are separated by a ”:”.
+</p>
+
+<p>
+Known environment keywords are e.g. quote or quotation.
+</p>
+
+<p>
+If the keyword is unknown, it is converted to a macro
+(LaTeX) oder &lt;span&gt; (HTML) name.
+</p>
+
+<H3>Images</H3>
+
+<p>
+The simplest way to put an image into a LAFIC file is a
+line with the image name, with a know extention: png, jpg,
+jpeg, gif.
+</p>
+
+<img style="height: 40%;" src="/home/sebastian/lafic/Image.png">
+
+<p>
+Note that this will not put an figure environment in LaTeX
+files, so the image won“t float this way. For this to
+achieve to have to put % image, %img or %figure before the
+line. You don“t need the extention then.
+</p>
+
+<figure role="group">
+<img style="width: 40%;" src="/home/sebastian/lafic/Image.png">
+<figcaption>"Moon and Mars"</figcaption>
+</figure>
+
+
+</body>
+</html>
