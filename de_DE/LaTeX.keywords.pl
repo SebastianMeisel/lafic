@@ -1,0 +1,1 @@
+"Zeilen umbrechen" => "br"

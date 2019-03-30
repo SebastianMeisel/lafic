@@ -1,0 +1,23 @@
+   # # Überschriften
+    "Ü1" => "h1",
+    "Überschrift1" => "h1",
+    "titel" => "h1",
+    "Ü2" => "h2",
+    "Überschrift2" => "h2",
+    "teil" => "h2",
+    "Ü3" => "h3",
+    "Überschrift3" => "h3",
+    "abschnit" => "h3",
+    "Ü4" => "h4",
+    "Überschrift4" => "h4",
+    "unterabschnitt" => "h4",
+    "Ü5" => "h5",
+    "Überschrift5" => "h5",
+    "h5" => "h5",
+    "Ü6" => "h6",
+    "Überschrift6" => "h6",
+    "absatz" => "h6",
+    "Ü" => "h3",
+    "Überschrift" => "h3",
+
+
