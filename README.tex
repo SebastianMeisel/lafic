@@ -8,7 +8,6 @@
 \defineshorthand{"'}{\closeautoquote}
 
 \title{Introduction to LAFIC}
-\title{Introduction to LAFIC}
 \author{Sebastian Meisel}
 
 \begin{document}
@@ -17,24 +16,24 @@
 
 
 LAFIC means \emph{layout an format} in comments, as all layout and
-format information is put into comment lines. So layout and\$
+format information is put into comment lines. So layout and
 content are \emph{fully} separated.
 
 \part{Installation}
 
 Get source from github using:
 
-\begin{quote}
+\begin{verbatim}
 git clone https://github.com/SebastianMeisel/lafic.git
 
-\end{quote}
+\end{verbatim}
 
 Add lafic directory to \$PATH, e.g.:
 
-\begin{quote}
-export PATH=\$\{PATH\}:\textasciitilde/lafic
+\begin{verbatim}
+export PATH=${PATH}:~/lafic
 
-\end{quote}
+\end{verbatim}
 
 \part{Writing text in LAFIC}
 
@@ -44,8 +43,9 @@ The content is presented in two forms, which also include
 the most basic layout: There are \emph{lines} and \emph{paragraphs}.
 
 The difference is not so much the length, but lines include
-none of the punctation marks \emph{"'."'}, \emph{"'?"'}, \emph{"'!"'}. If no further layout
-information is provided, these are interpreted as headings.
+none of the punctation marks \emph{».«}, \emph{»?«}, \emph{»!«}, \emph{»:«}. If no
+further layout information is provided, these are
+interpreted as headings.
 
 The first line is interpreted as the title and presented as
 this is as <h1>, when converted to HTML, and \textbackslash title, when 
@@ -64,13 +64,25 @@ or each line of a paragraph with a \% char with no leading
 spaces. These lines or paragraphs must, however, be
 separated by empty line from the content.
 
+\begin{verbatim}
+  % This is a comment.
 
+  % This is a longer comment, that spreads over several
+  % lines. It is important that it is not connected to a line
+  % of the general content.
+
+\end{verbatim}
 
 It is recommended, however, to start comments with two \% chars.
-Else there may occur problems, when there is a "`:"' somewhere
+Else there may occur problems, when there is a »:« somewhere
 in the comment. You also can start a longer comment this way
 and don't need to repeat it in every line.
 
+\begin{verbatim}
+  %% This is a comment! No mistake!
+  Even when a go on with no leading % it's still a comment.
+
+\end{verbatim}
 
 \section{Formated paragraphs}
 
@@ -78,6 +90,12 @@ Paragraphs can be formated by adding a line before the
 paragraph, that starts with a \% char, followed by a single
 word. There are some predefined keywords, like quote or
 quotation for – well a quotation.
+
+\begin{verbatim}
+  % quote
+  This is a quotation.
+
+\end{verbatim}
 
 \begin{quote}
 This is a quotation.
@@ -93,11 +111,11 @@ Line are formated in the same way, only they are converted
 to macros (LaTeX) oder <span> names (HTML). Know keywords
 are H1~… H6~for headings.
 
-\begin{quote}
-  \% H4\\
+\begin{verbatim}
+  % H4\\
   This is a subsection\\
 
-\end{quote}
+\end{verbatim}
 
 \subsection{This is a subsection}
 
@@ -115,7 +133,7 @@ a paragraph. It has two parts:
 
 \end{enumerate}
 
-The both are separated by a "`:"'.
+The both are separated by a »:«.
 
 Known environment keywords are e.g. quote or quotation.
 
@@ -128,12 +146,26 @@ The simplest way to put an image into a LAFIC file is a
 line with the image name, with a know extention: png, jpg,
 jpeg, gif.
 
+\begin{verbatim}
+  Image.png
+  % height = 40%
+
+\end{verbatim}
+
 \includegraphics[height=.40\textheight]{Image.png}
 
 Note that this will not put an figure environment in LaTeX
 files, so the image won't float this way. For this to
 achieve to have to put \% image, \%img or \%figure before the
 line. You don't need the extention then.
+
+\begin{verbatim}
+  %image
+  Image.png
+  % width = 40%
+  % caption = "Moon and Mars"
+
+\end{verbatim}
 
 \begin{figure}[hbt]
 \includegraphics[width=.40\linewidth]{Image.png}

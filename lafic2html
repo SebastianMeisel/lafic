@@ -124,8 +124,11 @@ my %environments = (
     # figures 
     "image" => "figure",
     "img" => "figure",
-    "figure" => "figure"
-    );
+    "figure" => "figure",
+    ######
+    "verbatim" => "pre",
+    "verb" => "pre",    
+);
 
 
 # hash for known inline macros
@@ -701,7 +704,7 @@ sub parseFile {
 
 
 			  last SELECT;}
-		      # unknown environement
+		      # unknown environment
 		      else {
 			  $environment = "\.$parkey";
 			  
@@ -784,7 +787,10 @@ sub parseFile {
 		#######
 		if ($formbl == 0) {
 		    # first make proper Html  code
-		    $par = Html ($par);
+		    unless ($environment && 
+			    $environment =~ /^pre$/){
+			$par = Html ($par);
+		    }
 		    # mark as formatbl
 		    $formbl = 1;
 		}
@@ -795,7 +801,10 @@ sub parseFile {
 		    my ($searchstring, $fkey) = split /:\s*/ , $fline;
 
 		    # some Html  addoptions
+		    unless ($environment && 
+			    $environment =~ /^pre$/){
 		    $searchstring = Html ("$searchstring");
+		    }
 		    $searchstring =~ s/(\.|\?)/\\$1/g;
 
 
@@ -905,7 +914,10 @@ sub parseFile {
 	    # If not done jet
 	    if ($formbl == 0){
 		# make proper Html  code
+		unless ($environment && 
+			$environment =~ /^pre$/){
 		$par = Html ($par);
+		}
 	    }
 
 
@@ -936,7 +948,10 @@ sub parseFile {
     # If not done jet
     if ($formbl == 0){
 	# make proper Html  code
-	$par = Html ($par);
+	unless ($environment && 
+		$environment =~ /^pre$/){
+	    $par = Html ($par);
+	}
     }
 
     # output lines / paragraphs

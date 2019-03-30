@@ -117,7 +117,11 @@ my %environments = (
     # figures 
     "image" => "figure",
     "img" => "figure",
-    "figure" => "figure"
+    "figure" => "figure",
+    ##########
+    # verbatim
+    "verbatim" => "verbatim",
+    "verb" => "verbatim",
     );
 
 
@@ -283,7 +287,7 @@ sub LaTeX {
   SELECT: {
       # german only
       if ($config{"lang"} =~ /^de_DE$/) {
-	  $par = lafic::de_DE::LaTeX($par);
+	      $par = lafic::de_DE::LaTeX($par);
       }
     }
     
@@ -389,7 +393,6 @@ sub outputLines {
 		  # save title and run startTemplate
 		  if ($macro =~ /title/) {
 		      $title = $par;
-		      print OUTPUT "\\$macro\{$par\}\n";
 		      if ($config{"author"}){
 			  print OUTPUT "\\author\{$config{'author'}\}\n";
 		      }
@@ -634,7 +637,7 @@ sub parseFile {
 
 
 			  last SELECT;}
-		      # unknown environement
+		      # unknown environment
 		      else {
 			  $environment = $parkey;
 
@@ -715,16 +718,22 @@ sub parseFile {
 		    my ($searchstring, $fkey) = split /:\s*/ , $fline;
 
 		    # some LaTeX addoptions
-		    $searchstring = LaTeX("$searchstring");
-		    $searchstring =~ s/(\.|\?)/\\$1/g;
-
+		    unless ($environment && 
+			    $environment =~ /^verbatim$/){
+			$searchstring = LaTeX("$searchstring");
+			$searchstring =~ s/(\.|\?)/\\$1/g;
+		    }
+			
 		    # check if formatblock begins
 		    ########
 		    # TODO: use for warnings
 		    #######
 		    if ($formbl == 0) {
 			# first make proper LaTeX code
-			$par = LaTeX($par);
+			unless ($environment && 
+				$environment =~ /^verbatim$/){
+			    $par = LaTeX($par);
+			}
 			# mark as formatbl
 			$formbl = 1;
 		    }
@@ -826,7 +835,10 @@ sub parseFile {
 	    # If not done jet
 	    if ($formbl == 0){
 		# make proper LaTeX code
-		$par = LaTeX($par);
+		unless ($environment && 
+			$environment =~ /^verbatim$/){
+		    $par = LaTeX($par);
+		}
 	    }
 
 
@@ -857,7 +869,7 @@ sub parseFile {
     # If not done jet
     if ($formbl == 0){
 	# make proper LaTeX code
-	$par = LaTeX($par);
+	    $par = LaTeX($par);
     }
 
     # output lines / paragraphs
