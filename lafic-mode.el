@@ -170,6 +170,9 @@
   
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; functions
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;; commands
 (defun lafic-run ()
   "Run a command to convert the lafic file."
   (interactive)
@@ -200,6 +203,7 @@
     )
   )
 
+;; formation
 (defun lafic-format-par ()
   "Define style for current paragraph."
   (interactive)
@@ -243,6 +247,14 @@
 	     ))
     (newline)
     )))
+
+;; highlighting
+
+(defun lafic-highlight-par ()
+  "Highlight inline formations for paragrah at point"
+  (interactive)
+  ;;
+  )
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
