@@ -48,7 +48,17 @@
 (puthash "tex" "lafic2tex" lafic-command-hash)
 (puthash "html" "lafic2html" lafic-command-hash)
 (puthash "pdf" "lafic2pdf" lafic-command-hash)
+(puthash "view" "evince" lafic-command-hash)
 
+(defvar lafic-command-file-association-list
+  '(
+    ("lafic2tex" . "lafic")
+    ("lafic2html" . "lafic")
+    ("lafic2pdf" . "lafic")
+    ("evince" . "pdf")
+    )
+  "Association list of command and file extentions."
+  )
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -163,14 +173,129 @@
 (defun lafic-run ()
   "Run a command to convert the lafic file."
   (interactive)
-  (async-shell-command (concat
-	(gethash
-	 (completing-read "Output format: "
+  (save-buffer)
+  (let ((format (completing-read "Output format: "
 	      (mapcar 'list (hash-table-keys lafic-command-hash))
-	      nil t nil 'lafic-command-history t)
-	 lafic-command-hash)
-	" " (buffer-name)))
+	      nil t nil 'lafic-command-history t)))
+    (let ((program (gethash format lafic-command-hash))) 
+      (async-shell-command (concat 
+	   program
+	   " "
+	   (file-name-sans-extension (buffer-name))
+	   "."
+	   (cdr (assoc program lafic-command-file-association-list))
+	)
+	(concat 
+	 "*"
+	 (file-name-sans-extension (buffer-name))
+	 ".output*"
+	 )
+	(concat 
+	 "*"
+	 (file-name-sans-extension (buffer-name))
+	 ".error*"
+	 )
+	)
+      )
+    )
   )
+
+(defun lafic-format-par ()
+  "Define style for current paragraph."
+  (interactive)
+  (save-excursion
+    (re-search-backward "^\\s *$" nil t)
+    (newline)
+    (insert "% ")
+    (insert (completing-read "paragraph-style: "
+	 (mapcar 'list lafic-environment-list)
+	 nil nil nil 'lafic-environment-history t))
+    ))
+
+(defun lafic-format-line ()
+  "Define style for current paragraph."
+  (interactive)
+  (save-excursion
+    (re-search-backward "^\\s *$" nil t)
+    (newline)
+    (insert "% ")
+    (insert (completing-read "line-style: "
+	 (mapcar 'list lafic-macro-list)
+	 nil nil nil 'lafic-macro-history t))
+    ))
+
+
+(defun lafic-format-word (&optional format)
+  "Formate word at point." ;;or region."
+  (interactive)
+  (save-excursion
+    (let (
+	   (word (word-at-point))
+	   )
+    (re-search-forward "^\\s *?$" nil t)
+    (insert "% ")
+    (insert word)
+    (insert ": ")
+    (insert (or format
+	     (completing-read "word-style: "
+		  (mapcar 'list lafic-inline-macro-list)
+		  nil nil nil 'lafic-inline-macro-history t)
+	     ))
+    (newline)
+    )))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; mode definition
+(defvar lafic-mode-hook nil)
+
+(defvar lafic-mode-map
+  (let ((map (make-keymap "lafic")))
+    ;; run commands
+    (define-key map "\C-c\C-c" 'lafic-run)    
+    ;; format paragraphs
+    (define-key map "\C-c\C-p" 'lafic-format-par)
+    ;; format lines
+    (define-key map "\C-c\C-l" 'lafic-format-line)
+    ;; format word (/ regions)
+    (define-key map "\C-c\C-w" 'lafic-format-word)
+    (define-key map "\C-c\C-f\C-e" (lambda () (interactive)
+	   (lafic-format-word "emphasize")))
+    (define-key map "\C-c\C-f\C-i" (lambda () (interactive)
+	   (lafic-format-word "italic")))
+    (define-key map "\C-c\C-f\C-b" (lambda () (interactive)
+	   (lafic-format-word "bold")))
+    (define-key map "\C-c\C-f\C-b" (lambda () (interactive)
+	   (lafic-format-word "smallcaps")))
+    map)
+  "Keymap for Descriptiv Formated Text major mode")
+
+;;;###autoload
+(add-to-list 'auto-mode-alist '("\\.lafic\\'" . lafic-mode))
+
+(defun lafic-mode ()
+  "Major mode for editing Descriptiv Formated Text files"
+  (interactive)
+  (kill-all-local-variables)
+  ;;  (set-syntax-table wpdl-mode-syntax-table)
+  ;; Comments or Formating
+  (setq-local comment-start "% ")
+  (setq-local comment-end "
+")
+  ;; Font lock
+  (set (make-local-variable 'font-lock-defaults)
+       '(lafic-mode-font-lock-keywords))
+  (set (make-local-variable 'font-lock-multiline) t)
+  ;;
+  ;; Keymap 
+  (use-local-map lafic-mode-map)
+  ;; Major Mode
+  (setq major-mode 'lafic-mode)
+  (setq mode-name "LAFIC")
+  (run-hooks 'lafic-mode-hook)
+  )
+
+(provide 'lafic-mode)
 
 (defun lafic-format-par ()
   "Define style for current paragraph."
