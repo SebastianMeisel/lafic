@@ -17,4 +17,4 @@
 # Software Foundation, Inc., 51 Franklin Street, Fifth
 # Floor, Boston, MA  02110-1301, USA.  
 
-lafic2tex $1 && latexmk -pdf $(basename $1 .lafic).tex
+lafic2tex $1 && latexmk -xelatex $(basename $1 .lafic).tex
