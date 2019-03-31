@@ -91,6 +91,14 @@
   "Keywords for inline formats."
 )
 
+(defvar lafic-parameter-list
+  '(
+    ;; figure
+    "width" "height" "caption" 
+    )
+  "Keywords for parameters."
+)
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; font lock regex
@@ -119,14 +127,30 @@
   "Regex for inline macros font lock."
   )
 
+(defconst regex-parameter
+  (concat "^%\\s *"
+	  (regexp-opt lafic-parameter-list t)	  
+	  "\\s =\\s *\\(.*?\\)"	  
+	  "\\s *$"
+	  )
+  "Regex for parameter font lock."
+  )
+
 
 (defconst lafic-mode-font-lock-keywords
   (list
+   ;; paragraph style
    (cons regex-environment 'font-lock-function-name-face)
+   ;; line style
    (cons regex-macro 'font-lock-function-name-face)
+   ;; inline macros
    (cons regex-il-macro '(0 'font-lock-comment-face t))
    (cons regex-il-macro '(1 'font-lock-constant-face t))
    (cons regex-il-macro '(2 'font-lock-function-name-face t))
+   ;; parameters
+   (cons regex-parameter '(0 'font-lock-comment-face t))
+   (cons regex-parameter '(1 'font-lock-function-name-face t))
+   (cons regex-parameter '(2 'font-lock-constant-face t))
    (cons "^%%\\(\\S \\|\\s \\)*?
 
 " 'font-lock-comment-face)
@@ -172,14 +196,42 @@
 	 nil nil nil 'lafic-macro-history t))
     ))
 
+(defun lafic-format-par-or-line ()
+  "Define style for current paragraph."
+  (interactive)
+  (save-excursion
+    (re-search-backward "^\\s *$" nil t)
+    (newline)
+    (insert "% ")
+    (insert (completing-read "paragraph/line-style: "
+	 (mapcar 'list (append lafic-environment-list lafic-macro-list))
+	 nil nil nil 'lafic-macro-history t))
+    )
+  )
+
 
 (defun lafic-format-word (&optional format)
   "Formate word at point." ;;or region."
   (interactive)
   (save-excursion
     (let (
-	   (word (word-at-point))
-	   )
+	  (word (or ;;region or word at point
+		 (if (and transient-mark-mode mark-active)
+		     (let ((a (region-beginning))
+			   (b (region-end)))
+		   (concat
+		    (save-excursion
+		      (goto-char (+ a 1))
+		      (word-at-point))
+		    "…"
+		    (save-excursion
+		      (goto-char (- b 1))
+		      (word-at-point))
+		    )
+		   ))
+		 (word-at-point))
+		)
+	  )
     (re-search-forward "^\\s *?$" nil t)
     (insert "% ")
     (insert word)
@@ -191,6 +243,25 @@
 	     ))
     (newline)
     )))
+
+(defun lafic-fill-paragraph ()
+  "Fill paragraph at point"
+  (interactive)
+  (save-excursion
+    (let ((start (+ 2 (re-search-backward "
+
+"))))
+    
+    (let ((end (or(-(re-search-forward "
+\\(%\\|
+\\)" nil t 2) 1)
+        (point-max))))
+	(fill-region start end t)
+	)
+      )
+    )
+  )
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -207,14 +278,18 @@
     (define-key map "\C-c\C-l" 'lafic-format-line)
     ;; format word (/ regions)
     (define-key map "\C-c\C-w" 'lafic-format-word)
+    (define-key map "\C-c RET" 'lafic-format-word)
+    ;
     (define-key map "\C-c\C-f\C-e" (lambda () (interactive)
 	   (lafic-format-word "emphasize")))
     (define-key map "\C-c\C-f\C-i" (lambda () (interactive)
 	   (lafic-format-word "italic")))
     (define-key map "\C-c\C-f\C-b" (lambda () (interactive)
 	   (lafic-format-word "bold")))
-    (define-key map "\C-c\C-f\C-b" (lambda () (interactive)
-	   (lafic-format-word "smallcaps")))
+    (define-key map "\C-c\C-f\C-c" (lambda () (interactive)
+           (lafic-format-word "smallcaps")))
+    ;; fill
+    (define-key map "\C-c\C-q\C-p" 'lafic-format-word)
     map)
   "Keymap for Descriptiv Formated Text major mode")
 
