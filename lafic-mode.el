@@ -154,16 +154,16 @@
    ;; line style
    (cons regex-macro 'font-lock-function-name-face)
    ;; inline macros
-   (cons regex-il-macro '(0 'font-lock-comment-face t))
    (cons regex-il-macro '(1 'font-lock-constant-face t))
    (cons regex-il-macro '(2 'font-lock-function-name-face t))
    ;; parameters
-   (cons regex-parameter '(0 'font-lock-comment-face t))
    (cons regex-parameter '(1 'font-lock-function-name-face t))
    (cons regex-parameter '(2 'font-lock-constant-face t))
-   (cons "^%%\\(\\S \\|\\s \\)*?
+   ;; format lines
+   (cons "^%.*$" 'font-lock-comment-face)
+;;    (cons "^%%\\(\\S \\|\\s \\)*?
 
-" 'font-lock-comment-face)
+;; " 'font-lock-comment-face)
    )
   "Syntax highlighting for LaFiC files."
 )
@@ -198,10 +198,8 @@
 	 (file-name-sans-extension (buffer-name))
 	 ".error*"
 	 )
-	)
-      )
-    )
-  )
+	))
+    ))
 
 ;; formation
 (defun lafic-format-par ()
@@ -214,7 +212,8 @@
     (insert (completing-read "paragraph-style: "
 	 (mapcar 'list lafic-environment-list)
 	 nil nil nil 'lafic-environment-history t))
-    ))
+    )
+  )
 
 (defun lafic-format-line ()
   "Define style for current paragraph."
@@ -226,7 +225,8 @@
     (insert (completing-read "line-style: "
 	 (mapcar 'list lafic-macro-list)
 	 nil nil nil 'lafic-macro-history t))
-    ))
+    )
+  )
 
 
 (defun lafic-format-word (&optional format)
@@ -246,7 +246,8 @@
 		  nil nil nil 'lafic-inline-macro-history t)
 	     ))
     (newline)
-    )))
+    ))
+  )
 
 ;; highlighting
 
@@ -302,148 +303,15 @@
 		)))
 	)))
   
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; mode definition
-(defvar lafic-mode-hook nil)
-
-(defvar lafic-mode-map
-  (let ((map (make-keymap "lafic")))
-    ;; run commands
-    (define-key map "\C-c\C-c" 'lafic-run)    
-    ;; format paragraphs
-    (define-key map "\C-c\C-p" 'lafic-format-par)
-    ;; format lines
-    (define-key map "\C-c\C-l" 'lafic-format-line)
-    ;; format word (/ regions)
-    (define-key map "\C-c\C-w" 'lafic-format-word)
-    (define-key map "\C-c\C-f\C-e" (lambda () (interactive)
-	   (lafic-format-word "emphasize")))
-    (define-key map "\C-c\C-f\C-i" (lambda () (interactive)
-	   (lafic-format-word "italic")))
-    (define-key map "\C-c\C-f\C-b" (lambda () (interactive)
-	   (lafic-format-word "bold")))
-    (define-key map "\C-c\C-f\C-b" (lambda () (interactive)
-	   (lafic-format-word "smallcaps")))
-    map)
-  "Keymap for Descriptiv Formated Text major mode")
-
-;;;###autoload
-(add-to-list 'auto-mode-alist '("\\.lafic\\'" . lafic-mode))
-
-(defun lafic-mode ()
-  "Major mode for editing Descriptiv Formated Text files"
-  (interactive)
-  (kill-all-local-variables)
-  ;;  (set-syntax-table wpdl-mode-syntax-table)
-  ;; Comments or Formating
-  (setq-local comment-start "% ")
-  (setq-local comment-end "
-")
-  ;; Font lock
-  (set (make-local-variable 'font-lock-defaults)
-       '(lafic-mode-font-lock-keywords))
-  (set (make-local-variable 'font-lock-multiline) t)
-  ;;
-  ;; Keymap 
-  (use-local-map lafic-mode-map)
-  ;; Major Mode
-  (setq major-mode 'lafic-mode)
-  (setq mode-name "LAFIC")
-  (run-hooks 'lafic-mode-hook)
-  )
-
-(provide 'lafic-mode)
-
-(defun lafic-format-par ()
-  "Define style for current paragraph."
+(defun lafic-highlight-buffer ()
+  "Highlight inline formations for the whole buffer"
   (interactive)
   (save-excursion
-    (re-search-backward "^\\s *$" nil t)
-    (newline)
-    (insert "% ")
-    (insert (completing-read "paragraph-style: "
-	 (mapcar 'list lafic-environment-list)
-	 nil nil nil 'lafic-environment-history t))
-    ))
-
-(defun lafic-format-line ()
-  "Define style for current paragraph."
-  (interactive)
-  (save-excursion
-    (re-search-backward "^\\s *$" nil t)
-    (newline)
-    (insert "% ")
-    (insert (completing-read "line-style: "
-	 (mapcar 'list lafic-macro-list)
-	 nil nil nil 'lafic-macro-history t))
-    ))
-
-(defun lafic-format-par-or-line ()
-  "Define style for current paragraph."
-  (interactive)
-  (save-excursion
-    (re-search-backward "^\\s *$" nil t)
-    (newline)
-    (insert "% ")
-    (insert (completing-read "paragraph/line-style: "
-	 (mapcar 'list (append lafic-environment-list lafic-macro-list))
-	 nil nil nil 'lafic-macro-history t))
-    )
-  )
-
-
-(defun lafic-format-word (&optional format)
-  "Formate word at point." ;;or region."
-  (interactive)
-  (save-excursion
-    (let (
-	  (word (or ;;region or word at point
-		 (if (and transient-mark-mode mark-active)
-		     (let ((a (region-beginning))
-			   (b (region-end)))
-		   (concat
-		    (save-excursion
-		      (goto-char (+ a 1))
-		      (word-at-point))
-		    "…"
-		    (save-excursion
-		      (goto-char (- b 1))
-		      (word-at-point))
-		    )
-		   ))
-		 (word-at-point))
-		)
-	  )
-    (re-search-forward "^\\s *?$" nil t)
-    (insert "% ")
-    (insert word)
-    (insert ": ")
-    (insert (or format
-	     (completing-read "word-style: "
-		  (mapcar 'list lafic-inline-macro-list)
-		  nil nil nil 'lafic-inline-macro-history t)
-	     ))
-    (newline)
-    )))
-
-(defun lafic-fill-paragraph ()
-  "Fill paragraph at point"
-  (interactive)
-  (save-excursion
-    (let ((start (+ 2 (re-search-backward "
-
-"))))
-    
-    (let ((end (or(-(re-search-forward "
-\\(%\\|
-\\)" nil t 2) 1)
-        (point-max))))
-	(fill-region start end t)
-	)
-      )
-    )
-  )
+    (goto-char (point-min))
+    (while (re-search-forward "^.*
+\\S*" nil t 1)
+      (lafic-highlight-par)
+  )))
 
 
 
@@ -461,7 +329,7 @@
     (define-key map "\C-c\C-l" 'lafic-format-line)
     ;; format word (/ regions)
     (define-key map "\C-c\C-w" 'lafic-format-word)
-    (define-key map "\C-c RET" 'lafic-format-word)
+    (define-key map "\C-cRET" 'lafic-format-word)
     ;
     (define-key map "\C-c\C-f\C-e" (lambda () (interactive)
 	   (lafic-format-word "emphasize")))
@@ -473,6 +341,9 @@
            (lafic-format-word "smallcaps")))
     ;; fill
     (define-key map "\C-c\C-q\C-p" 'lafic-format-word)
+    ;; highlighting
+    (define-key map "\C-c\C-h\C-p" 'lafic-highlight-par)
+    (define-key map "\C-c\C-h\C-b" 'lafic-highlight-buffer)
     map)
   "Keymap for Descriptiv Formated Text major mode")
 
@@ -492,7 +363,9 @@
   (set (make-local-variable 'font-lock-defaults)
        '(lafic-mode-font-lock-keywords))
   (set (make-local-variable 'font-lock-multiline) t)
-  ;;
+  ;; highlighting
+  (unless (< (buffer-size) 50) (lafic-highlight-buffer))
+  (add-hook 'post-command-hook 'lafic-highlight-par nil t)
   ;; Keymap 
   (use-local-map lafic-mode-map)
   ;; Major Mode
