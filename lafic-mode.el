@@ -253,9 +253,21 @@
 (defun lafic-highlight-par ()
   "Highlight inline formations for paragrah at point"
   (interactive)
-  ;;
+  ;; TODO : make sure to omit line- / par-style line 
+  (save-excursion
+    (re-search-backward "^\\s *?$" nil t 1)
+    (let ((start (+ (match-end 0) 1)))
+      (re-search-forward "\\S  
+\\s *?$" nil t 1)
+      (let ((end (+ (match-beginning 0) 1)))
+	(overlay-recenter start)
+	(let ((overlay (make-overlay start end)))
+	  (overlay-put overlay 'face 'font-lock-constant-face)
+	  )
+	)
+      )
+    )
   )
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; mode definition
