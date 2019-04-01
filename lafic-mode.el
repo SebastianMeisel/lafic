@@ -255,25 +255,45 @@
   (interactive)
   ;; TODO : make sure to omit line- / par-style line 
   (save-excursion
+    ;; find start of paragraph 
     (re-search-backward "^\\s *?
 \\(\\S \\)" nil t 1)
     (if (eq (match-string 1) "%")
 	(re-search-forward "
 \\(\\S \\)" nil t 1))
-    (let ((start (- (match-end 0) 1)))
+    ;; find end of paragraph
+    (let ((par-start (- (match-end 0) 1)))
       (if (re-search-forward "
 %" nil t 1)
-	  (let ((end (- (match-beginning 0) 1)))
-	    (overlay-recenter start)
-	    (remove-overlays start end)
-	    (let ((overlay (make-overlay start end)))
-	      (overlay-put overlay 'face 'font-lock-constant-face)
-	      )
-	    )
-	)
-      )
-    )
-  )
+	  (let ((par-end (- (match-beginning 0) 1)))
+	    ;; clear up
+	    (overlay-recenter par-start)
+	    (remove-overlays par-start par-end)
+	    ;; find end of format blocl
+	    (re-search-forward "\\S 
+\\s *?$" nil t 1)
+	    (let ((formbl-end (- (match-end 0) 1))) 
+	      (goto-char par-end)
+	      ;; find words to format
+	      ;; TODO: regions & context
+	      (while (re-search-forward regex-il-macro
+					formbl-end t )
+		(let ((search-string (match-string 1)))
+		  ;; move to content block
+		  (save-excursion
+		    (goto-char par-end)
+		    ;; search string in content block
+		    (while (re-search-backward search-string
+					       par-start t)
+		      (let ((start (match-beginning 0))
+			    (end (match-end 0)))
+			(let ((overlay (make-overlay start end)))
+			  (overlay-put overlay 'face 'font-lock-constant-face)
+			  ))))
+		  ))
+	      )))
+      )))
+  
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; mode definition
