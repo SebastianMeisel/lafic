@@ -255,15 +255,21 @@
   (interactive)
   ;; TODO : make sure to omit line- / par-style line 
   (save-excursion
-    (re-search-backward "^\\s *?$" nil t 1)
-    (let ((start (+ (match-end 0) 1)))
-      (re-search-forward "\\S  
-\\s *?$" nil t 1)
-      (let ((end (+ (match-beginning 0) 1)))
-	(overlay-recenter start)
-	(let ((overlay (make-overlay start end)))
-	  (overlay-put overlay 'face 'font-lock-constant-face)
-	  )
+    (re-search-backward "^\\s *?
+\\(\\S \\)" nil t 1)
+    (if (eq (match-string 1) "%")
+	(re-search-forward "
+\\(\\S \\)" nil t 1))
+    (let ((start (- (match-end 0) 1)))
+      (if (re-search-forward "
+%" nil t 1)
+	  (let ((end (- (match-beginning 0) 1)))
+	    (overlay-recenter start)
+	    (remove-overlays start end)
+	    (let ((overlay (make-overlay start end)))
+	      (overlay-put overlay 'face 'font-lock-constant-face)
+	      )
+	    )
 	)
       )
     )
