@@ -24,6 +24,9 @@
 
 (require 'subr-x)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; internalt functions
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; custom variables
@@ -31,6 +34,12 @@
   "Major mode for editing textfiles in lafic format."
   :prefix "lafic-"
   :group 'wp)
+
+;; lafic path
+(defcustom lafic-path
+  "~/lafic/"
+  "Path to lafic directory"
+  :group 'lafic)
 
 ;; faces
 (defface lafic-bold-face
@@ -109,9 +118,35 @@
   "Keywords for parameters."
 )
 
-
+(defvar lafic-template-list
+  '()
+  "List of templates"
+  )
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; font lock regex
+;; templates
+(defun lafic-get-template-name-list ()
+  "Get a list of installed templates"
+  (let ((temp-list
+	 (directory-files-and-attributes lafic-path nil
+					 ".*\\.tmp\\.tex")))
+    (while temp-list
+      (setq lafic-template-list
+	    (cons (car (split-string (car (car temp-list)) "\\." t))
+		  lafic-template-list))
+      (setq temp-list (cdr temp-list))
+      )))
+
+(lafic-get-template-name-list)
+
+(defconst regex-template
+  (concat "^%\\s *"
+	  (regexp-opt lafic-template-list t)
+	  "\\s *$"
+	  )
+  "Regex for template font lock."
+  )
+
 (defconst regex-environment
   (concat "^%\\s *"
 	  (regexp-opt lafic-environment-list t)
@@ -149,6 +184,8 @@
 
 (defconst lafic-mode-font-lock-keywords
   (list
+   ;; templates
+   (cons regex-template 'font-lock-function-name-face)
    ;; paragraph style
    (cons regex-environment 'font-lock-function-name-face)
    ;; line style
@@ -161,9 +198,6 @@
    (cons regex-parameter '(2 'font-lock-constant-face t))
    ;; format lines
    (cons "^%.*$" 'font-lock-comment-face)
-;;    (cons "^%%\\(\\S \\|\\s \\)*?
-
-;; " 'font-lock-comment-face)
    )
   "Syntax highlighting for LaFiC files."
 )
@@ -249,6 +283,7 @@
     ))
   )
 
+
 ;; highlighting
 
 (defun lafic-highlight-par ()
@@ -313,8 +348,6 @@
       (lafic-highlight-par)
   )))
 
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; mode definition
 (defvar lafic-mode-hook nil)
@@ -359,13 +392,13 @@
   (setq-local comment-start "% ")
   (setq-local comment-end "
 ")
+  ;; highlighting
+  (unless (< (buffer-size) 50) (lafic-highlight-buffer))
+  (add-hook 'post-command-hook 'lafic-highlight-par nil t)
   ;; Font lock
   (set (make-local-variable 'font-lock-defaults)
        '(lafic-mode-font-lock-keywords))
   (set (make-local-variable 'font-lock-multiline) t)
-  ;; highlighting
-  (unless (< (buffer-size) 50) (lafic-highlight-buffer))
-  (add-hook 'post-command-hook 'lafic-highlight-par nil t)
   ;; Keymap 
   (use-local-map lafic-mode-map)
   ;; Major Mode
@@ -373,5 +406,6 @@
   (setq mode-name "LAFIC")
   (run-hooks 'lafic-mode-hook)
   )
+
 
 (provide 'lafic-mode)
