@@ -366,8 +366,8 @@
 			      (string-match
 			       "\\(.*?\\)\\(…\\|\\.\\{3,3\\}\\)\\(.*\\)" search-string)
 			      (concat (match-string 1 search-string)
-				      "\\(.*\\)\\(
-*\\)\\(.*\\)";; make sure to include possible line break
+				      ".*
+*.*";; make sure to include possible line break
 				      (match-string 3 search-string)))
 			  (or
 			   (cond ;; check for context
@@ -391,11 +391,11 @@
 		      (while (re-search-backward regex
 						 par-start t)
 			(let ((start
-			       (or (match-beginning 2)
+			       (or (match-beginning 1)
 				(match-beginning 0)))
 			      (end
 			       (or
-				(match-end 2)
+				(match-end 1)
 				(match-end 0)))
 			      )
 			  (let ((overlay (make-overlay start end)))
