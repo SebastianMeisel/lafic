@@ -24,6 +24,9 @@
 
 (require 'subr-x)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; internalt functions
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; custom variables
@@ -31,6 +34,12 @@
   "Major mode for editing textfiles in lafic format."
   :prefix "lafic-"
   :group 'wp)
+
+;; lafic path
+(defcustom lafic-path
+  "~/lafic/"
+  "Path to lafic directory"
+  :group 'lafic)
 
 ;; faces
 (defface lafic-bold-face
@@ -109,10 +118,44 @@
   "Keywords for parameters."
 )
 
-
+(defvar lafic-template-list
+  '()
+  "List of templates"
+  )
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; font lock regex
+;; templates
+(defun lafic-get-template-name-list ()
+  "Get a list of installed templates"
+  (let ((temp-list
+	 (directory-files-and-attributes lafic-path nil
+					 ".*\\.tmp\\.tex")))
+    (while temp-list
+      (setq lafic-template-list
+	    (cons (car (split-string (car (car temp-list)) "\\." t))
+		  lafic-template-list))
+      (setq temp-list (cdr temp-list))
+      )))
+
+(lafic-get-template-name-list)
+
+(defconst regex-template
+  (concat "^%\\s *"
+	  (regexp-opt lafic-template-list t)
+	  "\\s *$"
+	  )
+  "Regex for template font lock."
+  )
+
 (defconst regex-environment
+  (concat "^%\\s *"
+	  (regexp-opt lafic-environment-list t)
+	  "\\s *$"
+	  )
+  "Regex for environment font lock."
+  )
+
+(defconst regex-unknown-line-style
   (concat "^%\\s *"
 	  (regexp-opt lafic-environment-list t)
 	  "\\s *$"
@@ -127,6 +170,15 @@
 	  )
   "Regex for macro font lock."
   )
+
+(defconst regex-unknown-line-style
+  (concat "^%\\s *"
+	  "\\([[:alpha:][:digit:]]+\\)"
+	  "\\s *$"
+	  )
+  "Regex for unknown templates / environments / macro warning."
+  )
+
 
 (defconst regex-il-macro
   (concat "^%\\s *"
@@ -146,24 +198,51 @@
   "Regex for parameter font lock."
   )
 
+(defconst regex-unknown-il-macro
+  (concat "^%\\s *"
+	  "\\(.*?\\):\\s *"
+	  "\\([[:alpha:][:digit:]]+\\)"
+	  "\\s *$"
+	  )
+  "Regex for unknown inline formation keywords."
+  )
+
+(defconst regex-unknown-parameter
+  (concat "^%\\s *"
+	  "\\([[:alpha:][:digit:]]+\\)"
+	  "\\s *=\\s *\\(.*?\\)"
+	  "\\s *$"
+	  )
+  "Regex for unknown parameter keywords."
+  )
 
 (defconst lafic-mode-font-lock-keywords
   (list
+   ;; templates
+   (cons regex-template 'font-lock-function-name-face)
    ;; paragraph style
    (cons regex-environment 'font-lock-function-name-face)
    ;; line style
    (cons regex-macro 'font-lock-function-name-face)
+   ;; unknown template / paragraph or line style
+   (cons regex-unknown-line-style 'font-lock-warning-face)
+   ;; unknow inline macros
+   (cons regex-unknown-il-macro '(1 'font-lock-constant-face t))
+   (cons regex-unknown-il-macro '(2 'font-lock-warning-face t))
+   ;; unknow inline macros
+   (cons regex-unknown-il-macro '(1 'font-lock-constant-face t))
+   (cons regex-unknown-il-macro '(2 'font-lock-warning-face t))
    ;; inline macros
    (cons regex-il-macro '(1 'font-lock-constant-face t))
    (cons regex-il-macro '(2 'font-lock-function-name-face t))
+   ;; unknown parameters
+   (cons regex-unknown-parameter '(1 'font-lock-warning-face t))
+   (cons regex-unknown-parameter '(2 'font-lock-constant-face t))
    ;; parameters
    (cons regex-parameter '(1 'font-lock-function-name-face t))
    (cons regex-parameter '(2 'font-lock-constant-face t))
    ;; format lines
    (cons "^%.*$" 'font-lock-comment-face)
-;;    (cons "^%%\\(\\S \\|\\s \\)*?
-
-;; " 'font-lock-comment-face)
    )
   "Syntax highlighting for LaFiC files."
 )
@@ -249,6 +328,7 @@
     ))
   )
 
+
 ;; highlighting
 
 (defun lafic-highlight-par ()
@@ -313,8 +393,6 @@
       (lafic-highlight-par)
   )))
 
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; mode definition
 (defvar lafic-mode-hook nil)
@@ -359,13 +437,13 @@
   (setq-local comment-start "% ")
   (setq-local comment-end "
 ")
+  ;; highlighting
+  (unless (< (buffer-size) 50) (lafic-highlight-buffer))
+  (add-hook 'post-command-hook 'lafic-highlight-par nil t)
   ;; Font lock
   (set (make-local-variable 'font-lock-defaults)
        '(lafic-mode-font-lock-keywords))
   (set (make-local-variable 'font-lock-multiline) t)
-  ;; highlighting
-  (unless (< (buffer-size) 50) (lafic-highlight-buffer))
-  (add-hook 'post-command-hook 'lafic-highlight-par nil t)
   ;; Keymap 
   (use-local-map lafic-mode-map)
   ;; Major Mode
@@ -373,5 +451,6 @@
   (setq mode-name "LAFIC")
   (run-hooks 'lafic-mode-hook)
   )
+
 
 (provide 'lafic-mode)

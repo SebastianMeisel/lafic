@@ -57,6 +57,7 @@ or each line of a paragraph with a % char with no leading
 spaces. These lines or paragraphs must, however, be
 separated by empty line from the content.
 % no…spaces: bold
+% (single) line: emphasize
 
 % verbatim
   % This is a comment.
