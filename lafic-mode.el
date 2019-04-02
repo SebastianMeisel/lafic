@@ -155,6 +155,14 @@
   "Regex for environment font lock."
   )
 
+(defconst regex-unknown-line-style
+  (concat "^%\\s *"
+	  (regexp-opt lafic-environment-list t)
+	  "\\s *$"
+	  )
+  "Regex for environment font lock."
+  )
+
 (defconst regex-macro
   (concat "^%\\s *"
 	  (regexp-opt lafic-macro-list t)	  
@@ -162,6 +170,15 @@
 	  )
   "Regex for macro font lock."
   )
+
+(defconst regex-unknown-line-style
+  (concat "^%\\s *"
+	  "\\([[:alpha:][:digit:]]+\\)"
+	  "\\s *$"
+	  )
+  "Regex for unknown templates / environments / macro warning."
+  )
+
 
 (defconst regex-il-macro
   (concat "^%\\s *"
@@ -181,6 +198,23 @@
   "Regex for parameter font lock."
   )
 
+(defconst regex-unknown-il-macro
+  (concat "^%\\s *"
+	  "\\(.*?\\):\\s *"
+	  "\\([[:alpha:][:digit:]]+\\)"
+	  "\\s *$"
+	  )
+  "Regex for unknown inline formation keywords."
+  )
+
+(defconst regex-unknown-parameter
+  (concat "^%\\s *"
+	  "\\([[:alpha:][:digit:]]+\\)"
+	  "\\s *=\\s *\\(.*?\\)"
+	  "\\s *$"
+	  )
+  "Regex for unknown parameter keywords."
+  )
 
 (defconst lafic-mode-font-lock-keywords
   (list
@@ -190,9 +224,20 @@
    (cons regex-environment 'font-lock-function-name-face)
    ;; line style
    (cons regex-macro 'font-lock-function-name-face)
+   ;; unknown template / paragraph or line style
+   (cons regex-unknown-line-style 'font-lock-warning-face)
+   ;; unknow inline macros
+   (cons regex-unknown-il-macro '(1 'font-lock-constant-face t))
+   (cons regex-unknown-il-macro '(2 'font-lock-warning-face t))
+   ;; unknow inline macros
+   (cons regex-unknown-il-macro '(1 'font-lock-constant-face t))
+   (cons regex-unknown-il-macro '(2 'font-lock-warning-face t))
    ;; inline macros
    (cons regex-il-macro '(1 'font-lock-constant-face t))
    (cons regex-il-macro '(2 'font-lock-function-name-face t))
+   ;; unknown parameters
+   (cons regex-unknown-parameter '(1 'font-lock-warning-face t))
+   (cons regex-unknown-parameter '(2 'font-lock-constant-face t))
    ;; parameters
    (cons regex-parameter '(1 'font-lock-function-name-face t))
    (cons regex-parameter '(2 'font-lock-constant-face t))
