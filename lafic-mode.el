@@ -362,20 +362,42 @@
 		(let ((search-string (match-string 1)))
 		  (let ((regex
 			 (or ;; region or single word
-			  (if (string-match "\\(.*?\\)\\(…\\|\\.\\{3,3\\}\\)\\(.*\\)" search-string)
+			  (if
+			      (string-match
+			       "\\(.*?\\)\\(…\\|\\.\\{3,3\\}\\)\\(.*\\)" search-string)
 			      (concat (match-string 1 search-string)
-				      "\\(.*\\)\\(
-*\\)\\(.*\\)";; make sure to include possible line break
+				      ".*
+*.*";; make sure to include possible line break
 				      (match-string 3 search-string)))
-			  search-string)))
+			  (or
+			   (cond ;; check for context
+			    ((string-match ;; leading context
+			      "^(\\(.*?\\))\\(.*?\\)$"
+			      search-string)
+			     (concat
+			      "\\(?:"
+			      (match-string 1 search-string)
+			      "\\)\\("
+			      (match-string 2 search-string)
+			      "\\)"
+			     )
+))
+			   search-string))
+			 ))
 		    ;; move to content block
 		    (save-excursion
 		      (goto-char par-end)
 		      ;; search string in content block
 		      (while (re-search-backward regex
 						 par-start t)
-			(let ((start (match-beginning 0))
-			      (end (match-end 0)))
+			(let ((start
+			       (or (match-beginning 1)
+				(match-beginning 0)))
+			      (end
+			       (or
+				(match-end 1)
+				(match-end 0)))
+			      )
 			  (let ((overlay (make-overlay start end)))
 			    (overlay-put overlay 'face 'font-lock-constant-face)
 			    ))))
