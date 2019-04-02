@@ -375,8 +375,11 @@
 			      "^(\\(.*?\\))\\(.*?\\)$"
 			      search-string)
 			     (concat
-			      "\\(?:(match-string 1 search-string)\\)"
+			      "\\(?:"
+			      (match-string 1 search-string)
+			      "\\)\\("
 			      (match-string 2 search-string)
+			      "\\)"
 			     )
 ))
 			   search-string))
