@@ -390,8 +390,14 @@
 		      ;; search string in content block
 		      (while (re-search-backward regex
 						 par-start t)
-			(let ((start (match-beginning 0))
-			      (end (match-end 0)))
+			(let ((start
+			       (or (match-beginning 2)
+				(match-beginning 0)))
+			      (end
+			       (or
+				(match-end 2)
+				(match-end 0)))
+			      )
 			  (let ((overlay (make-overlay start end)))
 			    (overlay-put overlay 'face 'font-lock-constant-face)
 			    ))))
