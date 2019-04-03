@@ -379,9 +379,19 @@
 			      (match-string 1 search-string)
 			      "\\)\\("
 			      (match-string 2 search-string)
+			      "\\)")
+			     (setq context 1))
+			    ((string-match ;; trailing context
+			      "^\\(.*?\\)(\\(.*?\\))$"
+			      search-string)
+			     (concat
+			      "\\("
+			      (match-string 1 search-string)
+			      "\\)\\(?:"
+			      (match-string 2 search-string)
 			      "\\)"
 			     )
-))
+			     (setq context 2))
 			   search-string))
 			 ))
 		    ;; move to content block
@@ -391,12 +401,20 @@
 		      (while (re-search-backward regex
 						 par-start t)
 			(let ((start
-			       (or (match-beginning 1)
+			       (case
+				   ((= context 1)
+				    (match-beginning 1))
+				 ((= context 2)
+				  (match-beginning 2))
 				(match-beginning 0)))
 			      (end
-			       (or
-				(match-end 1)
-				(match-end 0)))
+			       (case
+				   ((= context 1)
+				    (match-beginning 1))
+				 ((= context 2)
+				  (match-beginning 2))
+				 (match-beginning 0)))
+			      (match-end 0))
 			      )
 			  (let ((overlay (make-overlay start end)))
 			    (overlay-put overlay 'face 'font-lock-constant-face)
