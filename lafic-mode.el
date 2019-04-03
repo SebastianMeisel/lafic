@@ -490,7 +490,7 @@
     (define-key map "\C-c\C-l" 'lafic-format-line)
     ;; format word (/ regions)
     (define-key map "\C-c\C-w" 'lafic-format-word)
-    (define-key map "\C-cRET" 'lafic-format-word)
+    (define-key map [?\C-c return] 'lafic-format-word)
     ;
     (define-key map "\C-c\C-f\C-e" (lambda () (interactive)
 	   (lafic-format-word "emphasize")))
@@ -499,7 +499,9 @@
     (define-key map "\C-c\C-f\C-b" (lambda () (interactive)
 	   (lafic-format-word "bold")))
     (define-key map "\C-c\C-f\C-c" (lambda () (interactive)
-           (lafic-format-word "smallcaps")))
+	   (lafic-format-word "smallcaps")))
+    ;; add context
+    (define-key map [?\C-c C-left] 'lafic-add-leading-context)
     ;; fill
     (define-key map "\C-c\C-q\C-p" 'lafic-format-word)
     ;; highlighting
