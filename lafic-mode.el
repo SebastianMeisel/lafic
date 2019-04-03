@@ -312,9 +312,7 @@
   "Formate word at point." ;;or region."
   (interactive)
   (save-excursion
-    (let (
-	   (word (word-at-point))
-	   )
+    (let ((word (word-at-point)))
     (re-search-forward "^\\s *?$" nil t)
     (insert "% ")
     (insert word)
@@ -328,17 +326,49 @@
     ))
   )
 
+;; context
+(defun lafic-add-leading-context ()
+  "Add leading context for a formated word, to make it unique in the paragraph."
+  (interactive)
+  (save-excursion
+    (right-char);; make sure we're not at the first letter of word
+    (let ((word (thing-at-point 'word t)))
+      (left-word 2)
+      (let ((context (thing-at-point 'word t))
+	    (hier (point))
+	    )
+	;; find end of paragraph 
+	(let ((end-par 
+	       (or (re-search-forward
+		    "\\S 
+\\s *?$" nil t 1)
+		   (point-max))))
+	      (goto-char hier)
+	      (if ;; search for format line for word
+		  (re-search-forward
+		   (concat
+		    "^%\\s *\\("
+		    word
+		    "\\)\\s *:")
+		   end-par t)
+		  ;; Place point before word.
+		  (progn
+		    (goto-char (match-beginning 1))
+		    (insert (concat
+			     "(" context ") "))
+		    ))
+	      )))
+      ))
 
 ;; highlighting
-
 (defun lafic-highlight-par ()
   "Highlight inline formations for paragrah at point"
   (interactive)
-  ;; TODO : make sure to omit line- / par-style line 
   (save-excursion
     ;; find start of paragraph 
     (re-search-backward "^\\s *?
 \\(\\S \\)" nil t 1)
+    ;;  omit line- / par-style line 
     (if (eq (match-string 1) "%")
 	(re-search-forward "
 \\(\\S \\)" nil t 1))
