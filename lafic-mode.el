@@ -351,6 +351,7 @@
 	    (unless (>
 		     (re-search-backward "\\S 
 \\s *?$" nil t 1) par-start)
+	      (goto-char par-end)
 	      ;; clear up
 	      (overlay-recenter par-start)
 	      (remove-overlays par-start par-end)
@@ -490,7 +491,7 @@
   (setq-local comment-end "
 ")
   ;; highlighting
-  (unless (< (buffer-size) 50) (lafic-highlight-buffer))
+;;  (unless (< (buffer-size) 50) (lafic-highlight-buffer))
   (add-hook 'post-command-hook 'lafic-highlight-par nil t)
   ;; Font lock
   (set (make-local-variable 'font-lock-defaults)
