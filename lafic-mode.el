@@ -342,93 +342,97 @@
     (if (eq (match-string 1) "%")
 	(re-search-forward "
 \\(\\S \\)" nil t 1))
-    ;; find end of paragraph
     (let ((par-start (- (match-end 0) 1)))
+    ;; find end of paragraph
       (if (re-search-forward "
 %" nil t 1)
 	  (let ((par-end (- (match-beginning 0) 1)))
-	    ;; clear up
-	    (overlay-recenter par-start)
-	    (remove-overlays par-start par-end)
-	    ;; find end of format block
-	    (re-search-forward "\\S 
+	    ;; prevent to skip to next par / line
+	    (unless (>
+		     (re-search-backward "\\S 
+\\s *?$" nil t 1) par-start)
+	      ;; clear up
+	      (overlay-recenter par-start)
+	      (remove-overlays par-start par-end)
+	      ;; find end of format block
+	      (re-search-forward "\\S 
 \\s *?$" nil t 1)
-	    (let ((formbl-end (- (match-end 0) 1))) 
-	      (goto-char par-end)
-	      ;; find words to format
-	      ;; TODO: regions & context
-	      (while (re-search-forward regex-il-macro
-					formbl-end t )
-		;; not yet found any context
-		(setq context 0) 
-		(let ((search-string (match-string 1)))
-		  (let ((regex
-			 (or ;; region or single word
-			  (if ;; region
-			      (string-match
-			       "\\(.*?\\)\\(…\\|\\.\\{3,3\\}\\)\\(.*\\)" search-string)
-			      (concat (match-string 1 search-string)
-				      ".*
+	      (let ((formbl-end (- (match-end 0) 1))) 
+		(goto-char par-end)
+		;; find words to format
+		;; TODO: regions & context
+		(while (re-search-forward regex-il-macro
+					  formbl-end t )
+		  ;; not yet found any context
+		  (setq context 0) 
+		  (let ((search-string (match-string 1)))
+		    (let ((regex
+			   (or ;; region or single word
+			    (if ;; region
+				(string-match
+				 "\\(.*?\\)\\(…\\|\\.\\{3,3\\}\\)\\(.*\\)" search-string)
+				(concat (match-string 1 search-string)
+					".*
 *.*";; make sure to include possible line break
-				      (match-string 3 search-string)))
-			  (or ;; single word
-			   (cond ;; check for context
-			    ((string-match ;; leading context
-			      "^(\\(.*?\\))\\(.*?\\)$"
-			      search-string)
-			     (setq context 1)
-			     (concat
-			      "\\(?:"
-			      (match-string 1 search-string)
-			      "\\)\\("
-			      (match-string 2 search-string)
-			      "\\)")
-			     )
-			    ((string-match ;; trailing context
-			      "^\\s *\\(.*?\\)(\\(.*?\\))\\s *$"
-			      search-string)
-			     (setq context 2)
-			     (concat
-			      "\\("
-			      (match-string 1 search-string)
-			      "\\)\\(?:"
-			      (match-string 2 search-string)
-			      "\\)"
-			     )
-			     ))
-			    search-string))))
-		    ;; move to content block
-		    (save-excursion
-		      (goto-char par-end)
-		      ;; search string in content block
-		      (while (re-search-backward regex
-						 par-start t)
-			(let ((start
-			       (or
-				(cond
-				 ((= context 1)
-				  (match-beginning 2))
-				 ((= context 2)
-				  (match-beginning 1)))
-				(match-beginning 0)))
-			      (end
-			       (or
-				(cond
-				 ((= context 1)
-				  (match-end 2))
-				 ((= context 2)
-				  (match-end 1)))
-				(match-end 0)))
-			      )
-			  (let ((overlay (make-overlay start end)))
-			    (overlay-put overlay 'face 'font-lock-constant-face)
+					(match-string 3 search-string)))
+			    (or ;; single word
+			     (cond ;; check for context
+			      ((string-match ;; leading context
+				"^(\\(.*?\\))\\(.*?\\)$"
+				search-string)
+			       (setq context 1)
+			       (concat
+				"\\(?:"
+				(match-string 1 search-string)
+				"\\)\\("
+				(match-string 2 search-string)
+				"\\)")
+			       )
+			      ((string-match ;; trailing context
+				"^\\s *\\(.*?\\)(\\(.*?\\))\\s *$"
+				search-string)
+			       (setq context 2)
+			       (concat
+				"\\("
+				(match-string 1 search-string)
+				"\\)\\(?:"
+				(match-string 2 search-string)
+				"\\)"
+				)
+			       ))
+			     search-string))))
+		      ;; move to content block
+		      (save-excursion
+			(goto-char par-end)
+			;; search string in content block
+			(while (re-search-backward regex
+						   par-start t)
+			  (let ((start
+				 (or
+				  (cond
+				   ((= context 1)
+				    (match-beginning 2))
+				   ((= context 2)
+				    (match-beginning 1)))
+				  (match-beginning 0)))
+				(end
+				 (or
+				  (cond
+				   ((= context 1)
+				    (match-end 2))
+				   ((= context 2)
+				    (match-end 1)))
+				  (match-end 0)))
+				)
+			    (let ((overlay (make-overlay start end)))
+			      (overlay-put overlay 'face 'font-lock-constant-face)
 	
 
 
 
 			    ))))
 		    )))
-		)))
+		))))
 	)))
   
 (defun lafic-highlight-buffer ()
