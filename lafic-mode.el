@@ -359,17 +359,19 @@
 	      ;; TODO: regions & context
 	      (while (re-search-forward regex-il-macro
 					formbl-end t )
+		;; not yet found any context
+		(setq context 0) 
 		(let ((search-string (match-string 1)))
 		  (let ((regex
 			 (or ;; region or single word
-			  (if
+			  (if ;; region
 			      (string-match
 			       "\\(.*?\\)\\(…\\|\\.\\{3,3\\}\\)\\(.*\\)" search-string)
 			      (concat (match-string 1 search-string)
 				      ".*
 *.*";; make sure to include possible line break
 				      (match-string 3 search-string)))
-			  (or
+			  (or ;; single word
 			   (cond ;; check for context
 			    ((string-match ;; leading context
 			      "^(\\(.*?\\))\\(.*?\\)$"
@@ -391,9 +393,8 @@
 			      (match-string 2 search-string)
 			      "\\)"
 			     )
-			     (setq context 2))
-			   search-string))
-			 ))
+			     (setq context 2)))
+			    search-string))))
 		    ;; move to content block
 		    (save-excursion
 		      (goto-char par-end)
@@ -401,14 +402,14 @@
 		      (while (re-search-backward regex
 						 par-start t)
 			(let ((start
-			       (case
+			       (cond
 				   ((= context 1)
 				    (match-beginning 1))
 				 ((= context 2)
 				  (match-beginning 2))
 				(match-beginning 0)))
 			      (end
-			       (case
+			       (cond
 				   ((= context 1)
 				    (match-beginning 1))
 				 ((= context 2)
@@ -418,10 +419,14 @@
 			      )
 			  (let ((overlay (make-overlay start end)))
 			    (overlay-put overlay 'face 'font-lock-constant-face)
+	
+
+
+
 			    ))))
 		    )))
 		)))
-	)))
+	))
   
 (defun lafic-highlight-buffer ()
   "Highlight inline formations for the whole buffer"
