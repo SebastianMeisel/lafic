@@ -21,6 +21,8 @@ Add lafic directory to $PATH, e.g.:
 % verbatim
 export PATH=${PATH}:~/lafic
 
+See lafic-mode.el for installation instructions, if you want
+to use in in Gnu Emacs.
 
 % heading2
 Writing text in LaFiC
