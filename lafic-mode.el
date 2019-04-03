@@ -350,7 +350,7 @@
 	    ;; clear up
 	    (overlay-recenter par-start)
 	    (remove-overlays par-start par-end)
-	    ;; find end of format blocl
+	    ;; find end of format block
 	    (re-search-forward "\\S 
 \\s *?$" nil t 1)
 	    (let ((formbl-end (- (match-end 0) 1))) 
@@ -376,16 +376,18 @@
 			    ((string-match ;; leading context
 			      "^(\\(.*?\\))\\(.*?\\)$"
 			      search-string)
+			     (setq context 1)
 			     (concat
 			      "\\(?:"
 			      (match-string 1 search-string)
 			      "\\)\\("
 			      (match-string 2 search-string)
 			      "\\)")
-			     (setq context 1))
+			     )
 			    ((string-match ;; trailing context
-			      "^\\(.*?\\)(\\(.*?\\))$"
+			      "^\\s *\\(.*?\\)(\\(.*?\\))\\s *$"
 			      search-string)
+			     (setq context 2)
 			     (concat
 			      "\\("
 			      (match-string 1 search-string)
@@ -393,7 +395,7 @@
 			      (match-string 2 search-string)
 			      "\\)"
 			     )
-			     (setq context 2)))
+			     ))
 			    search-string))))
 		    ;; move to content block
 		    (save-excursion
@@ -405,17 +407,17 @@
 			       (or
 				(cond
 				 ((= context 1)
-				  (match-beginning 1))
+				  (match-beginning 2))
 				 ((= context 2)
-				  (match-beginning 2)))
+				  (match-beginning 1)))
 				(match-beginning 0)))
 			      (end
 			       (or
 				(cond
 				 ((= context 1)
-				  (match-beginning 1))
+				  (match-end 2))
 				 ((= context 2)
-				  (match-beginning 2)))
+				  (match-end 1)))
 				(match-end 0)))
 			      )
 			  (let ((overlay (make-overlay start end)))
@@ -427,7 +429,7 @@
 			    ))))
 		    )))
 		)))
-	))
+	)))
   
 (defun lafic-highlight-buffer ()
   "Highlight inline formations for the whole buffer"
