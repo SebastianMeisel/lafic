@@ -402,20 +402,21 @@
 		      (while (re-search-backward regex
 						 par-start t)
 			(let ((start
-			       (cond
-				   ((= context 1)
-				    (match-beginning 1))
+			       (or
+				(cond
+				 ((= context 1)
+				  (match-beginning 1))
 				 ((= context 2)
-				  (match-beginning 2))
+				  (match-beginning 2)))
 				(match-beginning 0)))
 			      (end
-			       (cond
-				   ((= context 1)
-				    (match-beginning 1))
+			       (or
+				(cond
+				 ((= context 1)
+				  (match-beginning 1))
 				 ((= context 2)
-				  (match-beginning 2))
-				 (match-beginning 0)))
-			      (match-end 0))
+				  (match-beginning 2)))
+				(match-end 0)))
 			      )
 			  (let ((overlay (make-overlay start end)))
 			    (overlay-put overlay 'face 'font-lock-constant-face)
