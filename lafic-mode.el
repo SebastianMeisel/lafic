@@ -182,7 +182,7 @@
 
 (defconst regex-il-macro
   (concat "^%\\s *"
-	  "\\(.*?\\):\\s *"	  
+	  "\\(.*?\\)\\s *:\\s *"	  
 	  (regexp-opt lafic-inline-macro-list t)	  
 	  "\\s *$"
 	  )
@@ -443,13 +443,14 @@
 			    (or ;; single word
 			     (cond ;; check for context
 			      ((string-match ;; leading context
-				"^(\\(.*?\\))\\(.*?\\)$"
+				"^\\s *(\\(.*?\\))\\s *\\(.*?\\)\\s *$"
 				search-string)
 			       (setq context 1)
 			       (concat
 				"\\(?:"
 				(match-string-no-properties 1 search-string)
-				"\\)\\("
+				"\\)
+?\\s *\\("
 				(match-string-no-properties 2 search-string)
 				"\\)")
 			       )
@@ -477,7 +478,7 @@
 				 (or
 				  (cond
 				   ((= context 1)
-				    (match-beginning 2))
+				    (match-beginning 1))
 				   ((= context 2)
 				    (match-beginning 1)))
 				  (match-beginning 0)))
@@ -485,7 +486,7 @@
 				 (or
 				  (cond
 				   ((= context 1)
-				    (match-end 2))
+				    (match-end 1))
 				   ((= context 2)
 				    (match-end 1)))
 				  (match-end 0)))
