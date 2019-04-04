@@ -360,6 +360,40 @@
 	      )))
       ))
 
+(defun lafic-add-trailing-context ()
+  "Add trailing context for a formated word, to make it unique in the paragraph."
+  (interactive)
+  (save-excursion
+    (right-char);; make sure we're not at the first letter of word
+    (let ((word (thing-at-point 'word t)))
+      (right-word 1)
+      (let ((context (thing-at-point 'word t))
+	    (hier (point))
+	    )
+	;; find end of paragraph 
+	(let ((end-par 
+	       (or (re-search-forward
+		    "\\S 
+\\s *?$" nil t 1)
+		   (point-max))))
+	      (goto-char hier)
+	      (if ;; search for format line for word
+		  (re-search-forward
+		   (concat
+		    "^%\\s *\\("
+		    word
+		    "\\)\\s *:")
+		   end-par t)
+		  ;; Place point after word.
+		  (progn
+		    (goto-char (match-end 1))
+		    (insert (concat
+			     " (" context ")"))
+		    ))
+	      )))
+      ))
+
+
 ;; highlighting
 (defun lafic-highlight-par ()
   "Highlight inline formations for paragrah at point"
@@ -502,6 +536,7 @@
 	   (lafic-format-word "smallcaps")))
     ;; add context
     (define-key map [?\C-c C-left] 'lafic-add-leading-context)
+    (define-key map [?\C-c C-right] 'lafic-add-trailing-context)
     ;; fill
     (define-key map "\C-c\C-q\C-p" 'lafic-format-word)
     ;; highlighting
