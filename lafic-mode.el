@@ -366,7 +366,7 @@
   (save-excursion
     (right-char);; make sure we're not at the first letter of word
     (let ((word (thing-at-point 'word t)))
-      (right-word 1)
+      (right-word 2)
       (let ((context (thing-at-point 'word t))
 	    (hier (point))
 	    )
@@ -403,7 +403,7 @@
     (re-search-backward "^\\s *?
 \\(\\S \\)" nil t 1)
     ;;  omit line- / par-style line 
-    (if (eq (match-string 1) "%")
+    (if (eq (match-string-no-properties 1) "%")
 	(re-search-forward "
 \\(\\S \\)" nil t 1))
     (let ((par-start (- (match-end 0) 1)))
@@ -430,16 +430,16 @@
 					  formbl-end t )
 		  ;; not yet found any context
 		  (setq context 0) 
-		  (let ((search-string (match-string 1)))
+		  (let ((search-string (match-string-no-properties 1)))
 		    (let ((regex
 			   (or ;; region or single word
 			    (if ;; region
 				(string-match
 				 "\\(.*?\\)\\(…\\|\\.\\{3,3\\}\\)\\(.*\\)" search-string)
-				(concat (match-string 1 search-string)
+				(concat (match-string-no-properties 1 search-string)
 					".*
 *.*";; make sure to include possible line break
-					(match-string 3 search-string)))
+					(match-string-no-properties 3 search-string)))
 			    (or ;; single word
 			     (cond ;; check for context
 			      ((string-match ;; leading context
@@ -448,20 +448,21 @@
 			       (setq context 1)
 			       (concat
 				"\\(?:"
-				(match-string 1 search-string)
+				(match-string-no-properties 1 search-string)
 				"\\)\\("
-				(match-string 2 search-string)
+				(match-string-no-properties 2 search-string)
 				"\\)")
 			       )
 			      ((string-match ;; trailing context
-				"^\\s *\\(.*?\\)(\\(.*?\\))\\s *$"
+				"^\\s *\\(.*?\\)\\s *(\\(.*?\\))\\s *$"
 				search-string)
 			       (setq context 2)
 			       (concat
 				"\\("
-				(match-string 1 search-string)
-				"\\)\\(?:"
-				(match-string 2 search-string)
+				(match-string-no-properties 1 search-string)
+				"\\)
+?\\s *\\(?:"
+				(match-string-no-properties 2 search-string)
 				"\\)"
 				)
 			       ))
