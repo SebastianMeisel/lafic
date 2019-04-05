@@ -463,7 +463,7 @@
 				"\\(?:"
 				(match-string-no-properties 1 search-string)
 				"\\)
-?\\s *\\("
+?\\W *\\("
 				(match-string-no-properties 2 search-string)
 				"\\)")
 			       )
@@ -475,7 +475,7 @@
 				"\\("
 				(match-string-no-properties 1 search-string)
 				"\\)
-?\\s *\\(?:"
+?\\W *\\(?:"
 				(match-string-no-properties 2 search-string)
 				"\\)"
 				)

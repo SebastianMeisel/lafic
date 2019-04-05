@@ -842,7 +842,7 @@ sub parseFile {
 			    $i ++;
 			}
 			
-			$par =~ s/$context[0]($pattern[0](.*)$pattern[1])$context[1]/$context[0]<$format_start>$1<\/$format>$context[1]/g;		
+			$par =~ s/$context[0](\W*?)($pattern[0](.*)$pattern[1])(\W*?)$context[1]/$context[0]$1<$format_start>$2<\/$format>$3$context[1]/g;		
 		    }
 		    else {
 			# check for context
@@ -857,7 +857,7 @@ sub parseFile {
 			# context entfernen
 			$searchstring =~ s/[(](.*?)[)]//mg;
 			
-			$par =~ s/$context[0]($searchstring)$context[1]/$context[0]<$format_start>$1<\/$format>$context[1]/g;
+			$par =~ s/$context[0](\W*?)($searchstring)(\W*?)$context[1]/$context[0]$1<$format_start>$2<\/$format>$3$context[1]/g;
 		    }
 		}
 		# Parameter
