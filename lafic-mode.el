@@ -321,7 +321,7 @@
 			(let ((word-b (thing-at-point 'word t)))
 			  (concat
 			   word-a "…" word-b))))
-		  (word-at-point))))
+		  (thing-at-point 'word t))))
     (re-search-forward "^\\s *?$" nil t)
     (insert "% ")
     (insert word)
@@ -421,7 +421,8 @@
 %" nil t 1)
 	  (let ((par-end (- (match-beginning 0) 1)))
 	    ;; prevent to skip to next par / line
-	    (unless (>
+	    (or
+	     (unless (>
 		     (re-search-backward "\\S 
 \\s *?$" nil t 1) par-start)
 	      (goto-char par-end)
@@ -508,8 +509,9 @@
 
 			    ))))
 		    )))
-		))))
-	)))
+		)t) ;; if no format block found, just clean up
+	      (remove-overlays par-start par-end)))
+	))))
   
 (defun lafic-highlight-buffer ()
   "Highlight inline formations for the whole buffer"
