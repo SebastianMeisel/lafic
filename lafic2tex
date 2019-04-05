@@ -187,15 +187,9 @@ my @list_environments = (
 my $template;
 
 
-#########
-# TODO: add german keywords
-##########
-
 ##################################
-#my $lafic_file = basename($ARGV[0]);
 my ($basename,$path,$ext) = fileparse(abs_path($ARGV[0]), qr/\.[^.]*/); 
 my $lafic_file = "$path$basename$ext";
-#my $path = dirname(abs_path($ARGV[0])); 
 my $tex_file = "$path$basename.tex";
 ###############################
 
@@ -712,6 +706,8 @@ sub parseFile {
 	    # than check for format line  
 	    elsif($line =~ /^[%](\s*?)(\S.*)$/) {
 		my $fline = $2;
+		# remove trailing spaces
+		$fline =~ s/\s*?$//;
 		# format or parameter
 		if ($fline =~ /:/) {
 		    # split into searchstring an format key
