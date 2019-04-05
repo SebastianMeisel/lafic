@@ -1,11 +1,34 @@
 \documentclass{scrartcl}
 
-\usepackage{graphicx}
-\usepackage[utf8]{inputenc}
-\usepackage[ngerman]{babel}
+\usepackage[xetex]{graphicx}
+
+\RequirePackage{mathspec}
+\RequirePackage{fontspec}
+\RequirePackage{xunicode}
+\RequirePackage[no-sscript]{xltxtra}
+\RequirePackage{polyglossia}
+\setotherlanguages{english}
+\setdefaultlanguage[babelshorthands=true, spelling=new]{german}
 \RequirePackage[babel=true]{csquotes}
 \defineshorthand{"`}{\openautoquote}
 \defineshorthand{"'}{\closeautoquote}
+ \DeclareQuoteStyle{german}% verified
+   {„}
+   {“}
+   [0.05em]
+   {‚}
+   {‘}
+\DeclareQuoteStyle{english}% verified
+  {\textquotedblleft}
+  [\textquotedblleft]
+  {\textquotedblright}
+  [0.05em]
+  {\textquoteleft}
+  {\textquoteright}
+\MakeForeignQuote{english}{“}{”}
+
+\RequirePackage{microtype}
+
 
 %TITLE%
 
