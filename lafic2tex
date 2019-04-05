@@ -708,6 +708,7 @@ sub parseFile {
 		my $fline = $2;
 		# remove trailing spaces
 		$fline =~ s/\s*?$//;
+		
 		# format or parameter
 		if ($fline =~ /:/) {
 		    # split into searchstring an format key

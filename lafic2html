@@ -779,7 +779,8 @@ sub parseFile {
 	    # than check for format line  
 	    elsif($line =~ /^[%](\s*?)(\S.*)$/) {
 		my $fline = $2;
-		# format or parameter
+		# remove trailing spaces
+		$fline =~ s/\s*?$//;
 		
 		# check if formatblock begins
 		########
@@ -795,7 +796,7 @@ sub parseFile {
 		    $formbl = 1;
 		}
 
-
+		# format or parameter
 		if ($fline =~ /:/) {
 		    # split into searchstring an format key
 		    my ($searchstring, $fkey) = split /:\s*/ , $fline;
