@@ -312,7 +312,16 @@
   "Formate word at point." ;;or region."
   (interactive)
   (save-excursion
-    (let ((word (word-at-point)))
+    (let ((word (if (and transient-mark-mode mark-active)
+		    (let ((a (region-beginning))
+			  (b (region-end)))
+		      (goto-char (+ a 1))
+		      (let ((word-a (thing-at-point 'word t)))
+			(goto-char (- b 1))
+			(let ((word-b (thing-at-point 'word t)))
+			  (concat
+			   word-a "…" word-b))))
+		  (word-at-point))))
     (re-search-forward "^\\s *?$" nil t)
     (insert "% ")
     (insert word)
@@ -560,7 +569,7 @@
   (setq-local comment-end "
 ")
   ;; highlighting
-;;  (unless (< (buffer-size) 50) (lafic-highlight-buffer))
+  (unless (< (buffer-size) 50) (lafic-highlight-buffer))
   (add-hook 'post-command-hook 'lafic-highlight-par nil t)
   ;; Font lock
   (set (make-local-variable 'font-lock-defaults)
