@@ -755,11 +755,14 @@ sub parseFile {
 			    if ($pattern[$i] =~ /[(](.*?)[)]/) {
 				$context[$i] = $1;
 				$pattern[$i] =~ s/([(].*?[)])//;
+				# remove leading spaces from pattern
+				$pattern[$i] =~ s/^\s*//;
+				# remove trailing spaces from pattern
+				$pattern[$i] =~ s/\s*$//;
 			    }
 			    $i ++;
 			}
-			
-			$par =~ s/$context[0](\W*?)($pattern[0](.*?)$pattern[1])(\W*?)$context[1]/$context[0]$1\\$format\{$2}$3$context[1]/g;		
+			$par =~ s/$context[0](\W*)($pattern[0](.*?)$pattern[1])(\W*)$context[1]/$context[0]$1\\$format\{$2}$3$context[1]/g;		
 		    }
 		    else {
 			# check for context
@@ -770,11 +773,16 @@ sub parseFile {
 			# Zeilenende
 			if ($searchstring =~ /[(](.*?)[)]$/){
 			    $context[1] = $1}
-			
+
 			# context entfernen
 			$searchstring =~ s/[(](.*?)[)]//mg;
-			
-			$par =~ s/$context[0](\W*?)($searchstring)(\W*?)$context[1]/$context[0]$1\\$format\{$2\}$3$context[1]/g;
+
+			# remove leading spaces from searchstring
+			$searchstring =~ s/^\s*//;
+			# remove trailing spaces from searchstring
+			$searchstring =~ s/\s*$//;
+
+			$par =~ s/$context[0](\W*)($searchstring)(\W*)$context[1]/$context[0]$1\\$format\{$2\}$3$context[1]/g;
 		    }
 		}
 		# Parameter

@@ -838,6 +838,10 @@ sub parseFile {
 			    if ($pattern[$i] =~ /[(](.*?)[)]/) {
 				$context[$i] = $1;
 				$pattern[$i] =~ s/([(].*?[)])//;
+				# remove leading spaces from pattern
+				$pattern[$i] =~ s/^\s*//;
+				# remove trailing spaces from pattern
+				$pattern[$i] =~ s/\s*$//;
 			    }
 			    $i ++;
 			}
@@ -857,6 +861,11 @@ sub parseFile {
 			# context entfernen
 			$searchstring =~ s/[(](.*?)[)]//mg;
 			
+			# remove leading spaces from searchstring
+			$searchstring =~ s/^\s*//;
+			# remove trailing spaces from searchstring
+			$searchstring =~ s/\s*$//;
+
 			$par =~ s/$context[0](\W*?)($searchstring)(\W*?)$context[1]/$context[0]$1<$format_start>$2<\/$format>$3$context[1]/g;
 		    }
 		}
