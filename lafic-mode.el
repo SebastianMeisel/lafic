@@ -319,9 +319,12 @@
 		      (let ((word-a (thing-at-point 'word t)))
 			(goto-char (- b 1))
 			(let ((word-b (thing-at-point 'word t)))
-			  (concat
-			   word-a "…" word-b))))
-		  (thing-at-point 'word t))))
+			  (if (string= word-a word-b)
+			      word-a
+			    (concat
+			     word-a "…" word-b)))))
+		      (thing-at-point 'word t)
+		      )))
     (re-search-forward "^\\s *?$" nil t)
     (insert "% ")
     (insert word)
