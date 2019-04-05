@@ -433,7 +433,7 @@
 	      (overlay-recenter par-start)
 	      (remove-overlays par-start par-end)
 	      ;; find end of format block
-	      (re-search-forward "\\S 
+	      (re-search-forward "\\S \\s * 
 \\s *?$" nil t 1)
 	      (let ((formbl-end (- (match-end 0) 1))) 
 		(goto-char par-end)
@@ -483,7 +483,7 @@
 			     search-string))))
 		      ;; move to content block
 		      (save-excursion
-			(goto-char par-end)
+			(goto-char (+ par-end 1))
 			;; search string in content block
 			(while (re-search-backward regex
 						   par-start t)
