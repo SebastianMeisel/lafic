@@ -477,8 +477,6 @@ sub outputLines {
 		      $newfile = 0;
 		  }
 
-		  print "$macro \n";
-		  
 		  # check if span
 		  if ($macro =~ /^\./) {
 		      $macro =~ s/^\.//;
