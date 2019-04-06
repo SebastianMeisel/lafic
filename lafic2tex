@@ -257,12 +257,19 @@ sub LaTeX {
     # quotation marks
     my $outerquotes=0;
     my $innerquotes=0;
-    # TODO german / english quotation marks
-    my $oqm = "\"`"; # "„";
-    my $cqm = "\"'"; # "“";
-    my $osqm = "\"'"; # "‚";
-    my $csqm = "\"'"; #"‘";
-  
+    # english quotation marks
+    my $oqm =  "“"; # "\"`";
+    my $cqm =  "”"; # "\"'";
+    my $osqm = "‘ "; # "\"'";
+    my $csqm = "’"; # "\"'"; 
+    # german quotation marks
+    if ($config{"lang"} =~ /de_DE/){
+	$oqm =  "„"; # "\"`";
+	$cqm =  "“"; # "\"'";
+	$osqm = "‚"; # "\"'";
+	$csqm = "‘"; # "\"'"; 
+    } 
+	
     # special chars
     $par =~ s/\\/\\textbackslash /mg;
     $par =~ s/([\[\]%\{}\$])/\\$1/mg;
@@ -294,7 +301,7 @@ sub LaTeX {
 
     # quotation marks
     $par =~ s/(\W|^)('|‘|’|‚)(\w|[{ÄÖÜäöü\.\?\!:,;…])/$1$osqm$3/mg ;
-    $par =~ s/(\w|[}ÄÖÜäöü\.\?\!:,;…])(‘|’|‚|')(\W|$)/$1$csqm$3/mg;
+    $par =~ s/(\w|[}ÄÖÜäöü\.\?\!:,;…])(‘|’|')(\W|$)/$1$csqm$3/mg;
     $par =~ s/(\W|^)("|„|``)(\w|[{ÄÖÜäöü\.\?\!:,;…])/$1$oqm$3/mg ;
     $par =~ s/(\w|[}ÄÖÜäöü\.\?\!:,;…])(''|"|„|“|``)(?!'|`)(\W|$)/$1$cqm$3/mg;
     
