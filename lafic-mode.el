@@ -343,10 +343,24 @@
   "Add leading context for a formated word, to make it unique in the paragraph."
   (interactive)
   (save-excursion
-    (right-char);; make sure we're not at the first letter of word
-    (let ((word (thing-at-point 'word t)))
+    (if ;; If region is selected …
+	(and transient-mark-mode mark-active) 
+	(progn 
+	  (setq region-string (buffer-substring-no-properties (region-beginning) (region-end)))
+	  ;; …the last word must be formated
+	  (string-match "\\s *\\(\\w*\\)$" region-string)
+	  (setq last-word (match-string-no-properties 1 region-string))
+	  ;; … and the rest of the region is context. 
+	  (setq region-string (replace-regexp-in-string "\\s *\\(\\w*\\)$" "" region-string))
+ 
+	)
+      (right-char);; make sure we're not at the first letter of word
+      )
+    (let ((word (or last-word
+		 (thing-at-point 'word t))))
       (left-word 2)
-      (let ((context (thing-at-point 'word t))
+      (let ((context (or region-string
+		      (thing-at-point 'word t)))
 	    (hier (point))
 	    )
 	;; find end of paragraph 
