@@ -411,8 +411,10 @@
   "Highlight inline formations for paragrah at point"
   (interactive)
   (save-excursion
+    ;; One step forward to find the beginning of line.
+    (right-char)
     ;; find start of paragraph 
-    (re-search-backward "^\\s *?
+    (re-search-backward "^\\s *
 \\(\\S \\)" nil t 1)
     ;;  omit line- / par-style line 
     (if (eq (match-string-no-properties 1) "%")
@@ -427,14 +429,14 @@
 	    (or
 	     (unless (>
 		     (re-search-backward "\\S 
-\\s *?$" nil t 1) par-start)
+\\s *$" nil t 1) par-start)
 	      (goto-char par-end)
 	      ;; clear up
 	      (overlay-recenter par-start)
 	      (remove-overlays par-start par-end)
 	      ;; find end of format block
-	      (re-search-forward "\\S \\s * 
-\\s *?$" nil t 1)
+	      (re-search-forward "\\S \\s *
+\\s *$" nil t 1)
 	      (let ((formbl-end (- (match-end 0) 1))) 
 		(goto-char par-end)
 		;; find words to format
