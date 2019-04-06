@@ -577,7 +577,7 @@
 ")
   ;; highlighting
   (unless (< (buffer-size) 50) (lafic-highlight-buffer))
-  (add-hook 'post-command-hook 'lafic-highlight-par nil t)
+  (add-hook 'post-command-hook 'lafic-highlight-par t t)
   ;; Font lock
   (set (make-local-variable 'font-lock-defaults)
        '(lafic-mode-font-lock-keywords))
