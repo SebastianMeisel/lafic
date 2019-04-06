@@ -3,9 +3,6 @@
 \usepackage{graphicx}
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
-\RequirePackage[babel=true]{csquotes}
-\defineshorthand{"`}{\openautoquote}
-\defineshorthand{"'}{\closeautoquote}
 
 \title{Introduction to LaFiC}
 \author{Sebastian Meisel}
@@ -15,7 +12,7 @@
 \maketitle
 
 
-LaFiC means \textit{layout and format in comments}, as all layout and
+LaFiC means \textit{layout and format in comments} and format in as all layout and
 format information is put into comment lines. So layout and
 content are \emph{fully} separated.
 
@@ -35,6 +32,9 @@ export PATH=${PATH}:~/lafic
 
 \end{verbatim}
 
+See lafic-mode.el for installation instructions, if you want
+to use in in Gnu Emacs.
+
 \part{Writing text in LaFiC}
 
 \section{Lines and paragraphs}
@@ -43,7 +43,7 @@ The content is presented in two forms, which also include
 the most basic layout: There are \emph{lines} and \emph{paragraphs}.
 
 The difference is not so much the length, but lines include
-none of the punctation marks \emph{».«}, \emph{»?«}, \emph{»!«}, \emph{»:«}. If no
+none of the punctation marks ».«, »?«, »!«, \emph{»:«}:If no
 further layout information is provided, these are
 interpreted as headings.
 
@@ -60,7 +60,7 @@ layout information at all.
 \section{Comments}
 
 You can add comments to your text, by starting a single line
-or each line of a paragraph with a \% char with no leading
+or each \emph{line} of a paragraph with a \% char with no leading
 spaces. These lines or paragraphs must, however, be
 separated by empty line from the content.
 
@@ -73,10 +73,10 @@ separated by empty line from the content.
 
 \end{verbatim}
 
-It is recommended, however, to start comments with two \% chars.
-Else there may occur problems, when there is a »:« somewhere
+“It is recommended, however, to start comments with two \% chars.
+Else there may occur problems, when there is a ‘ :’ somewhere
 in the comment. You also can start a longer comment this way
-and don't need to repeat it in every line.
+and don't need to repeat it in every line.”
 
 \begin{verbatim}
   %% This is a comment! No mistake!

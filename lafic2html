@@ -265,6 +265,33 @@ sub startTemplate {
 sub Html {
     my $par = shift;
 
+    # # Variables for smartquotation
+    # my $outerquotes = 0;
+    # my $innerquotes = 0;
+
+    # english quotation marks
+    my $oqm =  "“";
+    my $cqm =  "”";
+    # if ($single == 1) { # single quotation marks
+    # 	my $oqm = "‘ ";
+    # 	my $cqm = "’";
+    # }
+    my $osqm = "‘ ";
+    my $csqm = "’";
+    # german quotation marks
+    if ($config{"lang"} =~ /de_DE/) {
+	$oqm =  "„";
+	$cqm =  "“";
+	# if ($single == 1) { # single quotation marks
+	#     $oqm = "‚";
+	#     $cqm = "‘";
+	# }
+	$osqm = "‚";
+	$csqm = "‘";
+    }
+
+
+
     # special chars
     $par = encode_entities($par, "&<>");
 
@@ -273,70 +300,103 @@ sub Html {
     # Non breaking space befor – and … 
     $par =~ s/\s(–|…)/&nbsp;$1/g;
 
+    # # standard quotation marks
+    # $par =~ s/(?<![=])(.|^)(''|"|„|“|``)(.|$)(?![>])/$1.smartquotes($1,$3,0).$3/eg;
+
+    
+    # # single quotation marks
+    # $par =~ s/(?<![=])(.|^)(‘|’|‚|')(.|$)(?![>])/$1.smartquotes($1,$3,1).$3/eg;
+
+    # Apostroph
+    $par =~ s/(\w)(’|´)(\w)/$1’$3/mg;
+    
     # quotation marks
-    $par =~ s/(?<![=])(''|"|„|“|``|‘|’|‚|')(.)(?![>])/smartquotes($2).$2/eg;
+    $par =~ s/(\W|^)('|‘|’|‚)(\w|[{ÄÖÜäöü\.\?\!:,;…])/$1$osqm$3/mg ;
+    $par =~ s/(\w|[}ÄÖÜäöü\.\?\!:,;…])(‘|’|')(\W|$)/$1$csqm$3/mg;
+    $par =~ s/(\W|^)("|„|``)(\w|[{ÄÖÜäöü\.\?\!:,;…])/$1$oqm$3/mg ;
+    $par =~ s/(\w|[}ÄÖÜäöü\.\?\!:,;…])(''|"|„|“|``)(?!'|`)(\W|$)/$1$cqm$3/mg;
 
     # hack for item
     $par =~ s/&lt;li&gt;/\n<li>/mg;
     $par =~ s/&lt;\/li&gt;/<\/li>/mg;
     
+
+    # sub smartquotes {
+    # 	# Signs before and after quotation mark, 
+    # 	# double / single quotation mark
+    # 	my ($before, $after, $single) = @_;
+
+    # 	my $return = "";
+	
+    # 	# english quotation marks
+    # 	my $oqm =  "“";
+    # 	my $cqm =  "”";
+    # 	if ($single == 1) { # single quotation marks
+    # 	    my $oqm = "‘ ";
+    # 	    my $cqm = "’";
+    # 	}
+    # 	my $osqm = "‘ ";
+    # 	my $csqm = "’";
+    # 	# german quotation marks
+    # 	if ($config{"lang"} =~ /de_DE/) {
+    # 	    $oqm =  "„";
+    # 	    $cqm =  "“";
+    # 	    if ($single == 1) { # single quotation marks
+    # 		$oqm = "‚";
+    # 		$cqm = "‘";
+    # 	    }
+    # 	    $osqm = "‚";
+    # 	    $csqm = "‘";
+    # 	}
+	
+    # 	print STDERR "$before\"$after : $outerquotes : $innerquotes\n";
+
+    # 	if ($after=~/\w|…/) {
+    # 	    unless ($before =~ /\w|…/){
+    # 		if ($outerquotes == 1) {
+    # 		    $outerquotes=1;
+    # 		    $innerquotes=1;
+    # 		    $return = $osqm;
+    # 		}
+    # 		elsif ($outerquotes == 0) {
+    # 		    $outerquotes=1;
+    # 		    $innerquotes=0;
+    # 		    $return = $oqm;
+    # 		}
+    # 		else {$return = "’"} # Apostroph
+    # 	    }
+    # 	}
+    # 	elsif ($after=~/\W|$/) {
+    # 	    if ($before =~ /[\w.?!:…]/){
+    # 		if  ($innerquotes == 0) {
+    # 		    $outerquotes=0;
+    # 		    $innerquotes=0;
+    # 		    $return = $cqm;
+    # 		}
+    # 		elsif ($innerquotes ==1) {
+    # 		    $outerquotes=1;
+    # 		    $innerquotes=0;
+    # 		    $return = $csqm;
+    # 		}
+    # 		else {
+    # 		    $return = $cqm;
+    # 		}
+    # 	    }
+    # 	    else {
+    # 		print STDERR "warning: Unclear quotation mark\n";
+    # 		$return = ">$cqm";
+    # 	    }
+    # 	}
+    # 	else {
+    # 	    print STDERR "warning: Unmatched quotation mark\n"
+    # 	}
+    # 	return $return;
+    # }
     return $par;
 }
 
-sub smartquotes {
-  # \w or \W after quotation mark?
-    my $after = shift;
-    my $outerquotes = 0;
-    my $innerquotes = 0;
-    my $return = "";
 
-    # english quotation marks
-    my $oqm =  "“";
-    my $cqm =  "”";
-    my $osqm = "‘ ";
-    my $csqm = "’";
-    # german quotation marks
-    if ($config{"lang"} =~ /de_DE/) {
-	$oqm =  "„";
-	$cqm =  "“";
-	$osqm = "‚";
-	 $csqm = "‘";
-    }
 
-    
-    if ($after=~/\w|…/) {
-	if ($outerquotes &! $innerquotes) {
-	    $outerquotes=1;
-	    $innerquotes=1;
-	    $return = $osqm;
-	}
-	elsif (!$outerquotes &! $innerquotes) {
-	    $outerquotes=1;
-	    $innerquotes=0;
-	    $return = $oqm;
-	}
-	else {$return = "??"}
-    }
-    elsif ($after=~/\W/) {
-	if  ($outerquotes &! $innerquotes) {
-	    $outerquotes=0;
-	    $innerquotes=0;
-	    $return = $cqm;
-	}
-	elsif ($outerquotes && $innerquotes) {
-	    $outerquotes=1;
-	    $innerquotes=0;
-	    $return = $csqm;
-	}
-	else {
-	    $return = $cqm;
-	}
-    }
-    else {
-	print STDERR "warning: Unmatched quotation mark\n"
-    }
-    return $return;
-}
 
 #################
 # Handle parameters of macros or environments

@@ -70,13 +70,13 @@ separated by empty line from the content.
   % of the general content.
 
 "It is recommended, however, to start comments with two % chars.
-Else there may occur problems, when there is a ':' somewhere
+Else there may occur 'problems', when there" is a »:« somewhere
 in the comment. You also can start a longer comment this way
-and don't need to repeat it in every line."
+and don't need to repeat it 'in every' line.
 
 % verbatim
   %% This is a comment! No mistake!
-  Even when a go on with no leading % it's still a comment.
+  Even when you go on with no leading % it's still a comment.
 
 %% This is a comment! No mistake!
 Even when you go on with no leading % it's still a comment.
