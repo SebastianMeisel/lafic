@@ -603,7 +603,7 @@
     (define-key map "\C-c\C-f\C-c" (lambda () (interactive)
 	   (lafic-format-word "smallcaps")))
     ;
-    (define-key-map "\C-c\C-f\C-d" 'lafic-delete-formation-at-point)
+    (define-key map "\C-c\C-f\C-d" 'lafic-delete-formation-at-point)
     ;; add context
     (define-key map [?\C-c C-left] 'lafic-add-leading-context)
     (define-key map [?\C-c C-right] 'lafic-add-trailing-context)
