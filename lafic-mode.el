@@ -338,6 +338,42 @@
     ))
   )
 
+(defun lafic-delete-formation-at-point ()
+  "Delete all formations for the current position."
+  (interactive)
+  (save-excursion
+    (let ((overlays (overlays-at (point))))
+      (while overlays
+	(let ((overlay (car overlays)))
+	  (let ((a (+ (overlay-start overlay) 1))
+		(b (- (overlay-end overlay) 1)))
+	    ;; First word of overlay
+	    (goto-char a)
+	    (let ((word-a (thing-at-point 'word t)))
+	      ;; Last word of overlay
+	      (goto-char b)
+	      (let ((word-b (thing-at-point 'word t)))
+		(let ((search-string
+		       (concat
+			;; check for context
+			"^%\\s *\\((.*?)\\)?\\s *"
+			;; Just on word?
+			;; TODO: What if equal word 
+			;;       but not the same?
+			(if (string= word-a word-b)
+			    word-a
+			  (concat
+			   word-a "…" word-b))
+			"\\s *:")))
+		  (if (re-search-forward search-string nil t)
+		      (progn
+			(goto-char (match-beginning 0))
+			(kill-line 1)))
+		)))
+	    ))
+	(setq overlays (cdr overlays))
+	))))
+
 ;; context
 (defun lafic-add-leading-context ()
   "Add leading context for a formated word, to make it unique in the paragraph."
@@ -566,6 +602,8 @@
 	   (lafic-format-word "bold")))
     (define-key map "\C-c\C-f\C-c" (lambda () (interactive)
 	   (lafic-format-word "smallcaps")))
+    ;
+    (define-key-map "\C-c\C-f\C-d" 'lafic-delete-formation-at-point)
     ;; add context
     (define-key map [?\C-c C-left] 'lafic-add-leading-context)
     (define-key map [?\C-c C-right] 'lafic-add-trailing-context)

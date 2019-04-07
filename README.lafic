@@ -49,7 +49,7 @@ Further line will be converted to <h3> (Html) or \section
 (LaTeX), if no otherwise specified.  
 % Html: smallcaps
 
-This way simple Documents may be structured with no explicit
+This way simple Documents Html may be structured with no explicit
 layout information at all.
 
 Comments
