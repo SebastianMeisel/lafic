@@ -274,6 +274,10 @@ sub LaTeX {
     $par =~ s/\\/\\textbackslash /mg;
     $par =~ s/([\[\]%\{}\$])/\\$1/mg;
     $par =~ s/~/\\textasciitilde/mg;
+
+    # TeX / LaTeX / XeTeX
+    $par =~ s/\b(Xe)?(La)?TeX\b/\\$&/mg;
+
     
     # Non breaking space befor -- and ... 
     $par =~ s/\s(--|\{\\ldots)/~$1/mg;
