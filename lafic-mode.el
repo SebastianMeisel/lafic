@@ -602,6 +602,8 @@
 	   (lafic-format-word "bold")))
     (define-key map "\C-c\C-f\C-c" (lambda () (interactive)
 	   (lafic-format-word "smallcaps")))
+    (define-key map "\C-c\C-f\C-t" (lambda () (interactive)
+	   (lafic-format-word "mono")))
     ;
     (define-key map "\C-c\C-f\C-d" 'lafic-delete-formation-at-point)
     ;; add context

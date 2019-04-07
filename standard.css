@@ -1,19 +1,74 @@
 html {
-    width: 100%,
+    width: 100%;
     height: 100%
 }
 
 body {
-    width: 100%,
-    height: 100%,
-    margin: 150px,
+    width: 100%;
+    height: 100%;
+    margin: 5%;
     font-family: 'Alegreya'
 }
 
-# Kapitälchen
-span .sc {
-    font-variant: small-caps;
-    font-family: 'Alegreya SC'
+ /* small-caps */
+.sc {
+    font-variant-caps: small-caps;
+    font-family: "Alegreya SC";
 }
+
+ /* monospaced */
+.tt {
+    font-family: 'Ubuntu Mono', monospace;
+}
+
+
+@font-face {
+    src: url(./Fonts/Alegreya-Regular.ttf);
+    panose-1: 2 0 5 3 5 0 0 2 0 4;
+    font-family: "Alegreya"
+    }
+@font-face {
+    src: url(./Fonts/Alegreya-Italic.ttf);
+    panose-1: 2 0 5 3 5 0 0 2 0 4;
+    font-family: "Alegreya";
+    font-style: italic
+    }
+@font-face {
+    src: url(./Fonts/Alegreya-Bold.ttf);
+    panose-1: 2 0 5 3 5 0 0 2 0 4;
+    font-family: "Alegreya";
+    font-weight: bold;
+    }
+@font-face {
+    src: url(./Fonts/AlegreyaSC-Regular.ttf);
+    panose-1: 2 0 5 3 5 0 0 2 0 4;
+    font-family: "Alegreya SC";
+    font-variant: small-caps;
+    }
+@font-face {
+    src: url(./Fonts/UbuntuMono-Regular.ttf);
+    panose-1: 2 0 5 3 5 0 0 2 0 4;
+    font-family: "Ubuntu Mono";
+    }
+@font-face {
+    src: url(./Fonts/UbuntuMono-Bold.ttf);
+    panose-1: 2 0 5 3 5 0 0 2 0 4;
+    font-family: "Ubuntu Mono";
+    font-weight: bold;
+    }
+@font-face {
+    src: url(./Fonts/UbuntuMono-Italic.ttf);
+    panose-1: 2 0 5 3 5 0 0 2 0 4;
+    font-family: "Ubuntu Mono";
+    font-style: italic;
+    }
+@font-face {
+    src: url(./Fonts/UbuntuMono-BoldItalic.ttf);
+    panose-1: 2 0 5 3 5 0 0 2 0 4;
+    font-family: "Ubuntu Mono";
+    font-style: italic;
+    font-weight: bold;
+    }
+
 
 
