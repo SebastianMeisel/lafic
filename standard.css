@@ -21,6 +21,10 @@ body {
     font-family: 'Ubuntu Mono', monospace;
 }
 
+pre {
+    font-family: 'Ubuntu Mono', monospace;
+}
+
 
 @font-face {
     src: url(./Fonts/Alegreya-Regular.ttf);
