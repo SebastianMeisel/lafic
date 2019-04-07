@@ -45,6 +45,8 @@ interpreted as headings.
 The first line is interpreted as the title and presented as
 this is as <h1>, when converted to Html, and \title, when 
 converted to LaTeX.
+% first (line is interpreted): emphasize
+% the (title): emphasize
 
 Further line will be converted to <h3> (Html) or \section
 (LaTeX), if no otherwise specified.  
