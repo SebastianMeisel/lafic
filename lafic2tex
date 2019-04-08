@@ -134,7 +134,10 @@ my %il_macros = (
     "typewriter" => "texttt",
     "smallcaps" => "textsc",
     "superscript" => "textsuperscript",
-    "subscript" => "textsubscript"
+    "subscript" => "textsubscript",
+    # links
+    "url" => "href",
+    "link" => "href"
     );
 
 # hash for keywords like "break lines"
@@ -322,6 +325,26 @@ sub LaTeX {
 }
 
 #################
+# Handle parameters of inline macros
+#################
+sub handle_il_argument {
+    my ($macro, @argument) = @_;
+    
+    my $return;
+
+    SELECT: { # first check, which macro to handle
+    	if ($macro =~ /^href$/) {
+    	    $return = "\{".join(":", @argument)."\}";
+	    last SELECT}
+	else {$return = ""}
+    }
+
+    return $return;
+}
+
+
+
+#################
 # Handle parameters of macros or environments
 #################
 sub handleParameter {
@@ -380,7 +403,6 @@ sub outputLines {
 	print OUTPUT "\\end\{$prev_env\}\n\n";
     }
 
-#    print "$c_env : $environment: $prev_env : $parstyle\n";
     
     # close macro or environment  
   SELECT: {
@@ -724,8 +746,9 @@ sub parseFile {
 		
 		# format or parameter
 		if ($fline =~ /:/) {
-		    # split into searchstring an format key
-		    my ($searchstring, $fkey) = split /:\s*/ , $fline;
+		    # split into searchstring, format key 
+		    # and (optional) argument
+		    my ($searchstring, $fkey, @argument) = split /:\s*/ , $fline;
 
 		    # some LaTeX addoptions
 		    unless ($environment && 
@@ -756,8 +779,13 @@ sub parseFile {
 		    if (exists $il_macros{$fkey}) {
 			$format = $il_macros{$fkey};
 		    }
-
-	
+		    
+		    # handle inline arguments
+		    my $il_arg = "";
+		    if (@argument) {
+		        $il_arg = handle_il_argument($format, @argument);
+		    }
+		
 		    # range or single word
 		    if ($searchstring =~ /(\.{3,3}|…)/ ) {
 			my @pattern = split /$1/ , $searchstring;
@@ -776,7 +804,8 @@ sub parseFile {
 			    }
 			    $i ++;
 			}
-			$par =~ s/$context[0](\W*)($pattern[0](.*?)$pattern[1])(\W*)$context[1]/$context[0]$1\\$format\{$2}$4$context[1]/g;		
+
+			$par =~ s/$context[0](\W*)($pattern[0](.*?)$pattern[1])(\W*)$context[1]/$context[0]$1\\$format$il_arg\{$2}$4$context[1]/g;		
 		    }
 		    else {
 			# check for context
@@ -796,7 +825,7 @@ sub parseFile {
 			# remove trailing spaces from searchstring
 			$searchstring =~ s/\s*$//;
 
-			$par =~ s/$context[0](\W*)($searchstring)(\W*)$context[1]/$context[0]$1\\$format\{$2\}$3$context[1]/g;
+			$par =~ s/$context[0](\W*)($searchstring)(\W*)$context[1]/$context[0]$1\\$format$il_arg\{$2\}$3$context[1]/g;
 		    }
 		}
 		# Parameter

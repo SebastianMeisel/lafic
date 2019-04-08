@@ -140,7 +140,9 @@ my %il_macros = (
     "typewriter" => ".tt",
     "smallcaps" => ".sc", 
     "superscript" => "sup",
-    "subscript" => "sub"
+    "subscript" => "sub",
+    "url" => "a",
+    "link" => "a"
     );
 
 # hash for keywords like "break lines"
@@ -395,6 +397,24 @@ sub Html {
     # 	return $return;
     # }
     return $par;
+}
+
+#################
+# Handle parameters of inline macros
+#################
+sub handle_il_argument {
+    my ($macro, @argument) = @_;
+    
+    my $return;
+
+    SELECT: { # first check, which macro to handle
+    	if ($macro =~ /^a$/) {
+    	    $return = " href=\"".join(":", @argument)."\"";
+	    last SELECT}
+	else {$return = ""}
+    }
+
+    return $return;
 }
 
 
@@ -859,7 +879,7 @@ sub parseFile {
 		# format or parameter
 		if ($fline =~ /:/) {
 		    # split into searchstring an format key
-		    my ($searchstring, $fkey) = split /:\s*/ , $fline;
+		    my ($searchstring, $fkey, @argument) = split /:\s*/ , $fline;
 
 		    # some Html  addoptions
 		    unless ($environment && 
@@ -887,6 +907,13 @@ sub parseFile {
 			$format = "span";
 		    }
 		    else {$format_start = $format;}
+
+		    # handle inline arguments
+		    my $il_arg = "";
+		    if (@argument) {
+		        $il_arg = handle_il_argument($format, @argument);
+		    }
+
 	
 		    # range or single word
 		    if ($searchstring =~ /(\.{3,3}|…)/ ) {
@@ -907,7 +934,7 @@ sub parseFile {
 			    $i ++;
 			}
 			
-			$par =~ s/$context[0](\W*?)($pattern[0](.*)$pattern[1])(\W*?)$context[1]/$context[0]$1<$format_start>$2<\/$format>$4$context[1]/g;		
+			$par =~ s/$context[0](\W*?)($pattern[0](.*)$pattern[1])(\W*?)$context[1]/$context[0]$1<$format_start$il_arg>$2<\/$format>$4$context[1]/g;		
 		    }
 		    else {
 			# check for context
@@ -927,7 +954,7 @@ sub parseFile {
 			# remove trailing spaces from searchstring
 			$searchstring =~ s/\s*$//;
 
-			$par =~ s/$context[0](\W*?)($searchstring)(\W*?)$context[1]/$context[0]$1<$format_start>$2<\/$format>$3$context[1]/g;
+			$par =~ s/$context[0](\W*?)($searchstring)(\W*?)$context[1]/$context[0]$1<$format_start$il_arg>$2<\/$format>$3$context[1]/g;
 		    }
 		}
 		# Parameter

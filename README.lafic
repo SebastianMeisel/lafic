@@ -12,6 +12,7 @@ content are fully separated.
 Installation
 
 Get source from github using:
+% github: url: https://github.com
 
 % verbatim
 git clone https://github.com/SebastianMeisel/lafic.git
