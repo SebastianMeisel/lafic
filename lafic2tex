@@ -224,11 +224,11 @@ sub startTemplate {
 	my $temp_file;
 	# german standard template 
 	if ($config{"lang"} =~ /^de_DE$/ ) {
-	    $temp_file = "$lafic_dir/Standard_de_DE.tmp.tex";
+	    $temp_file = "$lafic_dir/templates/Standard_de_DE.tmp.tex";
 	}
 	#english standard template
 	else {
-	    $temp_file = "$lafic_dir/Standard.tmp.tex";
+	    $temp_file = "$lafic_dir/templates/Standard.tmp.tex";
 	}
 	open(TEMPLATE, "<$temp_file") or
 	    die "Could not open $temp_file";
@@ -569,9 +569,9 @@ sub parseFile {
 			    $config{"lang"} = "en_EN";
 			}
 
-			open(TEMPLATE, "<$lafic_dir/$parkey.tmp.tex") or
-			    die "Could not open $lafic_dir/$parkey.tmp.tex";
-			print "use $lafic_dir/$parkey.tmp.tex\n";
+			open(TEMPLATE, "<$lafic_dir/templates/$parkey.tmp.tex") or
+			    die "Could not open $lafic_dir/templates/$parkey.tmp.tex";
+			print "use $lafic_dir/templates/$parkey.tmp.tex\n";
 			local $/;
 		        $template = <TEMPLATE>;
 			
