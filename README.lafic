@@ -4,9 +4,10 @@ Introduction to LaFiC
 
 LaFiC means layout and format in comments, as all layout and
 format information is put into comment lines. So layout and
-content are fully separated.
+content are fully separated. For details see Writing…LaFiC.
 % fully: emphasize
 % layout…comments: italic
+% Writing…LaFiC: see: Writing
 
 % heading2
 Installation
@@ -28,6 +29,7 @@ to use in in Gnu Emacs.
 
 % heading2
 Writing text in LaFiC
+% name = Writing
 
 Lines and paragraphs
 

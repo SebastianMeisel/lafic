@@ -142,7 +142,8 @@ my %il_macros = (
     "superscript" => "sup",
     "subscript" => "sub",
     "url" => "a",
-    "link" => "a"
+    "link" => "a",
+    "see" => "a"
     );
 
 # hash for keywords like "break lines"
@@ -409,7 +410,15 @@ sub handle_il_argument {
 
     SELECT: { # first check, which macro to handle
     	if ($macro =~ /^a$/) {
-    	    $return = " href=\"".join(":", @argument)."\"";
+	    # check if hyperlink
+	    if ($argument[0] =~ /^http|mailto|file/){
+		$return = " href=\"".join(":", @argument)."\"";
+	    }
+	    # internal reference
+	    else {
+		$return = " href=\"#".join(":", @argument)."\"";
+	    }
+		
 	    last SELECT}
 	else {$return = ""}
     }
