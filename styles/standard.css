@@ -27,47 +27,47 @@ pre {
 
 
 @font-face {
-    src: url(./Fonts/Alegreya-Regular.ttf);
+    src: url(./fonts/Alegreya-Regular.ttf);
     panose-1: 2 0 5 3 5 0 0 2 0 4;
     font-family: "Alegreya"
     }
 @font-face {
-    src: url(./Fonts/Alegreya-Italic.ttf);
+    src: url(./fonts/Alegreya-Italic.ttf);
     panose-1: 2 0 5 3 5 0 0 2 0 4;
     font-family: "Alegreya";
     font-style: italic
     }
 @font-face {
-    src: url(./Fonts/Alegreya-Bold.ttf);
+    src: url(./fonts/Alegreya-Bold.ttf);
     panose-1: 2 0 5 3 5 0 0 2 0 4;
     font-family: "Alegreya";
     font-weight: bold;
     }
 @font-face {
-    src: url(./Fonts/AlegreyaSC-Regular.ttf);
+    src: url(./fonts/AlegreyaSC-Regular.ttf);
     panose-1: 2 0 5 3 5 0 0 2 0 4;
     font-family: "Alegreya SC";
     font-variant: small-caps;
     }
 @font-face {
-    src: url(./Fonts/UbuntuMono-Regular.ttf);
+    src: url(./fonts/UbuntuMono-Regular.ttf);
     panose-1: 2 0 5 3 5 0 0 2 0 4;
     font-family: "Ubuntu Mono";
     }
 @font-face {
-    src: url(./Fonts/UbuntuMono-Bold.ttf);
+    src: url(./fonts/UbuntuMono-Bold.ttf);
     panose-1: 2 0 5 3 5 0 0 2 0 4;
     font-family: "Ubuntu Mono";
     font-weight: bold;
     }
 @font-face {
-    src: url(./Fonts/UbuntuMono-Italic.ttf);
+    src: url(./fonts/UbuntuMono-Italic.ttf);
     panose-1: 2 0 5 3 5 0 0 2 0 4;
     font-family: "Ubuntu Mono";
     font-style: italic;
     }
 @font-face {
-    src: url(./Fonts/UbuntuMono-BoldItalic.ttf);
+    src: url(./fonts/UbuntuMono-BoldItalic.ttf);
     panose-1: 2 0 5 3 5 0 0 2 0 4;
     font-family: "Ubuntu Mono";
     font-style: italic;
