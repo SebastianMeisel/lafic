@@ -424,17 +424,14 @@ sub handle_il_argument {
 # Handle parameters of macros or environments
 #################
 sub handleParameter {
-    ########
-    # TODO: check which environment / macro?
-    ########
     my ($env_mac, %parameter) = @_;
 
     my @return;
     
     if (keys %parameter) {
+	# figure / includegraphics
 	if ($env_mac =~ /^(figure|img)$/) {
 	    my $optional ="style=\"";
-	    # figure / includegraphics
 	    if ($parameter{"width"}){
 		$optional = "$optional width: $parameter{'width'};";
 	    }
@@ -449,12 +446,24 @@ sub handleParameter {
 	    #add final "
 	    $optional = $optional."\"";
 
+	    ################
+	    # TODO: name
+	    ################
+
 	    @return = (@return, $optional);
 	}
+	# caption in figure
 	if ($env_mac =~ /^figure$/) {
 	    if (! $parameter{"caption"} =~ /^$/) {
 		@return = (@return, $parameter{"caption"});
 	    }  
+	}
+	# name in headings
+	if ($env_mac =~ /^H[2-4]$/) {
+	    if (! $parameter{"name"} =~ /^$/) {
+		my $optional = " id=\"".$parameter{"name"}."\"";
+		@return = (@return, $optional);
+	    }
 	}
     }
 
@@ -503,6 +512,17 @@ sub outputLines {
 		  if ($macro =~ /^\./) {
 		      $macro =~ s/^\.//;
 		      print OUTPUT "<span class=\"$macro\">$par</span>\n";
+		  }
+		  # check if heading
+		  elsif ($macro =~/^H[2-4]/){
+		      # optional parameters
+		      my $optional = "";
+		      
+		      ($optional) = handleParameter($macro, %parameter);
+		      if (! defined $optional) {
+			  $optional =""}
+		      
+		      print OUTPUT "<$macro$optional>$par</$macro>\n";
 		  }
 		  else {print OUTPUT "<$macro>$par</$macro>\n";}
 
@@ -569,7 +589,20 @@ sub outputLines {
 			  # print title as heading
 			  $macro = "H1";
 			  print OUTPUT "<$macro>$par</$macro>\n";
-		      } 
+		      }
+		      # check if heading
+		      elsif ($macro =~/^H[2-4]/){
+			  # optional parameters
+			  my $optional = "";
+			  
+			  ($optional) = handleParameter($macro, %parameter);
+			  if (! defined $optional) {
+			      $optional =""}
+			  
+			  print OUTPUT "<$macro$optional>$par</$macro>\n";
+			  
+			  }
+
 		  };
 		  # figures are special
 		  #####
