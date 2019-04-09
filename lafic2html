@@ -939,6 +939,8 @@ sub parseFile {
 		    if (exists $il_macros{$fkey}) {
 			$format = $il_macros{$fkey};
 		    }
+		    # else mark as span
+		    else {$format = ".$format";}
 
 		    # check if span
 		    if ($format =~ /^\./){
