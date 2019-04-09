@@ -133,17 +133,23 @@ my %environments = (
 
 # hash for known inline macros
 my %il_macros = (
+    # shape
     "bold" => "b",
     "emphasize" => "em",
     "italic" => "i",
+    # variant
     "mono" => ".tt",
     "typewriter" => ".tt",
-    "smallcaps" => ".sc", 
+    "smallcaps" => ".sc",
+    # position
     "superscript" => "sup",
     "subscript" => "sub",
+    # links
     "url" => "a",
     "link" => "a",
-    "see" => "a"
+    "see" => "a",
+    # footnotes
+    "footnote" => ".fn",
     );
 
 # hash for keywords like "break lines"
@@ -420,7 +426,7 @@ sub handle_il_argument {
 	    }
 		
 	    last SELECT}
-	else {$return = ""}
+	else {$return = join(":", @argument)}
     }
 
     return $return;
@@ -701,6 +707,9 @@ sub parseFile {
     # parameter hash
     my %parameter;
 
+    # footnotes
+    my $fn_counter = 0;
+    my @footnotes;
     
     while ($file =~ /^(.*?)$/mg) {
 	print ".";
@@ -942,20 +951,40 @@ sub parseFile {
 		    # else mark as span
 		    else {$format = ".$format";}
 
-		    # check if span
-		    if ($format =~ /^\./){
-			$format =~ s/^\.//;
-			$format_start = "span class=\"$format\"";
-			$format = "span";
-		    }
-		    else {$format_start = $format;}
-
 		    # handle inline arguments
 		    my $il_arg = "";
 		    if (@argument) {
+			# add following line to argument, 
+			# if they start with ">"
+			# while ($file =~ /^>(.*)$/) {
+			#     push (@argument, $1);}
+
 		        $il_arg = handle_il_argument($format, @argument);
 		    }
 
+		    # check if span
+		    if ($format =~ /^\./){
+			$format =~ s/^\.//;
+			# check if footnote
+			if ($format =~ /^fn$/){
+			    $fn_counter++;
+			    $format_start = "a class=\"fn\" href=\"#fn$fn_counter\" id=\"fna$fn_counter\"";
+			    # put footnote text in array 
+			    # for output at end.
+			    push (@footnotes, $il_arg);
+			    $il_arg="";
+			    # format is actually <a>
+			    $format = "a";
+			}
+			# else it'S a span
+			else {
+			    $format_start = "span class=\"$format\"";
+			    $format = "span";
+			}
+		    }
+		    else {$format_start = $format;}
+
+		    
 	
 		    # range or single word
 		    if ($searchstring =~ /(\.{3,3}|…)/ ) {
@@ -1109,9 +1138,28 @@ sub parseFile {
     # set newpar to 1 (true)
     $newpar = 1;
 
+    # print footnotes
+    if (@footnotes) {
+	print OUTPUT "<div id=\"footnotes\">\n";
+	print OUTPUT "<ol>\n";
+	my $fn_counter = 0;
+	
+	foreach (@footnotes) {
+	    $fn_counter++;
+	    print OUTPUT "<li id=\"fn$fn_counter\">";
+	    print OUTPUT "<a href=\"#fna$fn_counter\">";
+	    print OUTPUT $_;
+	    print OUTPUT "</a>\n";
+	    print OUTPUT "</li>\n";
+	}
+	
+	print OUTPUT "</ol>\n";
+	print OUTPUT "</div>\n";
+    }
 }
 
 close (INPUT);
+
 
 # print rest of template.
 while ($template =~ /^(.*?)$/mg) {

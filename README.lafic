@@ -26,6 +26,10 @@ export PATH=${PATH}:~/lafic
 See lafic-mode.el for installation instructions, if you want
 to use in in Gnu Emacs.
 % lafic…el: mono
+% Gnu…Emacs: footnote: GNU Emacs ist als freie Software unter
+> der GNU General Public License erhältlich und läuft auf den
+> meisten heute üblichen Betriebssystemen (Unix, GNU/Linux, macOS
+> und Windows). 
 
 % heading2
 Writing text in LaFiC
