@@ -104,8 +104,10 @@
 
 (defvar lafic-inline-macro-list
   '(
-    "bold" "emphasize" "italic" "smallcaps" 
+    "bold" "emphasize" "italic" 
+    "mono" "typewriter" "smallcaps"
     "superscript" "subscript"
+    "url" "link" "see"
     )
   "Keywords for inline formats."
 )
@@ -113,10 +115,21 @@
 (defvar lafic-parameter-list
   '(
     ;; figure
-    "width" "height" "caption" 
+    "width" "height" "caption"
+    ;; figure / headings
+    "name"
     )
   "Keywords for parameters."
 )
+
+(defvar lafic-keyword-list
+  '(
+    ;; line breaks
+    "br" "break lines"
+    )
+  "Special keywords."
+)
+
 
 (defvar lafic-template-list
   '()
@@ -189,6 +202,17 @@
   "Regex for inline macros font lock."
   )
 
+(defconst regex-il-macro-params
+  (concat "^%\\s *"
+	  "\\(.*?\\)\\s *:\\s *"	  
+	  (regexp-opt lafic-inline-macro-list t)	  
+	  "\\s *:\\s *"
+	  "\\(.*\\)?\\s *$"
+	  )
+  "Regex for inline macros with parameter font lock."
+  )
+
+
 (defconst regex-parameter
   (concat "^%\\s *"
 	  (regexp-opt lafic-parameter-list t)	  
@@ -197,6 +221,15 @@
 	  )
   "Regex for parameter font lock."
   )
+
+(defconst regex-keywords
+  (concat "^%\\s *"
+	  (regexp-opt lafic-keyword-list t)	  
+	  "\\s *$"
+	  )
+  "Regex for inline macros font lock."
+  )
+
 
 (defconst regex-unknown-il-macro
   (concat "^%\\s *"
@@ -229,18 +262,21 @@
    ;; unknow inline macros
    (cons regex-unknown-il-macro '(1 'font-lock-constant-face t))
    (cons regex-unknown-il-macro '(2 'font-lock-warning-face t))
-   ;; unknow inline macros
-   (cons regex-unknown-il-macro '(1 'font-lock-constant-face t))
-   (cons regex-unknown-il-macro '(2 'font-lock-warning-face t))
    ;; inline macros
    (cons regex-il-macro '(1 'font-lock-constant-face t))
    (cons regex-il-macro '(2 'font-lock-function-name-face t))
+   ;; inline macros with parameter
+   (cons regex-il-macro-params '(1 'font-lock-constant-face t))
+   (cons regex-il-macro-params '(2 'font-lock-function-name-face t))
+   (cons regex-il-macro-params '(3 'font-lock-constant-face t))
    ;; unknown parameters
    (cons regex-unknown-parameter '(1 'font-lock-warning-face t))
    (cons regex-unknown-parameter '(2 'font-lock-constant-face t))
    ;; parameters
    (cons regex-parameter '(1 'font-lock-function-name-face t))
    (cons regex-parameter '(2 'font-lock-constant-face t))
+   ;; keywords
+   (cons regex-keywords 'font-lock-function-name-face)
    ;; format lines
    (cons "^%.*$" 'font-lock-comment-face)
    )
@@ -511,8 +547,10 @@
 		(goto-char par-end)
 		;; find words to format
 		;; TODO: regions & context
-		(while (re-search-forward regex-il-macro
-					  formbl-end t )
+		(while (or (re-search-forward regex-il-macro
+					      formbl-end t )
+			   (re-search-forward regex-il-macro-params
+					  formbl-end t ))
 		  ;; not yet found any context
 		  (setq context 0) 
 		  (let ((search-string (match-string-no-properties 1)))
