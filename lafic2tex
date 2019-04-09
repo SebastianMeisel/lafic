@@ -137,7 +137,8 @@ my %il_macros = (
     "subscript" => "textsubscript",
     # links
     "url" => "href",
-    "link" => "href"
+    "link" => "href",
+    "see" => "nameref",
     );
 
 # hash for keywords like "break lines"
@@ -146,12 +147,40 @@ my %keywords = (
     "br" => "br"
     );
 
+#########
 # list of list environments
 my @list_environments = (
     "enumerate", 
     "itemize"
     );
 
+# list of macros, that replace the searchstring
+my @il_replace_macros = (
+    "nameref",
+    "ref"
+    );
+
+# hash for label prefixes (not all supported jet)
+my %label_pre = (
+    "part" => "part:",
+    "chapter" => "ch:",
+    "section" => "sec:",
+    "subsection" => "subsec:",
+    "figure" => "fig:",
+    "table" => "tab:",
+    "equation" => "eq:",
+    "code" => "lst:",
+    "listing" => "lst:",
+    "enumerated" => "itm:", 
+    "list" => "itm:",
+    "item"  => "itm:",
+    "algorithm" => "alg:",
+    "appendix" => "app:",
+    );
+
+#######
+# TODO: macros to be placed before / after searchstring
+#######
 
 ######
 # Language specific
@@ -333,8 +362,14 @@ sub handle_il_argument {
     my $return;
 
     SELECT: { # first check, which macro to handle
+	# hyperlink
     	if ($macro =~ /^href$/) {
-    	    $return = "\{".join(":", @argument)."\}";
+	    $return = "\{".join(":", @argument)."\}";
+	    last SELECT}
+	# internal reference
+	# TODO: fig:, sec:, etc
+	elsif ($macro =~ /^(name)?ref$/) { 
+	    $return = join(":", @argument);
 	    last SELECT}
 	else {$return = ""}
     }
@@ -380,10 +415,20 @@ sub handleParameter {
 	    $optional =~ s/^\[\]$//;
 	    @return = $optional;
 	}
+	# caption in figure
 	if ($env_mac =~ /^figure$/) {
 	    if (! $parameter{"caption"} =~ /^$/) {
 		@return = (@return, $parameter{"caption"});
 	    }  
+	}
+	# labels in headings
+	if ($env_mac =~ /^part|(sub)?section/) {
+	    # TODO: add ch:, sec:, subsec:
+	    if (! $parameter{"name"} =~ /^$/) {
+		# my $prefix = $label_pre{$env_mac};
+		# my $label = $prefix.":".$parameter{"name"};
+		@return = ($parameter{"name"});
+	    }
 	}
     }
     
@@ -417,8 +462,15 @@ sub outputLines {
 		      $newfile = 0;
 		  }
 		  
-		  
 		  print OUTPUT "\\$macro\{$par\}\n";
+
+		  # check if heading
+		  if ($macro =~ /^part|(sub)?section/) {
+		      my ($label) = handleParameter($macro, %parameter);
+		      unless (! defined $label) {
+			  print OUTPUT "\\label{$label}\n";
+		      }
+		  }
 		  # save title and run startTemplate
 		  if ($macro =~ /title/) {
 		      $title = $par;
@@ -805,7 +857,12 @@ sub parseFile {
 			    $i ++;
 			}
 
-			$par =~ s/$context[0](\W*)($pattern[0](.*?)$pattern[1])(\W*)$context[1]/$context[0]$1\\$format$il_arg\{$2}$4$context[1]/g;		
+			# replace searchstring?
+			if ($format ~~ @il_replace_macros) {
+			    $par =~ s/$context[0](\W*)($pattern[0](.*?)$pattern[1])(\W*)$context[1]/$context[0]$1\\$format\{$il_arg}$4$context[1]/g;}
+			# normal macros
+			else {
+			    $par =~ s/$context[0](\W*)($pattern[0](.*?)$pattern[1])(\W*)$context[1]/$context[0]$1\\$format$il_arg\{$2}$4$context[1]/g;}		
 		    }
 		    else {
 			# check for context
@@ -825,7 +882,12 @@ sub parseFile {
 			# remove trailing spaces from searchstring
 			$searchstring =~ s/\s*$//;
 
-			$par =~ s/$context[0](\W*)($searchstring)(\W*)$context[1]/$context[0]$1\\$format$il_arg\{$2\}$3$context[1]/g;
+			# replace searchstring?
+			if ($format ~~ @il_replace_macros) {
+			    $par =~ s/$context[0](\W*)($searchstring)(\W*)$context[1]/$context[0]$1\\$format\{$il_arg}$4$context[1]/g;}
+			# normal macros
+			else {
+			    $par =~ s/$context[0](\W*)($searchstring)(\W*)$context[1]/$context[0]$1\\$format$il_arg\{$2\}$3$context[1]/g;}
 		    }
 		}
 		# Parameter

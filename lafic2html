@@ -525,9 +525,7 @@ sub outputLines {
 		  # check if heading
 		  elsif ($macro =~/^H[2-4]/){
 		      # optional parameters
-		      my $optional = "";
-		      
-		      ($optional) = handleParameter($macro, %parameter);
+		      my ($optional) = handleParameter($macro, %parameter);
 		      if (! defined $optional) {
 			  $optional =""}
 		      
