@@ -26,14 +26,12 @@ export PATH=${PATH}:~/lafic
 See lafic-mode.el for installation instructions, if you want
 to use in in Gnu Emacs.
 % lafic…el: mono
-% Gnu…Emacs: footnote: GNU Emacs ist als freie Software unter
-> der GNU General Public License erhältlich und läuft auf den
-> meisten heute üblichen Betriebssystemen (Unix, GNU/Linux, macOS
-> und Windows). 
+% Gnu…Emacs: footnote: GNU Emacs ist als freie Software unter der GNU General Public License erhältlich und läuft auf den meisten heute üblichen Betriebssystemen (Unix, GNU/Linux, macOS und Windows). 
 
 % heading2
 Writing text in LaFiC
 % name = Writing
+% LaFiC: footnote: LaFiC was created by Sebastian Meisel. 
 
 Lines and paragraphs
 
@@ -41,12 +39,14 @@ The content is presented in two forms, which also include
 the most basic layout: There are lines and paragraphs.
 % lines: emphasize
 % paragraphs: emphasize
+% forms: footnote: Lari Fari.
 
 The difference is not so much the length, but lines include
 none of the punctation marks ».«, »?«, »!«, »:«. If no
 further layout information is provided, these are
 interpreted as headings.
 % »…«: emphasize
+% information: footnote: Bla bla bla.
 
 
 The first line is interpreted as the title and presented as
@@ -69,6 +69,7 @@ spaces. These lines or paragraphs must, however, be
 separated by empty line from the content.
 % no…spaces: bold
 % (each) line : emphasize
+% content: footnote: Waba Waba.
 
 % verbatim
   % This is a comment.

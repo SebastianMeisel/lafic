@@ -108,6 +108,7 @@
     "mono" "typewriter" "smallcaps"
     "superscript" "subscript"
     "url" "link" "see"
+    "footnote"
     )
   "Keywords for inline formats."
 )
@@ -155,7 +156,7 @@
 (defconst regex-template
   (concat "^%\\s *"
 	  (regexp-opt lafic-template-list t)
-	  "\\s *$"
+	  "\\s *?$"
 	  )
   "Regex for template font lock."
   )
@@ -163,7 +164,7 @@
 (defconst regex-environment
   (concat "^%\\s *"
 	  (regexp-opt lafic-environment-list t)
-	  "\\s *$"
+	  "\\s *?$"
 	  )
   "Regex for environment font lock."
   )
@@ -171,7 +172,7 @@
 (defconst regex-unknown-line-style
   (concat "^%\\s *"
 	  (regexp-opt lafic-environment-list t)
-	  "\\s *$"
+	  "\\s *?$"
 	  )
   "Regex for environment font lock."
   )
@@ -179,7 +180,7 @@
 (defconst regex-macro
   (concat "^%\\s *"
 	  (regexp-opt lafic-macro-list t)	  
-	  "\\s *$"
+	  "\\s *?$"
 	  )
   "Regex for macro font lock."
   )
@@ -187,7 +188,7 @@
 (defconst regex-unknown-line-style
   (concat "^%\\s *"
 	  "\\([[:alpha:][:digit:]]+\\)"
-	  "\\s *$"
+	  "\\s *?$"
 	  )
   "Regex for unknown templates / environments / macro warning."
   )
@@ -197,7 +198,7 @@
   (concat "^%\\s *"
 	  "\\(.*?\\)\\s *:\\s *"	  
 	  (regexp-opt lafic-inline-macro-list t)	  
-	  "\\s *$"
+	  "\\s *?$"
 	  )
   "Regex for inline macros font lock."
   )
@@ -207,7 +208,7 @@
 	  "\\(.*?\\)\\s *:\\s *"	  
 	  (regexp-opt lafic-inline-macro-list t)	  
 	  "\\s *:\\s *"
-	  "\\(.*\\)?\\s *$"
+	  "\\(.*\\)?\\s *?$"
 	  )
   "Regex for inline macros with parameter font lock."
   )
@@ -522,11 +523,13 @@
     ;; find start of paragraph 
     (re-search-backward "^\\s *
 \\(\\S \\)" nil t 1)
-    ;;  omit line- / par-style line 
-    (if (eq (match-string-no-properties 1) "%")
-	(re-search-forward "
-\\(\\S \\)" nil t 1))
-    (let ((par-start (- (match-end 0) 1)))
+    (goto-char (match-end 0))
+    (let ((par-start
+	   ;;  omit line- / par-style line 
+	   (if (string= (string (char-after (line-beginning-position))) "%")
+	       (line-end-position)
+	     (- (match-end 0) 1))
+	   ))
     ;; find end of paragraph
       (if (re-search-forward "
 %" nil t 1)
@@ -541,9 +544,13 @@
 	      (overlay-recenter par-start)
 	      (remove-overlays par-start par-end)
 	      ;; find end of format block
-	      (re-search-forward "\\S \\s *
+	      (let ((formbl-end
+		     (if
+			 (re-search-forward "\\S \\s *
 \\s *$" nil t 1)
-	      (let ((formbl-end (- (match-end 0) 1))) 
+			 (- (match-end 0) 1)
+		       (point-max)
+		       ))) 
 		(goto-char par-end)
 		;; find words to format
 		;; TODO: regions & context
