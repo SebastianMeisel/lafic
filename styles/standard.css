@@ -7,7 +7,8 @@ body {
     width: 90%;
     height: 100%;
     margin: 5%;
-    font-family: 'Alegreya'
+    font-family: 'Alegreya';
+    counter-reset: footnote;
 }
 
  /* small-caps */
@@ -47,6 +48,8 @@ a.fn::after{
     bottom: 0px;
     width: 100%;
     background: white;
+    height: 10%;
+    overflow-y: scroll;
 }
 
 
