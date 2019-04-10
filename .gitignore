@@ -244,3 +244,5 @@ TSWLatexianTemp*
 .#README.lafic
 README.laficFonts/Alegreya-Black.ttf
 .#README.html
+de_DE/Html.il_macros.pl
+de_DE/LaTeX.il_macros.pl

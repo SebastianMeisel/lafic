@@ -6,5 +6,7 @@ my %il_macros = (
     "nicht proportional" => "texttt",
     "kapitälchen" => "textsc",
     "hochgestellt" => "textsuperscript",
-    "tiefgestellt" => "textsubscript"
+    "tiefgestellt" => "textsubscript",
+    "siehe" => "nameref",
+    "fußnote" => "footnote",
     );

@@ -6,5 +6,7 @@ my %il_macros = (
     "nicht proportional" => ".tt",
     "kapitälchen" => ".sc",
     "hochgestellt" => "sup",
-    "tiefgestellt" => "sub"
+    "tiefgestellt" => "sub",
+    "siehe" => "a",
+    "fußnote" => ".fn", 
     );

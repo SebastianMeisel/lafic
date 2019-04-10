@@ -139,6 +139,8 @@ my %il_macros = (
     "url" => "href",
     "link" => "href",
     "see" => "nameref",
+    # footnote
+    "footnote" => "footnote",
     );
 
 # hash for keywords like "break lines"
@@ -158,6 +160,10 @@ my @list_environments = (
 my @il_replace_macros = (
     "nameref",
     "ref"
+    );
+
+my @il_after_macros = (
+    "footnote",
     );
 
 # hash for label prefixes (not all supported jet)
@@ -368,10 +374,15 @@ sub handle_il_argument {
 	    last SELECT}
 	# internal reference
 	# TODO: fig:, sec:, etc
-	elsif ($macro =~ /^(name)?ref$/) { 
+	if ($macro =~ /^(name)?ref$/) { 
 	    $return = join(":", @argument);
 	    last SELECT}
-	else {$return = ""}
+	# footnote
+	if ($macro =~ /^footnote$/) { 
+	    $return = join(":", @argument);
+	    last SELECT}
+	# everything else: return optional argument
+	else {$return = "\[".join(":", @argument)."\]"}
     }
 
     return $return;
@@ -860,6 +871,9 @@ sub parseFile {
 			# replace searchstring?
 			if ($format ~~ @il_replace_macros) {
 			    $par =~ s/$context[0](\W*)($pattern[0](.*?)$pattern[1])(\W*)$context[1]/$context[0]$1\\$format\{$il_arg}$4$context[1]/g;}
+			# put command after searchstring
+			elsif ($format ~~ @il_after_macros) {
+			    $par =~ s/$context[0](\W*)($pattern[0](.*?)$pattern[1])(\W*)$context[1]/$context[0]$1$2\\$format\{$il_arg}$4$context[1]/g;}
 			# normal macros
 			else {
 			    $par =~ s/$context[0](\W*)($pattern[0](.*?)$pattern[1])(\W*)$context[1]/$context[0]$1\\$format$il_arg\{$2}$4$context[1]/g;}		
@@ -885,6 +899,9 @@ sub parseFile {
 			# replace searchstring?
 			if ($format ~~ @il_replace_macros) {
 			    $par =~ s/$context[0](\W*)($searchstring)(\W*)$context[1]/$context[0]$1\\$format\{$il_arg}$4$context[1]/g;}
+			# put command after searchstring
+			elsif ($format ~~ @il_after_macros) {
+			    $par =~ s/$context[0](\W*)($searchstring)(\W*)$context[1]/$context[0]$1$2\\$format\{$il_arg}$3$context[1]/g;}
 			# normal macros
 			else {
 			    $par =~ s/$context[0](\W*)($searchstring)(\W*)$context[1]/$context[0]$1\\$format$il_arg\{$2\}$3$context[1]/g;}
