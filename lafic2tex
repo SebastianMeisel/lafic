@@ -158,7 +158,11 @@ my %parameters = (
 # hash for keywords like "break lines"
 my %keywords = (
     "break lines" => "br",
-    "br" => "br"
+    "br" => "br",
+    "level+" => "+",
+    "+" => "+",
+    "level-" => "-",
+    "-" => "-",
     );
 
 #########
@@ -323,9 +327,9 @@ sub LaTeX {
     } 
 	
     # special chars
-    $par =~ s/\\/\\textbackslash /mg;
-    $par =~ s/([\[\]%\{}\$])/\\$1/mg;
-    $par =~ s/~/\\textasciitilde/mg;
+    $par =~ s/(?!\\)\\(?!\\)/\\textbackslash /g;
+    $par =~ s/([\[\]%\{}\$])/\\$1/g;
+    $par =~ s/~/\\textasciitilde/g;
 
     # TeX / LaTeX / XeTeX
     $par =~ s/\b(Xe)?(La)?TeX\b/\\$&/mg;
@@ -349,24 +353,21 @@ sub LaTeX {
     }
     
     # and after digits
-    $par =~ s/([0-9]\.?)\s/$1~/mg;
+    $par =~ s/([0-9]\.?)[[:blank:]]/$1~/g;
     
 
     # Apostroph
-    $par =~ s/(\w)(’|´)(\w)/$1’$3/mg;
+    $par =~ s/(\w)(’|´)(\w)/$1’$3/g;
 
     # quotation marks
-    $par =~ s/(\W|^)('|‘|’|‚)(\w|[{ÄÖÜäöü\.\?\!:,;…])/$1$osqm$3/mg ;
-    $par =~ s/(\w|[}ÄÖÜäöü\.\?\!:,;…])(‘|’|')(\W|$)/$1$csqm$3/mg;
-    $par =~ s/(\W|^)("|„|``)(\w|[{ÄÖÜäöü\.\?\!:,;…])/$1$oqm$3/mg ;
-    $par =~ s/(\w|[}ÄÖÜäöü\.\?\!:,;…])(''|"|„|“|``)(?!'|`)(\W|$)/$1$cqm$3/mg;
-    
-    # hack for item: no \
-    $par =~ s/\\textbackslash item/\\item/mg;
+    $par =~ s/(\W|^)('|‘|’|‚)(\w|[{ÄÖÜäöü\.\?\!:,;…])/$1$osqm$3/g ;
+    $par =~ s/(\w|[}ÄÖÜäöü\.\?\!:,;…])(‘|’|')(\W|$)/$1$csqm$3/g;
+    $par =~ s/(\W|^)("|„|``)(\w|[{ÄÖÜäöü\.\?\!:,;…])/$1$oqm$3/g ;
+    $par =~ s/(\w|[}ÄÖÜäöü\.\?\!:,;…])(''|"|„|“|``)(?!'|`)(\W|$)/$1$cqm$3/g;
 
-    # hack for \\ 
-    # TODO: is there a better way
-    $par =~ s/\\textbackslash \\textbackslash $/\\\\/mg;
+    
+    # TODO: is there a better way?
+    # $par =~ s/\\textbackslash \\textbackslash $/\\\\/mg;
     
     return $par;
 }
@@ -472,13 +473,33 @@ sub handleParameter {
 ########################
 sub outputLines {
     # get parameters
-    my ($par , $parstyle, $macro, $title, $environment, $prev_env, $c_env, $newfile, $newpar, %parameter) = @_;
+    my ($par , $parstyle, $macro, $title, $environment, $prev_env,         $list_level,	$newfile, $newpar, %parameter) = @_;
 
     # check if continious environment needs to be closed
     unless ($environment eq $prev_env or $prev_env eq "") {
 	print OUTPUT "\\end\{$prev_env\}\n\n";
+	# close open nested lists
+	for (my $i=1; $i <= $list_level; $i++){
+	    print OUTPUT "\\end\{$prev_env\}\n\n";
+	}
+	# reset list level counter
+	$list_level=0;
     }
 
+    unless ($environment =~ /^verbatim$/){
+	# list level+
+#	if ($prev_env =~ /^$/){
+	$par =~ s/^>$/\\begin\{$environment\}/mg;#}
+	# else {
+	#     $par =~ s/^>$/\\begin\{$prev_env\}/mg;}
+	
+	# # list level-
+	# if ($prev_env =~ /^$/){
+	$par =~ s/^<$/\\end\{$environment\}/mg;#}
+	# else {
+	#     $par =~ s/^<$/\\end\{$prev_env\}/mg;}
+    }
+	
     
     # close macro or environment  
   SELECT: {
@@ -551,9 +572,6 @@ sub outputLines {
 		      } 
 		  };
 		  # figures are special
-		  #####
-		  # TODO: image attributes
-		  #####
 		  if ($environment =~ /^figure$/) {
 		      # optional parameters
 		      my $optional = "";
@@ -568,9 +586,20 @@ sub outputLines {
 		      }
 		      print OUTPUT "\\end{figure}\n";
 		  }
+		  elsif ($environment ~~ @list_environments) {
+		      unless ($environment eq $prev_env) {
+			  print OUTPUT "\\begin\{$environment\}\n";
+		      }
+
+		      # make * \item
+		      $par =~ s/^(\s*)[*-+–•](\s*)/\\item /mg;
+
+		      print OUTPUT "$par\n";
+		  }
 		  # other environment
 		  else {
-		      unless ($c_env == 1) {
+		      # begin new environment only if not continuous  
+		      unless ($environment eq $prev_env) {
 			  print OUTPUT "\\begin\{$environment\}\n";
 		      }
 		      print OUTPUT "$par\n";
@@ -581,7 +610,7 @@ sub outputLines {
     # print newline
     print OUTPUT "\n";
 
-    return $newfile;
+    return ($newfile, $list_level);
 }
 
 ######################################
@@ -621,8 +650,8 @@ sub parseFile {
     my $environment = "";
     # previous environment
     my $prev_env = "";
-    # marker for continous environment
-    my $c_env = 0;
+    # counter for list levels
+    my $list_level = 0;
     # title
     my $title = "";
 
@@ -698,7 +727,7 @@ sub parseFile {
     		    next}
     	    }
 	    # check for leading * : list
-	    elsif ($line =~ /^\*/){
+	    elsif ($line =~ /^\s*[*-+–•]/){
 		# make sure, this is seen as formated paragraph
 		$parstyle = 4;
 		    
@@ -708,58 +737,39 @@ sub parseFile {
 		}
 		
 		# make sure this is an list environment
-		unless ($environment ~~ @list_environments) {
+		unless ($environment ~~ @list_environments or $environment =~ /^verbatim$/) {
 		    $environment = "itemize";
 		}
 
-		# make * \item
-		$line =~ s/^\*(\s*)/\\item /;
 		$par =  "\n" . $line;
 
 		$newpar = 0;
 	    }
-	    
-	    # if ".", "?", "!" then paragraph 
-	    elsif ($line =~ /[.?!:]/g) {
+	    # if ".", "?", "!", ":" then paragraph 
+	    elsif ($line =~ /[.?:!]/g) {
 		# increase parstyle by 1
 		$parstyle++;
+
 
 		# add line to par
 		$par = $line;
 
 		SELECT: {
 		# normal paragraph    
-		if ($parstyle == 1) {
-		    # close continious environment
-		    $c_env = 0;
-		    
-		    last SELECT}
+		# if ($parstyle == 1) {
+		#     # anything to do?
+		#     last SELECT}
 		# formated paragraph
 		if ($parstyle == 4) {
 		    # TOD0: other keywords
-		  SELECT:{
 		      # known environment
 		      if (exists $environments{$parkey}){
 			  $environment = $environments{$parkey};
-			  
-			  # check if continous environment
-			  if ($prev_env =~ /$environment/) {
-			      $c_env = 1}
-			  else {$c_env = 0}
-
-
 			  last SELECT;}
 		      # unknown environment
 		      else {
 			  $environment = $parkey;
-
-			  # check if continous environment
-			  if ($prev_env =~ /$environment/) {
-			      $c_env = 1}
-			  else {$c_env = 0}
-			  
 			  last SELECT;}		   
-		    }
 		    last SELECT}
 		}
 		$newpar = 0;
@@ -773,8 +783,8 @@ sub parseFile {
 		# add line to par
 		$par = $line;
 
-		# close continious environment 
-		$c_env = 0;
+		# # close continious environment 
+		# $c_env = 0;
 		
 		SELECT: {
 		    # section heading    
@@ -799,12 +809,6 @@ sub parseFile {
 			elsif (exists $environments{$parkey}){
 			    $environment = $environments{$parkey};
 			    $parstyle = 4;
-			    
-			    # check if continous environment
-			    if ($prev_env =~ /$environment/) {
-				$c_env = 1}
-			    else {$c_env = 0}
-
 			    last SELECT}
 			# unknown keyword:
 			else {$macro = $parkey}
@@ -935,28 +939,33 @@ sub parseFile {
 		    %parameter = (%parameter, split /\s*=\s*/ , $fline);
 		}
 		else {
-		    # keywords like linebreaks, etc.
+		    print "$fline : $keywords{$fline}";
+		    # keywords:
 		    if ($keywords{"$fline"}){
+		    # line breaks
 			if ($keywords{"$fline"} =~ /^br$/){
 			    $par =~ s/$/\\\\/mg;
 			}
+			# level+
+			elsif ($keywords{"$fline"} =~ /^[+]$/){
+			    $list_level++;
+			    $par = ">\n".$par;
+			}
+			elsif ($keywords{"$fline"} =~ /^[-]$/){
+			    $list_level--;
+			    $par = "<\n".$par;
+			}
 			else {
-			    print STDERR "warning: keyword '$fline' is unknown.\n";
+			    print  "warning: keyword '$fline' is unknown.\n";
 			}
 		    }
 		    else {
-			print STDERR "warning: keyword '$fline' unknown.\n";
+			print  "warning: keyword '$fline' unknown.\n";
 		    }
 		}
 	    }
-	    # check for leading * : list
-	    elsif ($line =~ /^\*/){
-		# make * \item
-		$line =~ s/^\*(\s*)/\\item /;
-		$par = $par . "\n" . $line;
-	    }
 	    # check for ".", "?", "!" : paragraph
-	    elsif ($line =~ /[.?!]/g) {
+	    elsif ($line =~ /[.?!:]/g) {
 		# check if $parstyle is paragraphstyle 
 		# or make it so:
 		if ($parstyle == 0) {$parstyle = 1}
@@ -988,10 +997,12 @@ sub parseFile {
 		    $par = LaTeX($par);
 		}
 	    }
+	    
 
 
 	    # output lines / paragraphs
-	    $newfile = outputLines ($par , $parstyle, $macro, $title, $environment, $prev_env, $c_env, $newfile, $newpar, %parameter);
+	    ($newfile, $list_level) = outputLines ($par , $parstyle, $macro, $title, $environment, $prev_env, $list_level, $newfile, $newpar, %parameter);
+
 	    
 	    # better clean up
 	    $parkey = "";
@@ -1021,7 +1032,8 @@ sub parseFile {
     }
 
     # output lines / paragraphs
-    $newfile = outputLines ($par , $parstyle, $macro, $title, $environment, $prev_env, $c_env, $newfile, $newpar, %parameter);
+    ($newfile, $list_level) = outputLines ($par , $parstyle, $macro, $title, $environment, $prev_env, $list_level, $newfile, $newpar, %parameter);
+
     
     # better clean up
     $parkey = "";
