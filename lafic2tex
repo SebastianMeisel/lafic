@@ -578,7 +578,7 @@ sub outputLines {
 		      }
 
 		      # make * \item
-		      $par =~ s/^(\s*)[*-+–•](\s*)/\\item /mg;
+		      $par =~ s/^(\s*)[-*+–•](\s*)/\\item /mg;
 
 		      print OUTPUT "$par\n";
 		  }
@@ -713,7 +713,7 @@ sub parseFile {
     		    next}
     	    }
 	    # check for leading * : list
-	    elsif ($line =~ /^\s*[*-+–•]/){
+	    elsif ($line =~ /^\s*[-*+–•]/){
 		# make sure, this is seen as formated paragraph
 		$parstyle = 4;
 		    
