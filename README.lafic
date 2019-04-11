@@ -6,7 +6,7 @@ LaFiC means layout and format in comments, as all layout and
 format information is put into comment lines. So layout and
 content are fully separated. For details see Writing Text in LaFiC.
 % fully: emphasize
-% layout…comments: italic
+% layout…comments: italic 
 % Writing…LaFiC: see: Writing
 
 % heading2

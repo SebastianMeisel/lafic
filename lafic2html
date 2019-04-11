@@ -209,7 +209,6 @@ my $template;
 ##########
 
 ##################################
-#my $lafic_file = basename($ARGV[0]);
 my ($basename,$path,$ext) = fileparse(abs_path($ARGV[0]), qr/\.[^.]*/); 
 my $lafic_file = "$path$basename$ext";
 #my $path = dirname(abs_path($ARGV[0])); 
@@ -728,7 +727,7 @@ sub parseFile {
 		    $par = "";
 		    next}
     		# layout line or comment?
-    		elsif ($lc =~ /^(\s*)([0-9a-zA-Z_À-ÿ\.]+?)(\s*)$/) {
+    		elsif ($lc =~ /^(\s*)([0-9a-zA-Z_À-ÿ\.]+?)(\s*)([%].*)?$/) {
     		    # at least formated line
     		    # check later if it is formated par
     		    $parstyle = 3;
@@ -940,7 +939,8 @@ sub parseFile {
 
 		    # make format key lowercase 
 		    $fkey = lc($fkey);
-
+		    #remove comments and trailing spaces
+		    $fkey =~ s/\s*([%].*)?$//;
 		    my $format = $fkey;
 		    my $format_start = "";
 		    
@@ -954,11 +954,6 @@ sub parseFile {
 		    # handle inline arguments
 		    my $il_arg = "";
 		    if (@argument) {
-			# add following line to argument, 
-			# if they start with ">"
-			# while ($file =~ /^>(.*)$/) {
-			#     push (@argument, $1);}
-
 		        $il_arg = handle_il_argument($format, @argument);
 		    }
 
