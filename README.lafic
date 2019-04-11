@@ -13,7 +13,7 @@ content are fully separated. For details see Writing Text in LaFiC.
 Installation
 
 Get source from github using:
-% github: url: https://github.com
+% github: link: https://github.com
 
 % verbatim
 git clone https://github.com/SebastianMeisel/lafic.git
@@ -30,7 +30,7 @@ to use in in Gnu Emacs.
 
 % heading2
 Writing text in LaFiC
-% name = Writing
+% label = Writing
 
 Lines and paragraphs
 

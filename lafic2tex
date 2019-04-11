@@ -143,6 +143,18 @@ my %il_macros = (
     "footnote" => "footnote",
     );
 
+# hash for know parameters
+my %parameters = (
+    # labels
+    "name" => "label",
+    "label" => "label",
+    # figures
+    "width" => "width",
+    "length" => "width",
+    "height" => "height",
+    "caption"=> "caption"
+    );
+
 # hash for keywords like "break lines"
 my %keywords = (
     "break lines" => "br",
@@ -399,9 +411,17 @@ sub handleParameter {
     ########
     my ($env_mac, %parameter) = @_;
     
-
     my @return;
+
+    my $key;
     
+    # get standard keywords for parameter   
+    foreach $key (keys %parameter) {
+	if ($parameters{$key}){
+	    $parameter{$parameters{$key}} = delete($parameter{$key});
+	}
+    }
+
     if (keys %parameter) {
 	if ($env_mac =~ /^(figure|includegraphics)$/) { 
 	    my $optional = "[";
@@ -435,10 +455,10 @@ sub handleParameter {
 	# labels in headings
 	if ($env_mac =~ /^part|(sub)?section/) {
 	    # TODO: add ch:, sec:, subsec:
-	    if (! $parameter{"name"} =~ /^$/) {
+	    if (! $parameter{"label"} =~ /^$/) {
 		# my $prefix = $label_pre{$env_mac};
-		# my $label = $prefix.":".$parameter{"name"};
-		@return = ($parameter{"name"});
+		# my $label = $prefix.":".$parameter{"label"};
+		@return = ($parameter{"label"});
 	    }
 	}
     }
