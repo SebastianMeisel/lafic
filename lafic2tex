@@ -630,7 +630,7 @@ sub parseFile {
 		    $par = "";
 		    next}
     		# layout line or comment?
-    		elsif ($lc =~ /^(\s*)([0-9a-zA-Z_À-ÿ\.]+?)(\s*)$/) {
+    		elsif ($lc =~ /^(\s*)([0-9a-zA-Z_À-ÿ\.]+?)(\s*)([%].*)?$/) {
     		    # at least formated line
     		    # check later if it is formated par
     		    $parstyle = 3;
@@ -837,6 +837,8 @@ sub parseFile {
 
 		    # make format key lowercase 
 		    $fkey = lc($fkey);
+		    #remove comments and trailing spaces
+		    $fkey =~ s/\s*([%].*)?$//;
 		    my $format = $fkey;
 		    # check if know keyword
 		    if (exists $il_macros{$fkey}) {
