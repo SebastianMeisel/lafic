@@ -158,11 +158,8 @@ a paragraph. It has two parts:
 </p>
 
 <ol>
-
-
 <li> the word or the sequence to be formated in the form
   start…end. </li>
-
 <li> a keyword.
 
 </li>
@@ -180,6 +177,95 @@ Known environment keywords are e.g. quote or quotation.
 If the keyword is unknown, it is converted to a macro
 (LaTeX) oder &lt;span&gt; (HTML) name.
 </p>
+
+<H3>Lists</H3>
+
+<p>
+Lists are the only things, that need some kind of
+markup. You have to start each topic of the list with one of
+the following chars:&nbsp;<span class="tt">–, *, +, -</span>. It doesn't matter, which one you
+choose. You may indent the lines, but that has no influence
+on the layout.
+</p>
+
+<pre>
+
+* Top 1.
+- Top 2.
+
+</pre>
+
+<ul>
+<li> Top 1.</li>
+<li> Top 2.
+
+</li>
+</ul>
+
+<p>
+For multilevel lists, you have to choises, to raise or
+decrease the level: The clean LaFiC style would be,
+to start a new paragraph and add the keyword <span class="tt">»% level+«</span</li>
+<>
+or <span class="tt">»% level-«</span> at the end.
+</p>
+
+<pre>
+
+  * Top 1.
+  * Top 2.
+
+
+  * Top 2a.
+  * Top 2b.
+  % level+
+
+</pre>
+
+<ul>
+<li> Top 1.</li>
+<li> Top 2.
+
+</li>
+<ul>
+<li> Top 2a.</li>
+<li> Top 2b.
+
+</li>
+</ul>
+
+</ul>
+<p>
+Or you can write the list in one paragraph, marking the
+raise or decrease of the level with a &gt; or &lt; at the
+beginning of a single line.
+</p>
+
+<pre>
+
+  * Top 1.
+  * Top 2.
+  >
+    * Top 2a.
+    * Top 2b.
+  <
+  * Top 3
+
+</pre>
+
+<ul>
+<li> Top 1.</li>
+<li> Top 2.
+</li>
+<ul>
+<li> Top 2a.</li>
+<li> Top 2b.
+</li>
+</ul>
+<li> Top 3
+
+</li>
+</ul>
 
 <H3>Images</H3>
 

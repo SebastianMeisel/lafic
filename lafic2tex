@@ -42,7 +42,6 @@ print "    –––––––––––––––––––––––
     under certain conditions; read LICENCE for details.
     –––––––––––––––––––––––––––––––\n\n";
 
-
 #######
 # lafic directory
 #########
@@ -200,9 +199,6 @@ my %label_pre = (
     "appendix" => "app:",
     );
 
-#######
-# TODO: macros to be placed before / after searchstring
-#######
 
 ######
 # Language specific
@@ -407,9 +403,6 @@ sub handle_il_argument {
 # Handle parameters of macros or environments
 #################
 sub handleParameter {
-    ########
-    # TODO: check which environment / macro?
-    ########
     my ($env_mac, %parameter) = @_;
     
     my @return;
@@ -488,16 +481,8 @@ sub outputLines {
 
     unless ($environment =~ /^verbatim$/){
 	# list level+
-#	if ($prev_env =~ /^$/){
 	$par =~ s/^>$/\\begin\{$environment\}/mg;#}
-	# else {
-	#     $par =~ s/^>$/\\begin\{$prev_env\}/mg;}
-	
-	# # list level-
-	# if ($prev_env =~ /^$/){
 	$par =~ s/^<$/\\end\{$environment\}/mg;#}
-	# else {
-	#     $par =~ s/^<$/\\end\{$prev_env\}/mg;}
     }
 	
     
@@ -586,6 +571,7 @@ sub outputLines {
 		      }
 		      print OUTPUT "\\end{figure}\n";
 		  }
+		  # list environment
 		  elsif ($environment ~~ @list_environments) {
 		      unless ($environment eq $prev_env) {
 			  print OUTPUT "\\begin\{$environment\}\n";
