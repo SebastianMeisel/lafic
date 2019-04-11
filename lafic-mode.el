@@ -116,9 +116,9 @@
 (defvar lafic-parameter-list
   '(
     ;; figure
-    "width" "height" "caption"
+    "width" "length" "height" "caption"
     ;; figure / headings
-    "name"
+    "name" "label"
     )
   "Keywords for parameters."
 )
