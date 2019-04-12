@@ -3,22 +3,48 @@
 <html lang="de">
 <head>
   <meta charset="utf-8">
-  <link rel="stylesheet" href="./standard.css">
-<title>Einführung in LAFIC</title>
+  <link rel="stylesheet" href="./styles/standard.css">
+<title>Einführung in LaFiC</title>
 <meta name="author"content="Sebastian Meisel">
 
 </head>
 
 <body>
   
-<H1>Einführung in LAFIC</H1>
+<H1>Einführung in LaFiC</H1>
 
 <p>
-LAFIC bedeutet <i>layout and format in comments</i>, also „Layout
+LaFiC bedeutet <i>layout and format in comments</i>, also „Layout
 und Format in Kommentaren“, denn sämtliche Formatierungen
 werden in LAFIC in Kommentarzeilen ausgeführt. Das
-ermöglicht eine vollständige Trennung von Inhalt und
-Gestalt. 
+ermöglicht eine <em>vollständige</em> Trennung von Inhalt und
+Gestalt.
+</p>
+
+<H3>Warum LaFiC</H3>
+
+<p>
+Ich arbeite nun schon viele Jahre mit LaTeX / XeLaTeX. Ich schreibe vor allem Prosa (ganz frei von mathematischen Formeln). Dabei fand ich es zum Teil störend, dass ich immer erst mit der Preamble beginnen muss und nicht einfach losschreiben kann.
+</p>
+
+<p>
+Daraufhin probierte ich markdown/multimarkdown aus. Dabei störte mich aber, dass es sehr unflexible ist. Außerdem ist die Syntax an manchen Stellen etwas kryptisch, was mich störte. Außerdem funktionieren die erstellten LaTeX-Dateien zwar irgendwie, sind aber auch sehr kryptisch aufgebaut.
+</p>
+
+<p>
+Außerdem hatte ich immer die Worte meines Vaters im Ohr, der sagte, er wolle am liebsten, wie einst mit der Schreibmaschiene losschreiben können und dennoch ein ordentliches Ergebnis bekommen.
+</p>
+
+<p>
+Als letzte Motivation kam hinzu, dass ich immer wieder darüber nachdachte, wie sich Inhalts- und Gestaltungselemente des Textes noch sauberer trennen lassen, als dies mit bisherigen Ansätzen möglich ist.
+</p>
+
+<p>
+Mit LaFiC kann ich direkt losschreiben und bekomme von anfang an ein ordentlich strukturiertes Ergebnis als Html- und <a class="fn" href="#fn1" id="fna1">(Xe)LaTeX-</a>Datei, wodurch auch  eine Ausgabe als Pdf möglich ist.
+</p>
+
+<p>
+Die eigentliche Formatierung geschieht erst im Anschluss. Als mein eigener Lektor gehe ich durch den Text und formatiere ihn mit für Menschen lesbaren und verständlichen Kommentaren.
 </p>
 
 <H3>Zeilen und Absätze</H3>
@@ -39,7 +65,7 @@ interpretiert.
 <p>
 Die erste <em>Zeile</em> wird als Titel interpretiert und zu \title
 umgewandelt, wenn die Datei in LaTeX umgewandelt wird, bei
-HTML-Ausgabe wird es in &lt;h1&gt; umgewandelt.
+Html-Ausgabe wird es in &lt;h1&gt; umgewandelt.
 </p>
 
 <p>
@@ -58,14 +84,14 @@ gegliedert werden.
 Man kann im Text jeder Zeit Kommentare einführen in dem man einen Absatz einfügt, der mit zwei %-Zeichen beginnt:
 </p>
 
-<blockquote>
+<pre>
   %% Dies ist ein Kommentar.
 
   %% Dies ist ein längerer Kommentar. Es ist wichtig, dass
   %% Kommentare immer durch eine Leerzeile vom eigentlichen
   %% Inhalt getrennt sind.
 
-</blockquote>
+</pre>
 
 
 
@@ -81,11 +107,10 @@ Block (Html) ausgegeben. Ansonsten dient das Schlüsselwort
 (LaTeX), bzw. eines &lt;div&gt;-Blocks (Html).
 </p>
 
-<blockquote>
-	% Z
+<pre>
 	Dieser Absatz ist zentriert.
 
-</blockquote>
+</pre>
 
 <center>
 Dieser Absatz ist zentriert.
@@ -98,14 +123,14 @@ hintereinander, werden sie in einer Umgebung / einem Block
 zusammengefasst.
 </p>
 
-<blockquote>
+<pre>
   % Zitat<br />
   Dies ist ein Zitat.<br />
 
   % Zitat<br />
   Hier geht das Zitat weiter.<br />
 
-</blockquote>
+</pre>
 
 <p>
 Wird zu:
@@ -123,12 +148,8 @@ Zur Zeit werden folgende Schlüsselworte unterstützt:
 </p>
 
 <ul>
-
-
 <li> Zitat für quote-Umgebung / &lt;blockquote&gt;-Block.</li>
-
 <li> Langzitat / LZitat für quotation-Umgebung / &lt;blockquote&gt;-Block.</li>
-
 <li> Zentriert / Z für center-Umgebung / &lt;center&gt;-Block
 
 </li>
@@ -138,15 +159,15 @@ Zur Zeit werden folgende Schlüsselworte unterstützt:
 
 <p>
 Line are formated in the same way, only they are converted
-to macros (LaTeX) oder &lt;span&gt; names (HTML). Know keywords
+to macros (LaTeX) oder &lt;span&gt; names (Html). Know keywords
 are H1&nbsp;… H6 for headings.
 </p>
 
-<blockquote>
+<pre>
     % Ü4<br />
     This is a subsection<br />
 
-</blockquote>
+</pre>
 
 <h4>This is a subsection</h4>
 
@@ -159,18 +180,15 @@ a paragraph. It has two parts:
 </p>
 
 <ol>
-
-
 <li> the word or the sequence to be formated in the form
 start…end. </li>
-
 <li> a keyword.
 
 </li>
 </ol>
 
 <p>
-The both are separated by a “:“.
+The both are separated by a „:“.
 </p>
 
 <p>
@@ -179,7 +197,7 @@ Known environment keywords are e.g. quote or quotation.
 
 <p>
 If the keyword is unknown, it is converted to a macro
-(LaTeX) oder &lt;span&gt; (HTML) name.
+(LaTeX) oder &lt;span&gt; (Html) name.
 </p>
 
 <H3>Images</H3>
@@ -194,9 +212,9 @@ jpeg, gif.
 
 <p>
 Note that this will not put an figure environment in LaTeX
-files, so the image won„t float this way. For this to
+files, so the image won't float this way. For this to
 achieve to have to put %image, %img or %figure before the
-line. You don„t need the extention then.
+line. You don't need the extention then.
 </p>
 
 <figure role="group">
@@ -204,6 +222,12 @@ line. You don„t need the extention then.
 <figcaption>Mars und Mond</figcaption>
 </figure>
 
+<div id="footnotes">
+<ol>
+<li id="fn1"><a href="#fna1">Die Standard-Vorlagen, die LaFiC nutzt basieren auf XeLaTeX, da ich immer in Utf-8 schreibe. Die Nutzung von LaTeX sollte aber auch möglich sein.</a>
+</li>
+</ol>
+</div>
 
 </body>
 </html>

@@ -1,12 +1,31 @@
-Einführung in LAFIC
+Einführung in LaFiC
 
-LAFIC bedeutet layout and format in comments, also "Layout
+LaFiC bedeutet layout and format in comments, also "Layout
 und Format in Kommentaren", denn sämtliche Formatierungen
 werden in LAFIC in Kommentarzeilen ausgeführt. Das
 ermöglicht eine vollständige Trennung von Inhalt und
 Gestalt. 
 % layout…comments: italic
 % vollständige: emphasize
+
+Warum LaFiC
+
+Ich arbeite nun schon viele Jahre mit LaTeX / XeLaTeX. Ich schreibe vor allem Prosa (ganz frei von mathematischen Formeln). Dabei fand ich es zum Teil störend, dass ich immer erst mit der Preamble beginnen muss und nicht einfach losschreiben kann. 
+
+Daraufhin probierte ich markdown/multimarkdown aus. Dabei störte mich aber, dass es sehr unflexible ist. Außerdem ist die Syntax an manchen Stellen etwas kryptisch, was mich störte. Außerdem funktionieren die erstellten LaTeX-Dateien zwar irgendwie, sind aber auch sehr kryptisch aufgebaut.
+
+Außerdem hatte ich immer die Worte meines Vaters im Ohr, der sagte, er wolle am liebsten, wie einst mit der Schreibmaschiene losschreiben können und dennoch ein ordentliches Ergebnis bekommen.
+
+Als letzte Motivation kam hinzu, dass ich immer wieder darüber nachdachte, wie sich Inhalts- und Gestaltungselemente des Textes noch sauberer trennen lassen, als dies mit bisherigen Ansätzen möglich ist.
+
+Mit LaFiC kann ich direkt losschreiben und bekomme von anfang an ein ordentlich strukturiertes Ergebnis als Html- und (Xe)LaTeX-Datei, wodurch auch  eine Ausgabe als Pdf möglich ist.
+% (X…TeX-: Fußnote: Die Standard-Vorlagen, die LaFiC nutzt basieren auf XeLaTeX, da ich immer in Utf-8 schreibe. Die Nutzung von LaTeX sollte aber auch möglich sein.  
+
+Die eigentliche Formatierung geschieht erst im Anschluss. Als mein eigener Lektor gehe ich durch den Text und formatiere ihn mit für Menschen lesbaren und verständlichen Kommentaren.
+
+Installation
+
+Schreiben mit LaFiC
 
 Zeilen und Absätze
 
@@ -25,13 +44,13 @@ interpretiert.
 
 Die erste Zeile wird als Titel interpretiert und zu \title
 umgewandelt, wenn die Datei in LaTeX umgewandelt wird, bei
-HTML-Ausgabe wird es in <h1> umgewandelt.
+Html-Ausgabe wird es in <h1> umgewandelt.
 % Zeile: hervorheben
 
-Weitere Zeilen werden in <h3> (HTML) oder \section
+Weitere Zeilen werden in <h3> (Html) oder \section
 (LaTeX) umgewandelt, wenn es nicht anders angegeben wird.
 % Zeilen: hervorheben
-% HTML: smallcaps
+% Html: smallcaps
 
 Auf diese Weise können einfache Texte ganz ohne Formatierung
 gegliedert werden.
@@ -40,10 +59,10 @@ Kommentare
 
 Man kann im Text jeder Zeit Kommentare einführen in dem man einen Absatz einfügt, der mit zwei %-Zeichen beginnt:
 
-% Zitat
+% Verbatim
   %% Dies ist ein Kommentar.
 
-% Zitat
+% Verbatim
   %% Dies ist ein längerer Kommentar. Es ist wichtig, dass
   %% Kommentare immer durch eine Leerzeile vom eigentlichen
   %% Inhalt getrennt sind.
@@ -64,26 +83,28 @@ Block (Html) ausgegeben. Ansonsten dient das Schlüsselwort
 (umgewandelt in Kleinschreibung) als Name der Umgebung
 (LaTeX), bzw. eines <div>-Blocks (Html).
 
-% Zitat
-	% Z
+
+
+% verbatim	
 	Dieser Absatz ist zentriert.
 
-% Z
+
+% zentriert
 Dieser Absatz ist zentriert.
 
 Folgen zwei Absätze mit dem selben Schlüsselwort
 hintereinander, werden sie in einer Umgebung / einem Block
 zusammengefasst.
 
-% Zitat
+% verbatim
   % Zitat
   Dies ist ein Zitat.
-% br
+% Zeilen umbrechen
 
-% Zitat
+% verbatim
   % Zitat
   Hier geht das Zitat weiter.
-% br
+% Zeilen umbrechen
 
 Wird zu:
 
@@ -102,15 +123,15 @@ Zur Zeit werden folgende Schlüsselworte unterstützt:
 Formated lines
 
 Line are formated in the same way, only they are converted
-to macros (LaTeX) oder <span> names (HTML). Know keywords
+to macros (LaTeX) oder <span> names (Html). Know keywords
 are H1 … H6 for headings. 
 
-% Zitat
+% verbatim
     % Ü4
     This is a subsection
-% br
+% Zeilen umbrechen
 
-% Ü4
+% Überschrift4
 This is a subsection
 
 Inline formation
@@ -129,7 +150,7 @@ The both are separated by a ":".
 Known environment keywords are e.g. quote or quotation.
 
 If the keyword is unknown, it is converted to a macro
-(LaTeX) oder <span> (HTML) name.
+(LaTeX) oder <span> (Html) name.
 
 Images
 
