@@ -323,12 +323,12 @@ sub LaTeX {
     } 
 	
     # special chars
-    $par =~ s/(?!\\)\\(?!\\)/\\textbackslash /g;
+    $par =~ s/(?<!\\)\\(?!\\)/\\textbackslash /g;
     $par =~ s/([\[\]%\{}\$])/\\$1/g;
     $par =~ s/~/\\textasciitilde/g;
 
     # TeX / LaTeX / XeTeX
-    $par =~ s/\b(Xe)?(La)?TeX\b/\\$&/mg;
+    $par =~ s/(\s)((Xe)?(La)?TeX)\b/$1\\$2/mg;
 
     
     # Non breaking space befor -- and ... 
@@ -394,6 +394,7 @@ sub handle_il_argument {
 	else {$return = "\[".join(":", @argument)."\]"}
     }
 
+    $return=LaTeX($return);
     return $return;
 }
 
@@ -871,12 +872,19 @@ sub parseFile {
 			for (@pattern) {
 			    if ($pattern[$i] =~ /[(](.*?)[)]/) {
 				$context[$i] = $1;
+				# handle special chars for search
+				$context[$i] =~ s/([]().?!])/\\$1/g;
 				$pattern[$i] =~ s/([(].*?[)])//;
 				# remove leading spaces from pattern
 				$pattern[$i] =~ s/^\s*//;
 				# remove trailing spaces from pattern
 				$pattern[$i] =~ s/\s*$//;
+				# handle special chars for searcg
+				$pattern[$i] =~ s/([]().?!])/\\$1/g;
 			    }
+			    else {
+				# handle special chars for search
+				$pattern[$i] =~ s/([]().?!])/\\$1/g;}
 			    $i ++;
 			}
 
@@ -895,10 +903,14 @@ sub parseFile {
 			my @context = ("" , "");
 			# Zeilenanfang
 			if ($searchstring =~ /^[(](.*?)[)]/){
-			    $context[0] = $1}
+			    $context[0] = $1;
+			    # handle special chars for search
+			    $context[0] =~ s/([]().?!])/\\$1/g;}
 			# Zeilenende
 			if ($searchstring =~ /[(](.*?)[)]$/){
-			    $context[1] = $1}
+			    $context[1] = $1;
+			    # handle special chars for search
+			    $context[1] =~ s/([]().?!])/\\$1/g;}
 
 			# context entfernen
 			$searchstring =~ s/[(](.*?)[)]//mg;
@@ -907,7 +919,9 @@ sub parseFile {
 			$searchstring =~ s/^\s*//;
 			# remove trailing spaces from searchstring
 			$searchstring =~ s/\s*$//;
-
+			# handle special chars for search
+			$searchstring =~ s/([]().?!])/\\$1/g;
+			
 			# replace searchstring?
 			if ($format ~~ @il_replace_macros) {
 			    $par =~ s/$context[0](\W*)($searchstring)(\W*)$context[1]/$context[0]$1\\$format\{$il_arg}$4$context[1]/g;}
