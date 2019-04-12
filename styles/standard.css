@@ -46,6 +46,7 @@ a.fn::after{
     font-size : .9em;
     position: fixed;
     bottom: 0px;
+    left: 0px;
     width: 100%;
     background: white;
     height: 10%;
