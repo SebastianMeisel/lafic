@@ -643,6 +643,26 @@
       (lafic-highlight-par)
   )))
 
+;; filling
+(defun lafic-fill-paragraph ()
+  "Fill paragraph at point"
+  (interactive)
+  (save-excursion
+    (let ((start (+ 2 (re-search-backward "
+
+"))))
+    
+    (let ((end (or(re-search-forward "
+
+" nil t 2)
+        (point-max))))
+	(fill-region start end t)
+	)
+      )
+    )
+  )
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; mode definition
 (defvar lafic-mode-hook nil)
@@ -653,6 +673,7 @@
     (define-key map "\C-c\C-c" 'lafic-run)    
     ;; format paragraphs
     (define-key map "\C-c\C-p" 'lafic-format-par)
+    (define-key map "\C-c\C-e" 'lafic-format-par)
     ;; format lines
     (define-key map "\C-c\C-l" 'lafic-format-line)
     ;; format word (/ regions)
@@ -675,7 +696,7 @@
     (define-key map [?\C-c C-left] 'lafic-add-leading-context)
     (define-key map [?\C-c C-right] 'lafic-add-trailing-context)
     ;; fill
-    (define-key map "\C-c\C-q\C-p" 'lafic-format-word)
+    (define-key map "\C-c\C-q\C-p" 'lafic-fill-paragraphs)
     ;; highlighting
     (define-key map "\C-c\C-h\C-p" 'lafic-highlight-par)
     (define-key map "\C-c\C-h\C-b" 'lafic-highlight-buffer)
