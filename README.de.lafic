@@ -5,8 +5,8 @@ und Format in Kommentaren", denn sämtliche Formatierungen
 werden in LAFIC in Kommentarzeilen ausgeführt. Das
 ermöglicht eine vollständige Trennung von Inhalt und
 Gestalt. 
-% layout…comments: italic
-% vollständige: emphasize
+% layout…comments: kursiv
+% vollständige: hervorheben
 
 Warum LaFiC
 
@@ -25,8 +25,6 @@ Die eigentliche Formatierung geschieht erst im Anschluss. Als mein eigener Lekto
 
 % Überschrift2
 Installation
-
-
 
 % Überschrift2
 Schreiben mit LaFiC

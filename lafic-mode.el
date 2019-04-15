@@ -136,6 +136,20 @@
   '()
   "List of templates"
   )
+
+;;;;;;;;;;;;;;;;;;;;;;;
+;; German
+(defun lafic-use-german-keywords ()
+  "Add German keywords to keyword lists"
+  (load "lafic-german-keywords.el")
+  (setq lafic-environment-list (append lafic-environment-list-de lafic-environment-list))
+  (setq lafic-macro-list (append lafic-macro-list-de lafic-macro-list))
+  (setq lafic-inline-macro-list (append lafic-inline-macro-list-de lafic-inline-macro-list))
+  (setq lafic-keyword-list (append lafic-keyword-list-de lafic-keyword-list))
+  )
+
+(if lafic-use-german (lafic-use-german-keywords))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; font lock regex
 ;; templates
@@ -727,6 +741,7 @@
   ;; Major Mode
   (setq major-mode 'lafic-mode)
   (setq mode-name "LAFIC")
+  ;; mode-hook
   (run-hooks 'lafic-mode-hook)
   )
 
