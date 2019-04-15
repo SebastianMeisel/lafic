@@ -26,6 +26,22 @@ Die eigentliche Formatierung geschieht erst im Anschluss. Als mein eigener Lekto
 % Überschrift2
 Installation
 
+Hole den Quelltext von github: 
+% github: link: https://github.com
+
+% verbatim
+git clone https://github.com/SebastianMeisel/lafic.git
+
+Fügen den Pfad zu $PATH Umgebungsvariable hinzu:
+% $PATH: nicht proportional
+
+% verbatim
+export PATH=${PATH}:~/lafic
+
+Anweisungen zur Einbindung von lafic-mode.el findest du in der Datei.
+% lafic…el: nicht proportional
+
+
 % Überschrift2
 Schreiben mit LaFiC
 

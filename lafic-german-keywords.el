@@ -37,12 +37,12 @@
 
 (defvar lafic-macro-list-de
   '(
-    "Ü1" "Überschrift1" "titel" 
-    "Ü2" "Überschrift2" "teil" 
-    "Ü3" "Überschrift3" "abschnit" 
-    "Ü4" "Überschrift4" "unterabschnitt" 
-    "Ü5" "Überschrift5" "h5" 
-    "Ü6" "Überschrift6" "absatz" 
+    "Ü1" "Überschrift1" "Titel" 
+    "Ü2" "Überschrift2" "Teil" 
+    "Ü3" "Überschrift3" "Abschnit" 
+    "Ü4" "Überschrift4" "Unterabschnitt" 
+    "Ü5" "Überschrift5" "Unterunterabschnitt"
+    "Ü6" "Überschrift6" "Absatz" 
     "Ü"  "Überschrift" 
     )
   "German Keywords for line styles."
@@ -52,8 +52,8 @@
   '(
     "fett" "hervorheben" "kursiv" 
     "schreibmaschine" "nicht proportional" 
-    "kapitälchen" "hochgestellt" "tiefgestellt" 
-    "siehe" "fußnote" 
+    "Kapitälchen" "hochgestellt" "tiefgestellt" 
+    "siehe" "Fußnote" 
     )
   "German Keywords for inline formations."
   )

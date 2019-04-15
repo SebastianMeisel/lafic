@@ -324,8 +324,8 @@ sub LaTeX {
 	
     # special chars
     $par =~ s/(?<!\\)\\(?!\\)/\\textbackslash /g;
-    $par =~ s/([\[\]%\{}\$])/\\$1/g;
-    $par =~ s/~/\\textasciitilde/g;
+    $par =~ s/([][%{}\$])/\\$1/g;
+    $par =~ s/~/\\textasciitilde /g;
 
     # TeX / LaTeX / XeTeX
     $par =~ s/(\s)((Xe)?(La)?TeX)\b/$1\\$2/mg;
@@ -349,7 +349,7 @@ sub LaTeX {
     }
     
     # and after digits
-    $par =~ s/([0-9]\.?)[[:blank:]]/$1~/g;
+    $par =~ s/[[:blank:]]([0-9]+\.?)[[:blank:]]/$1~/g;
     
 
     # Apostroph
@@ -375,26 +375,27 @@ sub handle_il_argument {
     my ($macro, @argument) = @_;
     
     my $return;
+    my $text = LaTeX(join(":", @argument));
 
     SELECT: { # first check, which macro to handle
 	# hyperlink
     	if ($macro =~ /^href$/) {
-	    $return = "\{".join(":", @argument)."\}";
+	    $return = "\{".$text."\}";
 	    last SELECT}
 	# internal reference
 	# TODO: fig:, sec:, etc
 	if ($macro =~ /^(name)?ref$/) { 
-	    $return = join(":", @argument);
+	    $return = $text;
 	    last SELECT}
 	# footnote
 	if ($macro =~ /^footnote$/) { 
-	    $return = join(":", @argument);
+	    $return = $text;
 	    last SELECT}
 	# everything else: return optional argument
-	else {$return = "\[".join(":", @argument)."\]"}
+	else {$return = "\[".$text."\]"}
     }
 
-    $return=LaTeX($return);
+    $return=$return;
     return $return;
 }
 
@@ -827,8 +828,8 @@ sub parseFile {
 		    # some LaTeX addoptions
 		    unless ($environment && 
 			    $environment =~ /^verbatim$/){
-			$searchstring = LaTeX("$searchstring");
-			$searchstring =~ s/(\.|\?)/\\$1/g;
+			$searchstring = LaTeX($searchstring);
+			$searchstring =~ s/(\\|\$|\.|\?)/\\$1/g;
 		    }
 			
 		    # check if formatblock begins
@@ -841,7 +842,7 @@ sub parseFile {
 				$environment =~ /^verbatim$/){
 			    $par = LaTeX($par);
 			}
-			# mark as formatbl
+			#mark as formatbl
 			$formbl = 1;
 		    }
 		    
@@ -861,7 +862,8 @@ sub parseFile {
 		    if (@argument) {
 		        $il_arg = handle_il_argument($format, @argument);
 		    }
-		
+
+		    
 		    # range or single word
 		    if ($searchstring =~ /(\.{3,3}|…)/ ) {
 			my @pattern = split /$1/ , $searchstring;
@@ -873,7 +875,7 @@ sub parseFile {
 			    if ($pattern[$i] =~ /[(](.*?)[)]/) {
 				$context[$i] = $1;
 				# handle special chars for search
-				$context[$i] =~ s/([]().?!])/\\$1/g;
+				$context[$i] =~ s/([][().?!])/\\$1/g;
 				$pattern[$i] =~ s/([(].*?[)])//;
 				# remove leading spaces from pattern
 				$pattern[$i] =~ s/^\s*//;
@@ -922,6 +924,7 @@ sub parseFile {
 			# handle special chars for search
 			$searchstring =~ s/([]().?!])/\\$1/g;
 			
+			print "\n$searchstring : $par\n";
 			# replace searchstring?
 			if ($format ~~ @il_replace_macros) {
 			    $par =~ s/$context[0](\W*)($searchstring)(\W*)$context[1]/$context[0]$1\\$format\{$il_arg}$4$context[1]/g;}
@@ -939,7 +942,6 @@ sub parseFile {
 		    %parameter = (%parameter, split /\s*=\s*/ , $fline);
 		}
 		else {
-		    print "$fline : $keywords{$fline}";
 		    # keywords:
 		    if ($keywords{"$fline"}){
 		    # line breaks

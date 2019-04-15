@@ -38,9 +38,29 @@ Außerdem hatte ich immer die Worte meines Vaters im Ohr, der sagte, er wolle am
 
 Als letzte Motivation kam hinzu, dass ich immer wieder darüber nachdachte, wie sich Inhalts- und Gestaltungselemente des Textes noch sauberer trennen lassen, als dies mit bisherigen Ansätzen möglich ist.
 
-Mit LaFiC kann ich direkt losschreiben und bekomme von anfang an ein ordentlich strukturiertes Ergebnis als Html- und (Xe)LaTeX-\footnote{Die Standard-Vorlagen, die LaFiC nutzt basieren auf \XeLaTeX, da ich immer in Utf-8~schreibe. Die Nutzung von \LaTeX sollte aber auch möglich sein.}Datei, wodurch auch  eine Ausgabe als Pdf möglich ist.
+Mit LaFiC kann ich direkt losschreiben und bekomme von anfang an ein ordentlich strukturiertes Ergebnis als Html- und (Xe)LaTeX-\footnote{Die Standard-Vorlagen, die LaFiC nutzt basieren auf \XeLaTeX, da ich immer in Utf-8 schreibe. Die Nutzung von \LaTeX sollte aber auch möglich sein.}Datei, wodurch auch  eine Ausgabe als Pdf möglich ist.
 
 Die eigentliche Formatierung geschieht erst im Anschluss. Als mein eigener Lektor gehe ich durch den Text und formatiere ihn mit für Menschen lesbaren und verständlichen Kommentaren.
+
+\part{Installation}
+
+Hole den Quelltext von \href{https://github.com}{github}:
+
+\begin{verbatim}
+git clone https://github.com/SebastianMeisel/lafic.git
+
+\end{verbatim}
+
+Fügen den Pfad zu \texttt{\$PATH} Umgebungsvariable hinzu:
+
+\begin{verbatim}
+export PATH=${PATH}:~/lafic
+
+\end{verbatim}
+
+Anweisungen zur Einbindung von \texttt{lafic-mode.el} findest du in der Datei.
+
+\part{Schreiben mit LaFiC}
 
 \section{Zeilen und Absätze}
 
@@ -133,7 +153,7 @@ Zur Zeit werden folgende Schlüsselworte unterstützt:
 
 Line are formated in the same way, only they are converted
 to macros (LaTeX) oder <span> names (Html). Know keywords
-are H1~… H6~for headings.
+are H1 … H6 for headings.
 
 \begin{verbatim}
     % Ü4\\

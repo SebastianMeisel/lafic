@@ -695,15 +695,15 @@
     (define-key map [?\C-c return] 'lafic-format-word)
     ;
     (define-key map "\C-c\C-f\C-e" (lambda () (interactive)
-	   (lafic-format-word "emphasize")))
+	   (lafic-format-word (if lafic-use-german "hervorheben" "emphasize"))))
     (define-key map "\C-c\C-f\C-i" (lambda () (interactive)
-	   (lafic-format-word "italic")))
+	   (lafic-format-word (if lafic-use-german "kursiv" "italic"))))
     (define-key map "\C-c\C-f\C-b" (lambda () (interactive)
-	   (lafic-format-word "bold")))
+	   (lafic-format-word (if lafic-use-german "fett" "bold"))))
     (define-key map "\C-c\C-f\C-c" (lambda () (interactive)
-	   (lafic-format-word "smallcaps")))
+	   (lafic-format-word (if lafic-use-german "Kapitälchen" "smallcaps"))))
     (define-key map "\C-c\C-f\C-t" (lambda () (interactive)
-	   (lafic-format-word "mono")))
+	   (lafic-format-word (if lafic-use-german "nicht proportional" "mono"))))
     ;
     (define-key map "\C-c\C-f\C-d" 'lafic-delete-formation-at-point)
     ;; add context
