@@ -21,6 +21,23 @@
 ;; Foundation, Inc., 51 Franklin Street, Fifth Floor,
 ;; Boston, MA 02110-1301, USA.
 
+;; This is `lafic-mode' a major mode for editing files in LaFiC.
+;; See https://github.com/SebastianMeisel/lafic for details..
+
+;; To install this major mode, place  (or symlink) lafic-mode.el
+;; and lafic-german-keywords.el in a directory, that's in your
+;; `load-path'.
+
+;; Add the following to your `user-init-file' (e.g. ~/.emacs):
+;;     (require 'lafic-mode)
+
+;; This will also associate files named *.lafic with lafic-mode.
+
+;; If you want to German keywords, put the following line before
+;; that line (with require):
+;;     (setq lafic-use-german t) 
+
+
 
 (require 'subr-x)
 
