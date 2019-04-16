@@ -31,13 +31,6 @@ use Data::Dumper;
 use HTML::Entities;
  
 
- ############
-# WARNING : in development - DON'T USE!
-############
-
-print "UNDER CONSTRUCTION! DON'T USE!!!!\n";
-
-
 #######
 # License statment
 #########
