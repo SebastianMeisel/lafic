@@ -42,23 +42,55 @@ Mit LaFiC kann ich direkt losschreiben und bekomme von anfang an ein ordentlich 
 
 Die eigentliche Formatierung geschieht erst im Anschluss. Als mein eigener Lektor gehe ich durch den Text und formatiere ihn mit für Menschen lesbaren und verständlichen Kommentaren.
 
-\part{Installation}
+\part{Installation und Benutzung}
 
-Hole den Quelltext von \href{https://github.com}{github}:
+\section{Installation}
+
+Holen Sie den Quelltext von \href{https://github.com}{github}:
 
 \begin{verbatim}
 git clone https://github.com/SebastianMeisel/lafic.git
 
 \end{verbatim}
 
-Fügen den Pfad zu \texttt{\$PATH} Umgebungsvariable hinzu:
+Fügen Sie den Pfad zu \texttt{\$PATH} Umgebungsvariable hinzu:
 
 \begin{verbatim}
 export PATH=${PATH}:~/lafic
 
 \end{verbatim}
 
-Anweisungen zur Einbindung von \texttt{lafic-mode.el} findest du in der Datei.
+Zur Nutzung des Major Modes in Emacs, kopieren (oder verlinken) die Dateien \texttt{lafic-mode.el} und \texttt{lafic-german-keywords.el} in ein Verzeichnis in Ihrem \texttt{load-path}. Fügen Sie folgende Zeilen in Ihre Init-Datei (\texttt{\textasciitilde /.emacs}) ein:
+
+\begin{verbatim}
+(setq lafic-use-german t)
+(require 'lafic-mode)
+
+\end{verbatim}
+
+Wenn Sie keine Unterstützung von deutschen Schlüsselwörtern wünschen oder benötigen, lassen Sie die erste Zeile weg.
+
+\section{Nutzung}
+
+Momentan besteht die LaFiC-Distribution aus drei Skripten. Der Aufruf erfolgt jeweils analog:
+
+\begin{verbatim}
+# lafic2html Datei.lafic
+# lafic2tex Datei.lafic
+# lafic2pdf Datei.lafic
+
+\end{verbatim}
+
+Letzteres ruft zuerst \texttt{lafic2tex} und \texttt{latexmk} auf.
+
+Durch den Aufruf dieser drei Skripte würden folgende Dateien erstellt:
+
+\begin{verbatim}
+Datei.html
+Datei.tex
+Datei.pdf
+
+\end{verbatim}
 
 \part{Schreiben mit LaFiC}
 

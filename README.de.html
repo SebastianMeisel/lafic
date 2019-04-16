@@ -47,6 +47,72 @@ Mit LaFiC kann ich direkt losschreiben und bekomme von anfang an ein ordentlich 
 Die eigentliche Formatierung geschieht erst im Anschluss. Als mein eigener Lektor gehe ich durch den Text und formatiere ihn mit für Menschen lesbaren und verständlichen Kommentaren.
 </p>
 
+<h2>Installation und Benutzung</h2>
+
+<H3>Installation</H3>
+
+<p>
+Holen Sie den Quelltext von <a href=„https://github.com“>github</a>:
+</p>
+
+<pre>
+git clone https://github.com/SebastianMeisel/lafic.git
+
+</pre>
+
+<p>
+Fügen Sie den Pfad zu <span class="tt">$PATH</span> Umgebungsvariable hinzu:
+</p>
+
+<pre>
+export PATH=${PATH}:~/lafic
+
+</pre>
+
+<p>
+Zur Nutzung des Major Modes in Emacs, kopieren (oder verlinken) die Dateien <span class="tt">lafic-mode.el und lafic-german-keywords.el</span> in ein Verzeichnis in Ihrem <span class="tt">load-path</span>. Fügen Sie folgende Zeilen in Ihre Init-Datei (<span class="tt">~/.emacs</span>) ein:
+</p>
+
+<pre>
+(setq lafic-use-german t)
+(require 'lafic-mode)
+
+</pre>
+
+<p>
+Wenn Sie keine Unterstützung von deutschen Schlüsselwörtern wünschen oder benötigen, lassen Sie die erste Zeile weg.
+</p>
+
+<H3>Nutzung</H3>
+
+<p>
+Momentan besteht die LaFiC-Distribution aus drei Skripten. Der Aufruf erfolgt jeweils analog:
+</p>
+
+<pre>
+# lafic2html Datei.lafic
+# lafic2tex Datei.lafic
+# lafic2pdf Datei.lafic
+
+</pre>
+
+<p>
+Letzteres ruft zuerst <span class="tt">lafic2tex</span> und <span class="tt">latexmk</span> auf.
+</p>
+
+<p>
+Durch den Aufruf dieser drei Skripte würden folgende Dateien erstellt:
+</p>
+
+<pre>
+Datei.html
+Datei.tex
+Datei.pdf
+
+</pre>
+
+<h2>Schreiben mit LaFiC</h2>
+
 <H3>Zeilen und Absätze</H3>
 
 <p>

@@ -924,7 +924,6 @@ sub parseFile {
 			# handle special chars for search
 			$searchstring =~ s/([]().?!])/\\$1/g;
 			
-			print "\n$searchstring : $par\n";
 			# replace searchstring?
 			if ($format ~~ @il_replace_macros) {
 			    $par =~ s/$context[0](\W*)($searchstring)(\W*)$context[1]/$context[0]$1\\$format\{$il_arg}$4$context[1]/g;}

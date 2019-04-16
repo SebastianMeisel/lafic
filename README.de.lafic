@@ -24,23 +24,52 @@ Mit LaFiC kann ich direkt losschreiben und bekomme von anfang an ein ordentlich 
 Die eigentliche Formatierung geschieht erst im Anschluss. Als mein eigener Lektor gehe ich durch den Text und formatiere ihn mit für Menschen lesbaren und verständlichen Kommentaren.
 
 % Überschrift2
+Installation und Benutzung
+
 Installation
 
-Hole den Quelltext von github: 
+Holen Sie den Quelltext von github: 
 % github: link: https://github.com
 
 % verbatim
 git clone https://github.com/SebastianMeisel/lafic.git
 
-Fügen den Pfad zu $PATH Umgebungsvariable hinzu:
+Fügen Sie den Pfad zu $PATH Umgebungsvariable hinzu:
 % $PATH: nicht proportional
 
 % verbatim
 export PATH=${PATH}:~/lafic
 
-Anweisungen zur Einbindung von lafic-mode.el findest du in der Datei.
+Zur Nutzung des Major Modes in Emacs, kopieren (oder verlinken) die Dateien lafic-mode.el und lafic-german-keywords.el in ein Verzeichnis in Ihrem load-path. Fügen Sie folgende Zeilen in Ihre Init-Datei (~/.emacs) ein:
 % lafic…el: nicht proportional
+% load…path: nicht proportional
+% ~…emacs: nicht proportional
 
+% verbatim
+(setq lafic-use-german t)
+(require 'lafic-mode)
+
+Wenn Sie keine Unterstützung von deutschen Schlüsselwörtern wünschen oder benötigen, lassen Sie die erste Zeile weg. 
+
+Nutzung
+
+Momentan besteht die LaFiC-Distribution aus drei Skripten. Der Aufruf erfolgt jeweils analog:
+
+% verbatim
+# lafic2html Datei.lafic
+# lafic2tex Datei.lafic
+# lafic2pdf Datei.lafic
+
+Letzteres ruft zuerst lafic2tex und latexmk auf.
+% latexmk: nicht proportional
+% lafic2tex: nicht proportional
+
+Durch den Aufruf dieser drei Skripte würden folgende Dateien erstellt:
+
+% verbatim
+Datei.html
+Datei.tex
+Datei.pdf
 
 % Überschrift2
 Schreiben mit LaFiC
