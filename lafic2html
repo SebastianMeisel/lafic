@@ -208,11 +208,7 @@ my %keywords = (
 my $template;
 
 
-#########
-# TODO: add german keywords
-##########
-
-##################################
+###############################
 my ($basename,$path,$ext) = fileparse(abs_path($ARGV[0]), qr/\.[^.]*/); 
 my $lafic_file = "$path$basename$ext";
 #my $path = dirname(abs_path($ARGV[0])); 
@@ -333,23 +329,24 @@ sub handle_il_argument {
     my ($macro, @argument) = @_;
     
     my $return;
+    my $text =  Html(join(":", @argument));
 
     SELECT: { # first check, which macro to handle
     	if ($macro =~ /^a$/) {
 	    # check if hyperlink
 	    if ($argument[0] =~ /^http|mailto|file/){
-		$return = " href=\"".join(":", @argument)."\"";
+		$return = " href=\"".$text."\"";
 	    }
 	    # internal reference
 	    else {
-		$return = " href=\"#".join(":", @argument)."\"";
+		$return = " href=\"#".$text."\"";
 	    }
 		
 	    last SELECT}
-	else {$return = join(":", @argument)}
+	else {$return = $text;}
     }
 
-    $return = Html($return);
+
     return $return;
 }
 
@@ -392,23 +389,25 @@ sub handleParameter {
 	    #add final "
 	    $optional = $optional."\"";
 
-	    ################
-	    # TODO: name
-	    ################
-
 	    @return = (@return, $optional);
+
+
 	}
 	# caption in figure
 	if ($env_mac =~ /^figure$/) {
 	    if (! $parameter{"caption"} =~ /^$/) {
 		@return = (@return, $parameter{"caption"});
 	    }  
+	    if (! $parameter{"id"} =~ /^$/) {
+		my $id = " id=\"".$parameter{"id"}."\"";
+		@return = (@return, $id);
+	    }
 	}
 	# name in headings
 	if ($env_mac =~ /^H[2-4]$/) {
 	    if (! $parameter{"id"} =~ /^$/) {
-		my $optional = " id=\"".$parameter{"id"}."\"";
-		@return = (@return, $optional);
+		my $id = " id=\"".$parameter{"id"}."\"";
+		@return = (@return, $id);
 	    }
 	}
     }
@@ -550,13 +549,14 @@ sub outputLines {
 		      # optional parameters
 		      my $optional = "";
 		      my $caption = "";
+		      my $id = "";
 
-		      ($optional, $caption) = handleParameter($environment, %parameter);
+		      ($optional, $caption, $id) = handleParameter($environment, %parameter);
 		      if (! defined $optional) {$optional =""}
 		      if (! defined $caption) {$caption =""}
 
 		      
-		      print OUTPUT "<figure role=\"group\">\n";
+		      print OUTPUT "<figure $id role=\"group\">\n";
 		      print OUTPUT "<img $optional src=\"$lafic_dir/$par\">\n";
 		      if (! $caption =~ /^$/ ) {
 			  print OUTPUT "<figcaption>$caption</figcaption>\n";

@@ -544,6 +544,35 @@
     ))
 
 
+;; special insert command
+(defun lafic-insert-image ()
+  "Interactivly insert image."
+  (interactive)
+  (let ((image-file (file-name-nondirectory
+		     (read-file-name "File: " nil nil t)))
+	(width (read-string "Width: " nil nil))
+	(height (read-string "Height: " nil nil))
+	(caption (read-string "Caption: " nil 'lafic-caption-history))
+	(name (read-string "Name: " nil 'lafic-label-history))
+	)
+    (insert "% image")
+    (newline)
+    (insert image-file)
+    (newline)
+    (unless (string= width "") (progn
+		(insert (concat "% width = " width))
+		(newline)))
+    (unless (string= height "") (progn
+		(insert (concat "% height = " height))
+		(newline)))
+    (unless (string= caption "") (progn
+		(insert (concat "% caption = " caption))
+		(newline)))
+    (unless (string= name "") (progn
+		(insert (concat "% name = " name))
+		(newline)))
+    ))
+
 ;; highlighting
 (defun lafic-highlight-par ()
   "Highlight inline formations for paragrah at point"
@@ -726,6 +755,8 @@
     ;; add context
     (define-key map [?\C-c C-left] 'lafic-add-leading-context)
     (define-key map [?\C-c C-right] 'lafic-add-trailing-context)
+    ;; special
+    (define-key map "\C-c\C-i\C-i" 'lafic-insert-image)
     ;; fill
     (define-key map "\C-c\C-q\C-p" 'lafic-fill-paragraphs)
     ;; highlighting

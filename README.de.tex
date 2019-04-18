@@ -13,6 +13,7 @@ pdfpagemode=UseOutlines]{hyperref}
 \setdefaultlanguage{english}
 
 \usepackage{microtype}
+\usepackage{xspace}
 
 \title{Einführung in LaFiC}
 \author{Sebastian Meisel}
@@ -38,7 +39,7 @@ Außerdem hatte ich immer die Worte meines Vaters im Ohr, der sagte, er wolle am
 
 Als letzte Motivation kam hinzu, dass ich immer wieder darüber nachdachte, wie sich Inhalts- und Gestaltungselemente des Textes noch sauberer trennen lassen, als dies mit bisherigen Ansätzen möglich ist.
 
-Mit LaFiC kann ich direkt losschreiben und bekomme von anfang an ein ordentlich strukturiertes Ergebnis als Html- und (Xe)LaTeX-\footnote{Die Standard-Vorlagen, die LaFiC nutzt basieren auf \XeLaTeX, da ich immer in Utf-8 schreibe. Die Nutzung von \LaTeX sollte aber auch möglich sein.}Datei, wodurch auch  eine Ausgabe als Pdf möglich ist.
+Mit LaFiC kann ich direkt losschreiben und bekomme von anfang an ein ordentlich strukturiertes Ergebnis als Html- und (Xe)LaTeX-\footnote{Die Standard-Vorlagen, die LaFiC nutzt basieren auf \XeLaTeX, da ich immer in Utf-8 schreibe. Die Nutzung von \LaTeX sollte aber auch möglich sein.}\xspace Datei, wodurch auch  eine Ausgabe als Pdf möglich ist.
 
 Die eigentliche Formatierung geschieht erst im Anschluss. Als mein eigener Lektor gehe ich durch den Text und formatiere ihn mit für Menschen lesbaren und verständlichen Kommentaren.
 
@@ -197,7 +198,7 @@ are H1 … H6 for headings.
 
 \section{Inline formation}
 
-If you want to format words or sequences in a paragraph (or
+If you want to format \nameref{bild1}\xspace or sequences in a paragraph (or
 line if needed), you add format lines with a leading \% after
 a paragraph. It has two parts:
 
@@ -231,6 +232,7 @@ line. You don't need the extention then.
 \begin{figure}[hbt]
 \includegraphics[height=.20\textheight]{Image}
 \caption{Mars und Mond}
+\label{bild1}
 \end{figure}
 
 

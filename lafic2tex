@@ -447,13 +447,14 @@ sub handleParameter {
 	    if (! $parameter{"caption"} =~ /^$/) {
 		@return = (@return, $parameter{"caption"});
 	    }  
+	    if (! $parameter{"label"} =~ /^$/) {
+		@return = (@return, $parameter{"label"});
+	    }
 	}
 	# labels in headings
 	if ($env_mac =~ /^part|(sub)?section/) {
 	    # TODO: add ch:, sec:, subsec:
 	    if (! $parameter{"label"} =~ /^$/) {
-		# my $prefix = $label_pre{$env_mac};
-		# my $label = $prefix.":".$parameter{"label"};
 		@return = ($parameter{"label"});
 	    }
 	}
@@ -563,13 +564,17 @@ sub outputLines {
 		      # optional parameters
 		      my $optional = "";
 		      my $caption = "";
+		      my $label = "";
 
-		      ($optional, $caption) = handleParameter($environment, %parameter);
+		      ($optional, $caption, $label) = handleParameter($environment, %parameter);
 		      
 		      print OUTPUT "\\begin{figure}[hbt]\n";
 		      print OUTPUT "\\includegraphics$optional\{$par\}\n";
 		      if (! $caption =~ /^$/ ) {
 			  print OUTPUT "\\caption{$caption}\n";
+		      }
+		      if (! $label =~ /^$/ ) {
+			  print OUTPUT "\\label{$label}\n";
 		      }
 		      print OUTPUT "\\end{figure}\n";
 		  }
@@ -892,10 +897,10 @@ sub parseFile {
 
 			# replace searchstring?
 			if ($format ~~ @il_replace_macros) {
-			    $par =~ s/$context[0](\W*)($pattern[0](.*?)$pattern[1])(\W*)$context[1]/$context[0]$1\\$format\{$il_arg}$4$context[1]/g;}
+			    $par =~ s/$context[0](\W*)($pattern[0](.*?)$pattern[1])(\W*)$context[1]/$context[0]$1\\$format\{$il_arg}\\xspace $4$context[1]/g;}
 			# put command after searchstring
 			elsif ($format ~~ @il_after_macros) {
-			    $par =~ s/$context[0](\W*)($pattern[0](.*?)$pattern[1])(\W*)$context[1]/$context[0]$1$2\\$format\{$il_arg}$4$context[1]/g;}
+			    $par =~ s/$context[0](\W*)($pattern[0](.*?)$pattern[1])(\W*)$context[1]/$context[0]$1$2\\$format\{$il_arg}\\xspace $4$context[1]/g;}
 			# normal macros
 			else {
 			    $par =~ s/$context[0](\W*)($pattern[0](.*?)$pattern[1])(\W*)$context[1]/$context[0]$1\\$format$il_arg\{$2}$4$context[1]/g;}		
@@ -926,10 +931,10 @@ sub parseFile {
 			
 			# replace searchstring?
 			if ($format ~~ @il_replace_macros) {
-			    $par =~ s/$context[0](\W*)($searchstring)(\W*)$context[1]/$context[0]$1\\$format\{$il_arg}$4$context[1]/g;}
+			    $par =~ s/$context[0](\W*)($searchstring)(\W*)$context[1]/$context[0]$1\\$format\{$il_arg}\\xspace $4$context[1]/g;}
 			# put command after searchstring
 			elsif ($format ~~ @il_after_macros) {
-			    $par =~ s/$context[0](\W*)($searchstring)(\W*)$context[1]/$context[0]$1$2\\$format\{$il_arg}$3$context[1]/g;}
+			    $par =~ s/$context[0](\W*)($searchstring)(\W*)$context[1]/$context[0]$1$2\\$format\{$il_arg}\\xspace $3$context[1]/g;}
 			# normal macros
 			else {
 			    $par =~ s/$context[0](\W*)($searchstring)(\W*)$context[1]/$context[0]$1\\$format$il_arg\{$2\}$3$context[1]/g;}

@@ -186,6 +186,7 @@ Inline formation
 If you want to format words or sequences in a paragraph (or
 line if needed), you add format lines with a leading % after
 a paragraph. It has two parts:
+% words: siehe : bild1
 
 % Aufzählung
 * the word or the sequence to be formated in the form
@@ -214,7 +215,8 @@ files, so the image won't float this way. For this to
 achieve to have to put %image, %img or %figure before the
 line. You don't need the extention then.
 
-% Bild
-Image
-% height = 20%
-% caption = Mars und Mond
+% image
+Image.png
+% height = 50px
+% caption = Mars and Moon
+% name = bild1
