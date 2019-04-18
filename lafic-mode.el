@@ -758,7 +758,7 @@
     ;; special
     (define-key map "\C-c\C-i\C-i" 'lafic-insert-image)
     ;; fill
-    (define-key map "\C-c\C-q\C-p" 'lafic-fill-paragraphs)
+    (define-key map "\C-c\C-q\C-p" 'lafic-fill-paragraph)
     ;; highlighting
     (define-key map "\C-c\C-h\C-p" 'lafic-highlight-par)
     (define-key map "\C-c\C-h\C-b" 'lafic-highlight-buffer)
