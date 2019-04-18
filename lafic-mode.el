@@ -782,7 +782,7 @@
   (add-hook 'post-command-hook 'lafic-highlight-par t t)
   ;; Font lock
   (set (make-local-variable 'font-lock-defaults)
-       '(lafic-mode-font-lock-keywords))
+       '(lafic-mode-font-lock-keywords nil t))
   (set (make-local-variable 'font-lock-multiline) t)
   ;; Keymap 
   (use-local-map lafic-mode-map)

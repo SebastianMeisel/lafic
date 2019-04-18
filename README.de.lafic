@@ -175,7 +175,7 @@ Block (Html) ausgegeben. Ansonsten dient das Schlüsselwort
 
 
 
-% verbatim	
+% Verbatim	
 	Dieser Absatz ist zentriert.
 
 
@@ -186,12 +186,12 @@ Folgen zwei Absätze mit dem selben Schlüsselwort
 hintereinander, werden sie in einer Umgebung / einem Block
 zusammengefasst.
 
-% verbatim
+% Verbatim
   % Zitat
   Dies ist ein Zitat.
 % Zeilen umbrechen
 
-% verbatim
+% Verbatim
   % Zitat
   Hier geht das Zitat weiter.
 % Zeilen umbrechen
@@ -216,7 +216,7 @@ Line are formated in the same way, only they are converted
 to macros (LaTeX) oder <span> names (Html). Know keywords
 are H1 … H6 for headings. 
 
-% verbatim
+% Verbatim
     % Ü4
     This is a subsection
 % Zeilen umbrechen
@@ -258,8 +258,8 @@ files, so the image won't float this way. For this to
 achieve to have to put %image, %img or %figure before the
 line. You don't need the extention then.
 
-% image
+% Bild
 Image.png
-% height = 50px
+% height = 40%
 % caption = Mars and Moon
 % name = bild1
