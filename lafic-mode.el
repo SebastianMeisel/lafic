@@ -708,19 +708,24 @@
   "Fill paragraph at point"
   (interactive)
   (save-excursion
-    (let ((start (+ 2 (re-search-backward "
+    (re-search-backward "
 
-"))))
-    
-    (let ((end (or(re-search-forward "
-
-" nil t 2)
-        (point-max))))
-	(fill-region start end t)
-	)
-      )
-    )
-  )
+")
+    (goto-char (match-end 0))
+    (if (string= (thing-at-point 'char t) "%")
+	(line-move 1))
+    (let ((start (point)))
+    (re-search-forward "
+\\s *$" nil t 1)
+    (goto-char (or (match-beginning 0) (point-max)))
+    (goto-char (line-beginning-position))
+    (while (string= (thing-at-point 'char t) "%")
+      (line-move -1))
+    (goto-char (line-end-position))
+    (let ((end (point)))
+      (fill-region start end t)
+      ))
+    ))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

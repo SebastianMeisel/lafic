@@ -60,6 +60,7 @@ lafic2pdf setzt zudem latexmk (getestet mit Version 4.41) vorraus.
 % lafic2pdf: nicht proportional
 
 Installation
+% Name = Installation
 
 Holen Sie den Quelltext von github: 
 % github: link: https://github.com
@@ -113,16 +114,30 @@ Datei.pdf
 
 Nutzung des LaFiC-Major-Modes in Emacs
 
+Nachdem Sie lafic-mode.el wie oben (siehe Installation)
+beschrieben in Emacs eingebunden haben, wird der
+LaFiC-Major-Mode beim Öffnen einer Datei mit der Endung
+*.lafic aktiviert.
+% lafic…el: nicht proportional
+% Installation: see: Installation
+% *…lafic: nicht proportional
+
+Dadurch steht eine einfache Syntaxhervorhebung und einige
+Tastenkürzel zur Verfügung. Als Prefix wird dabei jewweil
+C-c verwendet. Die Tastenkürzel orientieren sich an AUCTeX,
+sodass man gut zurecht kommen sollte, wenn man damit schon
+gearbeitet hat.
+% C…c: nicht proportional
 
 % Überschrift2
 Schreiben mit LaFiC
 
 Zeilen und Absätze
 
-Der Inhalt wird durch die Unterscheidung von  Zeilen und
+Der Inhalt wird durch die Unterscheidung von Zeilen und
 Absätzen gegliedert.
 % Zeilen: hervorheben
-% Absätze: hervorheben
+% Absätzen: hervorheben
 
 
 Dabei besteht der Unterschied nicht so sehr in der
