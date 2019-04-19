@@ -31,19 +31,51 @@ Gestalt.
 
 \section{Warum LaFiC}
 
-Ich arbeite nun schon viele Jahre mit \LaTeX / \XeLaTeX. Ich schreibe vor allem Prosa (ganz frei von mathematischen Formeln). Dabei fand ich es zum Teil störend, dass ich immer erst mit der Preamble beginnen muss und nicht einfach losschreiben kann.
+Ich arbeite nun schon viele Jahre mit \LaTeX / \XeLaTeX. Ich
+schreibe vor allem Prosa (ganz frei von mathematischen
+Formeln). Dabei fand ich es zum Teil störend, dass ich immer
+erst mit der Preamble beginnen muss und nicht einfach
+losschreiben kann.
 
-Daraufhin probierte ich markdown/multimarkdown aus. Dabei störte mich aber, dass es sehr unflexible ist. Außerdem ist die Syntax an manchen Stellen etwas kryptisch, was mich störte. Außerdem funktionieren die erstellten \LaTeX-Dateien zwar irgendwie, sind aber auch sehr kryptisch aufgebaut.
+Daraufhin probierte ich markdown/multimarkdown aus. Dabei
+störte mich aber, dass es sehr unflexible ist. Außerdem ist
+die Syntax an manchen Stellen etwas kryptisch, was mich
+störte. Außerdem funktionieren die erstellten \LaTeX-Dateien
+zwar irgendwie, sind aber auch sehr kryptisch aufgebaut.
 
-Außerdem hatte ich immer die Worte meines Vaters im Ohr, der sagte, er wolle am liebsten, wie einst mit der Schreibmaschiene losschreiben können und dennoch ein ordentliches Ergebnis bekommen.
+Außerdem hatte ich immer die Worte meines Vaters im Ohr, der
+sagte, er wolle am liebsten, wie einst mit der
+Schreibmaschiene losschreiben können und dennoch ein
+ordentliches Ergebnis bekommen.
 
-Als letzte Motivation kam hinzu, dass ich immer wieder darüber nachdachte, wie sich Inhalts- und Gestaltungselemente des Textes noch sauberer trennen lassen, als dies mit bisherigen Ansätzen möglich ist.
+Als letzte Motivation kam hinzu, dass ich immer wieder
+darüber nachdachte, wie sich Inhalts- und
+Gestaltungselemente des Textes noch sauberer trennen lassen,
+als dies mit bisherigen Ansätzen möglich ist.
 
-Mit LaFiC kann ich direkt losschreiben und bekomme von anfang an ein ordentlich strukturiertes Ergebnis als Html- und (Xe)LaTeX-\footnote{Die Standard-Vorlagen, die LaFiC nutzt basieren auf \XeLaTeX, da ich immer in Utf-8 schreibe. Die Nutzung von \LaTeX sollte aber auch möglich sein.}\xspace Datei, wodurch auch  eine Ausgabe als Pdf möglich ist.
+Mit LaFiC kann ich direkt losschreiben und bekomme von
+anfang an ein ordentlich strukturiertes Ergebnis als Html-
+und (Xe)LaTeX-\footnote{Die Standard-Vorlagen, die LaFiC nutzt basieren auf \XeLaTeX, da ich immer in Utf-8 schreibe. Die Nutzung von \LaTeX sollte aber auch möglich sein.}\xspace Datei, wodurch auch eine Ausgabe als Pdf
+möglich ist.
 
-Die eigentliche Formatierung geschieht erst im Anschluss. Als mein eigener Lektor gehe ich durch den Text und formatiere ihn mit für Menschen lesbaren und verständlichen Kommentaren.
+Die eigentliche Formatierung geschieht erst im
+Anschluss. Als mein eigener Lektor gehe ich durch den Text
+und formatiere ihn mit für Menschen lesbaren und
+verständlichen Kommentaren.
 
 \part{Installation und Benutzung}
+
+\section{Vorraussetzungen}
+
+LaFiC setzt Perl > 5.10.1 vorraus (getestet unter Perl 5.26.1).
+
+Das Standard \LaTeX-Template setzt eine aktuelle
+\XeLaTeX-Installation sowie graphix, hyperref, microtype und
+xspace voraus.
+
+Die Emacs-Einbindung wurde unter Gnu Emacs 25.2.2 getestet.
+
+\texttt{lafic2pdf} setzt zudem latexmk (getestet mit Version 4.41) vorraus.
 
 \section{Installation}
 
@@ -54,14 +86,18 @@ git clone https://github.com/SebastianMeisel/lafic.git
 
 \end{verbatim}
 
-Fügen Sie den Pfad zu \texttt{\$PATH} Umgebungsvariable hinzu:
+Fügen Sie den Pfad zu \$PATH Umgebungsvariable hinzu:
 
 \begin{verbatim}
 export PATH=${PATH}:~/lafic
 
 \end{verbatim}
 
-Zur Nutzung des Major Modes in Emacs, kopieren (oder verlinken) die Dateien \texttt{lafic-mode.el} und \texttt{lafic-german-keywords.el} in ein Verzeichnis in Ihrem \texttt{load-path}. Fügen Sie folgende Zeilen in Ihre Init-Datei (\texttt{\textasciitilde /.emacs}) ein:
+Zur Nutzung des Major Modes in Emacs, kopieren (oder
+verlinken) die Dateien \texttt{lafic-mode.el} und
+\texttt{lafic-german-keywords.el} in ein Verzeichnis in Ihrem
+\texttt{load-path}. Fügen Sie folgende Zeilen in Ihre Init-Datei
+(\texttt{\textasciitilde /.emacs}) ein:
 
 \begin{verbatim}
 (setq lafic-use-german t)
@@ -69,11 +105,13 @@ Zur Nutzung des Major Modes in Emacs, kopieren (oder verlinken) die Dateien \tex
 
 \end{verbatim}
 
-Wenn Sie keine Unterstützung von deutschen Schlüsselwörtern wünschen oder benötigen, lassen Sie die erste Zeile weg.
+Wenn Sie keine Unterstützung von deutschen Schlüsselwörtern
+wünschen oder benötigen, lassen Sie die erste Zeile weg.
 
 \section{Nutzung}
 
-Momentan besteht die LaFiC-Distribution aus drei Skripten. Der Aufruf erfolgt jeweils analog:
+Momentan besteht die LaFiC-Distribution aus drei
+Skripten. Der Aufruf erfolgt jeweils analog:
 
 \begin{verbatim}
 # lafic2html Datei.lafic
@@ -84,7 +122,8 @@ Momentan besteht die LaFiC-Distribution aus drei Skripten. Der Aufruf erfolgt je
 
 Letzteres ruft zuerst \texttt{lafic2tex} und \texttt{latexmk} auf.
 
-Durch den Aufruf dieser drei Skripte würden folgende Dateien erstellt:
+Durch den Aufruf dieser drei Skripte würden folgende Dateien
+erstellt:
 
 \begin{verbatim}
 Datei.html
@@ -93,12 +132,24 @@ Datei.pdf
 
 \end{verbatim}
 
+\section{Nutzung des LaFiC-Major-Modes in Emacs}
+
+Nachdem Sie \texttt{lafic-mode.el} wie oben (siehe \nameref{Installation}\xspace beschrieben in Emacs eingebunden haben, wird der
+LaFiC-Major-Mode beim Öffnen einer Datei mit der Endung
+\texttt{*.lafic} aktiviert.
+
+Dadurch steht eine einfache Syntaxhervorhebung und einige
+Tastenkürzel zur Verfügung. Als Prefix wird dabei jewweil
+\texttt{C-c} verwendet. Die Tastenkürzel orientieren sich an AUCTeX,
+sodass man gut zurecht kommen sollte, wenn man damit schon
+gearbeitet hat.
+
 \part{Schreiben mit LaFiC}
 
 \section{Zeilen und Absätze}
 
-Der Inhalt wird durch die Unterscheidung von  \emph{Zeilen} und
-\emph{Absätze}n gegliedert.
+Der Inhalt wird durch die Unterscheidung von \emph{Zeilen} und
+\emph{Absätzen} gegliedert.
 
 Dabei besteht der Unterschied nicht so sehr in der
 Länge. Vielmehr unterscheiden sich Zeilen von Absätze
@@ -230,8 +281,8 @@ achieve to have to put \%image, \%img or \%figure before the
 line. You don't need the extention then.
 
 \begin{figure}[hbt]
-\includegraphics[height=.20\textheight]{Image}
-\caption{Mars und Mond}
+\includegraphics[height=.40\textheight]{Image.png}
+\caption{Mars and Moon}
 \label{bild1}
 \end{figure}
 

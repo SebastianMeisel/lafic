@@ -127,7 +127,7 @@ Tastenkürzel zur Verfügung. Als Prefix wird dabei jewweil
 C-c verwendet. Die Tastenkürzel orientieren sich an AUCTeX,
 sodass man gut zurecht kommen sollte, wenn man damit schon
 gearbeitet hat.
-% C…c: nicht proportional
+% C-c: nicht proportional
 
 % Überschrift2
 Schreiben mit LaFiC
@@ -144,7 +144,7 @@ Dabei besteht der Unterschied nicht so sehr in der
 Länge. Vielmehr unterscheiden sich Zeilen von Absätze
 dadurch, dass sie kein Satzschlusszeichen (., ?, !, :).
 Wenn nicht anders festgelegt, werden sie als Überschriften
-interpretiert. 
+interpretiert.
 
 
 Die erste Zeile wird als Titel interpretiert und zu \title

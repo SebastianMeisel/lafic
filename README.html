@@ -3,6 +3,16 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <script src="https://code.jquery.com/jquery-latest.js"></script>
+  <script>
+    $(document).ready(function(){
+    $(".fn").hover(function() {
+    $('#footnotes').show();
+    }, function() {
+    $('#footnotes').hide();
+    });
+    });
+  </script>
   <link rel="stylesheet" href="styles/standard.css">
 <title>Introduction to LaFiC</title>
 <meta name="author"content="Sebastian Meisel">
@@ -298,7 +308,7 @@ line. You don't need the extention then.
 
 </pre>
 
-<figure role="group">
+<figure  role="group">
 <img style="width: 40%;" src="/home/sebastian/lafic/Image.png">
 <figcaption>"Moon and Mars"</figcaption>
 </figure>

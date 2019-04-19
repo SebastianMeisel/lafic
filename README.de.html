@@ -3,10 +3,19 @@
 <html lang="de">
 <head>
   <meta charset="utf-8">
+  <script src="https://code.jquery.com/jquery-latest.js"></script>
+  <script>
+    $(document).ready(function(){
+    $(".fn").hover(function() {
+    $('#footnotes').show();
+    }, function() {
+    $('#footnotes').hide();
+    });
+    });
+  </script>
   <link rel="stylesheet" href="./styles/standard.css">
 <title>Einführung in LaFiC</title>
 <meta name="author"content="Sebastian Meisel">
-
 </head>
 
 <body>
@@ -24,30 +33,70 @@ Gestalt.
 <H3>Warum LaFiC</H3>
 
 <p>
-Ich arbeite nun schon viele Jahre mit LaTeX / XeLaTeX. Ich schreibe vor allem Prosa (ganz frei von mathematischen Formeln). Dabei fand ich es zum Teil störend, dass ich immer erst mit der Preamble beginnen muss und nicht einfach losschreiben kann.
+Ich arbeite nun schon viele Jahre mit LaTeX / XeLaTeX. Ich
+schreibe vor allem Prosa (ganz frei von mathematischen
+Formeln). Dabei fand ich es zum Teil störend, dass ich immer
+erst mit der Preamble beginnen muss und nicht einfach
+losschreiben kann.
 </p>
 
 <p>
-Daraufhin probierte ich markdown/multimarkdown aus. Dabei störte mich aber, dass es sehr unflexible ist. Außerdem ist die Syntax an manchen Stellen etwas kryptisch, was mich störte. Außerdem funktionieren die erstellten LaTeX-Dateien zwar irgendwie, sind aber auch sehr kryptisch aufgebaut.
+Daraufhin probierte ich markdown/multimarkdown aus. Dabei
+störte mich aber, dass es sehr unflexible ist. Außerdem ist
+die Syntax an manchen Stellen etwas kryptisch, was mich
+störte. Außerdem funktionieren die erstellten LaTeX-Dateien
+zwar irgendwie, sind aber auch sehr kryptisch aufgebaut.
 </p>
 
 <p>
-Außerdem hatte ich immer die Worte meines Vaters im Ohr, der sagte, er wolle am liebsten, wie einst mit der Schreibmaschiene losschreiben können und dennoch ein ordentliches Ergebnis bekommen.
+Außerdem hatte ich immer die Worte meines Vaters im Ohr, der
+sagte, er wolle am liebsten, wie einst mit der
+Schreibmaschiene losschreiben können und dennoch ein
+ordentliches Ergebnis bekommen.
 </p>
 
 <p>
-Als letzte Motivation kam hinzu, dass ich immer wieder darüber nachdachte, wie sich Inhalts- und Gestaltungselemente des Textes noch sauberer trennen lassen, als dies mit bisherigen Ansätzen möglich ist.
+Als letzte Motivation kam hinzu, dass ich immer wieder
+darüber nachdachte, wie sich Inhalts- und
+Gestaltungselemente des Textes noch sauberer trennen lassen,
+als dies mit bisherigen Ansätzen möglich ist.
 </p>
 
 <p>
-Mit LaFiC kann ich direkt losschreiben und bekomme von anfang an ein ordentlich strukturiertes Ergebnis als Html- und <a class="fn" href="#fn1" id="fna1">(Xe)LaTeX-</a>Datei, wodurch auch  eine Ausgabe als Pdf möglich ist.
+Mit LaFiC kann ich direkt losschreiben und bekomme von
+anfang an ein ordentlich strukturiertes Ergebnis als Html-
+und <a class="fn" href="#fn1" id="fna1">(Xe)LaTeX-</a>Datei, wodurch auch eine Ausgabe als Pdf
+möglich ist.
 </p>
 
 <p>
-Die eigentliche Formatierung geschieht erst im Anschluss. Als mein eigener Lektor gehe ich durch den Text und formatiere ihn mit für Menschen lesbaren und verständlichen Kommentaren.
+Die eigentliche Formatierung geschieht erst im
+Anschluss. Als mein eigener Lektor gehe ich durch den Text
+und formatiere ihn mit für Menschen lesbaren und
+verständlichen Kommentaren.
 </p>
 
 <h2>Installation und Benutzung</h2>
+
+<H3>Vorraussetzungen</H3>
+
+<p>
+LaFiC setzt Perl &gt; 5.10.1 vorraus (getestet unter Perl 5.26.1).
+</p>
+
+<p>
+Das Standard LaTeX-Template setzt eine aktuelle
+XeLaTeX-Installation sowie graphix, hyperref, microtype und
+xspace voraus.
+</p>
+
+<p>
+Die Emacs-Einbindung wurde unter Gnu Emacs 25.2.2 getestet.
+</p>
+
+<p>
+<span class="tt">lafic2pdf</span> setzt zudem latexmk (getestet mit Version 4.41) vorraus.
+</p>
 
 <H3>Installation</H3>
 
@@ -70,7 +119,11 @@ export PATH=${PATH}:~/lafic
 </pre>
 
 <p>
-Zur Nutzung des Major Modes in Emacs, kopieren (oder verlinken) die Dateien <span class="tt">lafic-mode.el und lafic-german-keywords.el</span> in ein Verzeichnis in Ihrem <span class="tt">load-path</span>. Fügen Sie folgende Zeilen in Ihre Init-Datei (<span class="tt">~/.emacs</span>) ein:
+Zur Nutzung des Major Modes in Emacs, kopieren (oder
+verlinken) die Dateien <span class="tt">lafic-mode.el</span> und
+<span class="tt">lafic-german-keywords.el</span> in ein Verzeichnis in Ihrem
+<span class="tt">load-path</span>. Fügen Sie folgende Zeilen in Ihre Init-Datei
+(<span class="tt">~/.emacs</span>) ein:
 </p>
 
 <pre>
@@ -80,13 +133,15 @@ Zur Nutzung des Major Modes in Emacs, kopieren (oder verlinken) die Dateien <spa
 </pre>
 
 <p>
-Wenn Sie keine Unterstützung von deutschen Schlüsselwörtern wünschen oder benötigen, lassen Sie die erste Zeile weg.
+Wenn Sie keine Unterstützung von deutschen Schlüsselwörtern
+wünschen oder benötigen, lassen Sie die erste Zeile weg.
 </p>
 
 <H3>Nutzung</H3>
 
 <p>
-Momentan besteht die LaFiC-Distribution aus drei Skripten. Der Aufruf erfolgt jeweils analog:
+Momentan besteht die LaFiC-Distribution aus drei
+Skripten. Der Aufruf erfolgt jeweils analog:
 </p>
 
 <pre>
@@ -101,7 +156,8 @@ Letzteres ruft zuerst <span class="tt">lafic2tex</span> und <span class="tt">lat
 </p>
 
 <p>
-Durch den Aufruf dieser drei Skripte würden folgende Dateien erstellt:
+Durch den Aufruf dieser drei Skripte würden folgende Dateien
+erstellt:
 </p>
 
 <pre>
@@ -111,13 +167,30 @@ Datei.pdf
 
 </pre>
 
+<H3>Nutzung des LaFiC-Major-Modes in Emacs</H3>
+
+<p>
+Nachdem Sie <span class="tt">lafic-mode.el</span> wie oben (siehe <a href="#Installation">Installation</a>)
+beschrieben in Emacs eingebunden haben, wird der
+LaFiC-Major-Mode beim Öffnen einer Datei mit der Endung
+<span class="tt">*.lafic</span> aktiviert.
+</p>
+
+<p>
+Dadurch steht eine einfache Syntaxhervorhebung und einige
+Tastenkürzel zur Verfügung. Als Prefix wird dabei jewweil
+<span class="tt">C-c</span> verwendet. Die Tastenkürzel orientieren sich an AUCTeX,
+sodass man gut zurecht kommen sollte, wenn man damit schon
+gearbeitet hat.
+</p>
+
 <h2>Schreiben mit LaFiC</h2>
 
 <H3>Zeilen und Absätze</H3>
 
 <p>
-Der Inhalt wird durch die Unterscheidung von  <em>Zeilen</em> und
-<em>Absätze</em>n gegliedert.
+Der Inhalt wird durch die Unterscheidung von <em>Zeilen</em> und
+<em>Absätzen</em> gegliedert.
 </p>
 
 <p>
@@ -284,7 +357,7 @@ line. You don't need the extention then.
 </p>
 
 <figure  id="bild1" role="group">
-<img style="height: 50px;" src="/home/sebastian/lafic/Image.png">
+<img style="height: 40%;" src="/home/sebastian/lafic/Image.png">
 <figcaption>Mars and Moon</figcaption>
 </figure>
 

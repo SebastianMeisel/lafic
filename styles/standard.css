@@ -51,8 +51,12 @@ a.fn::after{
     background: white;
     height: 10%;
     overflow-y: scroll;
+    display: none;
 }
 
+a.fn:hover + #footnotes {
+    display: block;
+}
 
 #footnotes a {
     color: black;

@@ -547,14 +547,10 @@ sub outputLines {
 		  # figures are special
 		  if ($environment =~ /^figure$/) {
 		      # optional parameters
-		      my $optional = "";
-		      my $caption = "";
-		      my $id = "";
-
-		      ($optional, $caption, $id) = handleParameter($environment, %parameter);
+		      my ($optional, $caption, $id) = handleParameter($environment, %parameter);
 		      if (! defined $optional) {$optional =""}
 		      if (! defined $caption) {$caption =""}
-
+		      if (! defined $id) {$id =""}
 		      
 		      print OUTPUT "<figure $id role=\"group\">\n";
 		      print OUTPUT "<img $optional src=\"$lafic_dir/$par\">\n";
@@ -900,18 +896,18 @@ sub parseFile {
 			    if ($pattern[$i] =~ /[(](.*?)[)]/) {
 				$context[$i] = $1;
 				# handle special chars for search
-				$context[$i] =~ s/([]().?!\$])/\\$1/g;
+				$context[$i] =~ s/([]().?!\$\-*])/\\$1/g;
 				$pattern[$i] =~ s/([(].*?[)])//;
 				# remove leading spaces from pattern
 				$pattern[$i] =~ s/^\s*//;
 				# remove trailing spaces from pattern
 				$pattern[$i] =~ s/\s*$//;
 				# handle special chars for searcg
-				$pattern[$i] =~ s/([]().?!\$])/\\$1/g;
+				$pattern[$i] =~ s/([]().?!\$\-*])/\\$1/g;
 			    }
 			    else {
 				# handle special chars for search
-				$pattern[$i] =~ s/([]().?!\$])/\\$1/g;}
+				$pattern[$i] =~ s/([]().?!\$\-*])/\\$1/g;}
 				
 			    $i ++;
 			}
@@ -925,13 +921,13 @@ sub parseFile {
 			if ($searchstring =~ /^[(](.*?)[)]/){
 			    $context[0] = $1;
 			    # handle special chars for search
-			    $context[0] =~ s/([]().?!\$])/\\$1/g;
+			    $context[0] =~ s/([]().?!\$-])/\\$1/g;
 			}
 			# Zeilenende
 			if ($searchstring =~ /[(](.*?)[)]$/){
 			    $context[1] = $1;
 			    # handle special chars for search
-			    $context[1] =~ s/([]().?!\$])/\\$1/g;
+			    $context[1] =~ s/([]().?!\$-])/\\$1/g;
 			}
 			
 			# context entfernen
@@ -942,7 +938,7 @@ sub parseFile {
 			# remove trailing spaces from searchstring
 			$searchstring =~ s/\s*$//;
 			# handle special chars for search
-			$searchstring =~ s/([]().?!\$])/\\$1/g;
+			$searchstring =~ s/([]().?!\$\-*])/\\$1/g;
 
 
 			$par =~ s/$context[0](\W*?)($searchstring)(\W*?)$context[1]/$context[0]$1<$format_start$il_arg>$2<\/$format>$3$context[1]/g;
@@ -962,7 +958,6 @@ sub parseFile {
 			elsif ($keywords{"$fline"} =~ /^[+]$/){
 			    $list_level++;
 			    $par =~ s/^\n//mg;
-			    print "$par";
 			    $par = ">\n".$par;
 			}
 			elsif ($keywords{"$fline"} =~ /^[-]$/){
