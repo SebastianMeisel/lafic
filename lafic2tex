@@ -151,7 +151,8 @@ my %parameters = (
     "width" => "width",
     "length" => "width",
     "height" => "height",
-    "caption"=> "caption"
+    "caption"=> "caption",
+    "background" => "background",
     );
 
 # hash for keywords like "break lines"

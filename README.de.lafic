@@ -128,6 +128,7 @@ C-c verwendet. Die Tastenkürzel orientieren sich an AUCTeX,
 sodass man gut zurecht kommen sollte, wenn man damit schon
 gearbeitet hat.
 % C-c: nicht proportional
+% Hintergrund = gray!85
 
 % Überschrift2
 Schreiben mit LaFiC
