@@ -4,12 +4,21 @@
 <head>
   <meta charset="utf-8">
   <script src="https://code.jquery.com/jquery-latest.js"></script>
+  <!-- <script> -->
+  <!--   $(document).ready(function(){ -->
+  <!--   $(".fn").hover(function() { -->
+  <!--   $('#footnotes').show(); -->
+  <!--   }, function() { -->
+  <!--   $('#footnotes').hide(); -->
+  <!--   }); -->
+  <!--   }); -->
+  <!-- </script> -->
   <script>
-    $(document).ready(function(){
+    $(document).ready(function() {
     $(".fn").hover(function() {
-    $('#footnotes').show();
+    $("#footnotes").css({"position": "fixed"});
     }, function() {
-    $('#footnotes').hide();
+    $("#footnotes").css({"position": "static"});
     });
     });
   </script>

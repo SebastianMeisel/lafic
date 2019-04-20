@@ -107,7 +107,7 @@ Letzteres ruft zuerst lafic2tex und latexmk auf.
 Durch den Aufruf dieser drei Skripte würden folgende Dateien
 erstellt:
 
-% verbatim
+% Verbatim
 Datei.html
 Datei.tex
 Datei.pdf
