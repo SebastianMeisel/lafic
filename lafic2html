@@ -154,7 +154,8 @@ my %parameters = (
     "width" => "width",
     "length" => "width",
     "height" => "height",
-    "caption"=> "caption"
+    "caption"=> "caption",
+    "background" => "background",
     );
 
 # hash for keywords like "break lines"
@@ -167,7 +168,10 @@ my %keywords = (
     "-" => "-",
     );
 
-
+#  Color names
+my %colors = (
+    "gray" => "lightgray",
+    );
 
 ######
 # Language specific
@@ -193,16 +197,27 @@ my %keywords = (
 	     print "load $lang_macro_file.\n";
 	     %environments = (%environments, do $lang_macro_file);
 	 }
+	 # parameters
+	 $lang_macro_file = "$lafic_dir/de_DE/Html.parameters.pl";
+	 if (-e $lang_macro_file) {
+	     print "load $lang_macro_file.\n";
+	     %parameters = (%parameters, do $lang_macro_file);
+	 }
 	 # keywords
 	 $lang_macro_file = "$lafic_dir/de_DE/Html.keywords.pl";
 	 if (-e $lang_macro_file) {
 	     print "load $lang_macro_file.\n";
 	     %keywords = (%keywords, do $lang_macro_file);
 	 }
+	 # colors
+	 $lang_macro_file = "$lafic_dir/de_DE/Html.colors.pl";
+	 if (-e $lang_macro_file) {
+	     print "load $lang_macro_file.\n";
+	     %colors = (%colors, do $lang_macro_file);
+	 }
 	 last SELECT}
 }
     
-
 
 # declare $template variable for template filehandler
 my $template;
@@ -448,6 +463,23 @@ sub outputLines {
 	$par =~ s/[[:blank:]]*(&gt;|>)\n+/<\/li>\n<$environment>\n/mg;
 	$par =~ s/[[:blank:]]*(&lt;|<)\n+/<\/li>\n<\/$environment>\n/mg;
     }
+
+
+    # background color
+    my $key;
+    my $color;
+    foreach  $key (keys %parameter) {
+	if ($parameters{lc($key)} and $parameters{lc($key)} =~ /^background$/){
+	    $parameter{"background"} = delete($parameter{$key});
+	    if ($colors{$parameter{"background"}}){
+		$color = $colors{$parameter{"background"}};
+	    }
+	    else {$color = $parameter{"background"};}
+	    print OUTPUT "<div style=\"padding: 1em; background-color: ";
+	    print OUTPUT $color;
+	    print OUTPUT "\">\n";
+	}}
+
 	
 
     
@@ -591,6 +623,13 @@ sub outputLines {
 		  }
 		  last SELECT}
     }
+
+
+    # close colorbox
+    if ($parameter{"background"}) {
+	print OUTPUT "</div>\n";
+    }
+
     
     # print newline
     print OUTPUT "\n";

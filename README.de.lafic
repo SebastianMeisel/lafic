@@ -122,13 +122,12 @@ LaFiC-Major-Mode beim Öffnen einer Datei mit der Endung
 % Installation: see: Installation
 % *…lafic: nicht proportional
 
-Dadurch steht eine einfache Syntaxhervorhebung und einige
+Dadurch stehen eine einfache Syntaxhervorhebung und einige
 Tastenkürzel zur Verfügung. Als Prefix wird dabei jewweil
 C-c verwendet. Die Tastenkürzel orientieren sich an AUCTeX,
 sodass man gut zurecht kommen sollte, wenn man damit schon
 gearbeitet hat.
 % C-c: nicht proportional
-% Hintergrund = grau
 
 % Überschrift2
 Schreiben mit LaFiC
@@ -188,7 +187,6 @@ die entsprechende Umgebung (LaTeX), bzw. der entsprechende
 Block (Html) ausgegeben. Ansonsten dient das Schlüsselwort
 (umgewandelt in Kleinschreibung) als Name der Umgebung
 (LaTeX), bzw. eines <div>-Blocks (Html).
-% Hintergrund = grau 
 
 
 % Verbatim	

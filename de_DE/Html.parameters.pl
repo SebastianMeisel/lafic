@@ -4,6 +4,6 @@
     "Breite" => "width",
     "Länge" => "width",
     "Höhe" => "height",
-    "beschriftung"=> "caption"
-
-
+    "beschriftung"=> "caption",
+    # Farbe
+    "hintergrund" => "background",
