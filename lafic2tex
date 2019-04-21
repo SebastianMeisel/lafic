@@ -225,6 +225,12 @@ my %label_pre = (
 	     print "load $lang_macro_file.\n";
 	     %environments = (%environments, do $lang_macro_file);
 	 }
+	 # paramters
+	 $lang_macro_file = "$lafic_dir/de_DE/LaTeX.parameters.pl";
+	 if (-e $lang_macro_file) {
+	     print "load $lang_macro_file.\n";
+	     %parameters = (%parameters, do $lang_macro_file);
+	 }
 	 # keywords
 	 $lang_macro_file = "$lafic_dir/de_DE/LaTeX.keywords.pl";
 	 if (-e $lang_macro_file) {
@@ -488,12 +494,21 @@ sub outputLines {
 	$par =~ s/^>$/\\begin\{$environment\}/mg;#}
 	$par =~ s/^<$/\\end\{$environment\}/mg;#}
     }
-	
+
+    # colorbox
+    my $key;
+    foreach  $key (keys %parameter) {
+	if ($parameters{lc($key)} and $parameters{lc($key)} =~ /^background$/){
+	    $parameter{"background"} = delete($parameter{$key});
+	    print OUTPUT "\\colorbox\{".$parameter{"background"};
+	    print OUTPUT "\}\{\\parbox\{\\linewidth\}\{%%\n";
+	}}
     
     # close macro or environment  
   SELECT: {
       # no content
       if ($par =~ /^(\s*)$/) {last SELECT}
+      
       
       # line / macro
       if ($parstyle == 0 || $parstyle == 3) {
@@ -600,6 +615,12 @@ sub outputLines {
 		  }
 		  last SELECT}
     }
+
+    # close colorbox
+    if ($parameter{"background"}) {
+	print OUTPUT "\}\}\n";
+    }
+
     
     # print newline
     print OUTPUT "\n";
@@ -932,7 +953,7 @@ sub parseFile {
 			
 			# replace searchstring?
 			if ($format ~~ @il_replace_macros) {
-			    $par =~ s/$context[0](\W*)($searchstring)(\W*)$context[1]/$context[0]$1\\$format\{$il_arg}\\xspace $4$context[1]/g;}
+			    $par =~ s/$context[0](\W*)($searchstring)(\W*)$context[1]/$context[0]$1\\$format\{$il_arg}\\xspace $3$context[1]/g;}
 			# put command after searchstring
 			elsif ($format ~~ @il_after_macros) {
 			    $par =~ s/$context[0](\W*)($searchstring)(\W*)$context[1]/$context[0]$1$2\\$format\{$il_arg}\\xspace $3$context[1]/g;}

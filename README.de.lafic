@@ -128,7 +128,7 @@ C-c verwendet. Die Tastenkürzel orientieren sich an AUCTeX,
 sodass man gut zurecht kommen sollte, wenn man damit schon
 gearbeitet hat.
 % C-c: nicht proportional
-% Hintergrund = gray!85
+% Hintergrund = grau
 
 % Überschrift2
 Schreiben mit LaFiC
@@ -188,7 +188,7 @@ die entsprechende Umgebung (LaTeX), bzw. der entsprechende
 Block (Html) ausgegeben. Ansonsten dient das Schlüsselwort
 (umgewandelt in Kleinschreibung) als Name der Umgebung
 (LaTeX), bzw. eines <div>-Blocks (Html).
-
+% Hintergrund = grau 
 
 
 % Verbatim	
