@@ -171,6 +171,7 @@ my %keywords = (
 #  Color names
 my %colors = (
     "gray" => "lightgray",
+    "green" => "lawngreen",
     );
 
 ######

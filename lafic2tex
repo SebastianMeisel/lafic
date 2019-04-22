@@ -200,6 +200,12 @@ my %label_pre = (
     "appendix" => "app:",
     );
 
+#  Color names
+my %colors = (
+    "gray" => "gray!75",
+    "green" => "lawngreen",
+    );
+
 
 ######
 # Language specific
@@ -236,6 +242,12 @@ my %label_pre = (
 	 if (-e $lang_macro_file) {
 	     print "load $lang_macro_file.\n";
 	     %keywords = (%keywords, do $lang_macro_file);
+	 }
+	 # colors
+	 $lang_macro_file = "$lafic_dir/de_DE/LaTeX.colors.pl";
+	 if (-e $lang_macro_file) {
+	     print "load $lang_macro_file.\n";
+	     %colors = (%colors, do $lang_macro_file);
 	 }
 	 last SELECT}
 }
@@ -497,10 +509,16 @@ sub outputLines {
 
     # colorbox
     my $key;
+    my $color;
     foreach  $key (keys %parameter) {
 	if ($parameters{lc($key)} and $parameters{lc($key)} =~ /^background$/){
 	    $parameter{"background"} = delete($parameter{$key});
-	    print OUTPUT "\\colorbox\{".$parameter{"background"};
+	    if ($colors{$parameter{"background"}}){
+		$color = $colors{$parameter{"background"}};
+	    }
+	    else {$color = $parameter{"background"};}
+
+	    print OUTPUT "\\colorbox\{".$color;
 	    print OUTPUT "\}\{\\parbox\{\\linewidth\}\{%%\n";
 	}}
     
@@ -592,7 +610,7 @@ sub outputLines {
 		      if (! $label =~ /^$/ ) {
 			  print OUTPUT "\\label{$label}\n";
 		      }
-		      print OUTPUT "\\end{figure}\n";
+#		      print OUTPUT "\\end{figure}\n";
 		  }
 		  # list environment
 		  elsif ($environment ~~ @list_environments) {

@@ -2,7 +2,6 @@
 
 \usepackage{graphicx}
 \usepackage{xcolor}
-\definecolor{grau}{gray}{.75}
 \setlength{\fboxsep}{.05\linewidth}
 \usepackage[hyperindex=false, pdfpagelabels,
 pageanchor, hyperfootnotes=false, bookmarksopen,
@@ -146,13 +145,11 @@ beschrieben in Emacs eingebunden haben, wird der
 LaFiC-Major-Mode beim Öffnen einer Datei mit der Endung
 \texttt{*.lafic} aktiviert.
 
-\colorbox{grau}{\parbox{\linewidth}{%%
-Dadurch steht eine einfache Syntaxhervorhebung und einige
+Dadurch stehen eine einfache Syntaxhervorhebung und einige
 Tastenkürzel zur Verfügung. Als Prefix wird dabei jewweil
 \texttt{C-c} verwendet. Die Tastenkürzel orientieren sich an AUCTeX,
 sodass man gut zurecht kommen sollte, wenn man damit schon
 gearbeitet hat.
-}}
 
 \part{Schreiben mit LaFiC}
 
@@ -194,7 +191,6 @@ Man kann im Text jeder Zeit Kommentare einführen in dem man einen Absatz einfü
 
 \section{Formatierte Absätze}
 
-\colorbox{grau}{\parbox{\linewidth}{%%
 Absätze können formatiert werden, in dem eine Zeile
 vorangestellt wird, die mit einem \%-Zeichen beginnt dem ein
 Schlüsselwort folgt. Ist das Schlüsselwort bekannt, wird
@@ -202,7 +198,6 @@ die entsprechende Umgebung (LaTeX), bzw. der entsprechende
 Block (Html) ausgegeben. Ansonsten dient das Schlüsselwort
 (umgewandelt in Kleinschreibung) als Name der Umgebung
 (LaTeX), bzw. eines <div>-Blocks (Html).
-}}
 
 \begin{verbatim}
 	Dieser Absatz ist zentriert.
@@ -296,7 +291,6 @@ line. You don't need the extention then.
 \includegraphics[height=.40\textheight]{Image.png}
 \caption{Mars and Moon}
 \label{bild1}
-\end{figure}
 
 
 \end{document}

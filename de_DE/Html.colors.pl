@@ -1,1 +1,2 @@
 "grau" => "lightgray",
+"grün" => "lawngreen",

@@ -277,3 +277,8 @@ Image.png
 % height = 40%
 % caption = Mars and Moon
 % name = bild1
+
+Farben
+
+Die Hintergrundfarbe eines Absatzes kann über den Parameter Hintergrund gesetzt werden.
+% Hintergrund = grau
