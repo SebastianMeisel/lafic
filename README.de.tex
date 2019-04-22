@@ -1,7 +1,7 @@
 \documentclass{scrartcl}
 
 \usepackage{graphicx}
-\usepackage{xcolor}
+\usepackage[x11names, dvipsnames*, svgnames]{xcolor}
 \setlength{\fboxsep}{.05\linewidth}
 \usepackage[hyperindex=false, pdfpagelabels,
 pageanchor, hyperfootnotes=false, bookmarksopen,
@@ -291,6 +291,15 @@ line. You don't need the extention then.
 \includegraphics[height=.40\textheight]{Image.png}
 \caption{Mars and Moon}
 \label{bild1}
+
+\end{figure}
+
+\section{Farben}
+
+\colorbox{red}{\parbox{\linewidth}{%%
+Die Hintergrundfarbe eines \textcolor{yellow}{Absatzes} kann über den Parameter Hintergrund gesetzt werden.
+}}
+
 
 
 \end{document}

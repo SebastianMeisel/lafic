@@ -140,6 +140,8 @@ my %il_macros = (
     "see" => "nameref",
     # footnote
     "footnote" => "footnote",
+    # color
+    "color" => "textcolor",
     );
 
 # hash for know parameters
@@ -395,6 +397,7 @@ sub handle_il_argument {
     
     my $return;
     my $text = LaTeX(join(":", @argument));
+    my $color;
 
     SELECT: { # first check, which macro to handle
 	# hyperlink
@@ -409,6 +412,15 @@ sub handle_il_argument {
 	# footnote
 	if ($macro =~ /^footnote$/) { 
 	    $return = $text;
+	    last SELECT}
+	# text color
+	if ($macro =~ /^textcolor$/) {
+	    	    if ($colors{$text}){
+		$color = $colors{$text};
+	    }
+	    else {$color = $text;}
+
+	    $return = "\{".$color."\}";
 	    last SELECT}
 	# everything else: return optional argument
 	else {$return = "\[".$text."\]"}
