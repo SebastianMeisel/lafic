@@ -1,0 +1,45 @@
+\documentclass[titlepage]{scrbook}
+
+\usepackage{graphicx}
+\usepackage[hyperindex=false, pdfpagelabels,
+pageanchor, hyperfootnotes=false, bookmarksopen,
+pdfpagemode=UseOutlines]{hyperref}
+
+\usepackage{mathspec}
+\usepackage{fontspec}
+\usepackage{xunicode}
+\usepackage[no-sscript]{xltxtra}
+
+\setmainfont[Mapping=tex-text, Scale=1.71,
+BoldFeatures={Weight=1},
+ItalicFeatures={SmallCapsFont=AlegreyaSC-Italic}]{Alegreya}
+\setsansfont[Mapping=tex-text, Scale=1.71]{Alegreya Sans}
+
+
+\usepackage{polyglossia}
+\setdefaultlanguage{english}
+
+\usepackage{microtype}
+\usepackage{xspace}
+\author{Alina Meisel}
+
+%TITLE%
+
+\hypersetup{
+	pdftitle={\title},
+	pdfauthor={\author},
+	}
+ 
+
+\begin{document}
+
+\maketitle
+
+%TEXT%
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
