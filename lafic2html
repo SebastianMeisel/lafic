@@ -529,6 +529,7 @@ sub outputLines {
 		      $macro = "H1";
 		      print OUTPUT "<$macro>$par</$macro>\n";
 
+		      $newfile = 0;
 		      # }		
 		  }
 		  last SELECT}
@@ -537,9 +538,25 @@ sub outputLines {
 		  # check if it is first line / paragraph
 		  if ($newfile == 1) {
 		      startTemplate("TITLE");
-		      $newfile = 0;
-		  };
+		      if ($title =~ /^\s*$/) {
+			  $title = "Ein Text";
+			  $macro = "H1";
+			  print OUTPUT "<meta name=\"title\"";
+			  print OUTPUT "content=\"";
+			  print OUTPUT $title;
+			  print OUTPUT "\">\n";
+			  if ($config{"author"}){
+			      print OUTPUT "<meta name=\"author\"";
+			      print OUTPUT "content=\"";
+			      print OUTPUT $config{"author"};
+			      print OUTPUT "\">\n";
+			  }
+			  startTemplate("TEXT");
+			  print OUTPUT "<$macro>$title</$macro>\n";
 
+			  $newfile = 0;
+		      };
+		  };
 		  # check if it's an image
 		  if (lc($par) =~ /\.(png|jpg|jpeg|gif)$/){
 		      # get optional parameters

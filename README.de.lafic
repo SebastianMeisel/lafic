@@ -283,4 +283,3 @@ Farben
 Die Hintergrundfarbe eines Absatzes kann über den Parameter Hintergrund gesetzt werden.
 % Hintergrund = rot
 % Absatzes: color: yellow
-

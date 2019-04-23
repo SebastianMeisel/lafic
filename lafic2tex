@@ -606,10 +606,10 @@ sub outputLines {
 	      if ($parstyle == 4) {
 		  # check if it is first line / paragraph
 		  if ($newfile == 1) {
+		      # run startTemplate
 		      startTemplate("TITLE");
 		      # check if title is defined
 		      if ($title =~ /^\s*$/) {
-			  # run startTemplate
 			  print OUTPUT "\\title\{Unbekannt\}\n";
 		      } 
 		      if ($config{"author"}){
