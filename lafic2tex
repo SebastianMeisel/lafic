@@ -573,6 +573,15 @@ sub outputLines {
 		  # check if it is first line / paragraph
 		  if ($newfile == 1) {
 		      startTemplate("TITLE");
+		      # check if title is defined
+		      if ($title =~ /^\s*$/) {
+			  # run startTemplate
+			  print OUTPUT "\\title\{Unbekannt\}\n";
+		      } 
+		      if ($config{"author"}){
+			  print OUTPUT "\\author\{$config{'author'}\}\n";
+		      }
+		      startTemplate("TEXT");
 		      $newfile = 0;
 		  };
 		  # check if it's an image
@@ -599,11 +608,15 @@ sub outputLines {
 		  if ($newfile == 1) {
 		      startTemplate("TITLE");
 		      # check if title is defined
-		      unless (defined $title) {
+		      if ($title =~ /^\s*$/) {
 			  # run startTemplate
 			  print OUTPUT "\\title\{Unbekannt\}\n";
-			  startTemplate("TEXT");
 		      } 
+		      if ($config{"author"}){
+			  print OUTPUT "\\author\{$config{'author'}\}\n";
+		      }
+		      startTemplate("TEXT");
+		      $newfile = 0;
 		  };
 		  # figures are special
 		  if ($environment =~ /^figure$/) {
