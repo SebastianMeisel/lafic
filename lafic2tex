@@ -154,7 +154,10 @@ my %parameters = (
     "length" => "width",
     "height" => "height",
     "caption"=> "caption",
+    # colors
     "background" => "background",
+    "color" => "color",
+    "align" => "align",
     );
 
 # hash for keywords like "break lines"
@@ -206,6 +209,10 @@ my %label_pre = (
 my %colors = (
     "gray" => "gray!75",
     "green" => "lawngreen",
+    "yellow" => "LightYellow1",
+    "blue" => "PaleTurquoise1",
+    "red" => "red",
+    "white" => "white",
     );
 
 
@@ -521,18 +528,36 @@ sub outputLines {
 
     # colorbox
     my $key;
+    my %value;
     my $color;
     foreach  $key (keys %parameter) {
-	if ($parameters{lc($key)} and $parameters{lc($key)} =~ /^background$/){
-	    $parameter{"background"} = delete($parameter{$key});
-	    if ($colors{$parameter{"background"}}){
-		$color = $colors{$parameter{"background"}};
+	if ($parameters{lc($key)}){
+	    if($parameters{lc($key)} =~ /^(background)$/){
+		$parameter{$1} = delete($parameter{$key});
+		if ($colors{$parameter{$1}}){
+		    $color = $colors{$parameter{$1}};
+		}
+		print OUTPUT "\\colorbox\{".$color;
+		print OUTPUT "\}\{\\parbox\{\\linewidth\}\{%%\n";
 	    }
-	    else {$color = $parameter{"background"};}
-
-	    print OUTPUT "\\colorbox\{".$color;
-	    print OUTPUT "\}\{\\parbox\{\\linewidth\}\{%%\n";
+	    if($parameters{lc($key)} =~ /^(color|align)$/){
+		$parameter{$1} = delete($parameter{$key});
+		if ($colors{$parameter{$1}}){
+		    $value{$1} = $colors{$parameter{$1}};
+		}
+		#elsif($align{$parameter{$1}}) … 
+		else {$value{$1} = $parameter{$1};}
+	    }
 	}}
+    # fontcolor / align
+    if(%value) {
+	print OUTPUT "\{";
+	if ($value{"color"}){
+	    print OUTPUT "\\addfontfeature\{Color=";
+	    print OUTPUT $value{"color"};
+	    print OUTPUT "\}%%\n";
+	}
+    }
     
     # close macro or environment  
   SELECT: {
@@ -663,7 +688,10 @@ sub outputLines {
     if ($parameter{"background"}) {
 	print OUTPUT "\}\}\n";
     }
-
+    # close paragraph text color / align
+    if (%value) {
+	print OUTPUT "\}\n";
+    }
     
     # print newline
     print OUTPUT "\n";

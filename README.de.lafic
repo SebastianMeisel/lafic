@@ -281,21 +281,27 @@ Image.png
 
 Farben
 
-Die Hintergrundfarbe eines Absatzes kann über den Parameter Hintergrund gesetzt werden; die Textfarbe über Farbe.
+Die Hintergrundfarbe eines Absatzes kann über den Parameter Hintergrund gesetzt werden; die Textfarbe über Farbe. Um in einem Absatz einzelne Wörter oder einen Bereich farbig zu gestalten, können analog die Schlüsselwörter Farbe und Hintergrund verwendet werden.
 % Hintergrund = rot
-% Farbe = grün
+% Farbe = weiß
 % Ausrichtung = right
 % Hintergrund (gesetzt): Farbe: blau
 % Farbe: Farbe: blau
+% Hintergrund (verwendet): Farbe: blau
+
+
 
 % verbatim
   Die Hintergrundfarbe eines Absatzes kann über den
   Parameter Hintergrund gesetzt werden; die Textfarbe über
-  Farbe.
+  Farbe. Um in einem Absatz einzelne Wörter oder einen
+  Bereich farbig zu gestalten, können analog die
+  Schlüsselwörter Farbe und Hintergrund verwendet werden.
   % Hintergrund = rot
-  % Farbe = grün
+  % Farbe = weiß
   % Ausrichtung = right
-  % Hintergrund ( ): Farbe: blau
+  % Hintergrund (gesetzt): Farbe: blau
   % Farbe: Farbe: blau
+  % Hintergrund (verwendet): Farbe: blau
 
 

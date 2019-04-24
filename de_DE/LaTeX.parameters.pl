@@ -1,5 +1,6 @@
 # Label
-    "bezeichnung" => "label",
+"bezeichnung" => "label",
+    "name" => "label",
     # figures
     "breite" => "width",
     "länge" => "width",
@@ -7,4 +8,6 @@
     "beschriftung"=> "caption",
     # Farbe
     "hintergrund" => "background",
+    "farbe" => "color",
+    "ausrichtung" => "align",
 

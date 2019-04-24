@@ -176,6 +176,10 @@ my %keywords = (
 my %colors = (
     "gray" => "lightgray",
     "green" => "lawngreen",
+    "yellow" => "#FFF8C6",
+    "blue" => "#00FFFF",
+    "red" => "red",
+    "white" => "white",
     );
 
 ######
@@ -469,7 +473,7 @@ sub outputLines {
 	$par =~ s/[[:blank:]]*(&lt;|<)\n+/<\/li>\n<\/$environment>\n/mg;
     }
 
-    
+    # Paragraph parameters
     # background- and text color / align
     my $key;
     my %value;
@@ -948,11 +952,15 @@ sub parseFile {
 			# text color
 			elsif ($format =~ /^color$/){
 			    $fn_counter++;
-			    $format_start = "span style=\"color: $colors{$il_arg}\"";
+			    my $tcolor;
+			    if($colors{$il_arg}){
+				$tcolor = $colors{$il_arg};}
+			    else {$tcolor = $il_arg;}
+			    $format_start = "span style=\"color: $tcolor\"";
 			    $il_arg = "";
 			    $format = "span";
 			}
-			# else it'S a span
+			# else it's a span
 			else {
 			    $format_start = "span class=\"$format\"";
 			    $format = "span";

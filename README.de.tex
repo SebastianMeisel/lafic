@@ -11,6 +11,10 @@ pdfpagemode=UseOutlines]{hyperref}
 \usepackage{fontspec}
 \usepackage{xunicode}
 \usepackage[no-sscript]{xltxtra}
+
+\setmainfont[Mapping=tex-text,  Scale=1.03, ItalicFeatures={SmallCapsFont=AlegreyaSC-Italic}]{Alegreya}
+\setsansfont[Mapping=tex-text, Scale=1.03]{Alegreya Sans}
+
 \usepackage{polyglossia}
 \setdefaultlanguage{english}
 
@@ -21,12 +25,13 @@ pdfpagemode=UseOutlines]{hyperref}
 \sloppy
 
 
-\title{Unbekannt}
+\title{Einführung in LaFiC}
 \author{Sebastian Meisel}
 
 \begin{document}
 
 \maketitle
+
 
 LaFiC bedeutet \textit{layout and format in comments}, also „Layout
 und Format in Kommentaren“, denn sämtliche Formatierungen
@@ -279,7 +284,8 @@ The simplest way to put an image into a lafic file is a
 line with the image name, with a know extention: png, jpg,
 jpeg, gif.
 
-\includegraphics[width=.50\linewidth]{Image.png}
+{\includegraphics[width=.50\linewidth]{Image.png}
+}
 
 Note that this will not put an figure environment in \LaTeX
 files, so the image won't float this way. For this to
@@ -296,8 +302,25 @@ line. You don't need the extention then.
 \section{Farben}
 
 \colorbox{red}{\parbox{\linewidth}{%%
-Die Hintergrundfarbe eines \textcolor{yellow}{Absatzes} kann über den Parameter Hintergrund gesetzt werden.
+{\addfontfeature{Color=white}%%
+Die Hintergrundfarbe eines Absatzes kann über den Parameter \textcolor{PaleTurquoise1}{Hintergrund} gesetzt werden; die Textfarbe über \textcolor{PaleTurquoise1}{Farbe}. Um in einem Absatz einzelne Wörter oder einen Bereich farbig zu gestalten, können analog die Schlüsselwörter \textcolor{PaleTurquoise1}{Farbe} und \textcolor{PaleTurquoise1}{Hintergrund} verwendet werden.
 }}
+}
+
+\begin{verbatim}
+  Die Hintergrundfarbe eines Absatzes kann über den
+  Parameter Hintergrund gesetzt werden; die Textfarbe über
+  Farbe. Um in einem Absatz einzelne Wörter oder einen
+  Bereich farbig zu gestalten, können analog die
+  Schlüsselwörter Farbe und Hintergrund verwendet werden.
+  % Hintergrund = rot
+  % Farbe = weiß
+  % Ausrichtung = right
+  % Hintergrund (gesetzt): Farbe: blau
+  % Farbe: Farbe: blau
+  % Hintergrund (verwendet): Farbe: blau
+
+\end{verbatim}
 
 
 
