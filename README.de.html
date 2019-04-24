@@ -347,7 +347,9 @@ line with the image name, with a know extention: png, jpg,
 jpeg, gif.
 </p>
 
+<div style="padding: 1em; text-align: center">
 <img style="width: 50%;" src="/home/sebastian/lafic/Image.png">
+</div>
 
 <p>
 Note that this will not put an figure environment in LaTeX
@@ -365,11 +367,24 @@ line. You don't need the extention then.
 
 <H3>Farben</H3>
 
-<div style="padding: 1em; background-color: red">
+<div style="padding: 1em; text-align: right; background-color: red; color: lawngreen">
 <p>
-Die Hintergrundfarbe eines <span class="color"yellow>Absatzes</span> kann über den Parameter Hintergrund gesetzt werden.
+Die Hintergrundfarbe eines Absatzes kann über den Parameter <span style="color: #00FFFF">Hintergrund</span> gesetzt werden; die Textfarbe über <span style="color: #00FFFF">Farbe</span>.
 </p>
 </div>
+
+<pre>
+  Die Hintergrundfarbe eines Absatzes kann über den
+  Parameter Hintergrund gesetzt werden; die Textfarbe über
+  Farbe.
+  % Hintergrund = rot
+  % Farbe = grün
+  % Ausrichtung = right
+  % Hintergrund ( ): Farbe: blau
+  % Farbe: Farbe: blau
+
+</pre>
+
 
 <div id="footnotes">
 <ol>

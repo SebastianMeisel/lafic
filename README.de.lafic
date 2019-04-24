@@ -266,6 +266,7 @@ jpeg, gif.
 
 Image.png
 % width = 50%
+% align = center
 
 Note that this will not put an figure environment in LaTeX
 files, so the image won't float this way. For this to
@@ -280,6 +281,21 @@ Image.png
 
 Farben
 
-Die Hintergrundfarbe eines Absatzes kann über den Parameter Hintergrund gesetzt werden.
+Die Hintergrundfarbe eines Absatzes kann über den Parameter Hintergrund gesetzt werden; die Textfarbe über Farbe.
 % Hintergrund = rot
-% Absatzes: color: yellow
+% Farbe = grün
+% Ausrichtung = right
+% Hintergrund (gesetzt): Farbe: blau
+% Farbe: Farbe: blau
+
+% verbatim
+  Die Hintergrundfarbe eines Absatzes kann über den
+  Parameter Hintergrund gesetzt werden; die Textfarbe über
+  Farbe.
+  % Hintergrund = rot
+  % Farbe = grün
+  % Ausrichtung = right
+  % Hintergrund ( ): Farbe: blau
+  % Farbe: Farbe: blau
+
+

@@ -6,4 +6,7 @@
     "Höhe" => "height",
     "beschriftung"=> "caption",
     # Farbe
-    "hintergrund" => "background",
+    "hintergrund" => "background-color",
+    "farbe" => "color",
+    # Ausrichtung
+    "ausrichtung" => "text-align",

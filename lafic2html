@@ -143,6 +143,7 @@ my %il_macros = (
     "see" => "a",
     # footnotes
     "footnote" => ".fn",
+    "color" => ".color",
     );
 
 # hash for know parameters
@@ -155,7 +156,10 @@ my %parameters = (
     "length" => "width",
     "height" => "height",
     "caption"=> "caption",
-    "background" => "background",
+    # paragraph
+    "background" => "background-color",
+    "color" => "color",
+    "align" => "text-align",
     );
 
 # hash for keywords like "break lines"
@@ -465,21 +469,30 @@ sub outputLines {
 	$par =~ s/[[:blank:]]*(&lt;|<)\n+/<\/li>\n<\/$environment>\n/mg;
     }
 
-
-    # background color
+    
+    # background- and text color / align
     my $key;
-    my $color;
+    my %value;
     foreach  $key (keys %parameter) {
-	if ($parameters{lc($key)} and $parameters{lc($key)} =~ /^background$/){
-	    $parameter{"background"} = delete($parameter{$key});
-	    if ($colors{$parameter{"background"}}){
-		$color = $colors{$parameter{"background"}};
+	if ($parameters{lc($key)}){
+	    if($parameters{lc($key)} =~ /^(background-color|color|text-align)$/){
+		$parameter{$1} = delete($parameter{$key});
+		if ($colors{$parameter{$1}}){
+		    $value{$1} = $colors{$parameter{$1}};
+		}
+		#elsif($align{$parameter{$1}}) … 
+		else {$value{$1} = $parameter{$1};}
 	    }
-	    else {$color = $parameter{"background"};}
-	    print OUTPUT "<div style=\"padding: 1em; background-color: ";
-	    print OUTPUT $color;
-	    print OUTPUT "\">\n";
 	}}
+    if(%value) {
+	print OUTPUT "<div style=\"padding: 1em";
+	foreach $key (keys %value){
+	    print OUTPUT "; ".$key.": ";
+	    print OUTPUT $value{$key};
+	}
+	print OUTPUT "\">\n";
+    }
+    
 
 	
 
@@ -644,7 +657,7 @@ sub outputLines {
 
 
     # close colorbox
-    if ($parameter{"background"}) {
+    if ($parameter{"background-color"} or $parameter{"text-align"} or $parameter{"color"}) {
 	print OUTPUT "</div>\n";
     }
 
@@ -931,6 +944,13 @@ sub parseFile {
 			    $il_arg="";
 			    # format is actually <a>
 			    $format = "a";
+			}
+			# text color
+			elsif ($format =~ /^color$/){
+			    $fn_counter++;
+			    $format_start = "span style=\"color: $colors{$il_arg}\"";
+			    $il_arg = "";
+			    $format = "span";
 			}
 			# else it'S a span
 			else {
