@@ -89,6 +89,7 @@ load-path. Fügen Sie folgende Zeilen in Ihre Init-Datei
 
 Wenn Sie keine Unterstützung von deutschen Schlüsselwörtern
 wünschen oder benötigen, lassen Sie die erste Zeile weg.
+	print OUTPUT "\{";
 
 Nutzung
 
@@ -285,8 +286,8 @@ Die Hintergrundfarbe eines Absatzes kann über den Parameter Hintergrund gesetzt
 % Hintergrund = rot
 % Farbe = weiß
 % Ausrichtung = right
-% Hintergrund (gesetzt): Farbe: blau
-% Farbe: Farbe: blau
+% Hintergrund (gesetzt): Farbe: grün
+% Farbe: Farbe: grün
 % Hintergrund (verwendet): Farbe: blau
 
 
@@ -303,5 +304,3 @@ Die Hintergrundfarbe eines Absatzes kann über den Parameter Hintergrund gesetzt
   % Hintergrund (gesetzt): Farbe: blau
   % Farbe: Farbe: blau
   % Hintergrund (verwendet): Farbe: blau
-
-

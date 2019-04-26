@@ -88,6 +88,7 @@ Die Emacs-Einbindung wurde unter Gnu Emacs 25.2.2 getestet.
 \texttt{lafic2pdf} setzt zudem latexmk (getestet mit Version 4.41) vorraus.
 
 \section{Installation}
+\label{Installation}
 
 Holen Sie den Quelltext von \href{https://github.com}{github}:
 
@@ -117,6 +118,7 @@ verlinken) die Dateien \texttt{lafic-mode.el} und
 
 Wenn Sie keine Unterstützung von deutschen Schlüsselwörtern
 wünschen oder benötigen, lassen Sie die erste Zeile weg.
+	print OUTPUT "\textbackslash \{„;
 
 \section{Nutzung}
 
@@ -302,8 +304,8 @@ line. You don't need the extention then.
 \section{Farben}
 
 \colorbox{red}{\parbox{\linewidth}{%%
-{\addfontfeature{Color=white}%%
-Die Hintergrundfarbe eines Absatzes kann über den Parameter \textcolor{PaleTurquoise1}{Hintergrund} gesetzt werden; die Textfarbe über \textcolor{PaleTurquoise1}{Farbe}. Um in einem Absatz einzelne Wörter oder einen Bereich farbig zu gestalten, können analog die Schlüsselwörter \textcolor{PaleTurquoise1}{Farbe} und \textcolor{PaleTurquoise1}{Hintergrund} verwendet werden.
+\textcolor{white}{%%
+Die Hintergrundfarbe eines Absatzes kann über den Parameter \textcolor{green}{Hintergrund} gesetzt werden; die Textfarbe über \textcolor{green}{Farbe}. Um in einem Absatz einzelne Wörter oder einen Bereich farbig zu gestalten, können analog die Schlüsselwörter \textcolor{green}{Farbe} und \textcolor{PaleTurquoise1}{Hintergrund} verwendet werden.
 }}
 }
 
@@ -313,17 +315,14 @@ Die Hintergrundfarbe eines Absatzes kann über den Parameter \textcolor{PaleTurq
   Farbe. Um in einem Absatz einzelne Wörter oder einen
   Bereich farbig zu gestalten, können analog die
   Schlüsselwörter Farbe und Hintergrund verwendet werden.
-  % Hintergrund = rot
-  % Farbe = weiß
-  % Ausrichtung = right
-  % Hintergrund (gesetzt): Farbe: blau
-  % Farbe: Farbe: blau
-  % Hintergrund (verwendet): Farbe: blau
+  \% Hintergrund = rot
+  \% Farbe = weiß
+  \% Ausrichtung = right
+  \% Hintergrund (gesetzt): Farbe: blau
+  \% Farbe: Farbe: blau
+  \% Hintergrund (verwendet): Farbe: blau
 
 \end{verbatim}
-
-
-
 \end{document}
 
 %%% Local Variables:

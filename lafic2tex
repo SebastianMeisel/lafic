@@ -388,7 +388,7 @@ sub LaTeX {
     $par =~ s/(\w|[}ÄÖÜäöü\.\?\!:,;…])(‘|’|')(\W|$)/$1$csqm$3/g;
     $par =~ s/(\W|^)("|„|``)(\w|[{ÄÖÜäöü\.\?\!:,;…])/$1$oqm$3/g ;
     $par =~ s/(\w|[}ÄÖÜäöü\.\?\!:,;…])(''|"|„|“|``)(?!'|`)(\W|$)/$1$cqm$3/g;
-
+    # '
     
     # TODO: is there a better way?
     # $par =~ s/\\textbackslash \\textbackslash $/\\\\/mg;
@@ -448,13 +448,15 @@ sub handleParameter {
     my @return;
 
     my $key;
-    
+
     # get standard keywords for parameter   
     foreach $key (keys %parameter) {
-	if ($parameters{$key}){
-	    $parameter{$parameters{$key}} = delete($parameter{$key});
+	if ($parameters{lc($key)}){
+	    $parameter{$parameters{lc($key)}} = delete($parameter{$key});
 	}
     }
+
+   
 
     if (keys %parameter) {
 	if ($env_mac =~ /^(figure|includegraphics)$/) { 
@@ -551,11 +553,13 @@ sub outputLines {
 	}}
     # fontcolor / align
     if(%value) {
-	print OUTPUT "\{";
 	if ($value{"color"}){
-	    print OUTPUT "\\addfontfeature\{Color=";
+	    print OUTPUT "\\textcolor\{";
 	    print OUTPUT $value{"color"};
-	    print OUTPUT "\}%%\n";
+	    print OUTPUT "\}\{%%\n";
+	}
+	else{	
+	    print OUTPUT "\{";
 	}
     }
     
@@ -1130,23 +1134,13 @@ sub parseFile {
 	    $par = LaTeX($par);
     }
 
+
     # output lines / paragraphs
     ($newfile, $list_level) = outputLines ($par , $parstyle, $macro, $title, $environment, $prev_env, $list_level, $newfile, $newpar, %parameter);
 
-    
-    # better clean up
-    $parkey = "";
-    $macro = "";
-    $prev_env = $environment;
-    $environment = "";
-    $par = "";
-    $parstyle = 0;
-    $formbl = 0;
-    undef %parameter;
-
-    # set newpar to 1 (true)
-    $newpar = 1;
-
+    if ($environment){
+	print OUTPUT "\\end\{$environment\}";
+    }
 }
 
 close (INPUT);
