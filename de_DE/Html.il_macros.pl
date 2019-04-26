@@ -8,5 +8,6 @@ my %il_macros = (
     "hochgestellt" => "sup",
     "tiefgestellt" => "sub",
     "siehe" => "a",
-    "fußnote" => ".fn", 
+    "fußnote" => ".fn",
+    "farbe" => ".color",
     );

@@ -89,6 +89,7 @@ load-path. Fügen Sie folgende Zeilen in Ihre Init-Datei
 
 Wenn Sie keine Unterstützung von deutschen Schlüsselwörtern
 wünschen oder benötigen, lassen Sie die erste Zeile weg.
+	print OUTPUT "\{";
 
 Nutzung
 
@@ -122,7 +123,7 @@ LaFiC-Major-Mode beim Öffnen einer Datei mit der Endung
 % Installation: see: Installation
 % *…lafic: nicht proportional
 
-Dadurch steht eine einfache Syntaxhervorhebung und einige
+Dadurch stehen eine einfache Syntaxhervorhebung und einige
 Tastenkürzel zur Verfügung. Als Prefix wird dabei jewweil
 C-c verwendet. Die Tastenkürzel orientieren sich an AUCTeX,
 sodass man gut zurecht kommen sollte, wenn man damit schon
@@ -187,7 +188,6 @@ die entsprechende Umgebung (LaTeX), bzw. der entsprechende
 Block (Html) ausgegeben. Ansonsten dient das Schlüsselwort
 (umgewandelt in Kleinschreibung) als Name der Umgebung
 (LaTeX), bzw. eines <div>-Blocks (Html).
-
 
 
 % Verbatim	
@@ -267,6 +267,7 @@ jpeg, gif.
 
 Image.png
 % width = 50%
+% align = center
 
 Note that this will not put an figure environment in LaTeX
 files, so the image won't float this way. For this to
@@ -278,3 +279,28 @@ Image.png
 % height = 40%
 % caption = Mars and Moon
 % name = bild1
+
+Farben
+
+Die Hintergrundfarbe eines Absatzes kann über den Parameter Hintergrund gesetzt werden; die Textfarbe über Farbe. Um in einem Absatz einzelne Wörter oder einen Bereich farbig zu gestalten, können analog die Schlüsselwörter Farbe und Hintergrund verwendet werden.
+% Hintergrund = rot
+% Ausrichtung = right
+% Farbe = weiß
+% Hintergrund (gesetzt): Farbe: grün
+% Farbe: Farbe: grün
+% Hintergrund (verwendet): Farbe: blau
+
+
+
+% verbatim
+  Die Hintergrundfarbe eines Absatzes kann über den
+  Parameter Hintergrund gesetzt werden; die Textfarbe über
+  Farbe. Um in einem Absatz einzelne Wörter oder einen
+  Bereich farbig zu gestalten, können analog die
+  Schlüsselwörter Farbe und Hintergrund verwendet werden.
+  % Hintergrund = rot
+  % Farbe = weiß
+  % Ausrichtung = right
+  % Hintergrund (gesetzt): Farbe: blau
+  % Farbe: Farbe: blau
+  % Hintergrund (verwendet): Farbe: blau

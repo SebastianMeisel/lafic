@@ -1,6 +1,8 @@
 \documentclass{scrartcl}
 
 \usepackage{graphicx}
+\usepackage[x11names, dvipsnames*, svgnames]{xcolor}
+\setlength{\fboxsep}{.05\linewidth}
 \usepackage[hyperindex=false, pdfpagelabels,
 pageanchor, hyperfootnotes=false, bookmarksopen,
 pdfpagemode=UseOutlines]{hyperref}
@@ -9,11 +11,19 @@ pdfpagemode=UseOutlines]{hyperref}
 \usepackage{fontspec}
 \usepackage{xunicode}
 \usepackage[no-sscript]{xltxtra}
+
+\setmainfont[Mapping=tex-text,  Scale=1.03, ItalicFeatures={SmallCapsFont=AlegreyaSC-Italic}]{Alegreya}
+\setsansfont[Mapping=tex-text, Scale=1.03]{Alegreya Sans}
+
 \usepackage{polyglossia}
 \setdefaultlanguage{english}
 
 \usepackage{microtype}
 \usepackage{xspace}
+
+\setlength{\parindent}{0pt}
+\sloppy
+
 
 \title{Einführung in LaFiC}
 \author{Sebastian Meisel}
@@ -31,7 +41,7 @@ Gestalt.
 
 \section{Warum LaFiC}
 
-Ich arbeite nun schon viele Jahre mit \LaTeX / \XeLaTeX. Ich
+Ich arbeite nun schon viele Jahre mit \LaTeX\  / \XeLaTeX\ . Ich
 schreibe vor allem Prosa (ganz frei von mathematischen
 Formeln). Dabei fand ich es zum Teil störend, dass ich immer
 erst mit der Preamble beginnen muss und nicht einfach
@@ -40,7 +50,7 @@ losschreiben kann.
 Daraufhin probierte ich markdown/multimarkdown aus. Dabei
 störte mich aber, dass es sehr unflexible ist. Außerdem ist
 die Syntax an manchen Stellen etwas kryptisch, was mich
-störte. Außerdem funktionieren die erstellten \LaTeX-Dateien
+störte. Außerdem funktionieren die erstellten \LaTeX\ -Dateien
 zwar irgendwie, sind aber auch sehr kryptisch aufgebaut.
 
 Außerdem hatte ich immer die Worte meines Vaters im Ohr, der
@@ -55,7 +65,7 @@ als dies mit bisherigen Ansätzen möglich ist.
 
 Mit LaFiC kann ich direkt losschreiben und bekomme von
 anfang an ein ordentlich strukturiertes Ergebnis als Html-
-und (Xe)LaTeX-\footnote{Die Standard-Vorlagen, die LaFiC nutzt basieren auf \XeLaTeX, da ich immer in Utf-8 schreibe. Die Nutzung von \LaTeX sollte aber auch möglich sein.}\xspace Datei, wodurch auch eine Ausgabe als Pdf
+und (Xe)LaTeX-\footnote{Die Standard-Vorlagen, die LaFiC nutzt basieren auf \XeLaTeX\ , da ich immer in Utf-8 schreibe. Die Nutzung von \LaTeX\  sollte aber auch möglich sein.}\xspace Datei, wodurch auch eine Ausgabe als Pdf
 möglich ist.
 
 Die eigentliche Formatierung geschieht erst im
@@ -69,8 +79,8 @@ verständlichen Kommentaren.
 
 LaFiC setzt Perl > 5.10.1 vorraus (getestet unter Perl 5.26.1).
 
-Das Standard \LaTeX-Template setzt eine aktuelle
-\XeLaTeX-Installation sowie graphix, hyperref, microtype und
+Das Standard \LaTeX\ -Template setzt eine aktuelle
+\XeLaTeX\ -Installation sowie graphix, hyperref, microtype und
 xspace voraus.
 
 Die Emacs-Einbindung wurde unter Gnu Emacs 25.2.2 getestet.
@@ -78,6 +88,7 @@ Die Emacs-Einbindung wurde unter Gnu Emacs 25.2.2 getestet.
 \texttt{lafic2pdf} setzt zudem latexmk (getestet mit Version 4.41) vorraus.
 
 \section{Installation}
+\label{Installation}
 
 Holen Sie den Quelltext von \href{https://github.com}{github}:
 
@@ -107,6 +118,7 @@ verlinken) die Dateien \texttt{lafic-mode.el} und
 
 Wenn Sie keine Unterstützung von deutschen Schlüsselwörtern
 wünschen oder benötigen, lassen Sie die erste Zeile weg.
+	print OUTPUT "\textbackslash \{„;
 
 \section{Nutzung}
 
@@ -134,11 +146,12 @@ Datei.pdf
 
 \section{Nutzung des LaFiC-Major-Modes in Emacs}
 
-Nachdem Sie \texttt{lafic-mode.el} wie oben (siehe \nameref{Installation}\xspace beschrieben in Emacs eingebunden haben, wird der
+Nachdem Sie \texttt{lafic-mode.el} wie oben (siehe \nameref{Installation}\xspace )
+beschrieben in Emacs eingebunden haben, wird der
 LaFiC-Major-Mode beim Öffnen einer Datei mit der Endung
 \texttt{*.lafic} aktiviert.
 
-Dadurch steht eine einfache Syntaxhervorhebung und einige
+Dadurch stehen eine einfache Syntaxhervorhebung und einige
 Tastenkürzel zur Verfügung. Als Prefix wird dabei jewweil
 \texttt{C-c} verwendet. Die Tastenkürzel orientieren sich an AUCTeX,
 sodass man gut zurecht kommen sollte, wenn man damit schon
@@ -158,7 +171,7 @@ Wenn nicht anders festgelegt, werden sie als Überschriften
 interpretiert.
 
 Die erste \emph{Zeile} wird als Titel interpretiert und zu \textbackslash title
-umgewandelt, wenn die Datei in \LaTeX umgewandelt wird, bei
+umgewandelt, wenn die Datei in \LaTeX\  umgewandelt wird, bei
 Html-Ausgabe wird es in <h1> umgewandelt.
 
 Weitere \emph{Zeilen} werden in <h3> (\textsc{Html}) oder \textbackslash section
@@ -249,7 +262,7 @@ are H1 … H6 for headings.
 
 \section{Inline formation}
 
-If you want to format \nameref{bild1}\xspace or sequences in a paragraph (or
+If you want to format \nameref{bild1}\xspace  or sequences in a paragraph (or
 line if needed), you add format lines with a leading \% after
 a paragraph. It has two parts:
 
@@ -273,9 +286,11 @@ The simplest way to put an image into a lafic file is a
 line with the image name, with a know extention: png, jpg,
 jpeg, gif.
 
+{\centering%%
 \includegraphics[width=.50\linewidth]{Image.png}
+\\}
 
-Note that this will not put an figure environment in \LaTeX
+Note that this will not put an figure environment in \LaTeX\ 
 files, so the image won't float this way. For this to
 achieve to have to put \%image, \%img or \%figure before the
 line. You don't need the extention then.
@@ -284,9 +299,33 @@ line. You don't need the extention then.
 \includegraphics[height=.40\textheight]{Image.png}
 \caption{Mars and Moon}
 \label{bild1}
+
 \end{figure}
 
+\section{Farben}
 
+\colorbox{red}{\parbox{\linewidth}{%%
+\textcolor{white}{%%
+{\raggedleft%%
+Die Hintergrundfarbe eines Absatzes kann über den Parameter \textcolor{green}{Hintergrund} gesetzt werden; die Textfarbe über \textcolor{green}{Farbe}. Um in einem Absatz einzelne Wörter oder einen Bereich farbig zu gestalten, können analog die Schlüsselwörter \textcolor{green}{Farbe} und \textcolor{PaleTurquoise1}{Hintergrund} verwendet werden.
+\\}
+}
+}}
+
+\begin{verbatim}
+  Die Hintergrundfarbe eines Absatzes kann über den
+  Parameter Hintergrund gesetzt werden; die Textfarbe über
+  Farbe. Um in einem Absatz einzelne Wörter oder einen
+  Bereich farbig zu gestalten, können analog die
+  Schlüsselwörter Farbe und Hintergrund verwendet werden.
+  \% Hintergrund = rot
+  \% Farbe = weiß
+  \% Ausrichtung = right
+  \% Hintergrund (gesetzt): Farbe: blau
+  \% Farbe: Farbe: blau
+  \% Hintergrund (verwendet): Farbe: blau
+
+\end{verbatim}
 \end{document}
 
 %%% Local Variables:

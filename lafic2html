@@ -143,6 +143,7 @@ my %il_macros = (
     "see" => "a",
     # footnotes
     "footnote" => ".fn",
+    "color" => ".color",
     );
 
 # hash for know parameters
@@ -154,7 +155,11 @@ my %parameters = (
     "width" => "width",
     "length" => "width",
     "height" => "height",
-    "caption"=> "caption"
+    "caption"=> "caption",
+    # paragraph
+    "background" => "background-color",
+    "color" => "color",
+    "align" => "text-align",
     );
 
 # hash for keywords like "break lines"
@@ -167,7 +172,15 @@ my %keywords = (
     "-" => "-",
     );
 
-
+#  Color names
+my %colors = (
+    "gray" => "lightgray",
+    "green" => "lawngreen",
+    "yellow" => "#FFF8C6",
+    "blue" => "#00FFFF",
+    "red" => "red",
+    "white" => "white",
+    );
 
 ######
 # Language specific
@@ -193,16 +206,27 @@ my %keywords = (
 	     print "load $lang_macro_file.\n";
 	     %environments = (%environments, do $lang_macro_file);
 	 }
+	 # parameters
+	 $lang_macro_file = "$lafic_dir/de_DE/Html.parameters.pl";
+	 if (-e $lang_macro_file) {
+	     print "load $lang_macro_file.\n";
+	     %parameters = (%parameters, do $lang_macro_file);
+	 }
 	 # keywords
 	 $lang_macro_file = "$lafic_dir/de_DE/Html.keywords.pl";
 	 if (-e $lang_macro_file) {
 	     print "load $lang_macro_file.\n";
 	     %keywords = (%keywords, do $lang_macro_file);
 	 }
+	 # colors
+	 $lang_macro_file = "$lafic_dir/de_DE/Html.colors.pl";
+	 if (-e $lang_macro_file) {
+	     print "load $lang_macro_file.\n";
+	     %colors = (%colors, do $lang_macro_file);
+	 }
 	 last SELECT}
 }
     
-
 
 # declare $template variable for template filehandler
 my $template;
@@ -448,6 +472,32 @@ sub outputLines {
 	$par =~ s/[[:blank:]]*(&gt;|>)\n+/<\/li>\n<$environment>\n/mg;
 	$par =~ s/[[:blank:]]*(&lt;|<)\n+/<\/li>\n<\/$environment>\n/mg;
     }
+
+    # Paragraph parameters
+    # background- and text color / align
+    my $key;
+    my %value;
+    foreach  $key (keys %parameter) {
+	if ($parameters{lc($key)}){
+	    if($parameters{lc($key)} =~ /^(background-color|color|text-align)$/){
+		$parameter{$1} = delete($parameter{$key});
+		if ($colors{$parameter{$1}}){
+		    $value{$1} = $colors{$parameter{$1}};
+		}
+		#elsif($align{$parameter{$1}}) … 
+		else {$value{$1} = $parameter{$1};}
+	    }
+	}}
+    if(%value) {
+	print OUTPUT "<div style=\"padding: 1em";
+	foreach $key (keys %value){
+	    print OUTPUT "; ".$key.": ";
+	    print OUTPUT $value{$key};
+	}
+	print OUTPUT "\">\n";
+    }
+    
+
 	
 
     
@@ -496,6 +546,7 @@ sub outputLines {
 		      $macro = "H1";
 		      print OUTPUT "<$macro>$par</$macro>\n";
 
+		      $newfile = 0;
 		      # }		
 		  }
 		  last SELECT}
@@ -504,9 +555,25 @@ sub outputLines {
 		  # check if it is first line / paragraph
 		  if ($newfile == 1) {
 		      startTemplate("TITLE");
-		      $newfile = 0;
-		  };
+		      if ($title =~ /^\s*$/) {
+			  $title = "Ein Text";
+			  $macro = "H1";
+			  print OUTPUT "<meta name=\"title\"";
+			  print OUTPUT "content=\"";
+			  print OUTPUT $title;
+			  print OUTPUT "\">\n";
+			  if ($config{"author"}){
+			      print OUTPUT "<meta name=\"author\"";
+			      print OUTPUT "content=\"";
+			      print OUTPUT $config{"author"};
+			      print OUTPUT "\">\n";
+			  }
+			  startTemplate("TEXT");
+			  print OUTPUT "<$macro>$title</$macro>\n";
 
+			  $newfile = 0;
+		      };
+		  };
 		  # check if it's an image
 		  if (lc($par) =~ /\.(png|jpg|jpeg|gif)$/){
 		      # get optional parameters
@@ -591,6 +658,13 @@ sub outputLines {
 		  }
 		  last SELECT}
     }
+
+
+    # close colorbox
+    if ($parameter{"background-color"} or $parameter{"text-align"} or $parameter{"color"}) {
+	print OUTPUT "</div>\n";
+    }
+
     
     # print newline
     print OUTPUT "\n";
@@ -875,7 +949,18 @@ sub parseFile {
 			    # format is actually <a>
 			    $format = "a";
 			}
-			# else it'S a span
+			# text color
+			elsif ($format =~ /^color$/){
+			    $fn_counter++;
+			    my $tcolor;
+			    if($colors{$il_arg}){
+				$tcolor = $colors{$il_arg};}
+			    else {$tcolor = $il_arg;}
+			    $format_start = "span style=\"color: $tcolor\"";
+			    $il_arg = "";
+			    $format = "span";
+			}
+			# else it's a span
 			else {
 			    $format_start = "span class=\"$format\"";
 			    $format = "span";

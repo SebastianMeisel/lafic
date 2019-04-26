@@ -4,15 +4,6 @@
 <head>
   <meta charset="utf-8">
   <script src="https://code.jquery.com/jquery-latest.js"></script>
-  <!-- <script> -->
-  <!--   $(document).ready(function(){ -->
-  <!--   $(".fn").hover(function() { -->
-  <!--   $('#footnotes').show(); -->
-  <!--   }, function() { -->
-  <!--   $('#footnotes').hide(); -->
-  <!--   }); -->
-  <!--   }); -->
-  <!-- </script> -->
   <script>
     $(document).ready(function() {
     $(".fn").hover(function() {
@@ -186,7 +177,7 @@ LaFiC-Major-Mode beim Öffnen einer Datei mit der Endung
 </p>
 
 <p>
-Dadurch steht eine einfache Syntaxhervorhebung und einige
+Dadurch stehen eine einfache Syntaxhervorhebung und einige
 Tastenkürzel zur Verfügung. Als Prefix wird dabei jewweil
 <span class="tt">C-c</span> verwendet. Die Tastenkürzel orientieren sich an AUCTeX,
 sodass man gut zurecht kommen sollte, wenn man damit schon
@@ -356,7 +347,9 @@ line with the image name, with a know extention: png, jpg,
 jpeg, gif.
 </p>
 
+<div style="padding: 1em; text-align: center">
 <img style="width: 50%;" src="/home/sebastian/lafic/Image.png">
+</div>
 
 <p>
 Note that this will not put an figure environment in LaTeX
@@ -369,6 +362,32 @@ line. You don't need the extention then.
 <img style="height: 40%;" src="/home/sebastian/lafic/Image.png">
 <figcaption>Mars and Moon</figcaption>
 </figure>
+
+</figure>
+
+<H3>Farben</H3>
+
+<div style="padding: 1em; background-color: red; text-align: right; color: white">
+<p>
+Die Hintergrundfarbe eines Absatzes kann über den Parameter <span style="color: #00FFFF">Hintergrund</span> gesetzt werden; die Textfarbe über <span style="color: #00FFFF">Farbe</span>. Um in einem Absatz einzelne Wörter oder einen Bereich farbig zu gestalten, können analog die Schlüsselwörter <span style="color: #00FFFF">Farbe</span> und <span style="color: #00FFFF">Hintergrund</span> verwendet werden.
+</p>
+</div>
+
+<pre>
+  Die Hintergrundfarbe eines Absatzes kann über den
+  Parameter Hintergrund gesetzt werden; die Textfarbe über
+  Farbe. Um in einem Absatz einzelne Wörter oder einen
+  Bereich farbig zu gestalten, können analog die
+  Schlüsselwörter Farbe und Hintergrund verwendet werden.
+  % Hintergrund = rot
+  % Farbe = weiß
+  % Ausrichtung = right
+  % Hintergrund (gesetzt): Farbe: blau
+  % Farbe: Farbe: blau
+  % Hintergrund (verwendet): Farbe: blau
+
+</pre>
+
 
 <div id="footnotes">
 <ol>

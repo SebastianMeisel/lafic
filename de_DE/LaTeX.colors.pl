@@ -1,0 +1,6 @@
+"grau" => "gray!75",
+"grün" => "green",
+"gelb" => "LightYellow1",
+    "blau" => "PaleTurquoise1",
+    "rot" => "red",
+    "weiß" => "white",

@@ -9,4 +9,5 @@ my %il_macros = (
     "tiefgestellt" => "textsubscript",
     "siehe" => "nameref",
     "fußnote" => "footnote",
+    "farbe" => "textcolor",
     );
