@@ -356,7 +356,7 @@ sub LaTeX {
     $par =~ s/~/\\textasciitilde /g;
 
     # TeX / LaTeX / XeTeX
-    $par =~ s/(\s)((Xe)?(La)?TeX)\b/$1\\$2/mg;
+    $par =~ s/(\s)((Xe)?(La)?TeX)\b/$1\\$2\\ /mg;
 
     
     # Non breaking space befor -- and ... 
@@ -551,6 +551,8 @@ sub outputLines {
 		else {$value{$1} = $parameter{$1};}
 	    }
 	}}
+
+
     # fontcolor / align
     if(%value) {
 	if ($value{"color"}){
@@ -558,8 +560,17 @@ sub outputLines {
 	    print OUTPUT $value{"color"};
 	    print OUTPUT "\}\{%%\n";
 	}
-	else{	
+	if ($value{"align"}){	
 	    print OUTPUT "\{";
+	    if ($value{"align"} =~ /^right$/) {
+		  print OUTPUT "\\raggedleft%%\n";
+	    }
+	    elsif ($value{"align"} =~ /^left$/) {
+		  print OUTPUT "\\raggedright%%\n";
+	    }
+	    elsif ($value{"align"} =~ /^center$/) {
+		print OUTPUT "\\centering%%\n";
+	    }
 	}
     }
     
@@ -688,13 +699,17 @@ sub outputLines {
 		  last SELECT}
     }
 
+    # close paragraph text color / align
+    my $key;
+    if (%value) {
+	print OUTPUT "\\\\";
+	foreach $key (keys(%value)) {
+	    print OUTPUT "\}\n";
+	}
+    }
     # close colorbox
     if ($parameter{"background"}) {
 	print OUTPUT "\}\}\n";
-    }
-    # close paragraph text color / align
-    if (%value) {
-	print OUTPUT "\}\n";
     }
     
     # print newline

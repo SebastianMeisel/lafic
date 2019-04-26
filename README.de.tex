@@ -41,7 +41,7 @@ Gestalt.
 
 \section{Warum LaFiC}
 
-Ich arbeite nun schon viele Jahre mit \LaTeX / \XeLaTeX. Ich
+Ich arbeite nun schon viele Jahre mit \LaTeX\  / \XeLaTeX\ . Ich
 schreibe vor allem Prosa (ganz frei von mathematischen
 Formeln). Dabei fand ich es zum Teil störend, dass ich immer
 erst mit der Preamble beginnen muss und nicht einfach
@@ -50,7 +50,7 @@ losschreiben kann.
 Daraufhin probierte ich markdown/multimarkdown aus. Dabei
 störte mich aber, dass es sehr unflexible ist. Außerdem ist
 die Syntax an manchen Stellen etwas kryptisch, was mich
-störte. Außerdem funktionieren die erstellten \LaTeX-Dateien
+störte. Außerdem funktionieren die erstellten \LaTeX\ -Dateien
 zwar irgendwie, sind aber auch sehr kryptisch aufgebaut.
 
 Außerdem hatte ich immer die Worte meines Vaters im Ohr, der
@@ -65,7 +65,7 @@ als dies mit bisherigen Ansätzen möglich ist.
 
 Mit LaFiC kann ich direkt losschreiben und bekomme von
 anfang an ein ordentlich strukturiertes Ergebnis als Html-
-und (Xe)LaTeX-\footnote{Die Standard-Vorlagen, die LaFiC nutzt basieren auf \XeLaTeX, da ich immer in Utf-8 schreibe. Die Nutzung von \LaTeX sollte aber auch möglich sein.}\xspace Datei, wodurch auch eine Ausgabe als Pdf
+und (Xe)LaTeX-\footnote{Die Standard-Vorlagen, die LaFiC nutzt basieren auf \XeLaTeX\ , da ich immer in Utf-8 schreibe. Die Nutzung von \LaTeX\  sollte aber auch möglich sein.}\xspace Datei, wodurch auch eine Ausgabe als Pdf
 möglich ist.
 
 Die eigentliche Formatierung geschieht erst im
@@ -79,8 +79,8 @@ verständlichen Kommentaren.
 
 LaFiC setzt Perl > 5.10.1 vorraus (getestet unter Perl 5.26.1).
 
-Das Standard \LaTeX-Template setzt eine aktuelle
-\XeLaTeX-Installation sowie graphix, hyperref, microtype und
+Das Standard \LaTeX\ -Template setzt eine aktuelle
+\XeLaTeX\ -Installation sowie graphix, hyperref, microtype und
 xspace voraus.
 
 Die Emacs-Einbindung wurde unter Gnu Emacs 25.2.2 getestet.
@@ -171,7 +171,7 @@ Wenn nicht anders festgelegt, werden sie als Überschriften
 interpretiert.
 
 Die erste \emph{Zeile} wird als Titel interpretiert und zu \textbackslash title
-umgewandelt, wenn die Datei in \LaTeX umgewandelt wird, bei
+umgewandelt, wenn die Datei in \LaTeX\  umgewandelt wird, bei
 Html-Ausgabe wird es in <h1> umgewandelt.
 
 Weitere \emph{Zeilen} werden in <h3> (\textsc{Html}) oder \textbackslash section
@@ -286,10 +286,11 @@ The simplest way to put an image into a lafic file is a
 line with the image name, with a know extention: png, jpg,
 jpeg, gif.
 
-{\includegraphics[width=.50\linewidth]{Image.png}
-}
+{\centering%%
+\includegraphics[width=.50\linewidth]{Image.png}
+\\}
 
-Note that this will not put an figure environment in \LaTeX
+Note that this will not put an figure environment in \LaTeX\ 
 files, so the image won't float this way. For this to
 achieve to have to put \%image, \%img or \%figure before the
 line. You don't need the extention then.
@@ -305,9 +306,11 @@ line. You don't need the extention then.
 
 \colorbox{red}{\parbox{\linewidth}{%%
 \textcolor{white}{%%
+{\raggedleft%%
 Die Hintergrundfarbe eines Absatzes kann über den Parameter \textcolor{green}{Hintergrund} gesetzt werden; die Textfarbe über \textcolor{green}{Farbe}. Um in einem Absatz einzelne Wörter oder einen Bereich farbig zu gestalten, können analog die Schlüsselwörter \textcolor{green}{Farbe} und \textcolor{PaleTurquoise1}{Hintergrund} verwendet werden.
-}}
+\\}
 }
+}}
 
 \begin{verbatim}
   Die Hintergrundfarbe eines Absatzes kann über den
