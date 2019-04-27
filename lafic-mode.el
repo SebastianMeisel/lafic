@@ -698,8 +698,8 @@
   (interactive)
   (save-excursion
     (goto-char (point-min))
-    (while (re-search-forward "^.*
-\\S*" nil t 1)
+    (while (re-search-forward "^\\s *
+\\S " nil t 1)
       (lafic-highlight-par)
   )))
 
