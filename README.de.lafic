@@ -232,10 +232,10 @@ Zeilen werden auf die gleiche Weise formatiert, nur werden sie in Makros (LaTeX)
 % Verbatim
     % Unterabschnitt
     Das ist ein Unterabschnitt
-% Hintergrund = grau    
 
 % Unterabschnitt
 Dies ist ein Unterabschnitt
+
 
 Folgende Schlüsselwörter werden zur Zeit unterstützt:
 

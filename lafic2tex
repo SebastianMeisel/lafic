@@ -510,8 +510,9 @@ sub handleParameter {
 ########################
 sub outputLines {
     # get parameters
-    my ($par , $parstyle, $macro, $title, $environment, $prev_env,         $list_level,	$newfile, $newpar, %parameter) = @_;
+    my ($par , $parstyle, $macro, $title, $environment, $prev_env,         $list_level,	$newfile, $newpar, $open_brackets,  %parameter) = @_;
 
+    
     # check if continious environment needs to be closed
     unless ($environment eq $prev_env or $prev_env eq "") {
 	print OUTPUT "\\end\{$prev_env\}\n\n";
@@ -523,13 +524,24 @@ sub outputLines {
 	$list_level=0;
     }
 
+    # close open brackets
+    if ($open_brackets >= 1) {
+	print OUTPUT "\\\\";
+    }
+    for (my $i=1; $i <= $open_brackets; $i++){
+	print OUTPUT "\}\n";
+    }
+    print OUTPUT "\n";
+    $open_brackets=0;
+
+
     unless ($environment =~ /^verbatim$/){
 	# list level+
 	$par =~ s/^>$/\\begin\{$environment\}/mg;#}
 	$par =~ s/^<$/\\end\{$environment\}/mg;#}
     }
 
-    # colorbox
+    # color and aling for paragraphs
     my $key;
     my %value;
     my $color;
@@ -542,6 +554,7 @@ sub outputLines {
 		}
 		print OUTPUT "\\colorbox\{".$color;
 		print OUTPUT "\}\{\\parbox\{\\linewidth\}\{%%\n";
+		$open_brackets = $open_brackets + 2;
 	    }
 	    if($parameters{lc($key)} =~ /^(color|align)$/){
 		$parameter{$1} = delete($parameter{$key});
@@ -560,6 +573,7 @@ sub outputLines {
 	    print OUTPUT "\\textcolor\{";
 	    print OUTPUT $value{"color"};
 	    print OUTPUT "\}\{%%\n";
+	    $open_brackets++;
 	}
 	if ($value{"align"}){	
 	    print OUTPUT "\{";
@@ -572,6 +586,7 @@ sub outputLines {
 	    elsif ($value{"align"} =~ /^center$/) {
 		print OUTPUT "\\centering%%\n";
 	    }
+	    $open_brackets++;
 	}
     }
     
@@ -700,23 +715,11 @@ sub outputLines {
 		  last SELECT}
     }
 
-    # close paragraph text color / align
-    my $key;
-    if (%value) {
-	print OUTPUT "\\\\";
-	foreach $key (keys(%value)) {
-	    print OUTPUT "\}\n";
-	}
-    }
-    # close colorbox
-    if ($parameter{"background"}) {
-	print OUTPUT "\}\}\n";
-    }
-    
-    # print newline
-    print OUTPUT "\n";
 
-    return ($newfile, $list_level);
+    # print newline
+    # print OUTPUT "\n";
+
+    return ($newfile, $list_level, $open_brackets);
 }
 
 ######################################
@@ -767,7 +770,10 @@ sub parseFile {
     # parameter hash
     my %parameter;
 
-    
+    # count of open brackets for macros wrapped around 
+    # paragraphs or environments (like colorbox)
+    my $open_brackets = 0;
+
     while ($file =~ /^(.*?)$/mg) {
 	print ".";
 	# line to parse
@@ -1117,10 +1123,8 @@ sub parseFile {
 		}
 	    }
 	    
-
-
 	    # output lines / paragraphs
-	    ($newfile, $list_level) = outputLines ($par , $parstyle, $macro, $title, $environment, $prev_env, $list_level, $newfile, $newpar, %parameter);
+	    ($newfile, $list_level, $open_brackets) = outputLines ($par , $parstyle, $macro, $title, $environment, $prev_env, $list_level, $newfile, $newpar, $open_brackets, %parameter);
 
 	    
 	    # better clean up
@@ -1152,7 +1156,7 @@ sub parseFile {
 
 
     # output lines / paragraphs
-    ($newfile, $list_level) = outputLines ($par , $parstyle, $macro, $title, $environment, $prev_env, $list_level, $newfile, $newpar, %parameter);
+    ($newfile, $list_level, $open_brackets) = outputLines ($par , $parstyle, $macro, $title, $environment, $prev_env, $list_level, $newfile, $newpar, $open_brackets, %parameter);
 
     if ($environment){
 	print OUTPUT "\\end\{$environment\}";
