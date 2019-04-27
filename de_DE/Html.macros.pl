@@ -5,6 +5,7 @@
     "Ü2" => "h2",
     "Überschrift2" => "h2",
     "teil" => "h2",
+    "kapitel" => "h2",
     "Ü3" => "h3",
     "Überschrift3" => "h3",
     "abschnit" => "h3",

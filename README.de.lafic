@@ -225,19 +225,30 @@ Zur Zeit werden folgende Schlüsselworte unterstützt:
 * Langzitat / LZitat für quotation-Umgebung / <blockquote>-Block.
 * Zentriert / Z für center-Umgebung / <center>-Block
 
-Formated lines
+Formatierte Zeilen
 
-Line are formated in the same way, only they are converted
-to macros (LaTeX) oder <span> names (Html). Know keywords
-are H1 … H6 for headings. 
+Zeilen werden auf die gleiche Weise formatiert, nur werden sie in Makros (LaTeX) oder <span>-Ids (Html) umgewandelt. Zeilen sind in der Regel Überschriften.
 
 % Verbatim
-    % Ü4
-    This is a subsection
-% Zeilen umbrechen
+    % Unterabschnitt
+    Das ist ein Unterabschnitt
+% Hintergrund = grau    
 
-% Überschrift4
-This is a subsection
+% Unterabschnitt
+Dies ist ein Unterabschnitt
+
+Folgende Schlüsselwörter werden zur Zeit unterstützt:
+
+* Überschrift für addsec / H3
+* Titel/ Überschrift1  für title / H1
+* Teil / Überschrift2 für part / H2
+* Kapitel für chapter / H2 
+* Abschnitt / Überschrift3 für section / H3
+* Unterabschnitt / Überschrift4 für subsection / H4
+* Unterunterabschnitt / Überschrift5 für subsubsection / H5
+* Absatz / Überschrift6 für paragraph / H6
+% Kapitel…H2: Fußnote: Wird nicht von der Standard-Vorlage unterstützt. Es muss eine LaTeX-Klasse voraussetzt, die \chapter unterstützt. 
+
 
 Inline formation
 

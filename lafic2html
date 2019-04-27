@@ -82,6 +82,7 @@ my %macros = (
     "h2" => "H2",
     "heading2" => "H2",
     "part" => "H2",
+    "chapter" => "H2",
     "h3" => "H3",
     "heading3" => "H3",
     "section" => "H3",

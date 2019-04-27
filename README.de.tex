@@ -246,19 +246,33 @@ Zur Zeit werden folgende Schlüsselworte unterstützt:
 
 \end{itemize}
 
-\section{Formated lines}
+\section{Formatierte Zeilen}
 
-Line are formated in the same way, only they are converted
-to macros (LaTeX) oder <span> names (Html). Know keywords
-are H1 … H6 for headings.
+Zeilen werden auf die gleiche Weise formatiert, nur werden sie in Makros (LaTeX) oder <span>-Ids (Html) umgewandelt. Zeilen sind in der Regel Überschriften.
 
+\colorbox{gray!75}{\parbox{\linewidth}{%%
 \begin{verbatim}
-    % Ü4\\
-    This is a subsection\\
+    % Unterabschnitt
+    Das ist ein Unterabschnitt
+}}
 
 \end{verbatim}
 
-\subsection{This is a subsection}
+\subsection{Dies ist ein Unterabschnitt}
+
+Folgende Schlüsselwörter werden zur Zeit unterstützt:
+
+\begin{itemize}
+\item Überschrift für addsec / H3
+\item Titel/ Überschrift1  für title / H1
+\item Teil / Überschrift2 für part / H2
+\item Kapitel für chapter / H2\footnote{Wird nicht von der Standard-Vorlage unterstützt. Es muss eine \LaTeX\ -Klasse voraussetzt, die \textbackslash chapter unterstützt.}\xspace  
+\item Abschnitt / Überschrift3 für section / H3
+\item Unterabschnitt / Überschrift4 für subsection / H4
+\item Unterunterabschnitt / Überschrift5 für subsubsection / H5
+\item Absatz / Überschrift6 für paragraph / H6
+
+\end{itemize}
 
 \section{Inline formation}
 
@@ -307,25 +321,31 @@ line. You don't need the extention then.
 \colorbox{red}{\parbox{\linewidth}{%%
 \textcolor{white}{%%
 {\raggedleft%%
-Die Hintergrundfarbe eines Absatzes kann über den Parameter \textcolor{green}{Hintergrund} gesetzt werden; die Textfarbe über \textcolor{green}{Farbe}. Um in einem Absatz einzelne Wörter oder einen Bereich farbig zu gestalten, können analog die Schlüsselwörter \textcolor{green}{Farbe} und \textcolor{green}{Hintergrund} verwendet werden.
+Die Hintergrundfarbe eines Absatzes kann über den Parameter
+\textcolor{green}{Hintergrund} gesetzt werden; die Textfarbe über \textcolor{green}{Farbe}. Um in
+einem Absatz einzelne Wörter oder einen Bereich farbig zu
+gestalten, können analog die Schlüsselwörter \textcolor{green}{Farbe} und
+\textcolor{green}{Hintergrund} verwendet werden.
 \\}
 }
 }}
 
 \begin{verbatim}
-  Die Hintergrundfarbe eines Absatzes kann über den
-  Parameter Hintergrund gesetzt werden; die Textfarbe über
-  Farbe. Um in einem Absatz einzelne Wörter oder einen
-  Bereich farbig zu gestalten, können analog die
-  Schlüsselwörter Farbe und Hintergrund verwendet werden.
-  \% Hintergrund = rot
-  \% Farbe = weiß
-  \% Ausrichtung = right
-  \% Hintergrund (gesetzt): Farbe: blau
-  \% Farbe: Farbe: blau
-  \% Hintergrund (verwendet): Farbe: blau
+  Die Hintergrundfarbe eines Absatzes kann über den Parameter
+  Hintergrund gesetzt werden; die Textfarbe über Farbe. Um in
+  einem Absatz einzelne Wörter oder einen Bereich farbig zu
+  gestalten, können analog die Schlüsselwörter Farbe und
+  Hintergrund verwendet werden.
+  % Hintergrund = rot
+  % Ausrichtung = right
+  % Farbe = weiß
+  % Hintergrund( ): Farbe: grün
+  % Farbe: Farbe: grün
 
 \end{verbatim}
+
+
+
 \end{document}
 
 %%% Local Variables:
