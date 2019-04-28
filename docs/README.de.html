@@ -1,3 +1,4 @@
+
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//DE" "http://www.w3.org/TR/html4/strict.dtd">
 
 <html lang="de">
@@ -105,18 +106,18 @@ Holen Sie den Quelltext von <a href="https://github.com">github</a>:
 </p>
 
 <pre>
-git clone https://github.com/SebastianMeisel/lafic.git
-
+<p>git clone https://github.com/SebastianMeisel/lafic.git</p>
 </pre>
+
 
 <p>
 Fügen Sie den Pfad zu <span class="tt">$PATH</span> Umgebungsvariable hinzu:
 </p>
 
 <pre>
-export PATH=${PATH}:~/lafic
-
+<p>export PATH=${PATH}:~/lafic</p>
 </pre>
+
 
 <p>
 Zur Nutzung des Major Modes in Emacs, kopieren (oder
@@ -127,10 +128,10 @@ verlinken) die Dateien <span class="tt">lafic-mode.el</span> und
 </p>
 
 <pre>
-(setq lafic-use-german t)
-(require 'lafic-mode)
-
+<p>(setq lafic-use-german t)
+(require 'lafic-mode)</p>
 </pre>
+
 
 <p>
 Wenn Sie keine Unterstützung von deutschen Schlüsselwörtern
@@ -145,11 +146,11 @@ Skripten. Der Aufruf erfolgt jeweils analog:
 </p>
 
 <pre>
-# lafic2html Datei.lafic
+<p># lafic2html Datei.lafic
 # lafic2tex Datei.lafic
-# lafic2pdf Datei.lafic
-
+# lafic2pdf Datei.lafic</p>
 </pre>
+
 
 <p>
 Letzteres ruft zuerst <span class="tt">lafic2tex</span> und <span class="tt">latexmk</span> auf.
@@ -161,11 +162,11 @@ erstellt:
 </p>
 
 <pre>
-Datei.html
+<p>Datei.html
 Datei.tex
-Datei.pdf
-
+Datei.pdf</p>
 </pre>
+
 
 <H3>Nutzung des LaFiC-Major-Modes in Emacs</H3>
 
@@ -224,13 +225,13 @@ Man kann im Text jeder Zeit Kommentare einführen in dem man einen Absatz einfü
 </p>
 
 <pre>
-  %% Dies ist ein Kommentar.
+<p>  %% Dies ist ein Kommentar.</p>
 
-  %% Dies ist ein längerer Kommentar. Es ist wichtig, dass
+<p>  %% Dies ist ein längerer Kommentar. Es ist wichtig, dass
   %% Kommentare immer durch eine Leerzeile vom eigentlichen
-  %% Inhalt getrennt sind.
-
+  %% Inhalt getrennt sind.</p>
 </pre>
+
 
 
 
@@ -247,14 +248,15 @@ Block (Html) ausgegeben. Ansonsten dient das Schlüsselwort
 </p>
 
 <pre>
-	Dieser Absatz ist zentriert.
-
+<p>  % Zentriert
+  Dieser Absatz ist zentriert.</p>
 </pre>
 
-<center>
-Dieser Absatz ist zentriert.
 
+<center>
+<p>Dieser Absatz ist zentriert.</p>
 </center>
+
 
 <p>
 Folgen zwei Absätze mit dem selben Schlüsselwort
@@ -263,24 +265,24 @@ zusammengefasst.
 </p>
 
 <pre>
-  % Zitat<br />
-  Dies ist ein Zitat.<br />
+<p>  % Zitat
+  Dies ist ein Zitat.</p>
 
-  % Zitat<br />
-  Hier geht das Zitat weiter.<br />
-
+<p>  % Zitat
+  Hier geht das Zitat weiter.</p>
 </pre>
+
 
 <p>
 Wird zu:
 </p>
 
 <blockquote>
-Dies ist ein Zitat.
+<p>Dies ist ein Zitat.</p>
 
-Hier geht das Zitat weiter.
-
+<p>Hier geht das Zitat weiter.</p>
 </blockquote>
+
 
 <p>
 Zur Zeit werden folgende Schlüsselworte unterstützt:
@@ -290,53 +292,62 @@ Zur Zeit werden folgende Schlüsselworte unterstützt:
 <li> Zitat für quote-Umgebung / &lt;blockquote&gt;-Block.</li>
 <li> Langzitat / LZitat für quotation-Umgebung / &lt;blockquote&gt;-Block.</li>
 <li> Zentriert / Z für center-Umgebung / &lt;center&gt;-Block
-
 </li>
 </ul>
 
-<H3>Formated lines</H3>
+
+<H3>Formatierte Zeilen</H3>
 
 <p>
-Line are formated in the same way, only they are converted
-to macros (LaTeX) oder &lt;span&gt; names (Html). Know keywords
-are H1&nbsp;… H6 for headings.
+Zeilen werden auf die gleiche Weise formatiert, nur werden sie in Makros (LaTeX) oder &lt;span&gt;-Ids (Html) umgewandelt. Zeilen sind in der Regel Überschriften.
 </p>
 
 <pre>
-    % Ü4<br />
-    This is a subsection<br />
-
+<p>    % Unterabschnitt
+    Das ist ein Unterabschnitt</p>
 </pre>
 
-<h4>This is a subsection</h4>
 
-<H3>Inline formation</H3>
+<h4>Dies ist ein Unterabschnitt</h4>
 
 <p>
-If you want to format <a href="#bild1">words</a> or sequences in a paragraph (or
-line if needed), you add format lines with a leading % after
-a paragraph. It has two parts:
+Folgende Schlüsselwörter werden zur Zeit unterstützt:
 </p>
 
-<ol>
-<li> the word or the sequence to be formated in the form
-start…end. </li>
-<li> a keyword.
-
+<ul>
+<li> Überschrift für addsec / H3</li>
+<li> Titel/ Überschrift1  für title / H1</li>
+<li> Teil / Überschrift2 für part / H2</li>
+<li> <a class="fn" href="#fn2" id="fna2">Kapitel für chapter / H2</a> </li>
+<li> Abschnitt / Überschrift3 für section / H3</li>
+<li> Unterabschnitt / Überschrift4 für subsection / H4</li>
+<li> Unterunterabschnitt / Überschrift5 für subsubsection / H5</li>
+<li> Absatz / Überschrift6 für paragraph / H6
 </li>
-</ol>
+</ul>
+
+
+<H3>Textformatierung im Absatz</H3>
 
 <p>
-The both are separated by a „:“.
+Wörter und Textabschnitte in einem Absatz werden in einem
+Block nach dem Absatz formatiert. Jede Zeile beginnt mit
+einem »<span class="tt">%</span>« gefolgt von:
 </p>
 
-<p>
-Known environment keywords are e.g. quote or quotation.
-</p>
+<ul>
+<li> dem Wort</li>
+<li> dem ersten und letzten Wort den Abschnittes,
+  getrennt durch 3 Punkte, bzw. durch »…«.
+</li>
+</ul>
+
 
 <p>
-If the keyword is unknown, it is converted to a macro
-(LaTeX) oder &lt;span&gt; (Html) name.
+If the keyword is
+unknown, it is converted to a macro (LaTeX) oder &lt;span</li>
+<>
+(Html) name.
 </p>
 
 <H3>Images</H3>
@@ -362,36 +373,40 @@ line. You don't need the extention then.
 <img style="height: 40%;" src="/home/sebastian/lafic/Image.png">
 <figcaption>Mars and Moon</figcaption>
 </figure>
-
 </figure>
+
 
 <H3>Farben</H3>
 
-<div style="padding: 1em; background-color: red; text-align: right; color: white">
+<div style="padding: 1em; color: white; text-align: right; background-color: red">
 <p>
-Die Hintergrundfarbe eines Absatzes kann über den Parameter <span style="color: #00FFFF">Hintergrund</span> gesetzt werden; die Textfarbe über <span style="color: #00FFFF">Farbe</span>. Um in einem Absatz einzelne Wörter oder einen Bereich farbig zu gestalten, können analog die Schlüsselwörter <span style="color: #00FFFF">Farbe</span> und <span style="color: #00FFFF">Hintergrund</span> verwendet werden.
+Die Hintergrundfarbe eines Absatzes kann über den Parameter
+<span style="color: lawngreen">Hintergrund</span> gesetzt werden; die Textfarbe über <span style="color: lawngreen">Farbe</span>. Um in
+einem Absatz einzelne Wörter oder einen Bereich farbig zu
+gestalten, können analog die Schlüsselwörter <span style="color: lawngreen">Farbe</span> und
+<span style="color: lawngreen">Hintergrund</span> verwendet werden.
 </p>
 </div>
 
 <pre>
-  Die Hintergrundfarbe eines Absatzes kann über den
-  Parameter Hintergrund gesetzt werden; die Textfarbe über
-  Farbe. Um in einem Absatz einzelne Wörter oder einen
-  Bereich farbig zu gestalten, können analog die
-  Schlüsselwörter Farbe und Hintergrund verwendet werden.
+<p>  Die Hintergrundfarbe eines Absatzes kann über den Parameter
+  Hintergrund gesetzt werden; die Textfarbe über Farbe. Um in
+  einem Absatz einzelne Wörter oder einen Bereich farbig zu
+  gestalten, können analog die Schlüsselwörter Farbe und
+  Hintergrund verwendet werden.
   % Hintergrund = rot
-  % Farbe = weiß
   % Ausrichtung = right
-  % Hintergrund (gesetzt): Farbe: blau
-  % Farbe: Farbe: blau
-  % Hintergrund (verwendet): Farbe: blau
-
+  % Farbe = weiß
+  % Hintergrund( ): Farbe: grün
+  % Farbe: Farbe: grün</p>
 </pre>
 
 
 <div id="footnotes">
 <ol>
 <li id="fn1"><a href="#fna1">Die Standard-Vorlagen, die LaFiC nutzt basieren auf XeLaTeX, da ich immer in Utf-8 schreibe. Die Nutzung von LaTeX sollte aber auch möglich sein.</a>
+</li>
+<li id="fn2"><a href="#fna2">Wird nicht von der Standard-Vorlage unterstützt. Es muss eine LaTeX-Klasse verwendet werden, die \chapter unterstützt.</a>
 </li>
 </ol>
 </div>

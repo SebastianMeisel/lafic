@@ -7,6 +7,7 @@
     "z" => "center",
     # Listen
     "aufzählung" => "enumerate",
+    "numeriert" => "enumerate",
     "liste" => "itemize",
     ######
     # Bilder (nicht wirklich Makros)

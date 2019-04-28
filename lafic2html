@@ -468,6 +468,10 @@ sub outputLines {
 	}
     }
 
+    # print newline
+    print OUTPUT "\n";
+
+
     unless ($environment =~ /^pre$/){
 	# list level+
 	$par =~ s/[[:blank:]]*(&gt;|>)\n+/<\/li>\n<$environment>\n/mg;
@@ -498,9 +502,6 @@ sub outputLines {
 	print OUTPUT "\">\n";
     }
     
-
-	
-
     
     # close macro or environment  
   SELECT: {
@@ -655,7 +656,7 @@ sub outputLines {
 			  unless ($environment eq $prev_env) {
 			      print OUTPUT "<$environment>\n";}
 		      }
-		      print OUTPUT "$par\n";
+		      print OUTPUT "<p>$par</p>\n";
 		  }
 		  last SELECT}
     }
@@ -667,8 +668,6 @@ sub outputLines {
     }
 
     
-    # print newline
-    print OUTPUT "\n";
 
     return ($newfile, $list_level);
 }
