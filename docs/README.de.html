@@ -247,7 +247,8 @@ Block (Html) ausgegeben. Ansonsten dient das Schlüsselwort
 </p>
 
 <pre>
-	Dieser Absatz ist zentriert.
+  % Zentriert
+  Dieser Absatz ist zentriert.
 
 </pre>
 
@@ -263,11 +264,11 @@ zusammengefasst.
 </p>
 
 <pre>
-  % Zitat<br />
-  Dies ist ein Zitat.<br />
+  % Zitat
+  Dies ist ein Zitat.
 
-  % Zitat<br />
-  Hier geht das Zitat weiter.<br />
+  % Zitat
+  Hier geht das Zitat weiter.
 
 </pre>
 
@@ -275,8 +276,10 @@ zusammengefasst.
 Wird zu:
 </p>
 
+<div style="padding: 1em; background-color: lightgray">
 <blockquote>
 Dies ist ein Zitat.
+</div>
 
 Hier geht das Zitat weiter.
 
@@ -294,49 +297,58 @@ Zur Zeit werden folgende Schlüsselworte unterstützt:
 </li>
 </ul>
 
-<H3>Formated lines</H3>
+<H3>Formatierte Zeilen</H3>
 
 <p>
-Line are formated in the same way, only they are converted
-to macros (LaTeX) oder &lt;span&gt; names (Html). Know keywords
-are H1&nbsp;… H6 for headings.
+Zeilen werden auf die gleiche Weise formatiert, nur werden sie in Makros (LaTeX) oder &lt;span&gt;-Ids (Html) umgewandelt. Zeilen sind in der Regel Überschriften.
 </p>
 
 <pre>
-    % Ü4<br />
-    This is a subsection<br />
+    % Unterabschnitt
+    Das ist ein Unterabschnitt
 
 </pre>
 
-<h4>This is a subsection</h4>
-
-<H3>Inline formation</H3>
+<h4>Dies ist ein Unterabschnitt</h4>
 
 <p>
-If you want to format <a href="#bild1">words</a> or sequences in a paragraph (or
-line if needed), you add format lines with a leading % after
-a paragraph. It has two parts:
+Folgende Schlüsselwörter werden zur Zeit unterstützt:
 </p>
 
-<ol>
-<li> the word or the sequence to be formated in the form
-start…end. </li>
-<li> a keyword.
+<ul>
+<li> Überschrift für addsec / H3</li>
+<li> Titel/ Überschrift1  für title / H1</li>
+<li> Teil / Überschrift2 für part / H2</li>
+<li> <a class="fn" href="#fn2" id="fna2">Kapitel für chapter / H2</a> </li>
+<li> Abschnitt / Überschrift3 für section / H3</li>
+<li> Unterabschnitt / Überschrift4 für subsection / H4</li>
+<li> Unterunterabschnitt / Überschrift5 für subsubsection / H5</li>
+<li> Absatz / Überschrift6 für paragraph / H6
 
 </li>
-</ol>
+</ul>
+
+<H3>Textformatierung im Absatz</H3>
 
 <p>
-The both are separated by a „:“.
+Wörter und Textabschnitte in einem Absatz werden in einem
+Block nach dem Absatz formatiert. Jede Zeile beginnt mit
+einem »<span class="tt">%</span>« gefolgt von:
 </p>
 
-<p>
-Known environment keywords are e.g. quote or quotation.
-</p>
+<ul>
+<li> dem Wort</li>
+<li> dem ersten und letzten Wort den Abschnittes,
+  getrennt durch 3 Punkte, bzw. durch »…«.
+
+</li>
+</ul>
 
 <p>
-If the keyword is unknown, it is converted to a macro
-(LaTeX) oder &lt;span&gt; (Html) name.
+If the keyword is
+unknown, it is converted to a macro (LaTeX) oder &lt;span</li>
+<>
+(Html) name.
 </p>
 
 <H3>Images</H3>
@@ -348,7 +360,7 @@ jpeg, gif.
 </p>
 
 <div style="padding: 1em; text-align: center">
-<img style="width: 50%;" src="/home/sebastian/lafic/Image.png">
+<img style="width: 50%;" src="./Image.png">
 </div>
 
 <p>
@@ -358,33 +370,38 @@ achieve to have to put %image, %img or %figure before the
 line. You don't need the extention then.
 </p>
 
+<div style="padding: 1em; text-align: right">
 <figure  id="bild1" role="group">
-<img style="height: 40%;" src="/home/sebastian/lafic/Image.png">
+<img style="height: 40%;" src="./Image.png">
 <figcaption>Mars and Moon</figcaption>
 </figure>
+</div>
 
 </figure>
 
 <H3>Farben</H3>
 
-<div style="padding: 1em; background-color: red; text-align: right; color: white">
+<div style="padding: 1em; background-color: red; color: white; text-align: right">
 <p>
-Die Hintergrundfarbe eines Absatzes kann über den Parameter <span style="color: #00FFFF">Hintergrund</span> gesetzt werden; die Textfarbe über <span style="color: #00FFFF">Farbe</span>. Um in einem Absatz einzelne Wörter oder einen Bereich farbig zu gestalten, können analog die Schlüsselwörter <span style="color: #00FFFF">Farbe</span> und <span style="color: #00FFFF">Hintergrund</span> verwendet werden.
+Die Hintergrundfarbe eines Absatzes kann über den Parameter
+<span style="color: lawngreen">Hintergrund</span> gesetzt werden; die Textfarbe über <span style="color: lawngreen">Farbe</span>. Um in
+einem Absatz einzelne Wörter oder einen Bereich farbig zu
+gestalten, können analog die Schlüsselwörter <span style="color: lawngreen">Farbe</span> und
+<span style="color: lawngreen">Hintergrund</span> verwendet werden.
 </p>
 </div>
 
 <pre>
-  Die Hintergrundfarbe eines Absatzes kann über den
-  Parameter Hintergrund gesetzt werden; die Textfarbe über
-  Farbe. Um in einem Absatz einzelne Wörter oder einen
-  Bereich farbig zu gestalten, können analog die
-  Schlüsselwörter Farbe und Hintergrund verwendet werden.
+  Die Hintergrundfarbe eines Absatzes kann über den Parameter
+  Hintergrund gesetzt werden; die Textfarbe über Farbe. Um in
+  einem Absatz einzelne Wörter oder einen Bereich farbig zu
+  gestalten, können analog die Schlüsselwörter Farbe und
+  Hintergrund verwendet werden.
   % Hintergrund = rot
-  % Farbe = weiß
   % Ausrichtung = right
-  % Hintergrund (gesetzt): Farbe: blau
-  % Farbe: Farbe: blau
-  % Hintergrund (verwendet): Farbe: blau
+  % Farbe = weiß
+  % Hintergrund( ): Farbe: grün
+  % Farbe: Farbe: grün
 
 </pre>
 
@@ -392,6 +409,8 @@ Die Hintergrundfarbe eines Absatzes kann über den Parameter <span style="color:
 <div id="footnotes">
 <ol>
 <li id="fn1"><a href="#fna1">Die Standard-Vorlagen, die LaFiC nutzt basieren auf XeLaTeX, da ich immer in Utf-8 schreibe. Die Nutzung von LaTeX sollte aber auch möglich sein.</a>
+</li>
+<li id="fn2"><a href="#fna2">Wird nicht von der Standard-Vorlage unterstützt. Es muss eine LaTeX-Klasse verwendet werden, die \chapter unterstützt.</a>
 </li>
 </ol>
 </div>

@@ -34,82 +34,82 @@ pdfpagemode=UseOutlines]{hyperref}
 \maketitle
 
 
-LaFiC bedeutet \textit{layout and format in comments}, also „Layout
+{LaFiC bedeutet \textit{layout and format in comments}, also „Layout
 und Format in Kommentaren“, denn sämtliche Formatierungen
 werden in LAFIC in Kommentarzeilen ausgeführt. Das
 ermöglicht eine \emph{vollständige} Trennung von Inhalt und
-Gestalt.
+Gestalt.\\}
 
 \section{Warum LaFiC}
 
-Ich arbeite nun schon viele Jahre mit \LaTeX\  / \XeLaTeX\ . Ich
+{Ich arbeite nun schon viele Jahre mit \LaTeX\  / \XeLaTeX\ . Ich
 schreibe vor allem Prosa (ganz frei von mathematischen
 Formeln). Dabei fand ich es zum Teil störend, dass ich immer
 erst mit der Preamble beginnen muss und nicht einfach
-losschreiben kann.
+losschreiben kann.\\}
 
-Daraufhin probierte ich markdown/multimarkdown aus. Dabei
+{Daraufhin probierte ich markdown/multimarkdown aus. Dabei
 störte mich aber, dass es sehr unflexible ist. Außerdem ist
 die Syntax an manchen Stellen etwas kryptisch, was mich
 störte. Außerdem funktionieren die erstellten \LaTeX\ -Dateien
-zwar irgendwie, sind aber auch sehr kryptisch aufgebaut.
+zwar irgendwie, sind aber auch sehr kryptisch aufgebaut.\\}
 
-Außerdem hatte ich immer die Worte meines Vaters im Ohr, der
+{Außerdem hatte ich immer die Worte meines Vaters im Ohr, der
 sagte, er wolle am liebsten, wie einst mit der
 Schreibmaschiene losschreiben können und dennoch ein
-ordentliches Ergebnis bekommen.
+ordentliches Ergebnis bekommen.\\}
 
-Als letzte Motivation kam hinzu, dass ich immer wieder
+{Als letzte Motivation kam hinzu, dass ich immer wieder
 darüber nachdachte, wie sich Inhalts- und
 Gestaltungselemente des Textes noch sauberer trennen lassen,
-als dies mit bisherigen Ansätzen möglich ist.
+als dies mit bisherigen Ansätzen möglich ist.\\}
 
-Mit LaFiC kann ich direkt losschreiben und bekomme von
+{Mit LaFiC kann ich direkt losschreiben und bekomme von
 anfang an ein ordentlich strukturiertes Ergebnis als Html-
 und (Xe)LaTeX-\footnote{Die Standard-Vorlagen, die LaFiC nutzt basieren auf \XeLaTeX\ , da ich immer in Utf-8 schreibe. Die Nutzung von \LaTeX\  sollte aber auch möglich sein.}\xspace Datei, wodurch auch eine Ausgabe als Pdf
-möglich ist.
+möglich ist.\\}
 
-Die eigentliche Formatierung geschieht erst im
+{Die eigentliche Formatierung geschieht erst im
 Anschluss. Als mein eigener Lektor gehe ich durch den Text
 und formatiere ihn mit für Menschen lesbaren und
-verständlichen Kommentaren.
+verständlichen Kommentaren.\\}
 
 \part{Installation und Benutzung}
 
 \section{Vorraussetzungen}
 
-LaFiC setzt Perl > 5.10.1 vorraus (getestet unter Perl 5.26.1).
+{LaFiC setzt Perl > 5.10.1 vorraus (getestet unter Perl 5.26.1).\\}
 
-Das Standard \LaTeX\ -Template setzt eine aktuelle
+{Das Standard \LaTeX\ -Template setzt eine aktuelle
 \XeLaTeX\ -Installation sowie graphix, hyperref, microtype und
-xspace voraus.
+xspace voraus.\\}
 
-Die Emacs-Einbindung wurde unter Gnu Emacs 25.2.2 getestet.
+{Die Emacs-Einbindung wurde unter Gnu Emacs 25.2.2 getestet.\\}
 
-\texttt{lafic2pdf} setzt zudem latexmk (getestet mit Version 4.41) vorraus.
+{\texttt{lafic2pdf} setzt zudem latexmk (getestet mit Version 4.41) vorraus.\\}
 
 \section{Installation}
 \label{Installation}
 
-Holen Sie den Quelltext von \href{https://github.com}{github}:
+{Holen Sie den Quelltext von \href{https://github.com}{github}:\\}
 
 \begin{verbatim}
 git clone https://github.com/SebastianMeisel/lafic.git
 \end{verbatim}
 
 
-Fügen Sie den Pfad zu \$PATH Umgebungsvariable hinzu:
+{Fügen Sie den Pfad zu \$PATH Umgebungsvariable hinzu:\\}
 
 \begin{verbatim}
 export PATH=${PATH}:~/lafic
 \end{verbatim}
 
 
-Zur Nutzung des Major Modes in Emacs, kopieren (oder
+{Zur Nutzung des Major Modes in Emacs, kopieren (oder
 verlinken) die Dateien \texttt{lafic-mode.el} und
 \texttt{lafic-german-keywords.el} in ein Verzeichnis in Ihrem
 \texttt{load-path}. Fügen Sie folgende Zeilen in Ihre Init-Datei
-(\texttt{\textasciitilde /.emacs}) ein:
+(\texttt{\textasciitilde /.emacs}) ein:\\}
 
 \begin{verbatim}
 (setq lafic-use-german t)
@@ -117,14 +117,13 @@ verlinken) die Dateien \texttt{lafic-mode.el} und
 \end{verbatim}
 
 
-Wenn Sie keine Unterstützung von deutschen Schlüsselwörtern
-wünschen oder benötigen, lassen Sie die erste Zeile weg.
-	print OUTPUT "\textbackslash \{„;
+{Wenn Sie keine Unterstützung von deutschen Schlüsselwörtern
+wünschen oder benötigen, lassen Sie die erste Zeile weg.\\}
 
 \section{Nutzung}
 
-Momentan besteht die LaFiC-Distribution aus drei
-Skripten. Der Aufruf erfolgt jeweils analog:
+{Momentan besteht die LaFiC-Distribution aus drei
+Skripten. Der Aufruf erfolgt jeweils analog:\\}
 
 \begin{verbatim}
 # lafic2html Datei.lafic
@@ -133,10 +132,10 @@ Skripten. Der Aufruf erfolgt jeweils analog:
 \end{verbatim}
 
 
-Letzteres ruft zuerst \texttt{lafic2tex} und \texttt{latexmk} auf.
+{Letzteres ruft zuerst \texttt{lafic2tex} und \texttt{latexmk} auf.\\}
 
-Durch den Aufruf dieser drei Skripte würden folgende Dateien
-erstellt:
+{Durch den Aufruf dieser drei Skripte würden folgende Dateien
+erstellt:\\}
 
 \begin{verbatim}
 Datei.html
@@ -147,43 +146,43 @@ Datei.pdf
 
 \section{Nutzung des LaFiC-Major-Modes in Emacs}
 
-Nachdem Sie \texttt{lafic-mode.el} wie oben (siehe \nameref{Installation}\xspace )
+{Nachdem Sie \texttt{lafic-mode.el} wie oben (siehe \nameref{Installation}\xspace )
 beschrieben in Emacs eingebunden haben, wird der
 LaFiC-Major-Mode beim Öffnen einer Datei mit der Endung
-\texttt{*.lafic} aktiviert.
+\texttt{*.lafic} aktiviert.\\}
 
-Dadurch stehen eine einfache Syntaxhervorhebung und einige
+{Dadurch stehen eine einfache Syntaxhervorhebung und einige
 Tastenkürzel zur Verfügung. Als Prefix wird dabei jewweil
 \texttt{C-c} verwendet. Die Tastenkürzel orientieren sich an AUCTeX,
 sodass man gut zurecht kommen sollte, wenn man damit schon
-gearbeitet hat.
+gearbeitet hat.\\}
 
 \part{Schreiben mit LaFiC}
 
 \section{Zeilen und Absätze}
 
-Der Inhalt wird durch die Unterscheidung von \emph{Zeilen} und
-\emph{Absätzen} gegliedert.
+{Der Inhalt wird durch die Unterscheidung von \emph{Zeilen} und
+\emph{Absätzen} gegliedert.\\}
 
-Dabei besteht der Unterschied nicht so sehr in der
+{Dabei besteht der Unterschied nicht so sehr in der
 Länge. Vielmehr unterscheiden sich Zeilen von Absätze
 dadurch, dass sie kein Satzschlusszeichen (., ?, !, :).
 Wenn nicht anders festgelegt, werden sie als Überschriften
-interpretiert.
+interpretiert.\\}
 
-Die erste \emph{Zeile} wird als Titel interpretiert und zu \textbackslash title
+{Die erste \emph{Zeile} wird als Titel interpretiert und zu \textbackslash title
 umgewandelt, wenn die Datei in \LaTeX\  umgewandelt wird, bei
-Html-Ausgabe wird es in <h1> umgewandelt.
+Html-Ausgabe wird es in <h1> umgewandelt.\\}
 
-Weitere \emph{Zeilen} werden in <h3> (\textsc{Html}) oder \textbackslash section
-(LaTeX) umgewandelt, wenn es nicht anders angegeben wird.
+{Weitere \emph{Zeilen} werden in <h3> (\textsc{Html}) oder \textbackslash section
+(LaTeX) umgewandelt, wenn es nicht anders angegeben wird.\\}
 
-Auf diese Weise können einfache Texte ganz ohne Formatierung
-gegliedert werden.
+{Auf diese Weise können einfache Texte ganz ohne Formatierung
+gegliedert werden.\\}
 
 \section{Kommentare}
 
-Man kann im Text jeder Zeit Kommentare einführen in dem man einen Absatz einfügt, der mit zwei \%-Zeichen beginnt:
+{Man kann im Text jeder Zeit Kommentare einführen in dem man einen Absatz einfügt, der mit zwei \%-Zeichen beginnt:\\}
 
 \begin{verbatim}
   %% Dies ist ein Kommentar.
@@ -198,16 +197,17 @@ Man kann im Text jeder Zeit Kommentare einführen in dem man einen Absatz einfü
 
 \section{Formatierte Absätze}
 
-Absätze können formatiert werden, in dem eine Zeile
+{Absätze können formatiert werden, in dem eine Zeile
 vorangestellt wird, die mit einem \%-Zeichen beginnt dem ein
 Schlüsselwort folgt. Ist das Schlüsselwort bekannt, wird
 die entsprechende Umgebung (LaTeX), bzw. der entsprechende
 Block (Html) ausgegeben. Ansonsten dient das Schlüsselwort
 (umgewandelt in Kleinschreibung) als Name der Umgebung
-(LaTeX), bzw. eines <div>-Blocks (Html).
+(LaTeX), bzw. eines <div>-Blocks (Html).\\}
 
 \begin{verbatim}
-	Dieser Absatz ist zentriert.
+  % Zentriert
+  Dieser Absatz ist zentriert.
 \end{verbatim}
 
 
@@ -216,29 +216,32 @@ Dieser Absatz ist zentriert.
 \end{center}
 
 
-Folgen zwei Absätze mit dem selben Schlüsselwort
+{Folgen zwei Absätze mit dem selben Schlüsselwort
 hintereinander, werden sie in einer Umgebung / einem Block
-zusammengefasst.
+zusammengefasst.\\}
 
 \begin{verbatim}
-  % Zitat\\
-  Dies ist ein Zitat.\\
+  % Zitat
+  Dies ist ein Zitat.
 
-  % Zitat\\
-  Hier geht das Zitat weiter.\\
+  % Zitat
+  Hier geht das Zitat weiter.
 \end{verbatim}
 
 
-Wird zu:
+{Wird zu:\\}
 
+\colorbox{gray!75}{\parbox{\linewidth}{%%
 \begin{quote}
 Dies ist ein Zitat.
 
 Hier geht das Zitat weiter.
 \end{quote}
 
+}
+}
 
-Zur Zeit werden folgende Schlüsselworte unterstützt:
+{Zur Zeit werden folgende Schlüsselworte unterstützt:\\}
 
 \begin{itemize}
 \item Zitat für quote-Umgebung / <blockquote>-Block.
@@ -249,7 +252,7 @@ Zur Zeit werden folgende Schlüsselworte unterstützt:
 
 \section{Formatierte Zeilen}
 
-Zeilen werden auf die gleiche Weise formatiert, nur werden sie in Makros (LaTeX) oder <span>-Ids (Html) umgewandelt. Zeilen sind in der Regel Überschriften.
+{Zeilen werden auf die gleiche Weise formatiert, nur werden sie in Makros (LaTeX) oder <span>-Ids (Html) umgewandelt. Zeilen sind in der Regel Überschriften.\\}
 
 \begin{verbatim}
     % Unterabschnitt
@@ -259,13 +262,13 @@ Zeilen werden auf die gleiche Weise formatiert, nur werden sie in Makros (LaTeX)
 
 \subsection{Dies ist ein Unterabschnitt}
 
-Folgende Schlüsselwörter werden zur Zeit unterstützt:
+{Folgende Schlüsselwörter werden zur Zeit unterstützt:\\}
 
 \begin{itemize}
 \item Überschrift für addsec / H3
 \item Titel/ Überschrift1  für title / H1
 \item Teil / Überschrift2 für part / H2
-\item Kapitel für chapter / H2\footnote{Wird nicht von der Standard-Vorlage unterstützt. Es muss eine \LaTeX\ -Klasse voraussetzt, die \textbackslash chapter unterstützt.}\xspace  
+\item Kapitel für chapter / H2\footnote{Wird nicht von der Standard-Vorlage unterstützt. Es muss eine \LaTeX\ -Klasse verwendet werden, die \textbackslash chapter unterstützt.}\xspace  
 \item Abschnitt / Überschrift3 für section / H3
 \item Unterabschnitt / Überschrift4 für subsection / H4
 \item Unterunterabschnitt / Überschrift5 für subsubsection / H5
@@ -273,42 +276,38 @@ Folgende Schlüsselwörter werden zur Zeit unterstützt:
 \end{itemize}
 
 
-\section{Inline formation}
+\section{Textformatierung im Absatz}
 
-If you want to format \nameref{bild1}\xspace  or sequences in a paragraph (or
-line if needed), you add format lines with a leading \% after
-a paragraph. It has two parts:
+{Wörter und Textabschnitte in einem Absatz werden in einem
+Block nach dem Absatz formatiert. Jede Zeile beginnt mit
+einem »\texttt{\%}« gefolgt von:\\}
 
-\begin{enumerate}
-\item the word or the sequence to be formated in the form
-start…end. 
-\item a keyword.
-\end{enumerate}
+\begin{itemize}
+\item dem Wort
+\item dem ersten und letzten Wort den Abschnittes,
+  getrennt durch3~Punkte, bzw. durch »…«.
+\end{itemize}
 
 
-The both are separated by a „:“.
-
-Known environment keywords are e.g. quote or quotation.
-
-If the keyword is unknown, it is converted to a macro
-(LaTeX) oder <span> (Html) name.
+{If the keyword is
+unknown, it is converted to a macro (LaTeX) oder <span>
+(Html) name.\\}
 
 \section{Images}
 
-The simplest way to put an image into a lafic file is a
+{The simplest way to put an image into a lafic file is a
 line with the image name, with a know extention: png, jpg,
-jpeg, gif.
+jpeg, gif.\\}
 
-{\centering%%
-\includegraphics[width=.50\linewidth]{Image.png}
-\\}
+{\centering\includegraphics[width=.50\linewidth]{Image.png}}
 
-Note that this will not put an figure environment in \LaTeX\ 
+{Note that this will not put an figure environment in \LaTeX\ 
 files, so the image won't float this way. For this to
 achieve to have to put \%image, \%img or \%figure before the
-line. You don't need the extention then.
+line. You don't need the extention then.\\}
 
 \begin{figure}[hbt]
+\raggedleft%%
 \includegraphics[height=.40\textheight]{Image.png}
 \caption{Mars and Moon}
 \label{bild1}
@@ -318,15 +317,13 @@ line. You don't need the extention then.
 \section{Farben}
 
 \colorbox{red}{\parbox{\linewidth}{%%
-\textcolor{white}{%%
 {\raggedleft%%
+\textcolor{white}{%%
 Die Hintergrundfarbe eines Absatzes kann über den Parameter
 \textcolor{green}{Hintergrund} gesetzt werden; die Textfarbe über \textcolor{green}{Farbe}. Um in
 einem Absatz einzelne Wörter oder einen Bereich farbig zu
 gestalten, können analog die Schlüsselwörter \textcolor{green}{Farbe} und
-\textcolor{green}{Hintergrund} verwendet werden.
-\\}
-}
+\textcolor{green}{Hintergrund} verwendet werden.}\\}
 }
 }
 

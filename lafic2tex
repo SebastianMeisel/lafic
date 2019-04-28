@@ -522,17 +522,22 @@ sub outputLines {
 	}
 	# reset list level counter
 	$list_level=0;
+	# close open brackets
+	for (my $i=1; $i <= $open_brackets; $i++){
+	    print OUTPUT "\}\n";
+	}
+	$open_brackets=0;
     }
 
-    # close open brackets
-    if ($open_brackets >= 1) {
-	print OUTPUT "\\\\";
+    unless ($prev_env) { 
+	# close open brackets
+	for (my $i=1; $i <= $open_brackets; $i++){
+	    print OUTPUT "\}\n";
+	}
+	$open_brackets=0;
     }
-    for (my $i=1; $i <= $open_brackets; $i++){
-	print OUTPUT "\}\n";
-    }
+
     print OUTPUT "\n";
-    $open_brackets=0;
 
 
     unless ($environment =~ /^verbatim$/){
@@ -567,26 +572,22 @@ sub outputLines {
 	}}
 
 
+
     # fontcolor / align
     if(%value) {
 	if ($value{"color"}){
-	    print OUTPUT "\\textcolor\{";
-	    print OUTPUT $value{"color"};
-	    print OUTPUT "\}\{%%\n";
-	    $open_brackets++;
+	    $par = "\\textcolor\{".$value{"color"}."\}\{%%\n".$par."\}";
 	}
 	if ($value{"align"}){	
-	    print OUTPUT "\{";
 	    if ($value{"align"} =~ /^right$/) {
-		  print OUTPUT "\\raggedleft%%\n";
+		  $par = "\\raggedleft%%\n".$par;
 	    }
 	    elsif ($value{"align"} =~ /^left$/) {
-		  print OUTPUT "\\raggedright%%\n";
+		  $par = "\\raggedright%%\n".$par;
 	    }
 	    elsif ($value{"align"} =~ /^center$/) {
-		print OUTPUT "\\centering%%\n";
+		  $par = "\\centering%%\n".$par;
 	    }
-	    $open_brackets++;
 	}
     }
     
@@ -649,9 +650,12 @@ sub outputLines {
 		      $macro = "includegraphics";
 		      my $optional = "";
 		      ($optional) = handleParameter($macro, %parameter);
-		      print OUTPUT "\\$macro$optional\{$par\}\n";
+		      my $pre = "";
+		      ($pre, $par) =  split /%%\n/ , $par;
+		      
+		      print OUTPUT "\{$pre\\$macro$optional\{$par\}\}\n";
 		  }
-		  else {print OUTPUT "$par\n";}
+		  else {print OUTPUT "\{$par\\\\\}\n";}
 		  last SELECT}
 	      # comment
 	      if ($parstyle == 2) {
@@ -682,8 +686,12 @@ sub outputLines {
 		      my $label = "";
 
 		      ($optional, $caption, $label) = handleParameter($environment, %parameter);
+
+		      my $pre = "";
+		      ($pre, $par) =  split /%%\n/ , $par;
 		      
 		      print OUTPUT "\\begin{figure}[hbt]\n";
+		      print OUTPUT "$pre%%\n";
 		      print OUTPUT "\\includegraphics$optional\{$par\}\n";
 		      if (! $caption =~ /^$/ ) {
 			  print OUTPUT "\\caption{$caption}\n";

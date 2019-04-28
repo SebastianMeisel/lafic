@@ -89,7 +89,7 @@ load-path. Fügen Sie folgende Zeilen in Ihre Init-Datei
 
 Wenn Sie keine Unterstützung von deutschen Schlüsselwörtern
 wünschen oder benötigen, lassen Sie die erste Zeile weg.
-	print OUTPUT "\{";
+
 
 Nutzung
 
@@ -191,10 +191,11 @@ Block (Html) ausgegeben. Ansonsten dient das Schlüsselwort
 
 
 % Verbatim	
-	Dieser Absatz ist zentriert.
+  % Zentriert
+  Dieser Absatz ist zentriert.
 
 
-% zentriert
+% Zentriert
 Dieser Absatz ist zentriert.
 
 Folgen zwei Absätze mit dem selben Schlüsselwort
@@ -204,20 +205,22 @@ zusammengefasst.
 % Verbatim
   % Zitat
   Dies ist ein Zitat.
-% Zeilen umbrechen
+
 
 % Verbatim
   % Zitat
   Hier geht das Zitat weiter.
-% Zeilen umbrechen
+
 
 Wird zu:
 
 % Zitat
 Dies ist ein Zitat.
+% Hintergrund = grau
 
 % Zitat
 Hier geht das Zitat weiter.
+
 
 Zur Zeit werden folgende Schlüsselworte unterstützt:
 
@@ -247,27 +250,25 @@ Folgende Schlüsselwörter werden zur Zeit unterstützt:
 * Unterabschnitt / Überschrift4 für subsection / H4
 * Unterunterabschnitt / Überschrift5 für subsubsection / H5
 * Absatz / Überschrift6 für paragraph / H6
-% Kapitel…H2: Fußnote: Wird nicht von der Standard-Vorlage unterstützt. Es muss eine LaTeX-Klasse voraussetzt, die \chapter unterstützt. 
+% Kapitel…H2: Fußnote: Wird nicht von der Standard-Vorlage unterstützt. Es muss eine LaTeX-Klasse verwendet werden, die \chapter unterstützt. 
 
 
-Inline formation
+Textformatierung im Absatz
 
-If you want to format words or sequences in a paragraph (or
-line if needed), you add format lines with a leading % after
-a paragraph. It has two parts:
-% words: siehe : bild1
+Wörter und Textabschnitte in einem Absatz werden in einem
+Block nach dem Absatz formatiert. Jede Zeile beginnt mit
+einem »%« gefolgt von:
+% %: nicht proportional
 
-% Aufzählung
-* the word or the sequence to be formated in the form
-start…end. 
-* a keyword.
+% Numeriert
+* dem Wort
+* dem ersten und letzten Wort den Abschnittes,
+  getrennt durch 3 Punkte, bzw. durch »…«.
 
-The both are separated by a ":".
 
-Known environment keywords are e.g. quote or quotation.
-
-If the keyword is unknown, it is converted to a macro
-(LaTeX) oder <span> (Html) name.
+If the keyword is
+unknown, it is converted to a macro (LaTeX) oder <span>
+(Html) name.
 
 Images
 
@@ -290,6 +291,8 @@ Image.png
 % height = 40%
 % caption = Mars and Moon
 % name = bild1
+% Ausrichtung = right
+
 
 Farben
 
@@ -316,5 +319,4 @@ Hintergrund verwendet werden.
   % Farbe = weiß
   % Hintergrund( ): Farbe: grün
   % Farbe: Farbe: grün
-
 
