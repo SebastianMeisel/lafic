@@ -711,13 +711,16 @@
     (re-search-backward "
 
 ")
-    (goto-char (match-end 0))
+    (goto-char (or (match-end 0) (point-max)))
     (if (string= (thing-at-point 'char t) "%")
 	(line-move 1))
     (let ((start (point)))
-    (re-search-forward "
+      (goto-char (if
+		     (re-search-forward "
 \\s *$" nil t 1)
-    (goto-char (or (match-beginning 0) (point-max)))
+		     (match-beginning 0)
+		   (point-max)
+		 ))
     (goto-char (line-beginning-position))
     (while (string= (thing-at-point 'char t) "%")
       (line-move -1))

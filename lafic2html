@@ -521,20 +521,13 @@ sub outputLines {
 		      $macro =~ s/^\.//;
 		      print OUTPUT "<span class=\"$macro\">$par</span>\n";
 		  }
-		  # check if heading
-		  elsif ($macro =~/^H[2-4]/){
-		      # optional parameters
-		      my ($optional) = handleParameter($macro, %parameter);
-		      if (! defined $optional) {
-			  $optional =""}
-		      
-		      print OUTPUT "<$macro$optional>$par</$macro>\n";
-		  }
-		  else {print OUTPUT "<$macro>$par</$macro>\n";}
-		  
 		  # save title and run startTemplate
-		  if ($macro =~ /title/) {
+		  elsif ($macro =~ /^h1$/i) {
 		      $title = $par;
+		      print OUTPUT "<meta name=\"title\"";
+		      print OUTPUT "content=\"";
+		      print OUTPUT $title;
+		      print OUTPUT "\">\n";
 		      if ($config{"author"}){
 		      	  print OUTPUT "<meta name=\"author\"";
 			  print OUTPUT "content=\"";
@@ -545,12 +538,22 @@ sub outputLines {
 		      startTemplate("TEXT");
 
 		      # print title as heading
-		      $macro = "H1";
 		      print OUTPUT "<$macro>$par</$macro>\n";
 
 		      $newfile = 0;
 		      # }		
 		  }
+		  # check if heading
+		  elsif ($macro =~/^H[2-4]/i){
+		      # optional parameters
+		      my ($optional) = handleParameter($macro, %parameter);
+		      if (! defined $optional) {
+			  $optional =""}
+		      
+		      print OUTPUT "<$macro$optional>$par</$macro>\n";
+		  }
+		  else {print OUTPUT "<$macro>$par</$macro>\n";}
+		  
 		  last SELECT}
 	      # paragraph
 	      if ($parstyle == 1) {
@@ -690,8 +693,8 @@ sub parseFile {
 
     # marker for beginning of line / paragraph 
     my $newpar = 1;
-    # Count paragraphs / lines
-    # my $parnumber = 0; 
+    # line counter
+    my $i = 0; 
     
     # parstyles:
     # 0 = single line
@@ -728,6 +731,7 @@ sub parseFile {
 	print ".";
 	# line to parse
 	my $line = $1;
+	$i++;
 
     	# First line of paragraph or line
     	if ($newpar == 1) {
@@ -749,33 +753,34 @@ sub parseFile {
     		    $parkey = $2;
 
 		    #  check, if it's begin of Document
-		    if ($newfile == 1){
-			# parkey is template name
-			# open template
-			#######
-			# TODO: add search path
-			########
-			# set language based on template
-			if ($parkey =~ /de_DE$/) {
-			    # german
-			    $config{"lang"} = "de_DE";
-			}
-			else {
-			    # english
-			    $config{"lang"} = "en_EN";
-			}
+		    if ($newfile == 1  and $i == 1){
+			# parkey is template name?
+			if (-e "$lafic_dir/templates/$parkey.tmp.tex"){
+			    # open template
+			    #######
+			    # TODO: add search path
+			    ########
+			    # set language based on template
+			    if ($parkey =~ /de_DE$/) {
+				# german
+				$config{"lang"} = "de_DE";
+			    }
+			    else {
+				# english
+				$config{"lang"} = "en_EN";
+			    }
 
-			open(TEMPLATE, "<$lafic_dir/templates/$parkey.tmp.html") or
-			    die "Could not open $lafic_dir/templates/$parkey.tmp.html";
-			print "use $lafic_dir/templates/$parkey.tmp.html\n";
-			local $/;
-		        $template = <TEMPLATE>;
-
-			# clear up
-			$parkey = "";
-			$parstyle = 0;
-			$par = "";
-		    }
+			    open(TEMPLATE, "<$lafic_dir/templates/$parkey.tmp.html") or
+				die "Could not open $lafic_dir/templates/$parkey.tmp.html";
+			    print "use $lafic_dir/templates/$parkey.tmp.html\n";
+			    local $/;
+			    $template = <TEMPLATE>;
+			    
+			    # clear up
+			    $parkey = "";
+			    $parstyle = 0;
+			    $par = "";
+			}}
 		    else{
 			# make parkey lowercase for other options
 			$parkey = lc($parkey);
@@ -827,6 +832,11 @@ sub parseFile {
 		      # known environment
 		      if (exists $environments{$parkey}){
 			  $environment = $environments{$parkey};
+			  last SELECT;}
+		      # explicit line declaration?
+		      elsif (exists $macros{$parkey}){
+			  $macro = $macros{$parkey};
+			  $parstyle = 3;
 			  last SELECT;}
 		      # unknown environment
 		      else {
