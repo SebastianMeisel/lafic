@@ -378,7 +378,7 @@ sub LaTeX {
     }
     
     # and after digits
-    $par =~ s/[[:blank:]]([0-9]+\.?)[[:blank:]]/$1~/g;
+    $par =~ s/[[:blank:]]([0-9]+\.?)[[:blank:]]/ $1~/g;
     
 
     # Apostroph
@@ -522,17 +522,22 @@ sub outputLines {
 	}
 	# reset list level counter
 	$list_level=0;
+	# close open brackets
+	for (my $i=1; $i <= $open_brackets; $i++){
+	    print OUTPUT "\}\n";
+	}
+	$open_brackets=0;
     }
 
-    # close open brackets
-    if ($open_brackets >= 1) {
-	print OUTPUT "\\\\";
+    unless ($prev_env) { 
+	# close open brackets
+	for (my $i=1; $i <= $open_brackets; $i++){
+	    print OUTPUT "\}\n";
+	}
+	$open_brackets=0;
     }
-    for (my $i=1; $i <= $open_brackets; $i++){
-	print OUTPUT "\}\n";
-    }
+
     print OUTPUT "\n";
-    $open_brackets=0;
 
 
     unless ($environment =~ /^verbatim$/){
@@ -567,26 +572,22 @@ sub outputLines {
 	}}
 
 
+
     # fontcolor / align
     if(%value) {
 	if ($value{"color"}){
-	    print OUTPUT "\\textcolor\{";
-	    print OUTPUT $value{"color"};
-	    print OUTPUT "\}\{%%\n";
-	    $open_brackets++;
+	    $par = "\\textcolor\{".$value{"color"}."\}\{%%\n".$par."\}";
 	}
 	if ($value{"align"}){	
-	    print OUTPUT "\{";
 	    if ($value{"align"} =~ /^right$/) {
-		  print OUTPUT "\\raggedleft%%\n";
+		  $par = "\\raggedleft%%\n".$par;
 	    }
 	    elsif ($value{"align"} =~ /^left$/) {
-		  print OUTPUT "\\raggedright%%\n";
+		  $par = "\\raggedright%%\n".$par;
 	    }
 	    elsif ($value{"align"} =~ /^center$/) {
-		print OUTPUT "\\centering%%\n";
+		  $par = "\\centering%%\n".$par;
 	    }
-	    $open_brackets++;
 	}
     }
     
@@ -649,9 +650,12 @@ sub outputLines {
 		      $macro = "includegraphics";
 		      my $optional = "";
 		      ($optional) = handleParameter($macro, %parameter);
-		      print OUTPUT "\\$macro$optional\{$par\}\n";
+		      my $pre = "";
+		      ($pre, $par) =  split /%%\n/ , $par;
+		      
+		      print OUTPUT "\{$pre\\$macro$optional\{$par\}\}\n";
 		  }
-		  else {print OUTPUT "$par\n";}
+		  else {print OUTPUT "\{$par\\\\\}\n";}
 		  last SELECT}
 	      # comment
 	      if ($parstyle == 2) {
@@ -682,8 +686,12 @@ sub outputLines {
 		      my $label = "";
 
 		      ($optional, $caption, $label) = handleParameter($environment, %parameter);
+
+		      my $pre = "";
+		      ($pre, $par) =  split /%%\n/ , $par;
 		      
 		      print OUTPUT "\\begin{figure}[hbt]\n";
+		      print OUTPUT "$pre%%\n";
 		      print OUTPUT "\\includegraphics$optional\{$par\}\n";
 		      if (! $caption =~ /^$/ ) {
 			  print OUTPUT "\\caption{$caption}\n";
@@ -740,8 +748,8 @@ sub parseFile {
 
     # marker for beginning of line / paragraph 
     my $newpar = 1;
-    # Count paragraphs / lines
-    # my $parnumber = 0; 
+    # line counter
+    my $i = 0; 
     
     # parstyles:
     # 0 = single line
@@ -778,6 +786,7 @@ sub parseFile {
 	print ".";
 	# line to parse
 	my $line = $1;
+	$i++;
 
     	# First line of paragraph or line
     	if ($newpar == 1) {
@@ -799,33 +808,34 @@ sub parseFile {
     		    $parkey = $2;
 
 		    #  check, if it's begin of Document
-		    if ($newfile == 1){
-			# parkey is template name
-			# open template
-			#######
-			# TODO: add search path
-			########
-			# set language based on template
-			if ($parkey =~ /de_DE$/) {
-			    # german
-			    $config{"lang"} = "de_DE";
-			}
-			else {
-			    # english
-			    $config{"lang"} = "en_EN";
-			}
+		    if ($newfile == 1 and $i == 1){
+			# parkey is template name?
+			if (-e "$lafic_dir/templates/$parkey.tmp.tex"){
+			    # open template
+			    #######
+			    # TODO: add search path
+			    ########
+			    # set language based on template
+			    if ($parkey =~ /de_DE$/) {
+				# german
+				$config{"lang"} = "de_DE";
+			    }
+			    else {
+				# english
+				$config{"lang"} = "en_EN";
+			    }
 
-			open(TEMPLATE, "<$lafic_dir/templates/$parkey.tmp.tex") or
-			    die "Could not open $lafic_dir/templates/$parkey.tmp.tex";
-			print "use $lafic_dir/templates/$parkey.tmp.tex\n";
-			local $/;
-		        $template = <TEMPLATE>;
+			    open(TEMPLATE, "<$lafic_dir/templates/$parkey.tmp.tex") or
+				die "Could not open $lafic_dir/templates/$parkey.tmp.tex";
+			    print "use $lafic_dir/templates/$parkey.tmp.tex\n";
+			    local $/;
+			    $template = <TEMPLATE>;
 			
-			# clear up
-			$parkey = "";
-			$parstyle = 0;
-			$par = "";
-		    }
+			    # clear up
+			    $parkey = "";
+			    $parstyle = 0;
+			    $par = "";
+			}}
 
 		    # make parkey lowercase for other options
 		    $parkey = lc($parkey);
@@ -878,11 +888,16 @@ sub parseFile {
 		      if (exists $environments{$parkey}){
 			  $environment = $environments{$parkey};
 			  last SELECT;}
+		      # explicit line declaration?
+		      elsif (exists $macros{$parkey}){
+			  $macro = $macros{$parkey};
+			  $parstyle = 3;
+			  last SELECT;}
 		      # unknown environment
 		      else {
 			  $environment = $parkey;
 			  last SELECT;}		   
-		    last SELECT}
+		      last SELECT}
 		}
 		$newpar = 0;
 #		$newfile = 0;

@@ -277,8 +277,10 @@ zusammengefasst.
 Wird zu:
 </p>
 
+<div style="padding: 1em; text-align: center; background-color: lightgray">
 <blockquote>
 <p>Dies ist ein Zitat.</p>
+</div>
 
 <p>Hier geht das Zitat weiter.</p>
 </blockquote>
@@ -323,6 +325,7 @@ Folgende Schlüsselwörter werden zur Zeit unterstützt:
 <li> Unterabschnitt / Überschrift4 für subsection / H4</li>
 <li> Unterunterabschnitt / Überschrift5 für subsubsection / H5</li>
 <li> Absatz / Überschrift6 für paragraph / H6
+<<<<<<< HEAD:docs/README.de.lafic
 </li>
 </ul>
 
@@ -343,7 +346,26 @@ einem »<span class="tt">%</span>« gefolgt von:
 </ul>
 
 
+<H3>=======</H3>
+
+<H3>Textformatierung im Absatz</H3>
+
 <p>
+Wörter und Textabschnitte in einem Absatz werden in einem
+Block nach dem Absatz formatiert. Jede Zeile beginnt mit
+einem »<span class="tt">%</span>« gefolgt von:
+</p>
+
+<ul>
+<li> dem Wort</li>
+<li> dem ersten und letzten Wort den Abschnittes,
+  getrennt durch 3 Punkte, bzw. durch »…«.
+</li>
+</ul>
+
+
+<p>
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; Color:docs/README.de.lafic
 If the keyword is
 unknown, it is converted to a macro (LaTeX) oder &lt;span</li>
 <>
@@ -359,7 +381,7 @@ jpeg, gif.
 </p>
 
 <div style="padding: 1em; text-align: center">
-<img style="width: 50%;" src="/home/sebastian/lafic/Image.png">
+<img style="width: 50%;" src="./Image.png">
 </div>
 
 <p>
@@ -369,16 +391,18 @@ achieve to have to put %image, %img or %figure before the
 line. You don't need the extention then.
 </p>
 
+<div style="padding: 1em; text-align: right">
 <figure  id="bild1" role="group">
-<img style="height: 40%;" src="/home/sebastian/lafic/Image.png">
+<img style="height: 40%;" src="./Image.png">
 <figcaption>Mars and Moon</figcaption>
 </figure>
+</div>
 </figure>
 
 
 <H3>Farben</H3>
 
-<div style="padding: 1em; color: white; text-align: right; background-color: red">
+<div style="padding: 1em; text-align: right; color: white; background-color: red">
 <p>
 Die Hintergrundfarbe eines Absatzes kann über den Parameter
 <span style="color: lawngreen">Hintergrund</span> gesetzt werden; die Textfarbe über <span style="color: lawngreen">Farbe</span>. Um in

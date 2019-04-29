@@ -1,4 +1,4 @@
-\documentclass[titlepage]{scrbook}
+\documentclass[titlepage, twoside]{scrbook}
 
 \usepackage{graphicx}
 \usepackage[hyperindex=false, pdfpagelabels,
@@ -14,21 +14,26 @@ pdfpagemode=UseOutlines]{hyperref}
 BoldFeatures={Weight=1},
 ItalicFeatures={SmallCapsFont=AlegreyaSC-Italic}]{Alegreya}
 \setsansfont[Mapping=tex-text, Scale=1.71]{Alegreya Sans}
-
+\renewcommand{\baselinestretch}{1.7}
 
 \usepackage{polyglossia}
 \setdefaultlanguage{english}
 
 \usepackage{microtype}
 \usepackage{xspace}
-\author{Alina Meisel}
+
+% This is 'SCHUSTER.STY' as of 25. March 1990
+%
+% Disable single lines at the start of a paragraph (Schusterjungen)
+\clubpenalty = 10000
+%
+% Disable single lines at the end of a paragraph (Hurenkinder)
+\widowpenalty = 10000 \displaywidowpenalty = 10000
+%
+% - End of 'SCHUSTER.STY' -
+
 
 %TITLE%
-
-\hypersetup{
-	pdftitle={\title},
-	pdfauthor={\author},
-	}
  
 
 \begin{document}

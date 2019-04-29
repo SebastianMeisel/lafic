@@ -583,7 +583,7 @@ sub outputLines {
 		      my $optional = "";
 		      ($optional) =  handleParameter($macro, %parameter);
 		      
-		      print OUTPUT "<$macro $optional src=\"$lafic_dir/$par\">\n";
+		      print OUTPUT "<$macro $optional src=\"./$par\">\n";
 		  }
 		  # normal paragraph
 		  else {
@@ -622,7 +622,7 @@ sub outputLines {
 		      if (! defined $id) {$id =""}
 		      
 		      print OUTPUT "<figure $id role=\"group\">\n";
-		      print OUTPUT "<img $optional src=\"$lafic_dir/$par\">\n";
+		      print OUTPUT "<img $optional src=\"./$par\">\n";
 		      if (! $caption =~ /^$/ ) {
 			  print OUTPUT "<figcaption>$caption</figcaption>\n";
 		      }

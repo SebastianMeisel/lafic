@@ -7,7 +7,7 @@ body {
     width: 90%;
     height: 100%;
     margin: 5%;
-    font-family: 'Alegreya';
+    font-family: 'Alegreya', serif;
     counter-reset: footnote;
 }
 

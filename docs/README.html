@@ -1,3 +1,4 @@
+
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 
 <html lang="en">
@@ -36,18 +37,18 @@ Get source from <a href="https://github.com">github</a> using:
 </p>
 
 <pre>
-git clone https://github.com/SebastianMeisel/lafic.git
-
+<p>git clone https://github.com/SebastianMeisel/lafic.git</p>
 </pre>
+
 
 <p>
 Add lafic directory to $PATH, e.g.:
 </p>
 
 <pre>
-export PATH=${PATH}:~/lafic
-
+<p>export PATH=${PATH}:~/lafic</p>
 </pre>
+
 
 <p>
 See <span class="tt">lafic-mode.el</span> for installation instructions, if you want
@@ -96,13 +97,13 @@ separated by empty line from the <a class="fn" href="#fn4" id="fna4">content</a>
 </p>
 
 <pre>
-  % This is a comment.
+<p>  % This is a comment.</p>
 
-  % This is a longer comment, that spreads over several
+<p>  % This is a longer comment, that spreads over several
   % lines. It is important that it is not connected to a line
-  % of the general content.
-
+  % of the general content.</p>
 </pre>
+
 
 <p>
 “It is recommended, however, to start comments with two % chars.
@@ -112,10 +113,10 @@ and don't need to repeat it ‘ in every’ line.
 </p>
 
 <pre>
-  %% This is a comment! No mistake!
-  Even when you go on with no leading % it's still a comment.
-
+<p>  %% This is a comment! No mistake!
+  Even when you go on with no leading % it's still a comment.</p>
 </pre>
+
 
 
 <H3>Formated paragraphs</H3>
@@ -128,15 +129,15 @@ quotation for&nbsp;– well a quotation.
 </p>
 
 <pre>
-  % quote
-  This is a quotation.
-
+<p>  % quote
+  This is a quotation.</p>
 </pre>
 
-<blockquote>
-This is a quotation.
 
+<blockquote>
+<p>This is a quotation.</p>
 </blockquote>
+
 
 <p>
 If the keyword is unknown, it will be converted to an environment
@@ -152,10 +153,10 @@ are H1&nbsp;… H6 for headings.
 </p>
 
 <pre>
-  % heading4
-  This is a subsection
-
+<p>  % heading4
+  This is a subsection</p>
 </pre>
+
 
 <H4>This is a subsection</H4>
 
@@ -171,9 +172,9 @@ a paragraph. It has two parts:
 <li> the word or the sequence to be formated in the form
   start…end. </li>
 <li> a keyword.
-
 </li>
 </ol>
+
 
 <p>
 The both are separated by a »:«.
@@ -199,18 +200,18 @@ on the layout.
 </p>
 
 <pre>
-
+<p>
 * Top 1.
-- Top 2.
-
+- Top 2.</p>
 </pre>
+
 
 <ul>
 <li> Top 1.</li>
 <li> Top 2.
-
 </li>
 </ul>
+
 
 <p>
 For multilevel lists, you have to choises, to raise or
@@ -221,16 +222,16 @@ or <span class="tt">»% level-«</span> at the end.
 </p>
 
 <pre>
-
+<p>
   * Top 1.
-  * Top 2.
+  * Top 2.</p>
 
-
+<p>
   * Top 2a.
   * Top 2b.
-  % level+
-
+  % level+</p>
 </pre>
+
 
 <ul>
 <li> Top 1.</li>
@@ -240,11 +241,11 @@ or <span class="tt">»% level-«</span> at the end.
 <ul>
 <li> Top 2a.</li>
 <li> Top 2b.
-
 </li>
 </ul>
 
 </ul>
+
 <p>
 Or you can write the list in one paragraph, marking the
 raise or decrease of the level with a &gt; or &lt; at the
@@ -252,16 +253,16 @@ beginning of a single line.
 </p>
 
 <pre>
-
+<p>
   * Top 1.
   * Top 2.
   >
     * Top 2a.
     * Top 2b.
   <
-  * Top 3
-
+  * Top 3</p>
 </pre>
+
 
 <ul>
 <li> Top 1.</li>
@@ -273,9 +274,9 @@ beginning of a single line.
 </li>
 </ul>
 <li> Top 3
-
 </li>
 </ul>
+
 
 <H3>Images</H3>
 
@@ -286,12 +287,12 @@ jpeg, gif.
 </p>
 
 <pre>
-  Image.png
-  % height = 40%
-
+<p>  Image.png
+  % height = 40%</p>
 </pre>
 
-<img style="height: 40%;" src="/home/sebastian/lafic/Image.png">
+
+<img style="height: 40%;" src="./Image.png">
 
 <p>
 Note that this will not put an figure environment in LaTeX
@@ -301,18 +302,17 @@ line. You don't need the extention then.
 </p>
 
 <pre>
-  %image
+<p>  %image
   Image.png
   % width = 40%
-  % caption = "Moon and Mars"
-
+  % caption = "Moon and Mars"</p>
 </pre>
 
+
 <figure  role="group">
-<img style="width: 40%;" src="/home/sebastian/lafic/Image.png">
+<img style="width: 40%;" src="./Image.png">
 <figcaption>"Moon and Mars"</figcaption>
 </figure>
-
 <div id="footnotes">
 <ol>
 <li id="fn1"><a href="#fna1">GNU Emacs ist als freie Software unter der GNU General Public License erhältlich und läuft auf den meisten heute üblichen Betriebssystemen (Unix, GNU/Linux, macOS und Windows).</a>
