@@ -20,5 +20,7 @@
     "absatz" => "paragraph",
     "Ü" => "addsec",
     "Überschrift" => "addsec",
+    # Anmerkungen
+    "anmerkung" => "marginpar",
 
 

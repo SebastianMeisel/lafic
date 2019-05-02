@@ -49,6 +49,10 @@ my $lafic_dir = $RealBin;
 use lib "$RealBin/modules";
 no lib ".";
 
+# template dir
+my $tmp_dir = "$lafic_dir/templates";
+
+
 ######
 # read lafic.config.pl
 #####
@@ -96,6 +100,9 @@ my %macros = (
     "paragraph" => "paragraph",
     "h" => "addsec",
     "heading" => "addsec",
+    # marginpar
+    "marginpar" => "marginpar",
+    "annote" => "marginpar",
     );
 
 
@@ -301,13 +308,17 @@ sub startTemplate {
     #####
     unless (defined $template) {
 	my $temp_file;
+	# project template
+	if (-e "$path$basename.tmp.tex"){
+	    $temp_file = "$path$basename.tmp.tex";
+	}
 	# german standard template 
-	if ($config{"lang"} =~ /^de_DE$/ ) {
-	    $temp_file = "$lafic_dir/templates/Standard_de_DE.tmp.tex";
+	elsif ($config{"lang"} =~ /^de_DE$/ ) {
+	    $temp_file = "$tmp_dir/Standard_de_DE.tmp.tex";
 	}
 	#english standard template
 	else {
-	    $temp_file = "$lafic_dir/templates/Standard.tmp.tex";
+	    $temp_file = "$tmp_dir/Standard.tmp.tex";
 	}
 	open(TEMPLATE, "<$temp_file") or
 	    die "Could not open $temp_file";
@@ -359,9 +370,11 @@ sub LaTeX {
     # TeX / LaTeX / XeTeX
     $par =~ s/(\s)((Xe)?(La)?TeX)\b/$1\\$2\\ /mg;
 
+    # ... to …
+    $par =~ s/\.{3,3}/…/g;
     
     # Non breaking space befor -- and ... 
-    $par =~ s/\s(--|\{\\ldots)/~$1/mg;
+    $par =~ s/\s(--|\{\\ldots|…)/~$1/mg;
   
     # And between ?|! and quotation marks
     $par =~ s/(\?|!)``/$1\\,``/mg;
