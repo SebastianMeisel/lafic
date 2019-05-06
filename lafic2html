@@ -266,10 +266,18 @@ sub startTemplate {
     #####
     # TODO add path
     #####
+
+    my $marker = shift;
+
+    
     unless (defined $template) {
 	my $temp_file;
+	# project template
+	if (-e "$path$basename.tmp.html"){
+	    $temp_file = "$path$basename.tmp.html";
+	}
 	# german standard template 
-	if ($config{"lang"} =~ /^de_DE$/ ) {
+	elsif ($config{"lang"} =~ /^de_DE$/ ) {
 	    $temp_file = "$lafic_dir/templates/Standard_de_DE.tmp.html";
 	}
 	#english standard template
@@ -283,12 +291,11 @@ sub startTemplate {
 	$template = <TEMPLATE>;
     }
 
-    my $marker = shift;
     
     # Print template to %$marker% line
     while ($template =~ /^(.*?)$/mg) {
 	my $line = $1;
-	
+
 	# stop at marker
 	if ($line =~ /\<!-- $marker --\>/){last}
 
@@ -300,27 +307,15 @@ sub startTemplate {
 sub Html {
     my $par = shift;
 
-    # # Variables for smartquotation
-    # my $outerquotes = 0;
-    # my $innerquotes = 0;
-
     # english quotation marks
     my $oqm =  "“";
     my $cqm =  "”";
-    # if ($single == 1) { # single quotation marks
-    # 	my $oqm = "‘ ";
-    # 	my $cqm = "’";
-    # }
     my $osqm = "‘ ";
     my $csqm = "’";
     # german quotation marks
     if ($config{"lang"} =~ /de_DE/) {
 	$oqm =  "„";
 	$cqm =  "“";
-	# if ($single == 1) { # single quotation marks
-	#     $oqm = "‚";
-	#     $cqm = "‘";
-	# }
 	$osqm = "‚";
 	$csqm = "‘";
     }
@@ -446,10 +441,10 @@ sub handleParameter {
 ########################
 sub outputLines {
     # get parameters
-    my ($par , $parstyle, $macro, $title, $environment, $prev_env,         $list_level,	$newfile, $newpar, %parameter) = @_;
+    my ($par, $parstyle, $macro, $title, $environment, $prev_env,         $list_level, $newfile, $newpar, %parameter) = @_;
 
     # check if continious environment needs to be closed
-    unless ($environment eq $prev_env or $prev_env eq "") {
+    unless ($environment =~ /^$prev_env$/ or $prev_env eq "") {
 	# check if div
 	if ($prev_env =~ /^\./) {
 	    print OUTPUT "</div>\n\n";
@@ -474,8 +469,8 @@ sub outputLines {
 
     unless ($environment =~ /^pre$/){
 	# list level+
-	$par =~ s/[[:blank:]]*(&gt;|>)\n+/<\/li>\n<$environment>\n/mg;
-	$par =~ s/[[:blank:]]*(&lt;|<)\n+/<\/li>\n<\/$environment>\n/mg;
+	$par =~ s/^[[:blank:]]*(&gt;|>)\n+/<\/li>\n<$environment>\n/mg;
+	$par =~ s/^[[:blank:]]*(&lt;|<)\n+/<\/li>\n<\/$environment>\n/mg;
     }
 
     # Paragraph parameters
@@ -502,7 +497,6 @@ sub outputLines {
 	print OUTPUT "\">\n";
     }
     
-    
     # close macro or environment  
   SELECT: {
       # no content
@@ -511,7 +505,7 @@ sub outputLines {
       # line / macro
       if ($parstyle == 0 || $parstyle == 3) {
 		  # check if it is first line / paragraph
-		  if ($newfile == 1) {
+	  if ($newfile == 1 and not $template =~ /^empty$/) {
 		      startTemplate("TITLE");
 		      $newfile = 0;
 		  }
@@ -522,27 +516,30 @@ sub outputLines {
 		      print OUTPUT "<span class=\"$macro\">$par</span>\n";
 		  }
 		  # save title and run startTemplate
-		  elsif ($macro =~ /^h1$/i) {
-		      $title = $par;
-		      print OUTPUT "<meta name=\"title\"";
+	  elsif ($macro =~ /^(title|h1)$/i) {
+	      # unless this is a snippet
+	      unless ($template =~ /^empty$/) {
+		  $title = $par;
+		  print OUTPUT "<meta name=\"title\"";
+		  print OUTPUT "content=\"";
+		  print OUTPUT $title;
+		  print OUTPUT "\">\n";
+		  if ($config{"author"}){
+		      print OUTPUT "<meta name=\"author\"";
 		      print OUTPUT "content=\"";
-		      print OUTPUT $title;
+		      print OUTPUT $config{"author"};
 		      print OUTPUT "\">\n";
-		      if ($config{"author"}){
-		      	  print OUTPUT "<meta name=\"author\"";
-			  print OUTPUT "content=\"";
-			  print OUTPUT $config{"author"};
-			  print OUTPUT "\">\n";
-		      }
-
-		      startTemplate("TEXT");
-
-		      # print title as heading
-		      print OUTPUT "<$macro>$par</$macro>\n";
-
-		      $newfile = 0;
-		      # }		
 		  }
+		  
+		  startTemplate("TEXT");
+	      }
+	      $macro = "h1";
+	      # print title as heading
+	      print OUTPUT "<$macro>$par</$macro>\n";
+	      
+	      $newfile = 0;
+	      # }		
+	  }
 		  # check if heading
 		  elsif ($macro =~/^H[2-4]/i){
 		      # optional parameters
@@ -558,22 +555,27 @@ sub outputLines {
 	      # paragraph
 	      if ($parstyle == 1) {
 		  # check if it is first line / paragraph
-		  if ($newfile == 1) {
-		      startTemplate("TITLE");
-		      if ($title =~ /^\s*$/) {
-			  $title = "Ein Text";
-			  $macro = "H1";
-			  print OUTPUT "<meta name=\"title\"";
-			  print OUTPUT "content=\"";
-			  print OUTPUT $title;
-			  print OUTPUT "\">\n";
-			  if ($config{"author"}){
-			      print OUTPUT "<meta name=\"author\"";
+		  if ($newfile == 1 ) {
+		      # unless this is a snippet
+		      unless ($template =~ /^empty$/){
+			  startTemplate("TITLE");
+			  if ($title =~ /^\s*$/) {
+			      $title = "Ein Text";
+			      print OUTPUT "<meta name=\"title\"";
 			      print OUTPUT "content=\"";
-			      print OUTPUT $config{"author"};
+			      print OUTPUT $title;
 			      print OUTPUT "\">\n";
+			      if ($config{"author"}){
+				  print OUTPUT "<meta name=\"author\"";
+				  print OUTPUT "content=\"";
+				  print OUTPUT $config{"author"};
+				  print OUTPUT "\">\n";
+			      }
+			  
+			      startTemplate("TEXT");
 			  }
-			  startTemplate("TEXT");
+			  $macro = "H1";
+			  
 			  print OUTPUT "<$macro>$title</$macro>\n";
 
 			  $newfile = 0;
@@ -604,17 +606,20 @@ sub outputLines {
 	      if ($parstyle == 4) {
 		  # check if it is first line / paragraph
 		  if ($newfile == 1) {
-		      startTemplate("TITLE");
-		      # check if title is defined
-		      unless (defined $title) {
-			  # run startTemplate
-			  print OUTPUT "<title>Unbekannt</title>\n";
+		      # unless this is a snippet
+		      unless ($template =~ /^empty$/){
+			  startTemplate("TITLE");
+			  # check if title is defined
+			  unless (defined $title) {
+			      # run startTemplate
+			      print OUTPUT "<title>Unbekannt</title>\n";
+			  }
 			  startTemplate("TEXT");
-
-			  # print title as heading
-			  $macro = "H1";
-			  print OUTPUT "<$macro>$par</$macro>\n";
 		      }
+		      # print title as heading
+		      $macro = "H1";
+		      print OUTPUT "<$macro>$par</$macro>\n";
+		      $newfile = 0;
 		  }
 		  # figures are special
 		  if ($environment =~ /^figure$/) {
@@ -650,8 +655,8 @@ sub outputLines {
 		  }
 		  # other environment
 		  else {
-		      # 	  # check if div
-		      if ($environment =~ /^\./){
+		      # check if div and not continous
+		      if ($environment =~ /^\./ and not $environment eq $prev_env){
 			  $environment =~ s/^\.//;
 			  print OUTPUT "<div class=\"$environment\">\n";
 		      }
@@ -744,6 +749,12 @@ sub parseFile {
 		    $newpar=0;
 		    $par = "";
 		    next}
+		elsif ($lc =~ /^\s*$/) {
+		    # snippet?
+		    if ($newfile == 1 and $i == 1){
+			$template = "empty";
+		    } 
+		}
     		# layout line or comment?
     		elsif ($lc =~ /^(\s*)([0-9a-zA-Z_À-ÿ\.]+?)(\s*)([%].*)?$/) {
     		    # at least formated line
@@ -755,7 +766,7 @@ sub parseFile {
 		    #  check, if it's begin of Document
 		    if ($newfile == 1  and $i == 1){
 			# parkey is template name?
-			if (-e "$lafic_dir/templates/$parkey.tmp.tex"){
+			if (-e "$lafic_dir/templates/$parkey.tmp.html"){
 			    # open template
 			    #######
 			    # TODO: add search path
@@ -859,7 +870,7 @@ sub parseFile {
 		SELECT: {
 		    # section heading    
 		    if ($parstyle == 0) {
-			if ($newfile == 1) {
+			if ($newfile == 1  and $i == 1) {
 			    $macro = "title";
 			}
 			else{

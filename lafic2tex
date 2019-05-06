@@ -330,7 +330,7 @@ sub startTemplate {
     my $marker = shift;
     
     # Print template to %$marker% line
-    while ($template =~ /^(.*?)$/mg) {
+    while ($template =~ /^(.*?)$/mg and not $template =~ /^empty$/) {
 	my $line = $1;
 	
 	# stop at %TITLE%
@@ -641,7 +641,7 @@ sub outputLines {
 	      # paragraph
 	      if ($parstyle == 1) {
 		  # check if it is first line / paragraph
-		  if ($newfile == 1) {
+		  if ($newfile == 1 and not $template =~ /^empty$/) {
 		      startTemplate("TITLE");
 		      # check if title is defined
 		      if ($title =~ /^\s*$/) {
@@ -678,7 +678,7 @@ sub outputLines {
 	      # formated paragraph
 	      if ($parstyle == 4) {
 		  # check if it is first line / paragraph
-		  if ($newfile == 1) {
+		  if ($newfile == 1 and not $template =~ /^empty$/) {
 		      # run startTemplate
 		      startTemplate("TITLE");
 		      # check if title is defined
@@ -812,6 +812,12 @@ sub parseFile {
 		    $newpar=0;
 		    $par = "";
 		    next}
+		elsif ($lc =~ /^\s*$/) {
+		    # texfile to include? – no preamble
+		    if ($newfile == 1 and $i == 1){
+			$template = "empty";
+		    } 
+		}
     		# layout line or comment?
     		elsif ($lc =~ /^(\s*)([0-9a-zA-Z_À-ÿ\.]+?)(\s*)([%].*)?$/) {
     		    # at least formated line
@@ -1193,7 +1199,7 @@ sub parseFile {
 
 close (INPUT);
 # print rest of template.
-while ($template =~ /^(.*?)$/mg) {
+while ($template =~ /^(.*?)$/mg and not $template =~ /^empty$/) {
     my $line = $1;
     print OUTPUT "$line\n";
 }

@@ -326,7 +326,7 @@
   (save-buffer)
   (let ((format (completing-read "Output format: "
 	      (mapcar 'list (hash-table-keys lafic-command-hash))
-	      nil t nil 'lafic-command-history t)))
+	      nil t (or (car lafic-command-history) "") 'lafic-command-history t)))
     (let ((program (gethash format lafic-command-hash))) 
       (async-shell-command (concat 
 	   program
