@@ -86,6 +86,7 @@
   "Association list of command and file extentions."
   )
 
+(if 'lafic-command-history () (defvar lafic-command-history '((""))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; keyword hash
@@ -304,7 +305,7 @@
    ;; unknown parameters
    (cons regex-unknown-parameter '(1 'font-lock-warning-face t))
    (cons regex-unknown-parameter '(2 'font-lock-constant-face t))
-   ;; parameters
+   ;;XF parameters
    (cons regex-parameter '(1 'font-lock-function-name-face t))
    (cons regex-parameter '(2 'font-lock-constant-face t))
    ;; keywords
@@ -575,7 +576,7 @@
 
 ;; highlighting
 (defun lafic-highlight-par ()
-  "Highlight inline formations for paragrah at point"
+  "Highlight inline formations for paraqgrah at point"
   (interactive)
   (save-excursion
     ;; One step forward to find the beginning of line.
