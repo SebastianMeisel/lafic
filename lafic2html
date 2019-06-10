@@ -753,7 +753,12 @@ sub parseFile {
 		    # snippet?
 		    if ($newfile == 1 and $i == 1){
 			$template = "empty";
-		    } 
+		    }
+		    # forced paragraph
+		    elsif ($newpar == 1) {
+			$parstyle = 1;
+			$newpar = 0;
+		    }
 		}
     		# layout line or comment?
     		elsif ($lc =~ /^(\s*)([0-9a-zA-Z_À-ÿ\.]+?)(\s*)([%].*)?$/) {
