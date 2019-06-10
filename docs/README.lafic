@@ -38,27 +38,73 @@ The content is presented in two forms, which also include
 the most basic layout: There are lines and paragraphs.
 % lines: emphasize
 % paragraphs: emphasize
-% forms: footnote: Lari Fari.
 
-The difference is not so much the length, but lines include
+The difference is not the length, but lines include
 none of the punctation marks ».«, »?«, »!«, »:«. If no
 further layout information is provided, these are
 interpreted as headings.
 % »…«: emphasize
-% information: footnote: Bla bla bla.
 
 
 The first line is interpreted as the title and presented as
-this is as <h1>, when converted to Html, and \title, when 
-converted to LaTeX.
+ <h1>, when converted to Html, and \title, when converted to
+ LaTeX.
 % first (line is interpreted): emphasize
-% the (title): emphasize
 
-Further line will be converted to <h3> (Html) or \section
+
+Further lines will be converted to <h3> (Html) or \section
 (LaTeX), if no otherwise specified.  
 
 This way simple Documents Html may be structured with no explicit
 layout information at all.
+
+Formation lines
+
+You can add layout informations and formations in lines
+before and after the paragraph. These format lines start
+with a %-char (with no leading spaces) and must not be
+separated frome the paragraph by blank lines.
+% before: emphasize
+% after: emphasize
+% format…lines: emphasize
+
+% subsection
+Paragraph and line formats
+
+You can specify a format for a paragraph or line by a
+leading format line with a single keyword. The keyword will
+be translated to a block element name (Html) or a macro /
+environment (LaTeX). The use of keywords is unique to lafic,
+as you can define multiple keywords for on block element,
+macro or environment. So h4, heading4 and subsection will all be
+translated to <h4> (Html) and \subsection (LaTeX).
+% keyword: emphasize
+% h4: emphasize
+% heading4: emphasize
+% subsection: emphasize
+
+You can force lines (with no ., ?, !, :) to be interpreted
+as paragraphs with a leading paragraph format (like
+quotation) or a leading empty format line – just the %-char.
+
+% verbatim
+  % quotation
+  This is a quotation
+
+% verbatim
+  %
+  This is a paragraph
+
+% quotation
+This is a quotation
+% background = gray
+
+%
+This is a paragraph
+% background = gray
+
+
+On the other hand you can...
 
 Comments
 
@@ -68,7 +114,6 @@ spaces. These lines or paragraphs must, however, be
 separated by empty line from the content.
 % no…spaces: bold
 % (each) line : emphasize
-% content: footnote: Waba Waba.
 
 % verbatim
   % This is a comment.

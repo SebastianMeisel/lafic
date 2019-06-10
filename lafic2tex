@@ -479,10 +479,12 @@ sub handleParameter {
 	    if ($parameter{"width"}){
 		$parameter{"width"} =~ s/(1?)([0-9]?)([0-9])[%]/$1.$2$3\\linewidth/;
 		$optional = "$optional width=$parameter{'width'},";
+		delete ($parameter{"width"});
 	    }
-	    if ($parameter{"height"}){
+	    if ($parameter{"height"} ){
 		$parameter{"height"} =~ s/(1?)([0-9]?)([0-9])[%]/$1.$2$3\\textheight/;
 		$optional = "$optional height=$parameter{'height'},";
+		delete ($parameter{"height"});
 	    }
 	    
 	    # delete leading space
@@ -497,22 +499,45 @@ sub handleParameter {
 	    @return = $optional;
 	}
 	# caption in figure
-	if ($env_mac =~ /^figure$/) {
+	elsif ($env_mac =~ /^figure$/) {
 	    if (! $parameter{"caption"} =~ /^$/) {
 		@return = (@return, $parameter{"caption"});
+		delete ($parameter{"caption"});
 	    }  
 	    if (! $parameter{"label"} =~ /^$/) {
 		@return = (@return, $parameter{"label"});
+		delete ($parameter{"label"});
 	    }
 	}
 	# labels in headings
-	if ($env_mac =~ /^part|(sub)?section/) {
+	elsif ($env_mac =~ /^part|(sub)?section/) {
 	    # TODO: add ch:, sec:, subsec:
 	    if (! $parameter{"label"} =~ /^$/) {
 		@return = ($parameter{"label"});
+		delete ($parameter{"label"});
 	    }
 	}
+	# unknown parameters
+	else{
+	    my $optional = "[";
+
+	    foreach $key (keys %parameter) {
+		if ($key =~ /color|align|background/){next;}
+		$optional = "$optional $key=$parameter{$key},";
+	    }
+	    # delete leading space
+	    $optional =~ s/^\[\s/\[/;
+	    # delete trailing space and comma
+	    $optional =~ s/,\s*$//;
+
+	    # add final bracket
+	    $optional = "$optional]";
+	    # prevent empty optional brackets
+	    $optional =~ s/^\[\]$//;
+	    @return = ($optional);
+	}
     }
+    else{@return=("")}
     
     return @return;
 }
@@ -664,7 +689,8 @@ sub outputLines {
 		      my $optional = "";
 		      ($optional) = handleParameter($macro, %parameter);
 		      my $pre = "";
-		      ($pre, $par) =  split /%%\n/ , $par;
+		      if ($par =~ /%%\n/){
+			  ($pre, $par) =  split /%%\n/ , $par;}
 		      
 		      print OUTPUT "\{$pre\\$macro$optional\{$par\}\}\n";
 		  }
@@ -701,7 +727,8 @@ sub outputLines {
 		      ($optional, $caption, $label) = handleParameter($environment, %parameter);
 
 		      my $pre = "";
-		      ($pre, $par) =  split /%%\n/ , $par;
+		      if ($par =~ /%%n/) {
+			  ($pre, $par) =  split /%%\n/ , $par;}
 		      
 		      print OUTPUT "\\begin{figure}[hbt]\n";
 		      print OUTPUT "$pre%%\n";
@@ -729,7 +756,9 @@ sub outputLines {
 		  else {
 		      # begin new environment only if not continuous  
 		      unless ($environment eq $prev_env) {
-			  print OUTPUT "\\begin\{$environment\}\n";
+			  my $optional = "";
+			  ($optional) = handleParameter($macro, %parameter);
+			  print OUTPUT "\\begin\{$environment\}$optional\n";
 		      }
 		      print OUTPUT "$par\n";
 		  }
@@ -816,7 +845,12 @@ sub parseFile {
 		    # texfile to include? – no preamble
 		    if ($newfile == 1 and $i == 1){
 			$template = "empty";
-		    } 
+		    }
+		    # forced paragraph
+		    elsif ($newpar == 1){
+			$parstyle = 1;
+			$newpar=0;
+		    }
 		}
     		# layout line or comment?
     		elsif ($lc =~ /^(\s*)([0-9a-zA-Z_À-ÿ\.]+?)(\s*)([%].*)?$/) {

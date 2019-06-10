@@ -1,6 +1,10 @@
+
 \documentclass{article}
 
 \usepackage{graphicx}
+\usepackage{xcolor}
+\definecolor{gray}{gray}{.75}
+\setlength{\fboxsep}{.05\linewidth}
 \usepackage[hyperindex=false, pdfpagelabels,
 pageanchor, hyperfootnotes=false, bookmarksopen,
 pdfpagemode=UseOutlines]{hyperref}
@@ -13,6 +17,11 @@ pdfpagemode=UseOutlines]{hyperref}
 \setdefaultlanguage{english}
 
 \usepackage{microtype}
+\usepackage{xspace}
+
+\setlength{\parindent}{0pt}
+\sloppy
+
 
 \title{Introduction to LaFiC}
 \author{Sebastian Meisel}
@@ -22,58 +31,109 @@ pdfpagemode=UseOutlines]{hyperref}
 \maketitle
 
 
-LaFiC means \textit{layout and format in comments}, as all layout and
+{LaFiC means \textit{layout and format in comments}, as all layout and
 format information is put into comment lines. So layout and
-content are \emph{fully} separated. For details see \nameref{Writing}.
+content are \emph{fully} separated. For details see \nameref{Writing}\xspace .\\}
 
 \part{Installation}
+\label{}
 
-Get source from \href{https://github.com}{github} using:
+{Get source from \href{https://github.com}{github} using:\\}
 
 \begin{verbatim}
 git clone https://github.com/SebastianMeisel/lafic.git
-
 \end{verbatim}
 
-Add lafic directory to \$PATH, e.g.:
+
+{Add lafic directory to \$PATH, e.g.:\\}
 
 \begin{verbatim}
 export PATH=${PATH}:~/lafic
-
 \end{verbatim}
 
-See \texttt{lafic-mode.el} for installation instructions, if you want
-to use in in Gnu Emacs\footnote{GNU Emacs ist als freie Software unter der GNU General Public License erhältlich und läuft auf den meisten heute üblichen Betriebssystemen (Unix, GNU/Linux, macOS und Windows).}.
+
+{See \texttt{lafic-mode.el} for installation instructions, if you want
+to use in in Gnu Emacs\footnote{GNU Emacs ist als freie Software unter der GNU General Public License erhältlich und läuft auf den meisten heute üblichen Betriebssystemen (Unix, GNU/Linux, macOS und Windows).}\xspace .\\}
 
 \part{Writing text in LaFiC}
 \label{Writing}
 
 \section{Lines and paragraphs}
+\label{}
 
-The content is presented in two forms\footnote{Lari Fari.}, which also include
-the most basic layout: There are \emph{lines} and \emph{paragraphs}.
+{The content is presented in two forms, which also include
+the most basic layout: There are \emph{lines} and \emph{paragraphs}.\\}
 
-The difference is not so much the length, but lines include
+{The difference is not the length, but lines include
 none of the punctation marks ».«, »?«, »!«, \emph{»:«}. If no
-further layout information\footnote{Bla bla bla.} is provided, these are
-interpreted as headings.
+further layout information is provided, these are
+interpreted as headings.\\}
 
-The \emph{first} line is interpreted as \emph{the} title and presented as
-this is as <h1>, when converted to Html, and \title, when 
-converted to \LaTeX.
+{The \emph{first} line is interpreted as the title and presented as
+ <h1>, when converted to Html, and \textbackslash title, when converted to
+ \LaTeX\ .\\}
 
-Further line will be converted to <h3> (Html) or \section
-(\LaTeX), if no otherwise specified.
+{Further lines will be converted to <h3> (Html) or \textbackslash section
+(LaTeX), if no otherwise specified.\\}
 
-This way simple Documents Html may be structured with no explicit
-layout information at all.
+{This way simple Documents Html may be structured with no explicit
+layout information at all.\\}
+
+\section{Formation lines}
+\label{}
+
+{You can add layout in\emph{formations and formations in lines}
+\emph{before} and \emph{after} the paragraph. These \emph{format lines} start
+with a \%-char (with no leading spaces) and must not be
+separated frome the paragraph by blank lines.\\}
+
+\subsection{Paragraph and line formats}
+\label{}
+
+{You can specify a format for a paragraph or line by a
+leading format line with a single \emph{keyword}. The \emph{keyword} will
+be translated to a block element name (Html) or a macro /
+environment (LaTeX). The use of \emph{keyword}s is unique to lafic,
+as you can define multiple \emph{keyword}s for on block element,
+macro or environment. So \emph{h4}, \emph{heading4} and \emph{subsection} will all be
+translated to <\emph{h4}> (Html) and \textbackslash \emph{subsection} (LaTeX).\\}
+
+{You can force lines (with no ., ?, !, :) to be interpreted
+as paragraphs with a leading paragraph format (like
+quotation) or a leading empty format line – just the \%-char.\\}
+
+\begin{verbatim}
+  % quotation
+  This is a quotation
+
+  %
+  This is a paragraph
+\end{verbatim}
+
+
+\colorbox{gray!75}{\parbox{\linewidth}{%%
+\begin{quotation}
+This is a quotation
+\end{quotation}
+
+}
+}
+
+\colorbox{gray!75}{\parbox{\linewidth}{%%
+{
+This is a paragraph\\}
+}
+}
+
+{On the other hand you can…\\}
 
 \section{Comments}
+\label{}
 
-You can add comments to your text, by starting a single line
+{You can add comments to your text, by starting a single line
 or each \emph{line} of a paragraph with a \% char with no leading
 spaces. These lines or paragraphs must, however, be
-separated by empty line from the content\footnote{Waba Waba.}.
+separated by empty line from the content.\\}
 
 \begin{verbatim}
   % This is a comment.
@@ -81,101 +141,106 @@ separated by empty line from the content\footnote{Waba Waba.}.
   % This is a longer comment, that spreads over several
   % lines. It is important that it is not connected to a line
   % of the general content.
-
 \end{verbatim}
 
-“It is recommended, however, to start comments with two \% chars.
+
+{“It is recommended, however, to start comments with two \% chars.
 Else there may occur ‘ problems’, when there” is a »:« somewhere
 in the comment. You also can start a longer comment this way
-and don't need to repeat it ‘ in every’ line.
+and don't need to repeat it ‘ in every’ line.\\}
 
 \begin{verbatim}
   %% This is a comment! No mistake!
   Even when you go on with no leading % it's still a comment.
-
 \end{verbatim}
 
 
-\section{Formated paragraphs}
 
-Paragraphs can be formated by adding a line before the
+\section{Formated paragraphs}
+\label{}
+
+{Paragraphs can be formated by adding a line before the
 paragraph, that starts with a \% char, followed by a single
 word. There are some predefined keywords, like quote or
-quotation for – well a quotation.
+quotation for – well a quotation.\\}
 
 \begin{verbatim}
   % quote
   This is a quotation.
-
 \end{verbatim}
+
 
 \begin{quote}
 This is a quotation.
-
 \end{quote}
 
-If the keyword is unknown, it will be converted to an environment
-name in \LaTeX or the name of a <div> in Html.
+
+{If the keyword is unknown, it will be converted to an environment
+name in \LaTeX\  or the name of a <div> in Html.\\}
 
 \section{Formated lines}
+\label{}
 
-Line are formated in the same way, only they are converted
-to macros (\LaTeX) oder <span> names (HTML). Know keywords
-are H1~… H6~for headings.
+{Line are formated in the same way, only they are converted
+to macros (LaTeX) oder <span> names (HTML). Know keywords
+are H1~… H6 for headings.\\}
 
 \begin{verbatim}
   % heading4
   This is a subsection
-
 \end{verbatim}
 
+
 \subsection{This is a subsection}
+\label{}
 
 \section{Inline formation}
+\label{}
 
-If you want to format words or sequences in a paragraph (or
+{If you want to format words or sequences in a paragraph (or
 line if needed), you add format lines with a leading \% after
-a paragraph. It has two parts:
+a paragraph. It has two parts:\\}
 
 \begin{enumerate}
 \item the word or the sequence to be formated in the form
   start…end. 
 \item a keyword.
-
 \end{enumerate}
 
-The both are separated by a »:«.
 
-Known environment keywords are e.g. quote or quotation.
+{The both are separated by a »:«.\\}
 
-If the keyword is unknown, it is converted to a macro
-(\LaTeX) oder <span> (HTML) name.
+{Known environment keywords are e.g. quote or quotation.\\}
+
+{If the keyword is unknown, it is converted to a macro
+(LaTeX) oder <span> (HTML) name.\\}
 
 \section{Lists}
+\label{}
 
-Lists are the only things, that need some kind of
+{Lists are the only things, that need some kind of
 markup. You have to start each topic of the list with one of
 the following chars: –, *, +, -. It doesn't matter, which one you
 choose. You may indent the lines, but that has no influence
-on the layout.
+on the layout.\\}
 
 \begin{verbatim}
 
 * Top 1.
 - Top 2.
-
 \end{verbatim}
+
 
 \begin{itemize}
 \item Top 1.
 \item Top 2.
-
 \end{itemize}
 
-For multilevel lists, you have to choises, to raise or
+
+{For multilevel lists, you have to choises, to raise or
 decrease the level: The clean LaFiC style would be,
 to start a new paragraph and add the keyword \texttt{»\% level+«}
-or \texttt{»\% level-«} at the end.
+or \texttt{»\% level-«} at the end.\\}
 
 \begin{verbatim}
 
@@ -186,8 +251,8 @@ or \texttt{»\% level-«} at the end.
   * Top 2a.
   * Top 2b.
   % level+
-
 \end{verbatim}
+
 
 \begin{itemize}
 \item Top 1.
@@ -196,14 +261,14 @@ or \texttt{»\% level-«} at the end.
 \begin{itemize}
 \item Top 2a.
 \item Top 2b.
-
 \end{itemize}
 
 \end{itemize}
 
-Or you can write the list in one paragraph, marking the
+
+{Or you can write the list in one paragraph, marking the
 raise or decrease of the level with a > or < at the
-beginning of a single line.
+beginning of a single line.\\}
 
 \begin{verbatim}
 
@@ -214,8 +279,8 @@ beginning of a single line.
     * Top 2b.
   <
   * Top 3
-
 \end{verbatim}
+
 
 \begin{itemize}
 \item Top 1.
@@ -225,42 +290,41 @@ beginning of a single line.
 \item Top 2b.
 \end{itemize}
 \item Top 3
-
 \end{itemize}
 
-\section{Images}
 
-The simplest way to put an image into a LaFiC file is a
+\section{Images}
+\label{}
+
+{The simplest way to put an image into a LaFiC file is a
 line with the image name, with a know extention: png, jpg,
-jpeg, gif.
+jpeg, gif.\\}
 
 \begin{verbatim}
   Image.png
   % height = 40%
-
 \end{verbatim}
 
-\includegraphics[height=.40\textheight]{Image.png}
 
-Note that this will not put an figure environment in \LaTeX
+{\includegraphics[height=.40\textheight]{Image.png}}
+
+{Note that this will not put an figure environment in \LaTeX\ 
 files, so the image won't float this way. For this to
 achieve to have to put \% image, \%img or \%figure before the
-line. You don't need the extention then.
+line. You don't need the extention then.\\}
 
 \begin{verbatim}
   %image
   Image.png
   % width = 40%
   % caption = "Moon and Mars"
-
 \end{verbatim}
 
+
 \begin{figure}[hbt]
+%%
 \includegraphics[width=.40\linewidth]{Image.png}
-\caption{"Moon and Mars"}
 \end{figure}
-
-
 \end{document}
 
 %%% Local Variables:

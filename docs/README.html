@@ -15,14 +15,7 @@
     });
   </script>
   <link rel="stylesheet" href="styles/standard.css">
-<title>Introduction to LaFiC</title>
-<meta name="author"content="Sebastian Meisel">
-
-</head>
-
-<body>
-  
-<H1>Introduction to LaFiC</H1>
+<H3>Introduction to LaFiC</H3>
 
 <p>
 LaFiC means <i>layout and format in comments</i>, as all layout and
@@ -60,25 +53,25 @@ to use in in <a class="fn" href="#fn1" id="fna1">Gnu Emacs</a>.
 <H3>Lines and paragraphs</H3>
 
 <p>
-The content is presented in two <a class="fn" href="#fn2" id="fna2">forms</a>, which also include
+The content is presented in two forms, which also include
 the most basic layout: There are <em>lines</em> and <em>paragraphs</em>.
 </p>
 
 <p>
-The difference is not so much the length, but lines include
+The difference is not the length, but lines include
 none of the punctation marks <em>».«, »?«, »!«, »:«</em>. If no
-further layout <a class="fn" href="#fn3" id="fna3">information</a> is provided, these are
+further layout information is provided, these are
 interpreted as headings.
 </p>
 
 <p>
-The <em>first</em> line is interpreted as <em>the</em> title and presented as
-this is as &lt;h1&gt;, when converted to Html, and \title, when 
-converted to LaTeX.
+The <em>first</em> line is interpreted as the title and presented as
+ &lt;h1&gt;, when converted to Html, and \title, when converted to
+ LaTeX.
 </p>
 
 <p>
-Further line will be converted to &lt;h3&gt; (Html) or \section
+Further lines will be converted to &lt;h3&gt; (Html) or \section
 (LaTeX), if no otherwise specified.
 </p>
 
@@ -87,13 +80,58 @@ This way simple Documents Html may be structured with no explicit
 layout information at all.
 </p>
 
+<H3>Formation lines</H3>
+
+<p>
+You can add layout in<em>formations and formations in lines</em>
+<em>before</em> and <em>after</em> the paragraph. These <em>format lines</em> start
+with a %-char (with no leading spaces) and must not be
+separated frome the paragraph by blank lines.
+</p>
+
+<H4>Paragraph and line formats</H4>
+
+<p>
+You can specify a format for a paragraph or line by a
+leading format line with a single <em>keyword</em>. The <em>keyword</em> will
+be translated to a block element name (Html) or a macro /
+environment (LaTeX). The use of <em>keyword</em>s is unique to lafic,
+as you can define multiple <em>keyword</em>s for on block element,
+macro or environment. So <em>h4</em>, <em>heading4</em> and <em>subsection</em> will all be
+translated to &lt;<em>h4</em>&gt; (Html) and \<em>subsection</em> (LaTeX).
+</p>
+
+<p>
+You can force lines (with no ., ?, !, :) to be interpreted
+as paragraphs with a leading paragraph format (like
+quotation) or a leading empty format line&nbsp;– just the %-char.
+</p>
+
+<pre>
+<p>  % quotation
+  This is a quotation</p>
+
+<p>  %
+  This is a paragraph</p>
+</pre>
+
+
+<blockquote>
+<p>This is a quotation</p>
+</blockquote>
+
+
+<H3>This is a paragraph</H3>
+
+<H3>On the other hand you can</H3>
+
 <H3>Comments</H3>
 
 <p>
 You can add comments to your text, by starting a single line
 or each <em>line</em> of a paragraph with a % char with no leading
 spaces. These lines or paragraphs must, however, be
-separated by empty line from the <a class="fn" href="#fn4" id="fna4">content</a>.
+separated by empty line from the content.
 </p>
 
 <pre>
@@ -216,8 +254,7 @@ on the layout.
 <p>
 For multilevel lists, you have to choises, to raise or
 decrease the level: The clean LaFiC style would be,
-to start a new paragraph and add the keyword <span class="tt">»% level+«</span</li>
-<>
+to start a new paragraph and add the keyword <span class="tt">»% level+«</span>
 or <span class="tt">»% level-«</span> at the end.
 </p>
 
@@ -317,14 +354,14 @@ line. You don't need the extention then.
 <ol>
 <li id="fn1"><a href="#fna1">GNU Emacs ist als freie Software unter der GNU General Public License erhältlich und läuft auf den meisten heute üblichen Betriebssystemen (Unix, GNU/Linux, macOS und Windows).</a>
 </li>
-<li id="fn2"><a href="#fna2">Lari Fari.</a>
-</li>
-<li id="fn3"><a href="#fna3">Bla bla bla.</a>
-</li>
-<li id="fn4"><a href="#fna4">Waba Waba.</a>
-</li>
 </ol>
 </div>
+
+</head>
+
+<body>
+  
+  <!-- TEXT -->
 
 </body>
 </html>
