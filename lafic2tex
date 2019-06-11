@@ -548,7 +548,7 @@ sub handleParameter {
 ########################
 sub outputLines {
     # get parameters
-    my ($par , $parstyle, $macro, $title, $environment, $prev_env,         $list_level,	$newfile, $newpar, $open_brackets,  %parameter) = @_;
+    my ($par , $parstyle, $macro, $title, $environment, $prev_env, $list_level,	$newfile, $newpar, $open_brackets,  %parameter) = @_;
 
     
     # check if continious environment needs to be closed

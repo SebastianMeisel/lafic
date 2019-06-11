@@ -102,7 +102,7 @@ translated to &lt;<em>h4</em>&gt; (Html) and \<em>subsection</em> (LaTeX).
 </p>
 
 <p>
-You can force lines (with no ., ?, !, :) to be interpreted
+You can force lines (with end marks) to be interpreted
 as paragraphs with a leading paragraph format (like
 quotation) or a leading empty format line&nbsp;– just the %-char.
 </p>
@@ -119,9 +119,9 @@ quotation) or a leading empty format line&nbsp;– just the %-char.
 <div style="padding: 1em; background-color: lightgray">
 <blockquote>
 <p>This is a quotation</p>
-</div>
 </blockquote>
 
+</div>
 
 <div style="padding: 1em; background-color: lightgray">
 <p>
@@ -131,81 +131,39 @@ This is a paragraph
 </div>
 
 <p>
-On the other hand you can...
+On the other hand you can force <em>lines</em> with <em>end marks</em> to be
+translated to <em>headings</em> by prepending a format line with a
+dedicated <em>keyword</em> like <span class="tt">section</span>.
 </p>
+
+<pre>
+<p>  % section
+  This is a section!</p>
+</pre>
+
+
+<div style="padding: 1em; background-color: lightgray">
+<H3>This is a section!</H3>
+</div>
 
 <H3>Comments</H3>
 
 <p>
 You can add comments to your text, by starting a single line
-or each <em>line</em> of a paragraph with a % char with no leading
+or each <em>line</em> of a paragraph with a %% char with no leading
 spaces. These lines or paragraphs must, however, be
-separated by empty line from the content.
+separated by empty line from the content, as all following
+lines are interpreted as comments.
 </p>
 
 <pre>
-<p>  % This is a comment.</p>
+<p>  %% This is a comment.</p>
 
-<p>  % This is a longer comment, that spreads over several
-  % lines. It is important that it is not connected to a line
-  % of the general content.</p>
+<p>  %% This is a longer comment, that spreads over several
+  lines. It is important that it is not connected to a line
+  of the general content.</p>
 </pre>
 
-
-<p>
-“It is recommended, however, to start comments with two % chars.
-Else there may occur ‘ problems’, when there” is a »:« somewhere
-in the comment. You also can start a longer comment this way
-and don't need to repeat it ‘ in every’ line.
-</p>
-
-<pre>
-<p>  %% This is a comment! No mistake!
-  Even when you go on with no leading % it's still a comment.</p>
-</pre>
-
-
-
-<H3>Formated paragraphs</H3>
-
-<p>
-Paragraphs can be formated by adding a line before the
-paragraph, that starts with a % char, followed by a single
-word. There are some predefined keywords, like quote or
-quotation for&nbsp;– well a quotation.
-</p>
-
-<pre>
-<p>  % quote
-  This is a quotation.</p>
-</pre>
-
-
-<blockquote>
-<p>This is a quotation.</p>
-</blockquote>
-
-
-<p>
-If the keyword is unknown, it will be converted to an environment
-name in LaTeX or the name of a &lt;div&gt; in Html.
-</p>
-
-<H3>Formated lines</H3>
-
-<p>
-Line are formated in the same way, only they are converted
-to macros (LaTeX) oder &lt;span&gt; names (HTML). Know keywords
-are H1&nbsp;… H6 for headings.
-</p>
-
-<pre>
-<p>  % heading4
-  This is a subsection</p>
-</pre>
-
-
-<H4>This is a subsection</H4>
 
 <H3>Inline formation</H3>
 
@@ -227,9 +185,17 @@ a paragraph. It has two parts:
 The both are separated by a »:«.
 </p>
 
+<pre>
+<p>    This Word is emphasized.
+    % Word: emphasize</p>
+</pre>
+
+
+<div style="padding: 1em; background-color: lightgray">
 <p>
-Known environment keywords are e.g. quote or quotation.
+This <em>Word</em> is emphasized.
 </p>
+</div>
 
 <p>
 If the keyword is unknown, it is converted to a macro
@@ -253,12 +219,14 @@ on the layout.
 </pre>
 
 
+<div style="padding: 1em; background-color: lightgray">
 <ul>
 <li> Top 1.</li>
 <li> Top 2.
 </li>
 </ul>
 
+</div>
 
 <p>
 For multilevel lists, you have to choises, to raise or
@@ -279,6 +247,7 @@ or <span class="tt">»% level-«</span> at the end.
 </pre>
 
 
+<div style="padding: 1em; background-color: lightgray">
 <ul>
 <li> Top 1.</li>
 <li> Top 2.
@@ -291,6 +260,7 @@ or <span class="tt">»% level-«</span> at the end.
 </ul>
 
 </ul>
+</div>
 
 <p>
 Or you can write the list in one paragraph, marking the
@@ -310,6 +280,7 @@ beginning of a single line.
 </pre>
 
 
+<div style="padding: 1em; background-color: lightgray">
 <ul>
 <li> Top 1.</li>
 <li> Top 2.
@@ -323,6 +294,7 @@ beginning of a single line.
 </li>
 </ul>
 
+</div>
 
 <H3>Images</H3>
 

@@ -83,7 +83,7 @@ translated to <h4> (Html) and \subsection (LaTeX).
 % heading4: emphasize
 % subsection: emphasize
 
-You can force lines (with no ., ?, !, :) to be interpreted
+You can force lines (with end marks) to be interpreted
 as paragraphs with a leading paragraph format (like
 quotation) or a leading empty format line – just the %-char.
 
@@ -104,69 +104,41 @@ This is a paragraph
 % background = gray
 
 
-On the other hand you can...
+On the other hand you can force lines with end marks to be
+translated to headings by prepending a format line with a
+dedicated keyword like section. 
+% keyword: emphasize
+% headings: emphasize
+% end…marks: emphasize
+% lines: emphasize
+% section: nicht proportional
+
+% verbatim
+  % section
+  This is a section!
+
+% section
+This is a section!
+% background = gray
 
 Comments
 
 You can add comments to your text, by starting a single line
-or each line of a paragraph with a % char with no leading
+or each line of a paragraph with a %% char with no leading
 spaces. These lines or paragraphs must, however, be
-separated by empty line from the content.
+separated by empty line from the content, as all following
+lines are interpreted as comments.
 % no…spaces: bold
 % (each) line : emphasize
 
 % verbatim
-  % This is a comment.
+  %% This is a comment.
 
 % verbatim
-  % This is a longer comment, that spreads over several
-  % lines. It is important that it is not connected to a line
-  % of the general content.
+  %% This is a longer comment, that spreads over several
+  lines. It is important that it is not connected to a line
+  of the general content.
 
-"It is recommended, however, to start comments with two % chars.
-Else there may occur 'problems', when there" is a »:« somewhere
-in the comment. You also can start a longer comment this way
-and don't need to repeat it 'in every' line.
-
-% verbatim
-  %% This is a comment! No mistake!
-  Even when you go on with no leading % it's still a comment.
-
-%% This is a comment! No mistake!
-Even when you go on with no leading % it's still a comment.
-
-Formated paragraphs 
-
-Paragraphs can be formated by adding a line before the
-paragraph, that starts with a % char, followed by a single
-word. There are some predefined keywords, like quote or
-quotation for – well a quotation.
-
-% verbatim
-  % quote
-  This is a quotation.
-
-% quote
-This is a quotation.
-
-
-If the keyword is unknown, it will be converted to an environment
-name in LaTeX or the name of a <div> in Html.
-
-Formated lines
-
-Line are formated in the same way, only they are converted
-to macros (LaTeX) oder <span> names (HTML). Know keywords
-are H1 … H6 for headings. 
-
-
-% verbatim
-  % heading4
-  This is a subsection
-
-
-% heading4
-This is a subsection
 
 Inline formation
 
@@ -181,8 +153,14 @@ a paragraph. It has two parts:
 
 The both are separated by a »:«.
 
+% verbatim
+    This Word is emphasized.
+    % Word: emphasize
 
-Known environment keywords are e.g. quote or quotation.
+This Word is emphasized.
+% Word: emphasize
+% background= gray
+
 
 If the keyword is unknown, it is converted to a macro
 (LaTeX) oder <span> (HTML) name.
@@ -202,6 +180,7 @@ on the layout.
 
 * Top 1.
 - Top 2.
+% background= gray
 
 For multilevel lists, you have to choises, to raise or
 decrease the level: The clean LaFiC style would be,
@@ -220,10 +199,12 @@ or »% level-« at the end.
 
 * Top 1.
 * Top 2.
+% background = gray
 
   * Top 2a.
   * Top 2b.
 % level+
+
 
 Or you can write the list in one paragraph, marking the
 raise or decrease of the level with a > or < at the
@@ -245,6 +226,7 @@ beginning of a single line.
   - Top 2b.
 <
 * Top 3
+% background= gray
 
 Images
 

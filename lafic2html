@@ -441,7 +441,7 @@ sub handleParameter {
 ########################
 sub outputLines {
     # get parameters
-    my ($par, $parstyle, $macro, $title, $environment, $prev_env,         $list_level, $newfile, $newpar, %parameter) = @_;
+    my ($par, $parstyle, $macro, $title, $environment, $prev_env, $list_level, $newfile, $newpar, $open_divs, %parameter) = @_;
 
     # check if continious environment needs to be closed
     unless ($environment =~ /^$prev_env$/ or $prev_env eq "") {
@@ -461,6 +461,19 @@ sub outputLines {
 	    # reset list level counter
 	    $list_level=0;
 	}
+	# close open divs
+	for (my $i=1; $i <= $open_divs; $i++){
+	    print OUTPUT "</div>\n";
+	}
+	$open_divs=0;
+    }
+
+    unless ($prev_env) { 
+	# close open divs
+	for (my $i=1; $i <= $open_divs; $i++){
+	    print OUTPUT "</div>\n";
+	}
+	$open_divs=0;
     }
 
     # print newline
@@ -495,6 +508,7 @@ sub outputLines {
 	    print OUTPUT $value{$key};
 	}
 	print OUTPUT "\">\n";
+	$open_divs++;
     }
     
     # close macro or environment  
@@ -670,14 +684,14 @@ sub outputLines {
     }
 
 
-    # close colorbox
-    if ($parameter{"background-color"} or $parameter{"text-align"} or $parameter{"color"}) {
-	print OUTPUT "</div>\n";
-    }
+    # # close colorbox
+    # if ($parameter{"background-color"} or $parameter{"text-align"} or $parameter{"color"}) {
+    # 	print OUTPUT "</div>\n";
+    # }
 
     
 
-    return ($newfile, $list_level);
+    return ($newfile, $list_level, $open_divs);
 }
 
 ######################################
@@ -728,6 +742,9 @@ sub parseFile {
     # parameter hash
     my %parameter;
 
+    # divs
+    my $open_divs = 0;
+    
     # footnotes
     my $fn_counter = 0;
     my @footnotes;
@@ -1120,7 +1137,7 @@ sub parseFile {
 
 
 	    # output lines / paragraphs
-	    ($newfile, $list_level) = outputLines ($par , $parstyle, $macro, $title, $environment, $prev_env,  $list_level, $newfile, $newpar, %parameter);
+	    ($newfile, $list_level, $open_divs) = outputLines ($par , $parstyle, $macro, $title, $environment, $prev_env,  $list_level, $newfile, $newpar, $open_divs, %parameter);
 	    
 	    # better clean up
 	    $parkey = "";
@@ -1153,7 +1170,7 @@ sub parseFile {
     }
 
     # output lines / paragraphs
-    ($newfile, $list_level) = outputLines ($par , $parstyle, $macro, $title, $environment, $prev_env,  $list_level, $newfile, $newpar, %parameter);
+    ($newfile, $list_level, $open_divs) = outputLines ($par , $parstyle, $macro, $title, $environment, $prev_env,  $list_level, $newfile, $newpar, $open_divs, %parameter);
     
     # better clean up
     $parkey = "";
