@@ -1,0 +1,33 @@
+.TH "lafic2pdf" "1" 
+
+.SH NAME
+lafic2tex lafic2html lafic2pdf \- convert lafic to either (Xe)LaTeX, HTML or PDF
+.SH SYNOPSIS
+.B lafic2tex
+.IR filename
+.br
+.B lafic2html
+.IR filename
+.br
+.B lafic2pdf
+.IR filename
+.br
+.SH DESCRIPTION
+.IR Lafic
+stands for
+.I Layout And Formation In Comments
+and is a textlayout description language, that goes a step further in separating
+layout from content. All formation is and layout parameters are described in
+comments. The perlscripts
+.IR lafic2tex
+and
+.IR lafic2html
+translate this description to (Xe)LaTeX and HTML fromated documents, while
+.IR lafic2pdf
+is a bashscripts that calls
+.IR lafic2tex
+and
+.IR mklatex
+to create a PDF document.
+.SH AUTHOR
+Sebastian Meisel (sebastian.meisel@gmail.com).
