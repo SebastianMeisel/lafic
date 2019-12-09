@@ -625,6 +625,8 @@ sub outputLines {
 		      my ($label) = handleParameter($macro, %parameter);
 		      unless (! defined $label) {
 			  print OUTPUT "\\label{$label}\n";
+			  # mark in stdout
+			  print "\n$par\n";
 		      }
 		  }
 		  # save title and run startTemplate
@@ -633,6 +635,9 @@ sub outputLines {
 		      if ($config{"author"}){
 			  print OUTPUT "\\author\{$config{'author'}\}\n";
 		      }
+		      # mark in stdout
+		      print "\n$par\n";
+
 
 		      startTemplate("TEXT");
 		      # }		
@@ -663,9 +668,12 @@ sub outputLines {
 		      $macro = "includegraphics";
 		      my $optional = "";
 		      ($optional) = handleParameter($macro, %parameter);
+		      # What is this for?
 		      my $pre = "";
 		      ($pre, $par) =  split /%%\n/ , $par;
-		      
+      		      # Make sure $par is not empty
+		      if ($par =~ /^$/){$par = $pre; $pre=""}
+
 		      print OUTPUT "\{$pre\\$macro$optional\{$par\}\}\n";
 		  }
 		  else {print OUTPUT "\{$par\\\\\}\n";}
@@ -700,8 +708,11 @@ sub outputLines {
 
 		      ($optional, $caption, $label) = handleParameter($environment, %parameter);
 
+		      # What is that for?
 		      my $pre = "";
 		      ($pre, $par) =  split /%%\n/ , $par;
+		      # Make sure $par is not empty
+		      if ($par =~ /^$/){$par = $pre; $pre=""}
 		      
 		      print OUTPUT "\\begin{figure}[hbt]\n";
 		      print OUTPUT "$pre%%\n";

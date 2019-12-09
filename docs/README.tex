@@ -1,6 +1,10 @@
+
 \documentclass{article}
 
 \usepackage{graphicx}
+\usepackage{xcolor}
+\definecolor{gray}{gray}{.75}
+\setlength{\fboxsep}{.05\linewidth}
 \usepackage[hyperindex=false, pdfpagelabels,
 pageanchor, hyperfootnotes=false, bookmarksopen,
 pdfpagemode=UseOutlines]{hyperref}
@@ -13,6 +17,11 @@ pdfpagemode=UseOutlines]{hyperref}
 \setdefaultlanguage{english}
 
 \usepackage{microtype}
+\usepackage{xspace}
+
+\setlength{\parindent}{0pt}
+\sloppy
+
 
 \title{Introduction to LaFiC}
 \author{Sebastian Meisel}
@@ -22,58 +31,134 @@ pdfpagemode=UseOutlines]{hyperref}
 \maketitle
 
 
-LaFiC means \textit{layout and format in comments}, as all layout and
+{LaFiC means \textit{layout and format in comments}, as all layout and
 format information is put into comment lines. So layout and
-content are \emph{fully} separated. For details see \nameref{Writing}.
+content are \emph{fully} separated. For details see \nameref{Writing}\xspace .\\}
 
-\part{Installation}
+\section{Why LaFiC}
 
-Get source from \href{https://github.com}{github} using:
+{I've been working with \LaTeX\  / \XeLaTeX\  for many years
+now. Mostly I'm writing prose (no math at all). I often
+found it disturbing, that I'm forced to create a preamble
+instead of just start writing.\\}
+
+{I started using markdown / multimarkdown. Being quite
+inflexible it didn't convince me either. Also I didn't like
+the cryptic syntax so much. The \LaTeX\  output was quite
+cryptic as well.\\}
+
+{The I remembered my father saying, he'd like to be able to
+just start writing as with his old typewriter only with a
+better formating to end with.\\}
+
+{Last but not least I was thinking a lot about how the layout
+and formation of a text could be cleaner separated from the
+content.\\}
+
+{With LaFiC I can start writing without a thought about the
+Layout. Still I get a well structured HTML or (Xe)LaTeX\footnote{The standard templates for LaFiC are all based on \XeLaTeX\  to support UTF-8. Still using \LaTeX\  should be possible.}\xspace 
+document, that I can further render to PDF.\\}
+
+{When I'm ready with writing, I can start formatation by
+adding human readable comments, beeing my own lector.\\}
+
+\part{Installation and Usage}
+
+\section{Prerequisites}
+
+{LaFiC requires Perl > 5.10.1 (tested with Perl 5.26.1).\\}
+
+{The standard templates require a resent \XeLaTeX\  installation
+with a least graphicx, hyperref, microtype and xspace.\\}
+
+{The Gnu Emacs lisp files where tested with Gnu Emacs 25.2.2.\\}
+
+{\texttt{lafic2pdf} also requires latexmk (tested with version 4.41).\\}
+
+\section{Installation}
+\label{installation}
+
+{Get source from \href{https://github.com}{github} using:\\}
 
 \begin{verbatim}
 git clone https://github.com/SebastianMeisel/lafic.git
-
 \end{verbatim}
 
-Add lafic directory to \$PATH, e.g.:
+
+{Add lafic directory to \$PATH, e.g.:\\}
 
 \begin{verbatim}
 export PATH=${PATH}:~/lafic
-
 \end{verbatim}
 
-See \texttt{lafic-mode.el} for installation instructions, if you want
-to use in in Gnu Emacs\footnote{GNU Emacs ist als freie Software unter der GNU General Public License erhältlich und läuft auf den meisten heute üblichen Betriebssystemen (Unix, GNU/Linux, macOS und Windows).}.
+
+{See \texttt{lafic-mode.el} for installation instructions, if you want
+to use in in Gnu Emacs\footnote{GNU Emacs is available as free Software under a GNU General Public License for most modern operating systems (Unix, GNU/Linux, macOS und Windows).}\xspace .\\}
+
+\section{Usage}
+
+{For now the LaFiC distribution consists of three scripts
+that you call with the name of the LaFiC file.\\}
+
+\begin{verbatim}
+# lafic2html Datei.lafic
+# lafic2tex Datei.lafic
+# lafic2pdf Datei.lafic
+\end{verbatim}
+
+
+{The last of these is a bash script, first calling \texttt{lafic2tex}
+and then \texttt{latexmk}.\\}
+
+{Calling these three script would result in the following
+files:\\}
+
+\begin{verbatim}
+Datei.html
+Datei.tex
+Datei.pdf
+\end{verbatim}
+
+
+\section{LaFiC major mode in GNU Emacs}
+
+{After installing and activation \texttt{lafic-mode.el} (see
+\nameref{installation}\xspace ), the LaFiC major mode is activated on opening
+any file with a \texttt{*.lafic} extension.\\}
+
+{This gives you basic syntax highlighting and some keyboard
+shortcuts with a \texttt{C-c} prefix. The shortcuts are similar to
+those used in AUCTeX.\\}
 
 \part{Writing text in LaFiC}
 \label{Writing}
 
 \section{Lines and paragraphs}
 
-The content is presented in two forms\footnote{Lari Fari.}, which also include
-the most basic layout: There are \emph{lines} and \emph{paragraphs}.
+{The content is presented in two forms, which also include
+the most basic layout: There are \emph{lines} and \emph{paragraphs}.\\}
 
-The difference is not so much the length, but lines include
-none of the punctation marks ».«, »?«, »!«, \emph{»:«}. If no
-further layout information\footnote{Bla bla bla.} is provided, these are
-interpreted as headings.
+{The difference is not so much the length, but lines include
+none of the punctation marks (., ?, !, :). If no
+further layout information is provided, these are
+interpreted as headings.\\}
 
-The \emph{first} line is interpreted as \emph{the} title and presented as
-this is as <h1>, when converted to Html, and \title, when 
-converted to \LaTeX.
+{The \emph{first} line is interpreted as \emph{the} title and presented as
+this is as <h1>, when converted to Html, and \textbackslash title, when 
+converted to \LaTeX\ .\\}
 
-Further line will be converted to <h3> (Html) or \section
-(\LaTeX), if no otherwise specified.
+{Further line will be converted to <h3> (Html) or \textbackslash section
+(LaTeX), if no otherwise specified.\\}
 
-This way simple Documents Html may be structured with no explicit
-layout information at all.
+{This way simple Documents may be structured with no explicit
+layout information at all.\\}
 
 \section{Comments}
 
-You can add comments to your text, by starting a single line
+{You can add comments to your text, by starting a single line
 or each \emph{line} of a paragraph with a \% char with no leading
 spaces. These lines or paragraphs must, however, be
-separated by empty line from the content\footnote{Waba Waba.}.
+separated by empty line from the content.\\}
 
 \begin{verbatim}
   % This is a comment.
@@ -81,101 +166,101 @@ separated by empty line from the content\footnote{Waba Waba.}.
   % This is a longer comment, that spreads over several
   % lines. It is important that it is not connected to a line
   % of the general content.
-
 \end{verbatim}
 
-“It is recommended, however, to start comments with two \% chars.
+
+{“It is recommended, however, to start comments with two \% chars.
 Else there may occur ‘ problems’, when there” is a »:« somewhere
 in the comment. You also can start a longer comment this way
-and don't need to repeat it ‘ in every’ line.
+and don't need to repeat it ‘ in every’ line.\\}
 
 \begin{verbatim}
   %% This is a comment! No mistake!
   Even when you go on with no leading % it's still a comment.
-
 \end{verbatim}
+
 
 
 \section{Formated paragraphs}
 
-Paragraphs can be formated by adding a line before the
+{Paragraphs can be formated by adding a line before the
 paragraph, that starts with a \% char, followed by a single
 word. There are some predefined keywords, like quote or
-quotation for – well a quotation.
+quotation for – well a quotation.\\}
 
 \begin{verbatim}
   % quote
   This is a quotation.
-
 \end{verbatim}
+
 
 \begin{quote}
 This is a quotation.
-
 \end{quote}
 
-If the keyword is unknown, it will be converted to an environment
-name in \LaTeX or the name of a <div> in Html.
+
+{If the keyword is unknown, it will be converted to an environment
+name in \LaTeX\  or the name of a <div> in Html.\\}
 
 \section{Formated lines}
 
-Line are formated in the same way, only they are converted
-to macros (\LaTeX) oder <span> names (HTML). Know keywords
-are H1~… H6~for headings.
+{Line are formated in the same way, only they are converted
+to macros (LaTeX) oder <span> names (HTML). Know keywords
+are H1~… H6 for headings.\\}
 
 \begin{verbatim}
   % heading4
   This is a subsection
-
 \end{verbatim}
+
 
 \subsection{This is a subsection}
 
 \section{Inline formation}
 
-If you want to format words or sequences in a paragraph (or
+{If you want to format words or sequences in a paragraph (or
 line if needed), you add format lines with a leading \% after
-a paragraph. It has two parts:
+a paragraph. It has two parts:\\}
 
 \begin{enumerate}
 \item the word or the sequence to be formated in the form
   start…end. 
 \item a keyword.
-
 \end{enumerate}
 
-The both are separated by a »:«.
 
-Known environment keywords are e.g. quote or quotation.
+{The both are separated by a »:«.\\}
 
-If the keyword is unknown, it is converted to a macro
-(\LaTeX) oder <span> (HTML) name.
+{Known environment keywords are e.g. quote or quotation.\\}
+
+{If the keyword is unknown, it is converted to a macro
+(LaTeX) oder <span> (HTML) name.\\}
 
 \section{Lists}
 
-Lists are the only things, that need some kind of
+{Lists are the only things, that need some kind of
 markup. You have to start each topic of the list with one of
 the following chars: –, *, +, -. It doesn't matter, which one you
 choose. You may indent the lines, but that has no influence
-on the layout.
+on the layout.\\}
 
 \begin{verbatim}
 
 * Top 1.
 - Top 2.
-
 \end{verbatim}
+
 
 \begin{itemize}
 \item Top 1.
 \item Top 2.
-
 \end{itemize}
 
-For multilevel lists, you have to choises, to raise or
+
+{For multilevel lists, you have to choises, to raise or
 decrease the level: The clean LaFiC style would be,
 to start a new paragraph and add the keyword \texttt{»\% level+«}
-or \texttt{»\% level-«} at the end.
+or \texttt{»\% level-«} at the end.\\}
 
 \begin{verbatim}
 
@@ -186,8 +271,8 @@ or \texttt{»\% level-«} at the end.
   * Top 2a.
   * Top 2b.
   % level+
-
 \end{verbatim}
+
 
 \begin{itemize}
 \item Top 1.
@@ -196,14 +281,14 @@ or \texttt{»\% level-«} at the end.
 \begin{itemize}
 \item Top 2a.
 \item Top 2b.
-
 \end{itemize}
 
 \end{itemize}
 
-Or you can write the list in one paragraph, marking the
+
+{Or you can write the list in one paragraph, marking the
 raise or decrease of the level with a > or < at the
-beginning of a single line.
+beginning of a single line.\\}
 
 \begin{verbatim}
 
@@ -214,8 +299,8 @@ beginning of a single line.
     * Top 2b.
   <
   * Top 3
-
 \end{verbatim}
+
 
 \begin{itemize}
 \item Top 1.
@@ -225,42 +310,41 @@ beginning of a single line.
 \item Top 2b.
 \end{itemize}
 \item Top 3
-
 \end{itemize}
+
 
 \section{Images}
 
-The simplest way to put an image into a LaFiC file is a
+{The simplest way to put an image into a LaFiC file is a
 line with the image name, with a know extention: png, jpg,
-jpeg, gif.
+jpeg, gif.\\}
 
 \begin{verbatim}
   Image.png
   % height = 40%
-
 \end{verbatim}
 
-\includegraphics[height=.40\textheight]{Image.png}
 
-Note that this will not put an figure environment in \LaTeX
+{\includegraphics[height=.40\textheight]{Image.png}}
+
+{Note that this will not put an figure environment in \LaTeX\ 
 files, so the image won't float this way. For this to
 achieve to have to put \% image, \%img or \%figure before the
-line. You don't need the extention then.
+line. You don't need the extention then.\\}
 
 \begin{verbatim}
   %image
   Image.png
   % width = 40%
   % caption = "Moon and Mars"
-
 \end{verbatim}
 
+
 \begin{figure}[hbt]
+%%
 \includegraphics[width=.40\linewidth]{Image.png}
 \caption{"Moon and Mars"}
 \end{figure}
-
-
 \end{document}
 
 %%% Local Variables:
