@@ -146,12 +146,13 @@ Länge. Vielmehr unterscheiden sich Zeilen von Absätze
 dadurch, dass sie kein Satzschlusszeichen (., ?, !, :).
 Wenn nicht anders festgelegt, werden sie als Überschriften
 interpretiert.
-
+% (…): hervorheben
 
 Die erste Zeile wird als Titel interpretiert und zu \title
 umgewandelt, wenn die Datei in LaTeX umgewandelt wird, bei
 Html-Ausgabe wird es in <h1> umgewandelt.
 % Zeile: hervorheben
+% Html: smallcaps
 
 Weitere Zeilen werden in <h3> (Html) oder \section
 (LaTeX) umgewandelt, wenn es nicht anders angegeben wird.

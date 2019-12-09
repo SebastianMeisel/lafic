@@ -164,57 +164,41 @@ the most basic layout: There are <em>lines</em> and <em>paragraphs</em>.
 
 <p>
 The difference is not so much the length, but lines include
-none of the punctation marks (., ?, !, :). If no
+none of the punctation marks <em>(., ?, !, :)</em>. If no
 further layout information is provided, these are
 interpreted as headings.
 </p>
 
 <p>
-The <em>first</em> line is interpreted as <em>the</em> title and presented as
-this is as &lt;h1&gt;, when converted to Html, and \title, when 
+The <em>first</em> line is interpreted as the title and presented as
+ &lt;h1&gt;, when converted to <span class="sc">Html</span>, and \title, when 
 converted to LaTeX.
 </p>
 
 <p>
-Further line will be converted to &lt;h3&gt; (Html) or \section
+Further <em>lines</em> will be converted to &lt;h3&gt; (<span class="sc">Html</span>) or \section
 (LaTeX), if no otherwise specified.
 </p>
 
 <p>
-This way simple Documents may be structured with no explicit
+This way simple documents may be structured with no explicit
 layout information at all.
 </p>
 
 <H3>Comments</H3>
 
 <p>
-You can add comments to your text, by starting a single line
-or each <em>line</em> of a paragraph with a % char with no leading
-spaces. These lines or paragraphs must, however, be
-separated by empty line from the content.
+You can add comments to your text, by starting a paragraph
+with two % chars with <b>no leading spaces</b>:
 </p>
 
 <pre>
-<p>  % This is a comment.</p>
+<p>  %% This is a comment.</p>
 
-<p>  % This is a longer comment, that spreads over several
-  % lines. It is important that it is not connected to a line
-  % of the general content.</p>
+<p>  %% This is a longer comment, that spreads over several
+  %% lines. It is important that it is not connected to a line
+  %% of the general content.</p>
 </pre>
-
-
-<p>
-“It is recommended, however, to start comments with two % chars.
-Else there may occur ‘ problems’, when there” is a »:« somewhere
-in the comment. You also can start a longer comment this way
-and don't need to repeat it ‘ in every’ line.
-</p>
-
-<pre>
-<p>  %% This is a comment! No mistake!
-  Even when you go on with no leading % it's still a comment.</p>
-</pre>
-
 
 
 <H3>Formated paragraphs</H3>
@@ -224,6 +208,8 @@ Paragraphs can be formated by adding a line before the
 paragraph, that starts with a % char, followed by a single
 word. There are some predefined keywords, like quote or
 quotation for&nbsp;– well a quotation.
+If the keyword is unknown, it will be converted to an environment
+name in LaTeX or the name of a &lt;div&gt; in Html.
 </p>
 
 <pre>
@@ -238,9 +224,29 @@ quotation for&nbsp;– well a quotation.
 
 
 <p>
-If the keyword is unknown, it will be converted to an environment
-name in LaTeX or the name of a &lt;div&gt; in Html.
+Two paragraph starting with the same keyword will be
+concatenated to one block / environment.
 </p>
+
+<pre>
+<p>  % center
+  This paragraph is centered</p>
+
+<p>  % center
+  This one, too.</p>
+</pre>
+
+
+<p>
+Becomes:
+</p>
+
+<div class="center">
+<p>This paragraph is centered</p>
+
+<p>This one, too.</p>
+</div>
+
 
 <H3>Formated lines</H3>
 

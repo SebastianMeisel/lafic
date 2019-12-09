@@ -28,6 +28,11 @@ pre {
     font-size: 1em;
 }
 
+/* center */
+.center {
+    text-align: center;
+}
+
 /* footnotes */
 a.fn {
     color: black;
