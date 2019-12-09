@@ -16,7 +16,7 @@ Formeln). Dabei fand ich es zum Teil störend, dass ich immer
 erst mit der Preamble beginnen muss und nicht einfach
 losschreiben kann.
 
-Daraufhin probierte ich markdown/multimarkdown aus. Dabei
+Daraufhin probierte ich markdown / multimarkdown aus. Dabei
 störte mich aber, dass es sehr unflexible ist. Außerdem ist
 die Syntax an manchen Stellen etwas kryptisch, was mich
 störte. Außerdem funktionieren die erstellten LaTeX-Dateien
@@ -51,10 +51,10 @@ Vorraussetzungen
 LaFiC setzt Perl > 5.10.1 vorraus (getestet unter Perl 5.26.1).
 
 Das Standard LaTeX-Template setzt eine aktuelle
-XeLaTeX-Installation sowie graphix, hyperref, microtype und
+XeLaTeX-Installation sowie graphicx, hyperref, microtype und
 xspace voraus.
 
-Die Emacs-Einbindung wurde unter Gnu Emacs 25.2.2 getestet.
+Die Gnu-Emacs-Einbindung wurde unter Gnu Emacs 25.2.2 getestet.
 
 lafic2pdf setzt zudem latexmk (getestet mit Version 4.41) vorraus.
 % lafic2pdf: nicht proportional

@@ -9,7 +9,49 @@ content are fully separated. For details see Writing Text in LaFiC.
 % layout…comments: italic 
 % Writing…LaFiC: see: Writing
 
+Why LaFiC
+
+I've been working with LaTeX / XeLaTeX for many years
+now. Mostly I'm writing prose (no math at all). I often
+found it disturbing, that I'm forced to create a preamble
+instead of just start writing.
+
+I started using markdown / multimarkdown. Being quite
+inflexible it didn't convince me either. Also I didn't like
+the cryptic syntax so much. The LaTeX output was quite
+cryptic as well.
+
+The I remembered my father saying, he'd like to be able to
+just start writing as with his old typewriter only with a
+better formating to end with.
+
+Last but not least I was thinking a lot about how the layout
+and formation of a text could be cleaner separated from the
+content.
+
+With LaFiC I can start writing without a thought about the
+Layout. Still I get a well structured HTML or (Xe)LaTeX
+document, that I can further render to PDF.
+% (X…TeX: footnote: The standard templates for LaFiC are all based on XeLaTeX to support UTF-8. Still using LaTeX should be possible.
+
+When I'm ready with writing, I can start formatation by
+adding human readable comments, beeing my own lector.
+
 % heading2
+Installation and Usage
+
+Prerequisites
+
+LaFiC requires Perl > 5.10.1 (tested with Perl 5.26.1).
+
+The standard templates require a resent XeLaTeX installation
+with a least graphicx, hyperref, microtype and xspace.
+
+The Gnu Emacs lisp files where tested with Gnu Emacs 25.2.2.
+
+lafic2pdf also requires latexmk (tested with version 4.41).
+% lafic2pdf: mono
+
 Installation
 
 Get source from github using:
@@ -38,14 +80,13 @@ The content is presented in two forms, which also include
 the most basic layout: There are lines and paragraphs.
 % lines: emphasize
 % paragraphs: emphasize
-% forms: footnote: Lari Fari.
+
 
 The difference is not so much the length, but lines include
 none of the punctation marks ».«, »?«, »!«, »:«. If no
 further layout information is provided, these are
 interpreted as headings.
 % »…«: emphasize
-% information: footnote: Bla bla bla.
 
 
 The first line is interpreted as the title and presented as
@@ -57,7 +98,7 @@ converted to LaTeX.
 Further line will be converted to <h3> (Html) or \section
 (LaTeX), if no otherwise specified.  
 
-This way simple Documents Html may be structured with no explicit
+This way simple Documents may be structured with no explicit
 layout information at all.
 
 Comments
