@@ -536,6 +536,8 @@ sub outputLines {
 	      $macro = "h1";
 	      # print title as heading
 	      print OUTPUT "<$macro>$par</$macro>\n";
+	      # mark in stdout
+	      print "\n$par\n";
 	      
 	      $newfile = 0;
 	      # }		
@@ -548,8 +550,14 @@ sub outputLines {
 			  $optional =""}
 		      
 		      print OUTPUT "<$macro$optional>$par</$macro>\n";
+		      # mark in stdout
+		      print "\n$par\n";
 		  }
-		  else {print OUTPUT "<$macro>$par</$macro>\n";}
+		  else {
+		      print OUTPUT "<$macro>$par</$macro>\n";
+		      # mark in stdout
+		      print "\n$par\n";
+	          }
 		  
 		  last SELECT}
 	      # paragraph
