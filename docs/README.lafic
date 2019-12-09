@@ -187,20 +187,34 @@ concatenated to one block / environment.
 
 Becomes:
 
-
 % center
 This paragraph is centered
   
 % center
 This one, too.
 
+The following keywords are available at the moment:
 
+* quote for quote environment / <blockquote>
+* quotation for quotation environment / <blockquote>
+* center for center environment / <div class="center">, with text-align=center 
 
 Formated lines
 
 Line are formated in the same way, only they are converted
 to macros (LaTeX) oder <span> names (HTML). Know keywords
-are H1 … H6 for headings. 
+are:
+
+* title, h1 or heading1 for  title / <h1>
+* part, h2, heading or chapter for part, chapter / <h2>
+* section, h3 or heading3 for section / <h3>
+* subsection, h4 or heading4 for subsection / <h4>
+* subsubsection, h5 or heading5 for subsubsection / <h5>
+* paragraph, h6 or heading6 for paragraph / <h6>
+* h or heading for addsec
+* marginpar or annote for marginpar 
+% chapter: footnote: chapter is not available in standard template as it is not available in the document classed used.
+% marginpar: footnote: is only supported by lafic2tex at the moment. So lafic2html will output <div class="annote"> or <div class="marginpar">. 
 
 
 % verbatim

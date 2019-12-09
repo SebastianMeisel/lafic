@@ -228,7 +228,7 @@ Zur Zeit werden folgende Schlüsselworte unterstützt:
 
 * Zitat für quote-Umgebung / <blockquote>-Block.
 * Langzitat / LZitat für quotation-Umgebung / <blockquote>-Block.
-* Zentriert / Z für center-Umgebung / <center>-Block
+* Zentriert / Z für center-Umgebung / <div class="center">-Block mit text-align="center"
 
 Formatierte Zeilen
 
@@ -253,8 +253,6 @@ Folgende Schlüsselwörter werden zur Zeit unterstützt:
 * Unterunterabschnitt / Überschrift5 für subsubsection / H5
 * Absatz / Überschrift6 für paragraph / H6
 % Kapitel…H2: Fußnote: Wird nicht von der Standard-Vorlage unterstützt. Es muss eine LaTeX-Klasse verwendet werden, die \chapter unterstützt. 
-<<<<<<< HEAD:docs/README.de.lafic
-
 
 Textformatierung im Absatz
 
@@ -269,26 +267,6 @@ einem »%« gefolgt von:
   getrennt durch 3 Punkte, bzw. durch »…«.
 
 
-=======
-
-
-Textformatierung im Absatz
-
-Wörter und Textabschnitte in einem Absatz werden in einem
-Block nach dem Absatz formatiert. Jede Zeile beginnt mit
-einem »%« gefolgt von:
-% %: nicht proportional
-
-% Numeriert
-* dem Wort
-* dem ersten und letzten Wort den Abschnittes,
-  getrennt durch 3 Punkte, bzw. durch »…«.
-
-
->>>>>>> Color:docs/README.de.lafic
-If the keyword is
-unknown, it is converted to a macro (LaTeX) oder <span>
-(Html) name.
 
 Images
 

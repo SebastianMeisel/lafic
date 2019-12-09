@@ -242,3 +242,4 @@ TSWLatexianTemp*
 *.spl
 
 .#README.de.lafic
+docs/.#README.lafic
