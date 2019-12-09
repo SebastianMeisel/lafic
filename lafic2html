@@ -97,6 +97,8 @@ my %macros = (
     "" => "H6",
     "h" => "H3",
     "heading" => "H3",
+    "marginpar" => ".annote",
+    "annote" => ".annote",
     );
 
 

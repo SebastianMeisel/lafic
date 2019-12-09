@@ -248,13 +248,40 @@ Becomes:
 </div>
 
 
+<p>
+The following keywords are available at the moment:
+</p>
+
+<ul>
+<li> quote for quote environment / &lt;blockquote&gt;</li>
+<li> quotation for quotation environment / &lt;blockquote&gt;</li>
+<li> center for center environment / &lt;div class=“center”&gt;, with text-align=center
+</li>
+</ul>
+
+
 <H3>Formated lines</H3>
 
 <p>
 Line are formated in the same way, only they are converted
 to macros (LaTeX) oder &lt;span&gt; names (HTML). Know keywords
-are H1&nbsp;… H6 for headings.
+are:
 </p>
+
+<ul>
+<li> title, h1 or heading1 for  title / &lt;h1&gt;</li>
+<li> part, h2, heading or <a class="fn" href="#fn3" id="fna3">chapter</a> for part, <a class="fn" href="#fn3" id="fna3">chapter</a> / &lt;h2&gt;</li>
+<li> section, h3 or heading3 for section / &lt;h3&gt;</li>
+<li> subsection, h4 or heading4 for subsection / &lt;h4&gt;</li>
+<li> subsubsection, h5 or heading5 for subsubsection / &lt;h5&gt;</li>
+<li> paragraph, h6 or heading6 for paragraph / &lt;h6&gt;</li>
+<li> h or heading for addsec</li>
+<li> <a class="fn" href="#fn4" id="fna4">marginpar</a> or annote for <a class="fn" href="#fn4" id="fna4">marginpar</a>
+</li>
+</ul>
+
+
+<span class="annote">This is just a test.</span>
 
 <pre>
 <p>  % heading4
@@ -421,6 +448,10 @@ line. You don't need the extention then.
 <li id="fn1"><a href="#fna1">The standard templates for LaFiC are all based on XeLaTeX to support UTF-8. Still using LaTeX should be possible.</a>
 </li>
 <li id="fn2"><a href="#fna2">GNU Emacs is available as free Software under a GNU General Public License for most modern operating systems (Unix, GNU/Linux, macOS und Windows).</a>
+</li>
+<li id="fn3"><a href="#fna3">chapter is not available in standard template as it is not available in the document classed used.</a>
+</li>
+<li id="fn4"><a href="#fna4">is only supported by lafic2tex at the moment. So lafic2html will output &lt;div class=“annote”&gt; or &lt;div class=“marginpar”&gt;.</a>
 </li>
 </ol>
 </div>

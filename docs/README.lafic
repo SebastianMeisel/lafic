@@ -212,10 +212,8 @@ are:
 * subsubsection, h5 or heading5 for subsubsection / <h5>
 * paragraph, h6 or heading6 for paragraph / <h6>
 * h or heading for addsec
-* marginpar or annote for marginpar 
+* marginpar or annote for marginpar / <span class="annote"> 
 % chapter: footnote: chapter is not available in standard template as it is not available in the document classed used.
-% marginpar: footnote: is only supported by lafic2tex at the moment. So lafic2html will output <div class="annote"> or <div class="marginpar">. 
-
 
 % verbatim
   % heading4
