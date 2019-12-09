@@ -53,6 +53,7 @@ lafic2pdf also requires latexmk (tested with version 4.41).
 % lafic2pdf: mono
 
 Installation
+% label = installation 
 
 Get source from github using:
 % github: link: https://github.com
@@ -68,7 +69,45 @@ export PATH=${PATH}:~/lafic
 See lafic-mode.el for installation instructions, if you want
 to use in in Gnu Emacs.
 % lafic…el: mono
-% Gnu…Emacs: footnote: GNU Emacs ist als freie Software unter der GNU General Public License erhältlich und läuft auf den meisten heute üblichen Betriebssystemen (Unix, GNU/Linux, macOS und Windows). 
+% Gnu…Emacs: footnote: GNU Emacs is available as free Software under a GNU General Public License for most modern operating systems (Unix, GNU/Linux, macOS und Windows). 
+
+
+Usage
+
+For now the LaFiC distribution consists of three scripts
+that you call with the name of the LaFiC file.
+
+% verbatim
+# lafic2html Datei.lafic
+# lafic2tex Datei.lafic
+# lafic2pdf Datei.lafic
+
+The last of these is a bash script, first calling lafic2tex
+and then latexmk.
+% lafic2tex: mono
+% latexmk: mono
+
+Calling these three script would result in the following
+files:
+
+% verbatim
+Datei.html
+Datei.tex
+Datei.pdf
+
+LaFiC major mode in GNU Emacs
+
+After installing and activation lafic-mode.el (see
+Installation), the LaFiC major mode is activated on opening
+any file with a *.lafic extension. 
+% lafic…el: mono
+% Installation: see: installation 
+% *…lafic: mono
+
+This gives you basic syntax highlighting and some keyboard
+shortcuts with a C-c prefix. The shortcuts are similar to
+those used in AUCTeX.
+% C-c: mono
 
 % heading2
 Writing text in LaFiC
@@ -109,7 +148,7 @@ spaces. These lines or paragraphs must, however, be
 separated by empty line from the content.
 % no…spaces: bold
 % (each) line : emphasize
-% content: footnote: Waba Waba.
+
 
 % verbatim
   % This is a comment.

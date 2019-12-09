@@ -113,7 +113,7 @@ Datei.html
 Datei.tex
 Datei.pdf
 
-Nutzung des LaFiC-Major-Modes in Emacs
+Nutzung des LaFiC-Major-Modes in GNU Emacs
 
 Nachdem Sie lafic-mode.el wie oben (siehe Installation)
 beschrieben in Emacs eingebunden haben, wird der
