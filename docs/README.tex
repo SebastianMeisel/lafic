@@ -59,7 +59,7 @@ content.\\}
 Layout. Still I get a well structured HTML or (Xe)LaTeX\footnote{The standard templates for LaFiC are all based on \XeLaTeX\  to support UTF-8. Still using \LaTeX\  should be possible.}\xspace 
 document, that I can further render to PDF.\\}
 
-{When I'm ready with writing, I can start formatation by
+{When I'm ready with writing, I can start format by
 adding human readable comments, beeing my own lector.\\}
 
 \part{Installation and Usage}
@@ -218,20 +218,21 @@ This one, too.
 
 
 \section{Formated lines}
+\label{form_lines}
 
 {Line are formated in the same way, only they are converted
 to macros (LaTeX) oder <span> names (HTML). Know keywords
 are:\\}
 
 \begin{itemize}
-\item title, h1 or heading1 for  title / <h1>
-\item part, h2, heading or chapter\footnote{Chapter is not available in standard template as it is not available in the document class used.}\xspace  for part, chapter / <h2>
-\item section, h3 or heading3 for section / <h3>
-\item subsection, h4 or heading4 for subsection / <h4>
-\item subsubsection, h5 or heading5 for subsubsection / <h5>
-\item paragraph, h6 or heading6 for paragraph / <h6>
-\item h or heading for addsec
-\item marginpar or annote for marginpar / <span class=“annote”>
+\item \texttt{“title”}, “h1” or \texttt{“heading1”} for \textbackslash title / <h1>
+\item \texttt{“part”}, “h2”, \texttt{“heading”} or \texttt{“chapter”}\footnote{Chapter is not available in standard template as it is not available in the document class used.}\xspace  for \textbackslash part, \textbackslash chapter / <h2>
+\item \texttt{“section”}, “h3” or \texttt{“heading3”} for \textbackslash section / <h3>
+\item \texttt{“subsection”}, “h4” or \texttt{“heading4”} for \textbackslash subsection / <h4>
+\item \texttt{“subsubsection”}, “h5” or \texttt{“heading5”} for \textbackslash subsubsection / <h5>
+\item \texttt{“paragraph”}, “h6” or \texttt{“heading6”} for \textbackslash paragraph / <h6>
+\item \texttt{“h”} or \texttt{“heading”} for \textbackslash addsec
+\item \texttt{“marginpar”} or \texttt{“annote”} for \textbackslash marginpar / <span class=\texttt{“annote”}>
 \end{itemize}
 
 
@@ -256,12 +257,93 @@ a paragraph. It has two parts:\\}
 \end{enumerate}
 
 
-{The both are separated by a »:«.\\}
+{The both are separated by a colon.\\}
 
-{Known environment keywords are e.g. quote or quotation.\\}
+\begin{verbatim}
+  Hallo dear old world!
+  % Hallo: bold
+  % ol…ld: emphasize
+\end{verbatim}
+
+
+{Becomes:
+\textbf{Hallo} dear \emph{old world}!\\}
+
+{Known format keywords are:\\}
+
+\begin{itemize}
+\item \texttt{“bold”} for \textbackslash textbf / <b>
+\item \texttt{“emphasize”} for \textbackslash emph / <em>
+\item \texttt{“italic”} for \textbackslash textit / <i>
+\item \texttt{“mono”} or \texttt{“typewriter”} for \textbackslash texttt / <span class=\texttt{“tt”}>
+\item “smallcaps” for \textbackslash textsc / <span class=\texttt{“sc”}>
+\item “superscript” for \textbackslash textsuperscript / <sup>
+\item \texttt{“subscript”} for \textbackslash textsubscript / <sub>
+\end{itemize}
+
 
 {If the keyword is unknown, it is converted to a macro
 (LaTeX) oder <span> (HTML) name.\\}
+
+{Some inline formats need a second argument which is added
+after a second colon:\\}
+
+\begin{verbatim}
+  This is a green world!
+  % green: color: red
+\end{verbatim}
+
+
+{becomes:
+This is a \textcolor{red}{green} world!\\}
+
+{Know keywords of that kind are:\\}
+
+\begin{itemize}
+\item “url” or “link” for \textbackslash href / <a href=‘ {[url]}’>
+\item “see” for \textbackslash nameref / <a href='\#{[label]}’> 
+\item “footnote”\footnote{In HTML documents footnote are presented in an <ol> list that is placed in a <div id=“footnotes”> container at the end of the document. Each footnote is placed in a <li id=“fnx”> element.}\xspace  for \textbackslash footnote / <a class=‘ fn’ href=‘ xfn{[x]}’>
+\item “color” for \textbackslash textcolor / <span style=‘ color: {[color]}’>
+\end{itemize}
+
+
+\section{Parameters}
+
+{It is also possible to add some additional parameters to the whole
+paragraph or line. This is done quite similar to the inline
+formats, but with a equal sign separating the keyword from
+the value:\\}
+
+\begin{verbatim}
+  This paragraph has a blue background and is aligned to the
+  right.
+  % background = blue
+  % color = white
+  % align = right
+\end{verbatim}
+
+
+{becomes:\\}
+
+\colorbox{blue}{\parbox{\linewidth}{%%
+{\raggedleft%%
+\textcolor{white}{%%
+This paragraph has a white on blue text and is aligned to the
+right.}\\}
+}
+}
+
+{Known parameters are:\\}
+
+\begin{itemize}
+\item “name” or “label” for \textbackslash label / <?? id=“{[id]}”> that is
+  referred to by the “\nameref{form_lines}\xspace ” keyword.
+\item “background” for \textbackslash colorbox / <div style=‘ background: {[color]}’>.
+\item “color” for \textbackslash textcolor / <div style=‘ color: {[color]}’>.
+\item “align” for \textbackslash raggedleft, \textbackslash centering or \textbackslash raggedright / <div
+  style=‘ text-align: {[align]}’>.
+\end{itemize}
+
 
 \section{Lists}
 

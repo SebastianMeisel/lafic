@@ -180,7 +180,6 @@ concatenated to one block / environment.
 % Verbatim
   % center
   This paragraph is centered
-% background = gray
 
 % Verbatim
   % center
@@ -201,6 +200,7 @@ The following keywords are available at the moment:
 * center for center environment / <div class="center">, with text-align=center 
 
 Formated lines
+% label = form_lines
 
 Line are formated in the same way, only they are converted
 to macros (LaTeX) oder <span> names (HTML). Know keywords
@@ -214,7 +214,7 @@ are:
 * "paragraph", "h6" or "heading6" for \paragraph / <h6>
 * "h" or "heading" for \addsec
 * "marginpar" or "annote" for \marginpar / <span class="annote"> 
-% (or) chapter: footnote: Chapter is not available in standard template as it is not available in the document class used.
+% "chapter": footnote: Chapter is not available in standard template as it is not available in the document class used.
 % "…": mono
 
 % verbatim
@@ -266,19 +266,52 @@ Some inline formats need a second argument which is added
 after a second colon:
 
 % verbatim
-  This is a green word!
+  This is a green world!
   % green: color: red
   
-Becomes:
-This is a green word!
+becomes:
+This is a green world!
 % green: color: red
 
 Know keywords of that kind are:
 
-* color for textcolor / <span style="color: [color]">
-* url or link for href / <a href="[url]"> 
-* footnote for footnote / <a class="fn" href="xfn[x]">
-% xfn…]: footnote: In HTML documents footnote are presented in an <ol> list that is placed in a <div id="footnotes"> container. Each footnote is placed in a <li id="fnx"> element.
+* "url" or "link" for \href / <a href='[url]'>
+* "see" for \nameref / <a href='#[label]'> 
+* "footnote" for \footnote / <a class='fn' href='xfn[x]'>
+* "color" for \textcolor / <span style='color: [color]'>
+% "footnote": footnote : In HTML documents footnote are presented in an <ol> list that is placed in a <div id="footnotes"> container at the end of the document. Each footnote is placed in a <li id="fnx"> element.
+
+Parameters
+
+It is also possible to add some additional parameters to the whole
+paragraph or line. This is done quite similar to the inline
+formats, but with a equal sign separating the keyword from
+the value:
+
+% verbatim
+  This paragraph has a blue background and is aligned to the
+  right.
+  % background = blue
+  % color = white
+  % align = right
+
+becomes:
+
+This paragraph has a white on blue text and is aligned to the
+right.
+% background = blue
+% color = white
+% align = right
+
+Known parameters are:
+
+* "name" or "label" for \label / <?? id="[id]"> that is
+  referred to by the "see" keyword.
+* "background" for \colorbox / <div style='background: [color]'>.
+* "color" for \textcolor / <div style='color: [color]'>.
+* "align" for \raggedleft, \centering or \raggedright / <div
+  style='text-align: [align]'>.
+
 
 Lists
 

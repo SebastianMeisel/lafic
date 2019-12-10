@@ -286,11 +286,18 @@ Folgende Schlüsselworte werden zur Zeit unterstützt:
 * "fett" für \textbf / <b>
 * "hervorheben" für \emph / <em>
 * "kursiv" für \textit / <i>
-* "schreibmaschiene" oder "nicht proportional" für \texttt / <span class='tt'>
-* "kapitälchen" für \textsc / <span class='sc'>
+* "Schreibmaschiene" oder "nicht proportional" für \texttt / <span class='tt'>
+* "Kapitälchen" für \textsc / <span class='sc'>
 * "hochgestellt" für \textsuperscript / <sup>
 * "tiefgestellt" für \textsubscript / <sub>
 % "…": nicht proportional
+
+* "url" oder "link" für \href / <a href='[url']>
+* "siehe" für \nameref / <a href='#[label]'> 
+* "Fußnote" für  \footnote / <a class='fn' href='xfn[x]'>
+* "Farbe" für \textcolor / <span style='color: [color]'>
+% 'xfn…]': footnote: In Html-Dokumenten werden Fußnoten in einer <ol>-Liste in einem <div id="footnote">-Container am Ende des Dokumentes dargestellt. Die einzelnen Fußnoten stehen in einem <li id="fn[x]">-Element.
+
 
 Images
 

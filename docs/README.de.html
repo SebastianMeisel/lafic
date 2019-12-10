@@ -277,7 +277,7 @@ zusammengefasst.
 Wird zu:
 </p>
 
-<div style="padding: 1em; text-align: center; background-color: lightgray">
+<div style="padding: 1em; background-color: lightgray; text-align: center">
 <blockquote>
 <p>Dies ist ein Zitat.</p>
 
@@ -370,10 +370,15 @@ Folgende Schlüsselworte werden zur Zeit unterstützt:
 <li> <span class="tt">„fett“</span> für \textbf / &lt;b&gt;</li>
 <li> <span class="tt">„hervorheben“</span> für \emph / &lt;em&gt;</li>
 <li> <span class="tt">„kursiv“</span> für \textit / &lt;i&gt;</li>
-<li> <span class="tt">„schreibmaschiene“</span> oder <span class="tt">„nicht proportional“</span> für \texttt / &lt;span class=‚tt‘&gt;</li>
-<li> <span class="tt">„kapitälchen“</span> für \textsc / &lt;span class=‚sc‘&gt;</li>
+<li> <span class="tt">„Schreibmaschiene“</span> oder <span class="tt">„nicht proportional“</span> für \texttt / &lt;span class=‚tt‘&gt;</li>
+<li> <span class="tt">„Kapitälchen“</span> für \textsc / &lt;span class=‚sc‘&gt;</li>
 <li> <span class="tt">„hochgestellt“</span> für \textsuperscript / &lt;sup&gt;</li>
 <li> <span class="tt">„tiefgestellt“</span> für \textsubscript / &lt;sub&gt;
+
+<li> „url“ oder „link“ für \href / &lt;a href='[url‘]&gt;</li>
+<li> „siehe“ für \nameref / &lt;a href='#[label]'&gt; </li>
+<li> „Fußnote“ für  \footnote / &lt;a class=‚fn‘ href=<a class="fn" href="#fn3" id="fna3">‚xfn[x]'</a>&gt;</li>
+<li> „Farbe“ für \textcolor / &lt;span style=‚color: [color]'&gt;
 </li>
 </ul>
 
@@ -408,7 +413,7 @@ line. You don't need the extention then.
 
 <H3>Farben</H3>
 
-<div style="padding: 1em; color: white; text-align: right; background-color: red">
+<div style="padding: 1em; color: white; background-color: red; text-align: right">
 <p>
 Die Hintergrundfarbe eines Absatzes kann über den Parameter
 <span style="color: lawngreen">Hintergrund</span> gesetzt werden; die Textfarbe über <span style="color: lawngreen">Farbe</span>. Um in
@@ -437,6 +442,8 @@ gestalten, können analog die Schlüsselwörter <span style="color: lawngreen">F
 <li id="fn1"><a href="#fna1">Die Standard-Vorlagen, die LaFiC nutzt basieren auf XeLaTeX, da ich immer in Utf-8 schreibe. Die Nutzung von LaTeX sollte aber auch möglich sein.</a>
 </li>
 <li id="fn2"><a href="#fna2">Wird nicht von der Standard-Vorlage unterstützt. Es muss eine LaTeX-Klasse verwendet werden, die \chapter unterstützt.</a>
+</li>
+<li id="fn3"><a href="#fna3">In Html-Dokumenten werden Fußnoten in einer &lt;ol&gt;-Liste in einem &lt;div id=„footnote“&gt;-Container am Ende des Dokumentes dargestellt. Die einzelnen Fußnoten stehen in einem &lt;li id=„fn[x]"&gt;-Element.</a>
 </li>
 </ol>
 </div>

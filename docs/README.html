@@ -228,7 +228,6 @@ Two paragraph starting with the same keyword will be
 concatenated to one block / environment.
 </p>
 
-<div style="padding: 1em; background-color: lightgray">
 <pre>
 <p>  % center
   This paragraph is centered</p>
@@ -237,7 +236,6 @@ concatenated to one block / environment.
   This one, too.</p>
 </pre>
 
-</div>
 
 <p>
 Becomes:
@@ -350,14 +348,14 @@ after a second colon:
 </p>
 
 <pre>
-<p>  This is a green word!
+<p>  This is a green world!
   % green: color: red</p>
 </pre>
 
 
 <p>
-Becomes:
-This is a <span style="color: red">green</span> word!
+becomes:
+This is a <span style="color: red">green</span> world!
 </p>
 
 <p>
@@ -365,11 +363,56 @@ Know keywords of that kind are:
 </p>
 
 <ul>
-<li> color for textcolor / &lt;span style=“color: [color]"&gt;</li>
-<li> url or link for href / &lt;a href="[url]"&gt; </li>
-<li> footnote for footnote / &lt;a class=“fn” href=“<a class="fn" href="#fn5" id="fna5">xfn[x]</a>"&gt;
+<li> “url” or “link” for \href / &lt;a href='[url]'&gt;</li>
+<li> “see” for \nameref / &lt;a href='#[label]'&gt; </li>
+<li> “footnote” for \footnote / &lt;a class=‘ fn’ href=<a class="fn" href="#fn5" id="fna5">‘ xfn[x]'</a>&gt;</li>
+<li> “color” for \textcolor / &lt;span style=‘ color: [color]'&gt;
 </li>
 </ul>
+
+
+<H3>Parameters</H3>
+
+<p>
+It is also possible to add some additional parameters to the whole
+paragraph or line. This is done quite similar to the inline
+formats, but with a equal sign separating the keyword from
+the value:
+</p>
+
+<pre>
+<p>  This paragraph has a blue background and is aligned to the
+  right.
+  % background = blue
+  % color = white
+  % align = right</p>
+</pre>
+
+
+<p>
+becomes:
+</p>
+
+<div style="padding: 1em; color: white; text-align: right; background-color: #00FFFF">
+<p>
+This paragraph has a white on blue text and is aligned to the
+right.
+</p>
+</div>
+
+<p>
+Known parameters are:
+</p>
+
+<ul>
+<li> “name” or “label” for \label /  id="[id]" that is
+  referred to by the “see” keyword.</li>
+<li> “background” for \colorbox / style=‘ background: [color]‘ .</li>
+<li> “color” for / style=‘ color: [color]‘ .</li>
+<li> “align” for / style=‘ text-align: [align]‘ .
+</li>
+</ul>
+
 
 
 <H3>Lists</H3>
@@ -503,7 +546,7 @@ line. You don't need the extention then.
 </li>
 <li id="fn3"><a href="#fna3">Chapter is not available in standard template as it is not available in the document class used.</a>
 </li>
-<li id="fn4"><a href="#fna4">In HTML documents footnote are presented in an &lt;ol&gt; list that is placed in a &lt;div id=“footnotes”&gt; container. Each footnote is placed in a &lt;li id=“fnx”&gt; element.</a>
+<li id="fn4"><a href="#fna4">In HTML documents footnote are presented in an &lt;ol&gt; list that is placed in a &lt;div id=“footnotes”&gt; container at the end of the document. Each footnote is placed in a &lt;li id=“fnx”&gt; element.</a>
 </li>
 </ol>
 </div>
