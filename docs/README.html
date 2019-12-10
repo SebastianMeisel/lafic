@@ -58,7 +58,7 @@ document, that I can further render to PDF.
 </p>
 
 <p>
-When I'm ready with writing, I can start formatation by
+When I'm ready with writing, I can start format by
 adding human readable comments, beeing my own lector.
 </p>
 
@@ -270,18 +270,16 @@ are:
 
 <ul>
 <li> title, h1 or heading1 for  title / &lt;h1&gt;</li>
-<li> part, h2, heading or <a class="fn" href="#fn3" id="fna3">chapter</a> for part, <a class="fn" href="#fn3" id="fna3">chapter</a> / &lt;h2&gt;</li>
+<li> part, h2, heading or <a class="fn" href="#fn3" id="fna3">chapter</a> for part, chapter / &lt;h2&gt;</li>
 <li> section, h3 or heading3 for section / &lt;h3&gt;</li>
 <li> subsection, h4 or heading4 for subsection / &lt;h4&gt;</li>
 <li> subsubsection, h5 or heading5 for subsubsection / &lt;h5&gt;</li>
 <li> paragraph, h6 or heading6 for paragraph / &lt;h6&gt;</li>
 <li> h or heading for addsec</li>
-<li> <a class="fn" href="#fn4" id="fna4">marginpar</a> or annote for <a class="fn" href="#fn4" id="fna4">marginpar</a>
+<li> marginpar or annote for marginpar / &lt;span class=“annote”&gt;
 </li>
 </ul>
 
-
-<span class="annote">This is just a test.</span>
 
 <pre>
 <p>  % heading4
@@ -308,17 +306,69 @@ a paragraph. It has two parts:
 
 
 <p>
-The both are separated by a »:«.
+The both are separated by a colon.
+</p>
+
+<pre>
+<p>  Hallo dear old world!
+  % Hallo: bold
+  % ol…ld: emphasize</p>
+</pre>
+
+
+<p>
+Becomes:
+<b>Hallo</b> dear <em>old world</em>!
 </p>
 
 <p>
-Known environment keywords are e.g. quote or quotation.
+Known format keywords are:
 </p>
+
+<ul>
+<li> bold for textbf / &lt;b&gt;</li>
+<li> emphasize for emph / &lt;em&gt;</li>
+<li> italic for textit / &lt;i&gt;</li>
+<li> mono or typewriter for texttt / &lt;span class=“tt”&gt;</li>
+<li> smallcaps for textsc / &lt;span class=“sc”&gt;</li>
+<li> superscript for textsuperscript / &lt;sup&gt;</li>
+<li> subscript for textsubscript / &lt;sub&gt;
+</li>
+</ul>
+
 
 <p>
 If the keyword is unknown, it is converted to a macro
 (LaTeX) oder &lt;span&gt; (HTML) name.
 </p>
+
+<p>
+Some inline formats need a second argument which is added
+after a second colon:
+</p>
+
+<pre>
+<p>  This is a green word!
+  % green: color: red</p>
+</pre>
+
+
+<p>
+Becomes:
+This is a <span style="color: red">green</span> word!
+</p>
+
+<p>
+Know keywords of that kind are:
+</p>
+
+<ul>
+<li> color for textcolor / &lt;span style=“color: [color]"&gt;</li>
+<li> url or link for href / &lt;a href="[url]"&gt; </li>
+<li> footnote for footnote / &lt;a class=“fn” href=“<a class="fn" href="#fn5" id="fna5">xfn[x]</a>"&gt;
+</li>
+</ul>
+
 
 <H3>Lists</H3>
 
@@ -449,9 +499,9 @@ line. You don't need the extention then.
 </li>
 <li id="fn2"><a href="#fna2">GNU Emacs is available as free Software under a GNU General Public License for most modern operating systems (Unix, GNU/Linux, macOS und Windows).</a>
 </li>
-<li id="fn3"><a href="#fna3">chapter is not available in standard template as it is not available in the document classed used.</a>
+<li id="fn3"><a href="#fna3">Chapter is not available in standard template as it is not available in the document class used.</a>
 </li>
-<li id="fn4"><a href="#fna4">is only supported by lafic2tex at the moment. So lafic2html will output &lt;div class=“annote”&gt; or &lt;div class=“marginpar”&gt;.</a>
+<li id="fn4"><a href="#fna4">In HTML documents footnote are presented in an &lt;ol&gt; list that is placed in a &lt;div id=“footnotes”&gt; container. Each footnote is placed in a &lt;li id=“fnx”&gt; element.</a>
 </li>
 </ol>
 </div>
