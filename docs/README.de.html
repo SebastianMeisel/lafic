@@ -15,13 +15,13 @@
     });
   </script>
   <link rel="stylesheet" href="./styles/standard.css">
-<title>Einführung in LaFiC</title>
+<meta name="title"content="Einführung in LaFiC">
 <meta name="author"content="Sebastian Meisel">
 </head>
 
 <body>
   
-<H1>Einführung in LaFiC</H1>
+<h1>Einführung in LaFiC</h1>
 
 <p>
 LaFiC bedeutet <i>layout and format in comments</i>, also „Layout
@@ -42,7 +42,7 @@ losschreiben kann.
 </p>
 
 <p>
-Daraufhin probierte ich markdown/multimarkdown aus. Dabei
+Daraufhin probierte ich markdown / multimarkdown aus. Dabei
 störte mich aber, dass es sehr unflexible ist. Außerdem ist
 die Syntax an manchen Stellen etwas kryptisch, was mich
 störte. Außerdem funktionieren die erstellten LaTeX-Dateien
@@ -87,12 +87,12 @@ LaFiC setzt Perl &gt; 5.10.1 vorraus (getestet unter Perl 5.26.1).
 
 <p>
 Das Standard LaTeX-Template setzt eine aktuelle
-XeLaTeX-Installation sowie graphix, hyperref, microtype und
+XeLaTeX-Installation sowie graphicx, hyperref, microtype und
 xspace voraus.
 </p>
 
 <p>
-Die Emacs-Einbindung wurde unter Gnu Emacs 25.2.2 getestet.
+Die Gnu-Emacs-Einbindung wurde unter Gnu Emacs 25.2.2 getestet.
 </p>
 
 <p>
@@ -168,7 +168,7 @@ Datei.pdf</p>
 </pre>
 
 
-<H3>Nutzung des LaFiC-Major-Modes in Emacs</H3>
+<H3>Nutzung des LaFiC-Major-Modes in GNU Emacs</H3>
 
 <p>
 Nachdem Sie <span class="tt">lafic-mode.el</span> wie oben (siehe <a href="#Installation">Installation</a>)
@@ -197,7 +197,7 @@ Der Inhalt wird durch die Unterscheidung von <em>Zeilen</em> und
 <p>
 Dabei besteht der Unterschied nicht so sehr in der
 Länge. Vielmehr unterscheiden sich Zeilen von Absätze
-dadurch, dass sie kein Satzschlusszeichen (., ?, !, :).
+dadurch, dass sie kein Satzschlusszeichen <em>(., ?, !, :)</em>.
 Wenn nicht anders festgelegt, werden sie als Überschriften
 interpretiert.
 </p>
@@ -205,7 +205,7 @@ interpretiert.
 <p>
 Die erste <em>Zeile</em> wird als Titel interpretiert und zu \title
 umgewandelt, wenn die Datei in LaTeX umgewandelt wird, bei
-Html-Ausgabe wird es in &lt;h1&gt; umgewandelt.
+<span class="sc">Html</span>-Ausgabe wird es in &lt;h1&gt; umgewandelt.
 </p>
 
 <p>
@@ -280,20 +280,21 @@ Wird zu:
 <div style="padding: 1em; text-align: center; background-color: lightgray">
 <blockquote>
 <p>Dies ist ein Zitat.</p>
-</div>
 
 <p>Hier geht das Zitat weiter.</p>
 </blockquote>
 
+</div>
 
 <p>
 Zur Zeit werden folgende Schlüsselworte unterstützt:
 </p>
 
 <ul>
-<li> Zitat für quote-Umgebung / &lt;blockquote&gt;-Block.</li>
-<li> Langzitat / LZitat für quotation-Umgebung / &lt;blockquote&gt;-Block.</li>
-<li> Zentriert / Z für center-Umgebung / &lt;center&gt;-Block
+<li> <span class="tt">„Zitat“</span> für quote-Umgebung / &lt;blockquote&gt;-Block.</li>
+<li> <span class="tt">„Langzitat“</span> / LZitat für quotation-Umgebung / &lt;blockquote&gt;-Block.</li>
+<li> <span class="tt">„Zentriert“</span> / Z für center-Umgebung / &lt;div class=<span class="tt">„center“</span>&gt;-Block mit text-align=<span class="tt">„center“</span></li>
+<li> <span class="tt">„Verbatim“</span> für verbatim-Umgebung / &lt;pre&gt;-Block
 </li>
 </ul>
 
@@ -317,15 +318,14 @@ Folgende Schlüsselwörter werden zur Zeit unterstützt:
 </p>
 
 <ul>
-<li> Überschrift für addsec / H3</li>
-<li> Titel/ Überschrift1  für title / H1</li>
-<li> Teil / Überschrift2 für part / H2</li>
-<li> <a class="fn" href="#fn2" id="fna2">Kapitel für chapter / H2</a> </li>
-<li> Abschnitt / Überschrift3 für section / H3</li>
-<li> Unterabschnitt / Überschrift4 für subsection / H4</li>
-<li> Unterunterabschnitt / Überschrift5 für subsubsection / H5</li>
-<li> Absatz / Überschrift6 für paragraph / H6
-<<<<<<< HEAD:docs/README.de.lafic
+<li> <span class="tt">„Überschrift“</span> für \addsec / &lt;h3&gt;</li>
+<li> <span class="tt">„Titel“</span>, <span class="tt">„Überschrift1“</span>  für \title / &lt;h1&gt;</li>
+<li> <span class="tt">„Teil“</span> / <span class="tt">„Überschrift2“</span> für \part / &lt;h2&gt;</li>
+<li> <span class="tt">„<a class="fn" href="#fn2" id="fna2">Kapitel“</span> für \chapter / &lt;h2&gt;</a> </li>
+<li> <span class="tt">„Abschnitt“</span>, <span class="tt">„Überschrift3“</span> für \section / &lt;h3&gt;</li>
+<li> <span class="tt">„Unterabschnitt“</span> / <span class="tt">„Überschrift4“</span> für \subsection / &lt;h4&gt;</li>
+<li> <span class="tt">„Unterunterabschnitt“</span> / <span class="tt">„Überschrift5“</span> für \subsubsection / &lt;h5&gt;</li>
+<li> <span class="tt">„Absatz“</span> / <span class="tt">„Überschrift6“</span> für \paragraph / &lt;h6&gt;
 </li>
 </ul>
 
@@ -346,31 +346,37 @@ einem »<span class="tt">%</span>« gefolgt von:
 </ul>
 
 
-<H3>=======</H3>
+<p>
+Sie sind durch einen Doppelpunkt getrennt.
+</p>
 
-<H3>Textformatierung im Absatz</H3>
+<pre>
+<p>  Hallo gute alte Welt!
+  % Hallo: fett
+  % al…lt: hervorheben</p>
+</pre>
+
 
 <p>
-Wörter und Textabschnitte in einem Absatz werden in einem
-Block nach dem Absatz formatiert. Jede Zeile beginnt mit
-einem »<span class="tt">%</span>« gefolgt von:
+wird zu:
+<b>Hallo</b> gute <em>alte Welt</em>!
+</p>
+
+<p>
+Folgende Schlüsselworte werden zur Zeit unterstützt:
 </p>
 
 <ul>
-<li> dem Wort</li>
-<li> dem ersten und letzten Wort den Abschnittes,
-  getrennt durch 3 Punkte, bzw. durch »…«.
+<li> <span class="tt">„fett“</span> für \textbf / &lt;b&gt;</li>
+<li> <span class="tt">„hervorheben“</span> für \emph / &lt;em&gt;</li>
+<li> <span class="tt">„kursiv“</span> für \textit / &lt;i&gt;</li>
+<li> <span class="tt">„schreibmaschiene“</span> oder <span class="tt">„nicht proportional“</span> für \texttt / &lt;span class=‚tt‘&gt;</li>
+<li> <span class="tt">„kapitälchen“</span> für \textsc / &lt;span class=‚sc‘&gt;</li>
+<li> <span class="tt">„hochgestellt“</span> für \textsuperscript / &lt;sup&gt;</li>
+<li> <span class="tt">„tiefgestellt“</span> für \textsubscript / &lt;sub&gt;
 </li>
 </ul>
 
-
-<p>
-&gt;&gt;&gt;&gt;&gt;&gt;&gt; Color:docs/README.de.lafic
-If the keyword is
-unknown, it is converted to a macro (LaTeX) oder &lt;span</li>
-<>
-(Html) name.
-</p>
 
 <H3>Images</H3>
 
@@ -382,7 +388,6 @@ jpeg, gif.
 
 <div style="padding: 1em; text-align: center">
 <img style="width: 50%;" src="./Image.png">
-</div>
 
 <p>
 Note that this will not put an figure environment in LaTeX
@@ -396,13 +401,14 @@ line. You don't need the extention then.
 <img style="height: 40%;" src="./Image.png">
 <figcaption>Mars and Moon</figcaption>
 </figure>
-</div>
 </figure>
 
+</div>
+</div>
 
 <H3>Farben</H3>
 
-<div style="padding: 1em; text-align: right; color: white; background-color: red">
+<div style="padding: 1em; color: white; text-align: right; background-color: red">
 <p>
 Die Hintergrundfarbe eines Absatzes kann über den Parameter
 <span style="color: lawngreen">Hintergrund</span> gesetzt werden; die Textfarbe über <span style="color: lawngreen">Farbe</span>. Um in
@@ -410,7 +416,6 @@ einem Absatz einzelne Wörter oder einen Bereich farbig zu
 gestalten, können analog die Schlüsselwörter <span style="color: lawngreen">Farbe</span> und
 <span style="color: lawngreen">Hintergrund</span> verwendet werden.
 </p>
-</div>
 
 <pre>
 <p>  Die Hintergrundfarbe eines Absatzes kann über den Parameter
@@ -425,6 +430,7 @@ gestalten, können analog die Schlüsselwörter <span style="color: lawngreen">F
   % Farbe: Farbe: grün</p>
 </pre>
 
+</div>
 
 <div id="footnotes">
 <ol>

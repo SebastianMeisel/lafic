@@ -206,15 +206,16 @@ Line are formated in the same way, only they are converted
 to macros (LaTeX) oder <span> names (HTML). Know keywords
 are:
 
-* title, h1 or heading1 for  title / <h1>
-* part, h2, heading or chapter for part, chapter / <h2>
-* section, h3 or heading3 for section / <h3>
-* subsection, h4 or heading4 for subsection / <h4>
-* subsubsection, h5 or heading5 for subsubsection / <h5>
-* paragraph, h6 or heading6 for paragraph / <h6>
-* h or heading for addsec
-* marginpar or annote for marginpar / <span class="annote"> 
+* "title", "h1" or "heading1" for \title / <h1>
+* "part", "h2", "heading" or "chapter" for \part, \chapter / <h2>
+* "section", "h3" or "heading3" for \section / <h3>
+* "subsection", "h4" or "heading4" for \subsection / <h4>
+* "subsubsection", "h5" or "heading5" for \subsubsection / <h5>
+* "paragraph", "h6" or "heading6" for \paragraph / <h6>
+* "h" or "heading" for \addsec
+* "marginpar" or "annote" for \marginpar / <span class="annote"> 
 % (or) chapter: footnote: Chapter is not available in standard template as it is not available in the document class used.
+% "…": mono
 
 % verbatim
   % heading4
@@ -249,13 +250,14 @@ Hallo dear old world!
 
 Known format keywords are:
 
-* bold for textbf / <b>
-* emphasize for emph / <em>
-* italic for textit / <i>
-* mono or typewriter for texttt / <span class="tt">
-* smallcaps for textsc / <span class="sc">
-* superscript for textsuperscript / <sup>
-* subscript for textsubscript / <sub>
+* "bold" for \textbf / <b>
+* "emphasize" for \emph / <em>
+* "italic" for \textit / <i>
+* "mono" or "typewriter" for \texttt / <span class="tt">
+* "smallcaps" for \textsc / <span class="sc">
+* "superscript" for \textsuperscript / <sup>
+* "subscript" for \textsubscript / <sub>
+% "…": mono
 
 If the keyword is unknown, it is converted to a macro
 (LaTeX) oder <span> (HTML) name.

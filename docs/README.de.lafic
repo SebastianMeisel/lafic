@@ -226,9 +226,11 @@ Hier geht das Zitat weiter.
 
 Zur Zeit werden folgende Schlüsselworte unterstützt:
 
-* Zitat für quote-Umgebung / <blockquote>-Block.
-* Langzitat / LZitat für quotation-Umgebung / <blockquote>-Block.
-* Zentriert / Z für center-Umgebung / <div class="center">-Block mit text-align="center"
+* "Zitat" für quote-Umgebung / <blockquote>-Block.
+* "Langzitat" / LZitat für quotation-Umgebung / <blockquote>-Block.
+* "Zentriert" / Z für center-Umgebung / <div class="center">-Block mit text-align="center"
+* "Verbatim" für verbatim-Umgebung / <pre>-Block
+% "…": nicht proportional
 
 Formatierte Zeilen
 
@@ -244,15 +246,16 @@ Dies ist ein Unterabschnitt
 
 Folgende Schlüsselwörter werden zur Zeit unterstützt:
 
-* Überschrift für addsec / H3
-* Titel/ Überschrift1  für title / H1
-* Teil / Überschrift2 für part / H2
-* Kapitel für chapter / H2 
-* Abschnitt / Überschrift3 für section / H3
-* Unterabschnitt / Überschrift4 für subsection / H4
-* Unterunterabschnitt / Überschrift5 für subsubsection / H5
-* Absatz / Überschrift6 für paragraph / H6
-% Kapitel…H2: Fußnote: Wird nicht von der Standard-Vorlage unterstützt. Es muss eine LaTeX-Klasse verwendet werden, die \chapter unterstützt. 
+* "Überschrift" für \addsec / <h3>
+* "Titel", "Überschrift1"  für \title / <h1>
+* "Teil" / "Überschrift2" für \part / <h2>
+* "Kapitel" für \chapter / <h2> 
+* "Abschnitt", "Überschrift3" für \section / <h3>
+* "Unterabschnitt" / "Überschrift4" für \subsection / <h4>
+* "Unterunterabschnitt" / "Überschrift5" für \subsubsection / <h5>
+* "Absatz" / "Überschrift6" für \paragraph / <h6>
+% "…": nicht proportional
+% Kapitel…h2>: Fußnote: Wird nicht von der Standard-Vorlage unterstützt. Es muss eine LaTeX-Klasse verwendet werden, die \chapter unterstützt. 
 
 Textformatierung im Absatz
 
@@ -266,7 +269,28 @@ einem »%« gefolgt von:
 * dem ersten und letzten Wort den Abschnittes,
   getrennt durch 3 Punkte, bzw. durch »…«.
 
-Sie sind durch einen Doppelpunkt getrennt. 
+Sie sind durch einen Doppelpunkt getrennt.
+
+% verbatim
+  Hallo gute alte Welt!
+  % Hallo: fett
+  % al…lt: hervorheben
+
+wird zu:
+Hallo gute alte Welt!
+% Hallo: fett
+% alt…lt: hervorheben
+
+Folgende Schlüsselworte werden zur Zeit unterstützt:
+
+* "fett" für \textbf / <b>
+* "hervorheben" für \emph / <em>
+* "kursiv" für \textit / <i>
+* "schreibmaschiene" oder "nicht proportional" für \texttt / <span class='tt'>
+* "kapitälchen" für \textsc / <span class='sc'>
+* "hochgestellt" für \textsuperscript / <sup>
+* "tiefgestellt" für \textsubscript / <sub>
+% "…": nicht proportional
 
 Images
 
