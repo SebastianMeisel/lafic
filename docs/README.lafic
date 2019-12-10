@@ -180,7 +180,8 @@ concatenated to one block / environment.
 % Verbatim
   % center
   This paragraph is centered
-  
+% background = gray
+
 % Verbatim
   % center
   This one, too.
@@ -189,7 +190,7 @@ Becomes:
 
 % center
 This paragraph is centered
-  
+
 % center
 This one, too.
 

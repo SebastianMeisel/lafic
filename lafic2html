@@ -443,13 +443,20 @@ sub handleParameter {
 ########################
 sub outputLines {
     # get parameters
-    my ($par, $parstyle, $macro, $title, $environment, $prev_env,         $list_level, $newfile, $newpar, %parameter) = @_;
-
+    my ($par, $parstyle, $macro, $title, $environment, $prev_env, $list_level, $div_level, $newfile, $newpar, %parameter) = @_;
+    
+    
     # check if continious environment needs to be closed
     unless ($environment =~ /^$prev_env$/ or $prev_env eq "") {
 	# check if div
 	if ($prev_env =~ /^\./) {
 	    print OUTPUT "</div>\n\n";
+	    # close open nested divs
+	    for (my $i=1; $i <= $div_level; $i++){
+		print OUTPUT "</div>\n";
+	    }
+	    # reset div level counter
+	    $div_level=0;
 	}
 	else {
 	    # close <li>
@@ -462,6 +469,12 @@ sub outputLines {
 	    }
 	    # reset list level counter
 	    $list_level=0;
+	    # close open nested divs
+	    for (my $i=1; $i <= $div_level; $i++){
+		print OUTPUT "</div>\n";
+	    }
+	    # reset div level counter
+	    $div_level=0;
 	}
     }
 
@@ -480,23 +493,25 @@ sub outputLines {
     my $key;
     my %value;
     foreach  $key (keys %parameter) {
-	if ($parameters{lc($key)}){
-	    if($parameters{lc($key)} =~ /^(background-color|color|text-align)$/){
-		$parameter{$1} = delete($parameter{$key});
-		if ($colors{$parameter{$1}}){
-		    $value{$1} = $colors{$parameter{$1}};
-		}
-		#elsif($align{$parameter{$1}}) … 
-		else {$value{$1} = $parameter{$1};}
-	    }
-	}}
+    	if ($parameters{lc($key)}){
+    	    if($parameters{lc($key)} =~ /^(background-color|color|text-align)$/){
+    		$parameter{$1} = delete($parameter{$key});
+    		if ($colors{$parameter{$1}}){
+    		    $value{$1} = $colors{$parameter{$1}};
+    		}
+    		#elsif($align{$parameter{$1}}) … 
+    		else {$value{$1} = $parameter{$1};}
+    	    }
+    	}}
     if(%value) {
-	print OUTPUT "<div style=\"padding: 1em";
-	foreach $key (keys %value){
-	    print OUTPUT "; ".$key.": ";
-	    print OUTPUT $value{$key};
-	}
-	print OUTPUT "\">\n";
+    	print OUTPUT "<div style=\"padding: 1em";
+    	foreach $key (keys %value){
+    	    print OUTPUT "; ".$key.": ";
+    	    print OUTPUT $value{$key};
+    	}
+    	print OUTPUT "\">\n";
+	# increase div-level
+	$div_level++;
     }
     
     # close macro or environment  
@@ -680,14 +695,14 @@ sub outputLines {
     }
 
 
-    # close colorbox
-    if ($parameter{"background-color"} or $parameter{"text-align"} or $parameter{"color"}) {
-	print OUTPUT "</div>\n";
-    }
+    # # close colorbox
+    # if ($parameter{"background-color"} or $parameter{"text-align"} or $parameter{"color"}) {
+    # 	print OUTPUT "</div>\n";
+    # }
 
     
 
-    return ($newfile, $list_level);
+    return ($newfile, $list_level, $div_level);
 }
 
 ######################################
@@ -727,8 +742,9 @@ sub parseFile {
     my $environment = "";
     # previous environment
     my $prev_env = "";
-    # marker for continous environment
-    my  $list_level = 0;
+    # markers for continous environment
+    my $list_level = 0;
+    my $div_level = 0;
     # title
     my $title = "";
 
@@ -1125,7 +1141,7 @@ sub parseFile {
 
 
 	    # output lines / paragraphs
-	    ($newfile, $list_level) = outputLines ($par , $parstyle, $macro, $title, $environment, $prev_env,  $list_level, $newfile, $newpar, %parameter);
+	    ($newfile, $list_level, $div_level) = outputLines ($par , $parstyle, $macro, $title, $environment, $prev_env,  $list_level, $div_level, $newfile, $newpar, %parameter);
 	    
 	    # better clean up
 	    $parkey = "";
@@ -1158,7 +1174,7 @@ sub parseFile {
     }
 
     # output lines / paragraphs
-    ($newfile, $list_level) = outputLines ($par , $parstyle, $macro, $title, $environment, $prev_env,  $list_level, $newfile, $newpar, %parameter);
+    ($newfile, $list_level, $div_level) = outputLines ($par , $parstyle, $macro, $title, $environment, $prev_env,  $list_level, $div_level, $newfile, $newpar, %parameter);
     
     # better clean up
     $parkey = "";
