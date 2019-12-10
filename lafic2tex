@@ -218,7 +218,7 @@ my %colors = (
     "gray" => "gray!75",
     "green" => "lawngreen",
     "yellow" => "LightYellow1",
-    "blue" => "PaleTurquoise1",
+    "blue" => "blue",
     "red" => "red",
     "white" => "white",
     );
@@ -364,7 +364,9 @@ sub LaTeX {
 	
     # special chars
     $par =~ s/(?<!\\)\\(?!\\)/\\textbackslash /g;
-    $par =~ s/([][%{}\$])/\\$1/g;
+    $par =~ s/([%{}#\$])/\\$1/g;
+    $par =~ s/\[/\{\[/g;
+    $par =~ s/\]/\]\}/g;
     $par =~ s/~/\\textasciitilde /g;
 
     # TeX / LaTeX / XeTeX
@@ -672,7 +674,8 @@ sub outputLines {
 		      my $pre = "";
 		      ($pre, $par) =  split /%%\n/ , $par;
       		      # Make sure $par is not empty
-		      if ($par =~ /^$/){$par = $pre; $pre=""}
+		      {no warnings 'uninitialized';
+		       if ($par =~ /^$/){$par = $pre; $pre=""}}
 
 		      print OUTPUT "\{$pre\\$macro$optional\{$par\}\}\n";
 		  }
@@ -712,7 +715,8 @@ sub outputLines {
 		      my $pre = "";
 		      ($pre, $par) =  split /%%\n/ , $par;
 		      # Make sure $par is not empty
-		      if ($par =~ /^$/){$par = $pre; $pre=""}
+		      { no warnings 'uninitialized';
+			if ($par =~ /^$/){$par = $pre; $pre=""}}
 		      
 		      print OUTPUT "\\begin{figure}[hbt]\n";
 		      print OUTPUT "$pre%%\n";
@@ -1050,7 +1054,7 @@ sub parseFile {
 				$pattern[$i] =~ s/^\s*//;
 				# remove trailing spaces from pattern
 				$pattern[$i] =~ s/\s*$//;
-				# handle special chars for searcg
+				# handle special chars for search
 				$pattern[$i] =~ s/([]().?!\$\-*])/\\$1/g;
 			    }
 			    else {
