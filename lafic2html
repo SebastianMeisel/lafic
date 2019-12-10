@@ -477,6 +477,14 @@ sub outputLines {
 	    $div_level=0;
 	}
     }
+    elsif ($prev_env eq "") { 
+	# need to close nested divs also for simple paragraphs or lines
+	for (my $i=1; $i <= $div_level; $i++){
+	    print OUTPUT "</div>\n";
+	}
+	# reset div level counter
+	$div_level=0;
+    }
 
     # print newline
     print OUTPUT "\n";
