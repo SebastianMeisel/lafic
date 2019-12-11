@@ -277,7 +277,7 @@ zusammengefasst.
 Wird zu:
 </p>
 
-<div style="padding: 1em; background-color: lightgray; text-align: center">
+<div style="padding: 1em; text-align: center; background-color: lightgray">
 <blockquote>
 <p>Dies ist ein Zitat.</p>
 
@@ -374,14 +374,72 @@ Folgende Schlüsselworte werden zur Zeit unterstützt:
 <li> <span class="tt">„Kapitälchen“</span> für \textsc / &lt;span class=‚sc‘&gt;</li>
 <li> <span class="tt">„hochgestellt“</span> für \textsuperscript / &lt;sup&gt;</li>
 <li> <span class="tt">„tiefgestellt“</span> für \textsubscript / &lt;sub&gt;
+</li>
+</ul>
 
+
+<p>
+Unbekannte Schlüsselworte werden in Makros (LaTeX) oder
+&lt;span&gt;-Elemente (Html) umgewandelt.
+</p>
+
+<p>
+Einige Schlüsselworte benötigen ein zweites Argument, dass
+nach einem zweiten Doppelpunkt angefügt wird:
+</p>
+
+<pre>
+<p>  Die Welt ist grün!
+  % grün: Farbe: rot</p>
+</pre>
+
+
+<p>
+Wird zu:
+Die Welt ist <span style="color: red">grün</span>!
+</p>
+
+<p>
+Folgende solcher Schlüsselworte werden zu Zeit unterstützt:
+</p>
+
+<ul>
 <li> „url“ oder „link“ für \href / &lt;a href='[url‘]&gt;</li>
 <li> „siehe“ für \nameref / &lt;a href='#[label]'&gt; </li>
-<li> „Fußnote“ für  \footnote / &lt;a class=‚fn‘ href=<a class="fn" href="#fn3" id="fna3">‚xfn[x]'</a>&gt;</li>
+<li> „Fußnote“ für  \footnote / &lt;a class=‚fn‘ href=<a class="fn" href="#fn4" id="fna4">‚xfn[x]'</a>&gt;</li>
 <li> „Farbe“ für \textcolor / &lt;span style=‚color: [color]'&gt;
 </li>
 </ul>
 
+
+<H3>Parameter</H3>
+
+<p>
+Es ist weiterhin möglich einer Zeile oder einem Absatz
+zusätzliche Parameter hinzuzufügen. Die geschieht äquivalent
+zu Formatierung im Absatz, nur dass ein Ist-gleich-Zeichen
+statt des Doppelpunktes gesetzt wird:
+</p>
+
+<pre>
+<p>  Dieser Text ist weiß auf blauem Untergrund und
+  rechtsbündig.
+  % Hintergrundfarbe = blau
+  % Farbe = weiß
+  % Ausrichtung = rechts</p>
+</pre>
+
+
+<p>
+wird zu:
+</p>
+
+<div style="padding: 1em; text-align: right; color: red; background-color: #00FFFF">
+<p>
+Dieser Text ist rot auf blauem Untergrund und
+rechtsbündig.
+</p>
+</div>
 
 <H3>Images</H3>
 
@@ -393,6 +451,7 @@ jpeg, gif.
 
 <div style="padding: 1em; text-align: center">
 <img style="width: 50%;" src="./Image.png">
+</div>
 
 <p>
 Note that this will not put an figure environment in LaTeX
@@ -409,11 +468,10 @@ line. You don't need the extention then.
 </figure>
 
 </div>
-</div>
 
 <H3>Farben</H3>
 
-<div style="padding: 1em; color: white; background-color: red; text-align: right">
+<div style="padding: 1em; background-color: red; text-align: right; color: white">
 <p>
 Die Hintergrundfarbe eines Absatzes kann über den Parameter
 <span style="color: lawngreen">Hintergrund</span> gesetzt werden; die Textfarbe über <span style="color: lawngreen">Farbe</span>. Um in
@@ -421,6 +479,7 @@ einem Absatz einzelne Wörter oder einen Bereich farbig zu
 gestalten, können analog die Schlüsselwörter <span style="color: lawngreen">Farbe</span> und
 <span style="color: lawngreen">Hintergrund</span> verwendet werden.
 </p>
+</div>
 
 <pre>
 <p>  Die Hintergrundfarbe eines Absatzes kann über den Parameter
@@ -435,7 +494,6 @@ gestalten, können analog die Schlüsselwörter <span style="color: lawngreen">F
   % Farbe: Farbe: grün</p>
 </pre>
 
-</div>
 
 <div id="footnotes">
 <ol>

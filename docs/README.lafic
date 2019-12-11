@@ -262,7 +262,7 @@ Known format keywords are:
 If the keyword is unknown, it is converted to a macro
 (LaTeX) oder <span> (HTML) name.
 
-Some inline formats need a second argument which is added
+Some keywords need a second argument which is added
 after a second colon:
 
 % verbatim
@@ -289,18 +289,17 @@ formats, but with a equal sign separating the keyword from
 the value:
 
 % verbatim
-  This paragraph has a blue background and is aligned to the
-  right.
+  This text is white on blue and aligned to the right.
   % background = blue
   % color = white
   % align = right
 
 becomes:
 
-This paragraph has a white on blue text and is aligned to the
+This paragraph has a red on blue text and is aligned to the
 right.
 % background = blue
-% color = white
+% color = red
 % align = right
 
 Known parameters are:

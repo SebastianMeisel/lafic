@@ -2,7 +2,7 @@
 \documentclass{article}
 
 \usepackage{graphicx}
-\usepackage{xcolor}
+\usepackage[x11names, dvipsnames*, svgnames]{xcolor}
 \definecolor{gray}{gray}{.75}
 \setlength{\fboxsep}{.05\linewidth}
 \usepackage[hyperindex=false, pdfpagelabels,
@@ -285,7 +285,7 @@ a paragraph. It has two parts:\\}
 {If the keyword is unknown, it is converted to a macro
 (LaTeX) oder <span> (HTML) name.\\}
 
-{Some inline formats need a second argument which is added
+{Some keywords need a second argument which is added
 after a second colon:\\}
 
 \begin{verbatim}
@@ -315,8 +315,7 @@ formats, but with a equal sign separating the keyword from
 the value:\\}
 
 \begin{verbatim}
-  This paragraph has a blue background and is aligned to the
-  right.
+  This text is white on blue and aligned to the right.
   % background = blue
   % color = white
   % align = right
@@ -325,10 +324,10 @@ the value:\\}
 
 {becomes:\\}
 
-\colorbox{blue}{\parbox{\linewidth}{%%
+\colorbox{PaleTurquoise1}{\parbox{\linewidth}{%%
 {\raggedleft%%
-\textcolor{white}{%%
-This paragraph has a white on blue text and is aligned to the
+\textcolor{red}{%%
+This paragraph has a red on blue text and is aligned to the
 right.}\\}
 }
 }
@@ -337,7 +336,7 @@ right.}\\}
 
 \begin{itemize}
 \item “name” or “label” for \textbackslash label / <?? id=“{[id]}”> that is
-  referred to by the “\nameref{form_lines}\xspace ” keyword.
+  referred to by the “see” keyword.
 \item “background” for \textbackslash colorbox / <div style=‘ background: {[color]}’>.
 \item “color” for \textbackslash textcolor / <div style=‘ color: {[color]}’>.
 \item “align” for \textbackslash raggedleft, \textbackslash centering or \textbackslash raggedright / <div

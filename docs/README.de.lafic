@@ -292,11 +292,60 @@ Folgende Schlüsselworte werden zur Zeit unterstützt:
 * "tiefgestellt" für \textsubscript / <sub>
 % "…": nicht proportional
 
+Unbekannte Schlüsselworte werden in Makros (LaTeX) oder
+<span>-Elemente (Html) umgewandelt.
+
+Einige Schlüsselworte benötigen ein zweites Argument, dass
+nach einem zweiten Doppelpunkt angefügt wird:
+
+% verbatim
+  Die Welt ist grün!
+  % grün: Farbe: rot
+
+Wird zu:
+Die Welt ist grün!
+% grün: Farbe: rot
+
+Folgende solcher Schlüsselworte werden zu Zeit unterstützt: 
+
 * "url" oder "link" für \href / <a href='[url']>
 * "siehe" für \nameref / <a href='#[label]'> 
 * "Fußnote" für  \footnote / <a class='fn' href='xfn[x]'>
 * "Farbe" für \textcolor / <span style='color: [color]'>
 % 'xfn…]': footnote: In Html-Dokumenten werden Fußnoten in einer <ol>-Liste in einem <div id="footnote">-Container am Ende des Dokumentes dargestellt. Die einzelnen Fußnoten stehen in einem <li id="fn[x]">-Element.
+
+Parameter
+
+Es ist weiterhin möglich einer Zeile oder einem Absatz
+zusätzliche Parameter hinzuzufügen. Die geschieht äquivalent
+zu Formatierung im Absatz, nur dass ein Ist-gleich-Zeichen
+statt des Doppelpunktes gesetzt wird:
+
+% verbatim
+  Dieser Text ist weiß auf blauem Untergrund und
+  rechtsbündig.
+  % Hintergrundfarbe = blau
+  % Farbe = weiß
+  % Ausrichtung = right
+
+wird zu:
+
+Dieser Text ist rot auf blauem Untergrund und
+rechtsbündig.
+% Hintergrund = blau
+% Farbe = rot
+% Ausrichtung = right
+
+Folgende Parameter werden derzeit unterstützt:
+
+* "Name", "Bezeichnung" oder  "Label" für \label / <?? id="[id]"> that is
+  referred to by the "see" keyword.
+* "Hintergrund" für \colorbox / <div style='background: [color]'>.
+* "Farbe" für \textcolor / <div style='color: [color]'>.
+* "Ausrichtung" für \raggedleft, \centering or \raggedright / <div
+  style='text-align: [align]'>.
+% "Ausrichtung": footnote: Die eigenlich Ausrichtung muss derzeit noch auf Englisch angegeben werden.
+
 
 
 Images

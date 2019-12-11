@@ -48,13 +48,13 @@ Formeln). Dabei fand ich es zum Teil störend, dass ich immer
 erst mit der Preamble beginnen muss und nicht einfach
 losschreiben kann.\\}
 
-{Daraufhin probierte ich markdown/multimarkdown aus. Dabei
-störte mich aber, dass es sehr unflexible ist. Außer dem ist
+{Daraufhin probierte ich markdown / multimarkdown aus. Dabei
+störte mich aber, dass es sehr unflexible ist. Außerdem ist
 die Syntax an manchen Stellen etwas kryptisch, was mich
 störte. Außerdem funktionieren die erstellten \LaTeX\ -Dateien
 zwar irgendwie, sind aber auch sehr kryptisch aufgebaut.\\}
 
-{Außerdem hatte ich immer die Worte meines Vaters im	Ohr, der
+{Außerdem hatte ich immer die Worte meines Vaters im Ohr, der
 sagte, er wolle am liebsten, wie einst mit der
 Schreibmaschiene losschreiben können und dennoch ein
 ordentliches Ergebnis bekommen.\\}
@@ -81,10 +81,10 @@ verständlichen Kommentaren.\\}
 {LaFiC setzt Perl > 5.10.1 vorraus (getestet unter Perl 5.26.1).\\}
 
 {Das Standard \LaTeX\ -Template setzt eine aktuelle
-\XeLaTeX\ -Installation sowie graphix, hyperref, microtype und
+\XeLaTeX\ -Installation sowie graphicx, hyperref, microtype und
 xspace voraus.\\}
 
-{Die Emacs-Einbindung wurde unter Gnu Emacs 25.2.2 getestet.\\}
+{Die Gnu-Emacs-Einbindung wurde unter Gnu Emacs 25.2.2 getestet.\\}
 
 {\texttt{lafic2pdf} setzt zudem latexmk (getestet mit Version 4.41) vorraus.\\}
 
@@ -144,7 +144,7 @@ Datei.pdf
 \end{verbatim}
 
 
-\section{Nutzung des LaFiC-Major-Modes in Emacs}
+\section{Nutzung des LaFiC-Major-Modes in GNU Emacs}
 
 {Nachdem Sie \texttt{lafic-mode.el} wie oben (siehe \nameref{Installation}\xspace )
 beschrieben in Emacs eingebunden haben, wird der
@@ -166,13 +166,13 @@ gearbeitet hat.\\}
 
 {Dabei besteht der Unterschied nicht so sehr in der
 Länge. Vielmehr unterscheiden sich Zeilen von Absätze
-dadurch, dass sie kein Satzschlusszeichen (., ?, !, :).
+dadurch, dass sie kein Satzschlusszeichen \emph{(., ?, !, :)}.
 Wenn nicht anders festgelegt, werden sie als Überschriften
 interpretiert.\\}
 
 {Die erste \emph{Zeile} wird als Titel interpretiert und zu \textbackslash title
 umgewandelt, wenn die Datei in \LaTeX\  umgewandelt wird, bei
-Html-Ausgabe wird es in <h1> umgewandelt.\\}
+\textsc{Html}-Ausgabe wird es in <h1> umgewandelt.\\}
 
 {Weitere \emph{Zeilen} werden in <h3> (\textsc{Html}) oder \textbackslash section
 (LaTeX) umgewandelt, wenn es nicht anders angegeben wird.\\}
@@ -245,9 +245,10 @@ Hier geht das Zitat weiter.
 {Zur Zeit werden folgende Schlüsselworte unterstützt:\\}
 
 \begin{itemize}
-\item Zitat für quote-Umgebung / <blockquote>-Block.
-\item Langzitat / LZitat für quotation-Umgebung / <blockquote>-Block.
-\item Zentriert / Z für center-Umgebung / <center>-Block
+\item \texttt{„Zitat“} für quote-Umgebung / <blockquote>-Block.
+\item \texttt{„Langzitat“} / LZitat für quotation-Umgebung / <blockquote>-Block.
+\item \texttt{„Zentriert“} / Z für center-Umgebung / <div class=\texttt{„center“}>-Block mit text-align=\texttt{„center“}
+\item „Verbatim“ für verbatim-Umgebung / <pre>-Block
 \end{itemize}
 
 
@@ -266,15 +267,14 @@ Hier geht das Zitat weiter.
 {Folgende Schlüsselwörter werden zur Zeit unterstützt:\\}
 
 \begin{itemize}
-\item Überschrift für addsec / H3
-\item Titel/ Überschrift1  für title / H1
-\item Teil / Überschrift2 für part / H2
-\item Kapitel für chapter / H2\footnote{Wird nicht von der Standard-Vorlage unterstützt. Es muss eine \LaTeX\ -Klasse verwendet werden, die \textbackslash chapter unterstützt.}\xspace  
-\item Abschnitt / Überschrift3 für section / H3
-\item Unterabschnitt / Überschrift4 für subsection / H4
-\item Unterunterabschnitt / Überschrift5 für subsubsection / H5
-\item Absatz / Überschrift6 für paragraph / H6
-<<<<<<< HEAD:docs/README.de.lafic
+\item \texttt{„Überschrift“} für \textbackslash addsec / <h3>
+\item \texttt{„Titel“}, „Überschrift1“  für \textbackslash title / <h1>
+\item \texttt{„Teil“} / „Überschrift2“ für \textbackslash part / <h2>
+\item \texttt{„Kapitel“} für \textbackslash chapter / <h2>\footnote{Wird nicht von der Standard-Vorlage unterstützt. Es muss eine \LaTeX\ -Klasse verwendet werden, die \textbackslash chapter unterstützt.}\xspace  
+\item \texttt{„Abschnitt“}, „Überschrift3“ für \textbackslash section / <h3>
+\item \texttt{„Unterabschnitt“} / „Überschrift4“ für \textbackslash subsection / <h4>
+\item \texttt{„Unterunterabschnitt“} / „Überschrift5“ für \textbackslash subsubsection / <h5>
+\item \texttt{„Absatz“} / „Überschrift6“ für \textbackslash paragraph / <h6>
 \end{itemize}
 
 
@@ -291,25 +291,81 @@ einem »\texttt{\%}« gefolgt von:\\}
 \end{enumerate}
 
 
-\section{=======}
+{Sie sind durch einen Doppelpunkt getrennt.\\}
 
-\section{Textformatierung im Absatz}
-
-{Wörter und Textabschnitte in einem Absatz werden in einem
-Block nach dem Absatz formatiert. Jede Zeile beginnt mit
-einem »\texttt{\%}« gefolgt von:\\}
-
-\begin{enumerate}
-\item dem Wort
-\item dem ersten und letzten Wort den Abschnittes,
-  getrennt durch 3~Punkte, bzw. durch »…«.
-\end{enumerate}
+\begin{verbatim}
+  Hallo gute alte Welt!
+  % Hallo: fett
+  % al…lt: hervorheben
+\end{verbatim}
 
 
-{>>>>>>> Color:docs/README.de.lafic
-If the keyword is
-unknown, it is converted to a macro (LaTeX) oder <span>
-(Html) name.\\}
+{wird zu:
+\textbf{Hallo} gute \emph{alte Welt}!\\}
+
+{Folgende Schlüsselworte werden zur Zeit unterstützt:\\}
+
+\begin{itemize}
+\item \texttt{„fett“} für \textbackslash textbf / <b>
+\item \texttt{„hervorheben“} für \textbackslash emph / <em>
+\item \texttt{„kursiv“} für \textbackslash textit / <i>
+\item \texttt{„Schreibmaschiene“} oder \texttt{„nicht proportional“} für \textbackslash texttt / <span class=‚tt‘>
+\item \texttt{„Kapitälchen“} für \textbackslash textsc / <span class=‚sc‘>
+\item \texttt{„hochgestellt“} für \textbackslash textsuperscript / <sup>
+\item \texttt{„tiefgestellt“} für \textbackslash textsubscript / <sub>
+\end{itemize}
+
+
+{Unbekannte Schlüsselworte werden in Makros (LaTeX) oder
+<span>-Elemente (Html) umgewandelt.\\}
+
+{Einige Schlüsselworte benötigen ein zweites Argument, dass
+nach einem zweiten Doppelpunkt angefügt wird:\\}
+
+\begin{verbatim}
+  Die Welt ist grün!
+  % grün: Farbe: rot
+\end{verbatim}
+
+
+{Wird zu:
+Die Welt ist \textcolor{red}{grün}!\\}
+
+{Folgende solcher Schlüsselworte werden zu Zeit unterstützt:\\}
+
+\begin{itemize}
+\item „url“ oder „link“ für \textbackslash href / <a href=‚{[url‘]}>
+\item „siehe“ für \textbackslash nameref / <a href='\#{[label]}‘> 
+\item „Fußnote“ für  \textbackslash footnote / <a class=‚fn‘ href=‚xfn{[x]}‘\footnote{In Html-Dokumenten werden Fußnoten in einer <ol>-Liste in einem <div id=„footnote“>-Container am Ende des Dokumentes dargestellt. Die einzelnen Fußnoten stehen in einem <li id=„fn{[x]}“>-Element.}\xspace >
+\item „Farbe“ für \textbackslash textcolor / <span style=‚color: {[color]}‘>
+\end{itemize}
+
+
+\section{Parameter}
+
+{Es ist weiterhin möglich einer Zeile oder einem Absatz
+zusätzliche Parameter hinzuzufügen. Die geschieht äquivalent
+zu Formatierung im Absatz, nur dass ein Ist-gleich-Zeichen
+statt des Doppelpunktes gesetzt wird:\\}
+
+\begin{verbatim}
+  Dieser Text ist weiß auf blauem Untergrund und
+  rechtsbündig.
+  % Hintergrundfarbe = blau
+  % Farbe = weiß
+  % Ausrichtung = rechts
+\end{verbatim}
+
+
+{wird zu:\\}
+
+\colorbox{PaleTurquoise1}{\parbox{\linewidth}{%%
+{\raggedleft%%
+\textcolor{red}{%%
+Dieser Text ist rot auf blauem Untergrund und
+rechtsbündig.}\\}
+}
+}
 
 \section{Images}
 
