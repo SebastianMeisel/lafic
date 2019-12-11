@@ -218,7 +218,7 @@ my %colors = (
     "gray" => "gray!75",
     "green" => "lawngreen",
     "yellow" => "LightYellow1",
-    "blue" => "blue",
+    "blue" => "PaleTurquoise1",
     "red" => "red",
     "white" => "white",
     );
