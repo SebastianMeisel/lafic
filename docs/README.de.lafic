@@ -346,6 +346,68 @@ Folgende Parameter werden derzeit unterstützt:
   style='text-align: [align]'>.
 % "Ausrichtung": footnote: Die eigenlich Ausrichtung muss derzeit noch auf Englisch angegeben werden.
 
+Listen
+
+List sind das Einzige, das eine Art Auszeichnung benötigt:
+Sie müssen jeden Punkt in der List mit einem der folgenden
+Zeichen beginnen: –, *, +, -. Dabei spielt es keine Rolle,
+welches Sie wählen. Sie können Zeilen einrücken, aber das
+beeinflusst das Layout nicht.
+% –…-: nicht proportional
+
+% verbatim
+* Top 1.
+- Top 2.
+
+* Top 1.
+- Top 2.
+
+
+Für Listen mit mehreren Ebenen haben Sie zwei Möglichkeiten,
+die Ebene zu wechseln: Die reine LaFiC-Stil wäre, einen
+neuen Abschnitt einzufügen und dahinter eines der
+Schlüsselworte »% Level+« oder »% Level-« anzuhängen.
+% »…«: nicht proportional
+
+% verbatim
+  * Top 1.
+  * Top 2.
+
+% verbatim
+  * Top 2a.
+  * Top 2b.
+  % level+
+
+* Top 1.
+* Top 2.
+
+  * Top 2a.
+  * Top 2b.
+% level+
+
+Die andere Möglichkeit ist die Liste in einem Abschnitt zu
+setzen und die Ebenenwechsel mit einem Größer-
+bzw. Kleiner-als-Zeichen in einer ansonsten leeren Zeile anzuzeigen:  
+% einem (Abschnitt): hervorheben
+% Größer-: nicht proportional
+% Kleiner…Zeichen: nicht proportional
+
+% verbatim
+  * Top 1.
+  * Top 2.
+  >
+    * Top 2a.
+    * Top 2b.
+  <
+  * Top 3
+
+* Top 1.
+* Top 2.
+>
+  * Top 2a.
+  - Top 2b.
+<
+* Top 3
 
 
 Images

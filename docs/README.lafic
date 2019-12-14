@@ -315,7 +315,7 @@ Known parameters are:
 Lists
 
 Lists are the only things, that need some kind of
-markup. You have to start each topic of the list with one of
+markup: You have to start each topic of the list with one of
 the following chars: –, *, +, -. It doesn't matter, which one you
 choose. You may indent the lines, but that has no influence
 on the layout.  
@@ -328,7 +328,7 @@ on the layout.
 * Top 1.
 - Top 2.
 
-For multilevel lists, you have to choises, to raise or
+For multilevel lists you have to choises to raise or
 decrease the level: The clean LaFiC style would be,
 to start a new paragraph and add the keyword »% level+«
 or »% level-« at the end.
@@ -353,6 +353,8 @@ or »% level-« at the end.
 Or you can write the list in one paragraph, marking the
 raise or decrease of the level with a > or < at the
 beginning of a single line.
+% >: mono
+% <: mono
 
 % verbatim
   * Top 1.

@@ -260,7 +260,7 @@ The following keywords are available at the moment:
 </ul>
 
 
-<H3>Formated lines</H3>
+<H3 id="form_lines">Formated lines</H3>
 
 <p>
 Line are formated in the same way, only they are converted
@@ -270,7 +270,7 @@ are:
 
 <ul>
 <li> <span class="tt">“title”</span>, <span class="tt">“h1”</span> or <span class="tt">“heading1”</span> for \title / &lt;h1&gt;</li>
-<li> <span class="tt">“part”</span>, <span class="tt">“h2”</span>, <span class="tt">“heading”</span> or <span class="tt">“<a class="fn" href="#fn3" id="fna3">chapter</a>”</span> for \part, \chapter / &lt;h2&gt;</li>
+<li> <span class="tt">“part”</span>, <span class="tt">“h2”</span>, <span class="tt">“heading”</span> or <a class="fn" href="#fn3" id="fna3"><span class="tt">“chapter”</span></a> for \part, \chapter / &lt;h2&gt;</li>
 <li> <span class="tt">“section”</span>, <span class="tt">“h3”</span> or <span class="tt">“heading3”</span> for \section / &lt;h3&gt;</li>
 <li> <span class="tt">“subsection”</span>, <span class="tt">“h4”</span> or <span class="tt">“heading4”</span> for \subsection / &lt;h4&gt;</li>
 <li> <span class="tt">“subsubsection”</span>, <span class="tt">“h5”</span> or <span class="tt">“heading5”</span> for \subsubsection / &lt;h5&gt;</li>
@@ -343,7 +343,7 @@ If the keyword is unknown, it is converted to a macro
 </p>
 
 <p>
-Some inline formats need a second argument which is added
+Some keywords need a second argument which is added
 after a second colon:
 </p>
 
@@ -365,7 +365,7 @@ Know keywords of that kind are:
 <ul>
 <li> “url” or “link” for \href / &lt;a href='[url]'&gt;</li>
 <li> “see” for \nameref / &lt;a href='#[label]'&gt; </li>
-<li> “footnote” for \footnote / &lt;a class=‘ fn’ href=<a class="fn" href="#fn5" id="fna5">‘ xfn[x]'</a>&gt;</li>
+<li> <a class="fn" href="#fn5" id="fna5">“footnote”</a> for \footnote / &lt;a class=‘ fn’ href=‘ xfn[x]'&gt;</li>
 <li> “color” for \textcolor / &lt;span style=‘ color: [color]'&gt;
 </li>
 </ul>
@@ -381,8 +381,7 @@ the value:
 </p>
 
 <pre>
-<p>  This paragraph has a blue background and is aligned to the
-  right.
+<p>  This text is white on blue and aligned to the right.
   % background = blue
   % color = white
   % align = right</p>
@@ -393,9 +392,9 @@ the value:
 becomes:
 </p>
 
-<div style="padding: 1em; color: white; text-align: right; background-color: #00FFFF">
+<div style="padding: 1em; text-align: right; background-color: #00FFFF; color: red">
 <p>
-This paragraph has a white on blue text and is aligned to the
+This paragraph has a red on blue text and is aligned to the
 right.
 </p>
 </div>
@@ -405,21 +404,21 @@ Known parameters are:
 </p>
 
 <ul>
-<li> “name” or “label” for \label /  id="[id]" that is
+<li> “name” or “label” for \label / &lt;?? id="[id]"&gt; that is
   referred to by the “see” keyword.</li>
-<li> “background” for \colorbox / style=‘ background: [color]‘ .</li>
-<li> “color” for / style=‘ color: [color]‘ .</li>
-<li> “align” for / style=‘ text-align: [align]‘ .
+<li> “background” for \colorbox / &lt;div style=‘ background: [color]'&gt;.</li>
+<li> “color” for \textcolor / &lt;div style=‘ color: [color]'&gt;.</li>
+<li> “align” for \raggedleft, \centering or \raggedright / &lt;div
+  style=‘ text-align: [align]'&gt;.
 </li>
 </ul>
-
 
 
 <H3>Lists</H3>
 
 <p>
 Lists are the only things, that need some kind of
-markup. You have to start each topic of the list with one of
+markup: You have to start each topic of the list with one of
 the following chars:&nbsp;<span class="tt">–, *, +, -</span>. It doesn't matter, which one you
 choose. You may indent the lines, but that has no influence
 on the layout.
@@ -440,7 +439,7 @@ on the layout.
 
 
 <p>
-For multilevel lists, you have to choises, to raise or
+For multilevel lists you have to choises to raise or
 decrease the level: The clean LaFiC style would be,
 to start a new paragraph and add the keyword <span class="tt">»% level+«</span>
 or <span class="tt">»% level-«</span> at the end.
@@ -473,7 +472,7 @@ or <span class="tt">»% level-«</span> at the end.
 
 <p>
 Or you can write the list in one paragraph, marking the
-raise or decrease of the level with a &gt; or &lt; at the
+raise or decrease of the level with a <span class="tt">&gt;</span> or <span class="tt">&lt;</span> at the
 beginning of a single line.
 </p>
 

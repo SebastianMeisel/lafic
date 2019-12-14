@@ -277,7 +277,7 @@ zusammengefasst.
 Wird zu:
 </p>
 
-<div style="padding: 1em; text-align: center; background-color: lightgray">
+<div style="padding: 1em; background-color: lightgray; text-align: center">
 <blockquote>
 <p>Dies ist ein Zitat.</p>
 
@@ -426,7 +426,7 @@ statt des Doppelpunktes gesetzt wird:
   rechtsbündig.
   % Hintergrundfarbe = blau
   % Farbe = weiß
-  % Ausrichtung = rechts</p>
+  % Ausrichtung = right</p>
 </pre>
 
 
@@ -434,12 +434,115 @@ statt des Doppelpunktes gesetzt wird:
 wird zu:
 </p>
 
-<div style="padding: 1em; text-align: right; color: red; background-color: #00FFFF">
+<div style="padding: 1em; background-color: #00FFFF; color: red; text-align: right">
 <p>
 Dieser Text ist rot auf blauem Untergrund und
 rechtsbündig.
 </p>
 </div>
+
+<p>
+Folgende Parameter werden derzeit unterstützt:
+</p>
+
+<ul>
+<li> „Name“, „Bezeichnung“ oder  „Label“ für \label / &lt;?? id="[id]"&gt; that is
+  referred to by the „see“ keyword.</li>
+<li> „Hintergrund“ für \colorbox / &lt;div style=‚background: [color]'&gt;.</li>
+<li> „Farbe“ für \textcolor / &lt;div style=‚color: [color]'&gt;.</li>
+<li> <a class="fn" href="#fn5" id="fna5">„Ausrichtung“</a> für \raggedleft, \centering or \raggedright / &lt;div
+  style=‚text-align: [align]'&gt;.
+</li>
+</ul>
+
+
+<H3>Listen</H3>
+
+<p>
+List sind das Einzige, das eine Art Auszeichnung benötigt:
+Sie müssen jeden Punkt in der List mit einem der folgenden
+Zeichen beginnen:&nbsp;<span class="tt">–, *, +, -</span>. Dabei spielt es keine Rolle,
+welches Sie wählen. Sie können Zeilen einrücken, aber das
+beeinflusst das Layout nicht.
+</p>
+
+<pre>
+<p>
+* Top 1.
+- Top 2.</p>
+</pre>
+
+
+<ul>
+<li> Top 1.</li>
+<li> Top 2.
+</li>
+</ul>
+
+
+<p>
+Für Listen mit mehreren Ebenen haben Sie zwei Möglichkeiten,
+die Ebene zu wechseln: Die reine LaFiC-Stil wäre, einen
+neuen Abschnitt einzufügen und dahinter eines der
+Schlüsselworte <span class="tt">»% Level+«</span> oder <span class="tt">»% Level-«</span> anzuhängen.
+</p>
+
+<pre>
+<p>
+  * Top 1.
+  * Top 2.</p>
+
+<p>
+  * Top 2a.
+  * Top 2b.
+  % level+</p>
+</pre>
+
+
+<ul>
+<li> Top 1.</li>
+<li> Top 2.
+
+</li>
+<ul>
+<li> Top 2a.</li>
+<li> Top 2b.
+</li>
+</ul>
+
+</ul>
+
+<p>
+Die andere Möglichkeit ist die Liste in <em>einem</em> Abschnitt zu
+setzen und die Ebenenwechsel mit einem <span class="tt">Größer-</span>
+bzw. <span class="tt">Kleiner-als-Zeichen</span> in einer ansonsten leeren Zeile anzuzeigen:
+</p>
+
+<pre>
+<p>
+  * Top 1.
+  * Top 2.
+  >
+    * Top 2a.
+    * Top 2b.
+  <
+  * Top 3</p>
+</pre>
+
+
+<ul>
+<li> Top 1.</li>
+<li> Top 2.
+</li>
+<ul>
+<li> Top 2a.</li>
+<li> Top 2b.
+</li>
+</ul>
+<li> Top 3
+</li>
+</ul>
+
 
 <H3>Images</H3>
 
@@ -471,7 +574,7 @@ line. You don't need the extention then.
 
 <H3>Farben</H3>
 
-<div style="padding: 1em; background-color: red; text-align: right; color: white">
+<div style="padding: 1em; text-align: right; color: white; background-color: red">
 <p>
 Die Hintergrundfarbe eines Absatzes kann über den Parameter
 <span style="color: lawngreen">Hintergrund</span> gesetzt werden; die Textfarbe über <span style="color: lawngreen">Farbe</span>. Um in
@@ -502,6 +605,8 @@ gestalten, können analog die Schlüsselwörter <span style="color: lawngreen">F
 <li id="fn2"><a href="#fna2">Wird nicht von der Standard-Vorlage unterstützt. Es muss eine LaTeX-Klasse verwendet werden, die \chapter unterstützt.</a>
 </li>
 <li id="fn3"><a href="#fna3">In Html-Dokumenten werden Fußnoten in einer &lt;ol&gt;-Liste in einem &lt;div id=„footnote“&gt;-Container am Ende des Dokumentes dargestellt. Die einzelnen Fußnoten stehen in einem &lt;li id=„fn[x]"&gt;-Element.</a>
+</li>
+<li id="fn4"><a href="#fna4">Die eigenlich Ausrichtung muss derzeit noch auf Englisch angegeben werden.</a>
 </li>
 </ol>
 </div>
