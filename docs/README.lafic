@@ -382,15 +382,22 @@ jpeg, gif.
 % verbatim
   Image.png
   % height = 40%
+  % align = center
 
 
 Image.png
 % height = 40%
+% align = center
+
+The following parameters are available for formating:
+
+* height
+* width or length
 
 Note that this will not put an figure environment in LaTeX
 files, so the image won't float this way. For this to
 achieve to have to put % image, %img or %figure before the
-line. You don't need the extention then.
+line. 
 
 % verbatim
   %image
@@ -402,3 +409,26 @@ line. You don't need the extention then.
 Image.png
 % width = 40%
 % caption = "Moon and Mars"
+
+This also gives you two more parameters to use:
+
+* name or label
+* caption
+
+Colors
+
+The following colors are accepted as argument to parameters
+for color or background:
+
+* gray
+* green
+* yellow
+* blue
+* red
+* white
+% green: color: green
+% yellow: color: yellow
+% blue: color: blue
+% red: color: red
+% white: color: white
+% background = gray

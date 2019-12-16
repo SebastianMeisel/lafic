@@ -392,7 +392,7 @@ the value:
 becomes:
 </p>
 
-<div style="padding: 1em; text-align: right; background-color: #00FFFF; color: red">
+<div style="padding: 1em; color: red; text-align: right; background-color: #00FFFF">
 <p>
 This paragraph has a red on blue text and is aligned to the
 right.
@@ -512,17 +512,31 @@ jpeg, gif.
 
 <pre>
 <p>  Image.png
-  % height = 40%</p>
+  % height = 40%
+  % align = center</p>
 </pre>
 
 
+<div style="padding: 1em; text-align: center">
 <img style="height: 40%;" src="./Image.png">
+</div>
+
+<p>
+The following parameters are available for formating:
+</p>
+
+<ul>
+<li> height</li>
+<li> width or length
+</li>
+</ul>
+
 
 <p>
 Note that this will not put an figure environment in LaTeX
 files, so the image won't float this way. For this to
 achieve to have to put % image, %img or %figure before the
-line. You don't need the extention then.
+line.
 </p>
 
 <pre>
@@ -537,6 +551,37 @@ line. You don't need the extention then.
 <img style="width: 40%;" src="./Image.png">
 <figcaption>"Moon and Mars"</figcaption>
 </figure>
+</figure>
+
+
+<p>
+This also gives you two more parameters to use:
+</p>
+
+<ul>
+<li> name or label</li>
+<li> caption
+</li>
+</ul>
+
+
+<H3>Colors</H3>
+
+<p>
+The following colors are accepted as argument to parameters
+for color or background:
+</p>
+
+<div style="padding: 1em; background-color: lightgray">
+<ul>
+<li> gray</li>
+<li> <span style="color: lawngreen">green</span></li>
+<li> <span style="color: #FFF8C6">yellow</span></li>
+<li> <span style="color: #00FFFF">blue</span></li>
+<li> <span style="color: red">red</span></li>
+<li> <span style="color: white">white</span>
+</div>
+
 <div id="footnotes">
 <ol>
 <li id="fn1"><a href="#fna1">The standard templates for LaFiC are all based on XeLaTeX to support UTF-8. Still using LaTeX should be possible.</a>

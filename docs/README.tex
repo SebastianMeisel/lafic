@@ -347,7 +347,7 @@ right.}\\}
 \section{Lists}
 
 {Lists are the only things, that need some kind of
-markup. You have to start each topic of the list with one of
+markup: You have to start each topic of the list with one of
 the following chars: –, *, +, -. It doesn't matter, which one you
 choose. You may indent the lines, but that has no influence
 on the layout.\\}
@@ -365,7 +365,7 @@ on the layout.\\}
 \end{itemize}
 
 
-{For multilevel lists, you have to choises, to raise or
+{For multilevel lists you have to choises to raise or
 decrease the level: The clean LaFiC style would be,
 to start a new paragraph and add the keyword \texttt{»\% level+«}
 or \texttt{»\% level-«} at the end.\\}
@@ -395,7 +395,7 @@ or \texttt{»\% level-«} at the end.\\}
 
 
 {Or you can write the list in one paragraph, marking the
-raise or decrease of the level with a > or < at the
+raise or decrease of the level with a \texttt{>} or \texttt{<} at the
 beginning of a single line.\\}
 
 \begin{verbatim}
@@ -430,15 +430,24 @@ jpeg, gif.\\}
 \begin{verbatim}
   Image.png
   % height = 40%
+  % align = center
 \end{verbatim}
 
 
-{\includegraphics[height=.40\textheight]{Image.png}}
+{\centering\includegraphics[height=.40\textheight]{Image.png}\\}
+
+{The following parameters are available for formating:\\}
+
+\begin{itemize}
+\item height
+\item width or length
+\end{itemize}
+
 
 {Note that this will not put an figure environment in \LaTeX\ 
 files, so the image won't float this way. For this to
 achieve to have to put \% image, \%img or \%figure before the
-line. You don't need the extention then.\\}
+line.\\}
 
 \begin{verbatim}
   %image
@@ -453,6 +462,32 @@ line. You don't need the extention then.\\}
 \includegraphics[width=.40\linewidth]{Image.png}
 \caption{"Moon and Mars"}
 \end{figure}
+
+
+{This also gives you two more parameters to use:\\}
+
+\begin{itemize}
+\item name or label
+\item caption
+\end{itemize}
+
+
+\section{Colors}
+
+{The following colors are accepted as argument to parameters
+for color or background:\\}
+
+\colorbox{gray!75}{\parbox{\linewidth}{%%
+\begin{itemize}
+\item gray
+\item \textcolor{green}{green}
+\item \textcolor{LightYellow1}{yellow}
+\item \textcolor{PaleTurquoise1}{blue}
+\item \textcolor{red}{red}
+\item \textcolor{white}{white}
+\end{itemize}}
+}
+
 \end{document}
 
 %%% Local Variables:
