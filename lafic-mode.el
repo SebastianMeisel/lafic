@@ -394,7 +394,10 @@
 			     word-a "…" word-b)))))
 		      (thing-at-point 'word t)
 		      )))
-    (re-search-forward "^\\s *?$" nil t)
+      (unless (re-search-forward "^\\s *?$" nil t)
+	(goto-char (point-max))
+	(newline)
+	)
     (insert "% ")
     (insert word)
     (insert ": ")
@@ -573,6 +576,7 @@
 		(insert (concat "% name = " name))
 		(newline)))
     ))
+
 
 ;; highlighting
 (defun lafic-highlight-par ()
