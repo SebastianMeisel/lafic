@@ -277,7 +277,7 @@ zusammengefasst.
 Wird zu:
 </p>
 
-<div style="padding: 1em; background-color: lightgray; text-align: center">
+<div style="padding: 1em; text-align: center; background-color: lightgray">
 <blockquote>
 <p>Dies ist ein Zitat.</p>
 
@@ -434,7 +434,7 @@ statt des Doppelpunktes gesetzt wird:
 wird zu:
 </p>
 
-<div style="padding: 1em; background-color: #00FFFF; text-align: right; color: red">
+<div style="padding: 1em; background-color: #00FFFF; color: red; text-align: right">
 <p>
 Dieser Text ist rot auf blauem Untergrund und
 rechtsbündig.
@@ -648,18 +648,18 @@ Dateinamen auf <span class="tt">_de_DE</span> enden.
 
 <p>
 Sie können eigene Vorlagen erstellen und in diesem
-Verzeichnis ablegen. LaFiC erwartet in (Xe)LaTeX-Vorlagen
+Verzeichnis ablegen. LaFiC erwartet in LaTeX-Vorlagen
 dabei zumindest <span class="tt">graphicx</span> für das Einbinden von Bildern,
 <span class="tt">hyperref</span> für die Nutzung von Links und <span class="tt">xcolor</span> mit den
 optionen <span class="tt">x11names, dvipsnames* und svgnames</span>:
 </p>
 
 <pre>
-<p>\usepackage{graphicx}
-\usepackage[x11names, dvipsnames*, svgnames]{xcolor}
-\usepackage[hyperindex=false, pdfpagelabels,
-            pageanchor, hyperfootnotes=false, bookmarksopen,
-	    pdfpagemode=UseOutlines]{hyperref}</p>
+<p>	\usepackage{graphicx}
+	\usepackage[x11names, dvipsnames*, svgnames]{xcolor}
+	\usepackage[hyperindex=false, pdfpagelabels,
+                    pageanchor, hyperfootnotes=false, bookmarksopen,
+	    	    pdfpagemode=UseOutlines]{hyperref}</p>
 </pre>
 
 

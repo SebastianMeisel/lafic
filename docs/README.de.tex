@@ -541,17 +541,17 @@ Html-Dokumenten. Für deutschsprachige Projekte sollten die
 Dateinamen auf \texttt{\_de\_DE} enden.\\}
 
 {Sie können eigene Vorlagen erstellen und in diesem
-Verzeichnis ablegen. LaFiC erwartet in (Xe)LaTeX-Vorlagen
+Verzeichnis ablegen. LaFiC erwartet in \LaTeX\ -Vorlagen
 dabei zumindest \texttt{graphicx} für das Einbinden von Bildern,
 \texttt{hyperref} für die Nutzung von Links und \texttt{xcolor} mit den
 optionen \texttt{x11names, dvipsnames* und svgnames}:\\}
 
 \begin{verbatim}
-\usepackage{graphicx}
-\usepackage[x11names, dvipsnames*, svgnames]{xcolor}
-\usepackage[hyperindex=false, pdfpagelabels,
-            pageanchor, hyperfootnotes=false, bookmarksopen,
-	    pdfpagemode=UseOutlines]{hyperref}
+	\usepackage{graphicx}
+	\usepackage[x11names, dvipsnames*, svgnames]{xcolor}
+	\usepackage[hyperindex=false, pdfpagelabels,
+                    pageanchor, hyperfootnotes=false, bookmarksopen,
+	    	    pdfpagemode=UseOutlines]{hyperref}
 \end{verbatim}
 
 
@@ -579,7 +579,52 @@ denselben Dateinamen tragen:\\}
 \end{verbatim}
 
 
-{Wenn diese Dateien existieren, werden sie bevorzugt verwendet.\\}
+{In den Vorlagen müssen Platzhalter für die Metadaten und den
+eigentlichen Dokumenttext enthalten sein.\\}
+
+{In \LaTeX\ -Vorlagen sind das \%TITLE\% und \%TEXT\%:\\}
+
+\begin{verbatim}
+	\documentclass{article}
+	 …
+	%TITLE%
+	\begin{document}
+	%TEXT%
+	\end{document}
+\end{verbatim}
+
+
+{In Html-Vorlagen heißen die Platzhalter <!-- TITLE~--> und
+<!-- TEXT~-->:\\}
+
+\begin{verbatim}
+	<html>
+       	<head>
+		<!-- TITLE -->
+       	</head>
+       	<body>
+		<!-- TEXT -->
+       	</body>
+	</html>
+\end{verbatim}
+
+
+\section{Für Fortgeschrittene: Eigene Schlüsselwörter}
+
+{Wenn sie eigene \LaTeX\ -Umgebungen und Makros, sowie die dazu
+passenden CSS-Klassen definieren, können Sie eigene
+Schlüsselwörter benutzen.\\}
+
+
+\section{Stylesheets}
+
+{Im Unterverzeichnis \texttt{/styles} befindet sich die Datei
+\texttt{standard.css}. Sie enthält das Stylesheet für die
+Standard-Html-Vorlagen von LaFiC. Sie können hier eigene
+Stylesheets ablegen und Ihren Vorlagen verlinken. Zur Zeit
+muss das Verzeichnis von Hand in das Arbeitsverzeichnis
+kopiert oder dort verlinkt werden.\\}
+
 
 \end{document}
 

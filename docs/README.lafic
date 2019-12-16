@@ -49,8 +49,8 @@ with a least graphicx, hyperref, microtype and xspace.
 
 The Gnu Emacs lisp files where tested with Gnu Emacs 25.2.2.
 
-lafic2pdf also requires latexmk (tested with version 4.41).
-% lafic2pdf: mono
+LaFiC2pdf also requires latexmk (tested with version 4.41).
+% LaFiC2pdf: mono
 
 Installation
 % label = installation 
@@ -59,16 +59,16 @@ Get source from github using:
 % github: link: https://github.com
 
 % verbatim
-git clone https://github.com/SebastianMeisel/lafic.git
+git clone https://github.com/SebastianMeisel/LaFiC.git
 
-Add lafic directory to $PATH, e.g.:
+Add LaFiC directory to $PATH, e.g.:
 
 % verbatim
-export PATH=${PATH}:~/lafic
+export PATH=${PATH}:~/LaFiC
 
-See lafic-mode.el for installation instructions, if you want
+See LaFiC-mode.el for installation instructions, if you want
 to use in in Gnu Emacs.
-% lafic…el: mono
+% LaFiC…el: mono
 % Gnu…Emacs: footnote: GNU Emacs is available as free Software under a GNU General Public License for most modern operating systems (Unix, GNU/Linux, macOS und Windows). 
 
 
@@ -78,13 +78,13 @@ For now the LaFiC distribution consists of three scripts
 that you call with the name of the LaFiC file.
 
 % verbatim
-# lafic2html Datei.lafic
-# lafic2tex Datei.lafic
-# lafic2pdf Datei.lafic
+# LaFiC2html Datei.LaFiC
+# LaFiC2tex Datei.LaFiC
+# LaFiC2pdf Datei.LaFiC
 
-The last of these is a bash script, first calling lafic2tex
+The last of these is a bash script, first calling LaFiC2tex
 and then latexmk.
-% lafic2tex: mono
+% LaFiC2tex: mono
 % latexmk: mono
 
 Calling these three script would result in the following
@@ -97,12 +97,12 @@ Datei.pdf
 
 LaFiC major mode in GNU Emacs
 
-After installing and activation lafic-mode.el (see
+After installing and activation LaFiC-mode.el (see
 Installation), the LaFiC major mode is activated on opening
-any file with a *.lafic extension. 
-% lafic…el: mono
+any file with a *.LaFiC extension. 
+% LaFiC…el: mono
 % Installation: see: installation 
-% *…lafic: mono
+% *…LaFiC: mono
 
 This gives you basic syntax highlighting and some keyboard
 shortcuts with a C-c prefix. The shortcuts are similar to
@@ -432,3 +432,100 @@ for color or background:
 % red: color: red
 % white: color: white
 % background = gray
+
+% heading2
+Customization
+
+It is possible to customize LaFiC in various ways.
+
+Templates
+
+LaFiC uses templates for LaTeX and HTML output. These
+templates are locates in the /templates subdirectory of the
+/lafic directory. The suffix of these files is .tmp.tex for
+LaTeX and .tmp.html for HTML output.
+% /templates: mono
+% /lafic: mono
+% .tmp.tex: mono
+% .tmp.html: mono
+
+You can create your own templates an place them there. LaFiC
+requires for LaTeX templates at least the graphicx package
+for images, hyperref for links and xcolor with x11names, dvipsnames*
+and svgnames option for color support:
+% graphicx: mono
+% hyperref: mono
+% xcolor: mono
+% x11…psnames: mono
+% svgnames: mono
+
+% Verbatim
+	\usepackage{graphicx}
+	\usepackage[x11names, dvipsnames*, svgnames]{xcolor}
+	\usepackage[hyperindex=false, pdfpagelabels,
+                    pageanchor, hyperfootnotes=false, bookmarksopen,
+	    	    pdfpagemode=UseOutlines]{hyperref}
+
+The templates are called by putting it's name without suffix
+in the very first line of a document with a leading % char:
+
+% verbatim
+       % template
+
+It is also possible to create a template for a specific
+document. Such templates must be placed in the same
+directory as the document and have the same basename:
+
+% Verbatim
+	$ ls -1
+  	.
+  	..
+  	Beispiel.lafic
+  	Beispiel.tmp.tex
+  	Beispiel.tmp.html
+
+The templates must contain placeholders for metadata like
+title and author and for the content of the document.
+
+For LaTeX that would be %TITLE% and %TEXT%:
+
+% Verbatim
+	\documentclass{article}
+	 …
+	%TITLE%
+	\begin{document}
+	%TEXT%
+	\end{document}
+
+For Html it's <!-- TITLE --> and <!-- TEXT -->:
+
+In Html-Vorlagen heißen die Platzhalter <!-- TITLE --> und
+<!-- TEXT -->:
+
+% Verbatim
+	<html>
+       	<head>
+		<!-- TITLE -->
+       	</head>
+       	<body>
+		<!-- TEXT -->
+       	</body>
+	</html>
+
+% heading3
+Advanced: Custom keywords
+
+By creating custom LaTeX environment and macros as well as
+the corresponding css classes, you can use your own
+keywords.
+
+Stylesheets
+
+In the /styles subdirectory there is a standard.css file,
+which contains the CSS stylesheet used by the standard HTML
+templates for LaFiC. You can place your own stylesheets here
+to refer to them from custom templates. For now you have to
+manually copy or link the /styles directory to your working directory.  
+% /styles: mono
+% standard…css: mono
+

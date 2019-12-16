@@ -73,7 +73,7 @@ with a least graphicx, hyperref, microtype and xspace.\\}
 
 {The Gnu Emacs lisp files where tested with Gnu Emacs 25.2.2.\\}
 
-{\texttt{lafic2pdf} also requires latexmk (tested with version 4.41).\\}
+{\texttt{LaFiC2pdf} also requires latexmk (tested with version 4.41).\\}
 
 \section{Installation}
 \label{installation}
@@ -81,18 +81,18 @@ with a least graphicx, hyperref, microtype and xspace.\\}
 {Get source from \href{https://github.com}{github} using:\\}
 
 \begin{verbatim}
-git clone https://github.com/SebastianMeisel/lafic.git
+git clone https://github.com/SebastianMeisel/LaFiC.git
 \end{verbatim}
 
 
-{Add lafic directory to \$PATH, e.g.:\\}
+{Add LaFiC directory to \$PATH, e.g.:\\}
 
 \begin{verbatim}
-export PATH=${PATH}:~/lafic
+export PATH=${PATH}:~/LaFiC
 \end{verbatim}
 
 
-{See \texttt{lafic-mode.el} for installation instructions, if you want
+{See \texttt{LaFiC-mode.el} for installation instructions, if you want
 to use in in Gnu Emacs\footnote{GNU Emacs is available as free Software under a GNU General Public License for most modern operating systems (Unix, GNU/Linux, macOS und Windows).}\xspace .\\}
 
 \section{Usage}
@@ -101,13 +101,13 @@ to use in in Gnu Emacs\footnote{GNU Emacs is available as free Software under a 
 that you call with the name of the LaFiC file.\\}
 
 \begin{verbatim}
-# lafic2html Datei.lafic
-# lafic2tex Datei.lafic
-# lafic2pdf Datei.lafic
+# LaFiC2html Datei.LaFiC
+# LaFiC2tex Datei.LaFiC
+# LaFiC2pdf Datei.LaFiC
 \end{verbatim}
 
 
-{The last of these is a bash script, first calling \texttt{lafic2tex}
+{The last of these is a bash script, first calling \texttt{LaFiC2tex}
 and then \texttt{latexmk}.\\}
 
 {Calling these three script would result in the following
@@ -122,9 +122,9 @@ Datei.pdf
 
 \section{LaFiC major mode in GNU Emacs}
 
-{After installing and activation \texttt{lafic-mode.el} (see
+{After installing and activation \texttt{LaFiC-mode.el} (see
 \nameref{installation}\xspace ), the LaFiC major mode is activated on opening
-any file with a \texttt{*.lafic} extension.\\}
+any file with a \texttt{*.LaFiC} extension.\\}
 
 {This gives you basic syntax highlighting and some keyboard
 shortcuts with a \texttt{C-c} prefix. The shortcuts are similar to
@@ -485,8 +485,104 @@ for color or background:\\}
 \item \textcolor{PaleTurquoise1}{blue}
 \item \textcolor{red}{red}
 \item \textcolor{white}{white}
-\end{itemize}}
+\end{itemize}
+
 }
+}
+
+\part{Customization}
+
+{It is possible to customize LaFiC in various ways.\\}
+
+\section{Templates}
+
+{LaFiC uses templates for \LaTeX\  and HTML output. These
+templates are locates in the \texttt{/templates} subdirectory of the
+\texttt{/lafic} directory. The suffix of these files is .tmp.tex for
+\LaTeX\  and .tmp.html for HTML output.\\}
+
+{You can create your own templates an place them there. LaFiC
+requires for \LaTeX\  templates at least the \texttt{graphicx} package
+for images, \texttt{hyperref} for links and \texttt{xcolor} with \texttt{x11names, dvipsnames}*
+and \texttt{svgnames} option for color support:\\}
+
+\begin{verbatim}
+	\usepackage{graphicx}
+	\usepackage[x11names, dvipsnames*, svgnames]{xcolor}
+	\usepackage[hyperindex=false, pdfpagelabels,
+                    pageanchor, hyperfootnotes=false, bookmarksopen,
+	    	    pdfpagemode=UseOutlines]{hyperref}
+\end{verbatim}
+
+
+{The templates are called by putting it's name without suffix
+in the very first line of a document with a leading \% char:\\}
+
+\begin{verbatim}
+       % template
+\end{verbatim}
+
+
+{It is also possible to create a template for a specific
+document. Such templates must be placed in the same
+directory as the document and have the same basename:\\}
+
+\begin{verbatim}
+	$ ls -1
+  	.
+  	..
+  	Beispiel.lafic
+  	Beispiel.tmp.tex
+  	Beispiel.tmp.html
+\end{verbatim}
+
+
+{The templates must contain placeholders for metadata like
+title and author and for the content of the document.\\}
+
+{For \LaTeX\  that would be \%TITLE\% and \%TEXT\%:\\}
+
+\begin{verbatim}
+	\documentclass{article}
+	 …
+	%TITLE%
+	\begin{document}
+	%TEXT%
+	\end{document}
+\end{verbatim}
+
+
+{For Html it's <!-- TITLE~--> and <!-- TEXT~-->:\\}
+
+{In Html-Vorlagen heißen die Platzhalter <!-- TITLE~--> und
+<!-- TEXT~-->:\\}
+
+\begin{verbatim}
+	<html>
+       	<head>
+		<!-- TITLE -->
+       	</head>
+       	<body>
+		<!-- TEXT -->
+       	</body>
+	</html>
+\end{verbatim}
+
+
+\section{Advanced: Custom keywords}
+
+{By creating custom \LaTeX\  environment and macros as well as
+the corresponding css classes, you can use your own
+keywords.\\}
+
+\section{Stylesheets}
+
+{In the \texttt{/styles} subdirectory there is a \texttt{standard.css} file,
+which contains the CSS stylesheet used by the standard HTML
+templates for LaFiC. You can place your own stylesheets here
+to refer to them from custom templates. For now you have to
+manually copy or link the \texttt{/styles} directory to your working directory.\\}
+
 
 \end{document}
 

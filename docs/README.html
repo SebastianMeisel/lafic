@@ -80,7 +80,7 @@ The Gnu Emacs lisp files where tested with Gnu Emacs 25.2.2.
 </p>
 
 <p>
-<span class="tt">lafic2pdf</span> also requires latexmk (tested with version 4.41).
+<span class="tt">LaFiC2pdf</span> also requires latexmk (tested with version 4.41).
 </p>
 
 <H3 id="installation">Installation</H3>
@@ -90,21 +90,21 @@ Get source from <a href="https://github.com">github</a> using:
 </p>
 
 <pre>
-<p>git clone https://github.com/SebastianMeisel/lafic.git</p>
+<p>git clone https://github.com/SebastianMeisel/LaFiC.git</p>
 </pre>
 
 
 <p>
-Add lafic directory to $PATH, e.g.:
+Add LaFiC directory to $PATH, e.g.:
 </p>
 
 <pre>
-<p>export PATH=${PATH}:~/lafic</p>
+<p>export PATH=${PATH}:~/LaFiC</p>
 </pre>
 
 
 <p>
-See <span class="tt">lafic-mode.el</span> for installation instructions, if you want
+See <span class="tt">LaFiC-mode.el</span> for installation instructions, if you want
 to use in in <a class="fn" href="#fn2" id="fna2">Gnu Emacs</a>.
 </p>
 
@@ -116,14 +116,14 @@ that you call with the name of the LaFiC file.
 </p>
 
 <pre>
-<p># lafic2html Datei.lafic
-# lafic2tex Datei.lafic
-# lafic2pdf Datei.lafic</p>
+<p># LaFiC2html Datei.LaFiC
+# LaFiC2tex Datei.LaFiC
+# LaFiC2pdf Datei.LaFiC</p>
 </pre>
 
 
 <p>
-The last of these is a bash script, first calling <span class="tt">lafic2tex</span>
+The last of these is a bash script, first calling <span class="tt">LaFiC2tex</span>
 and then <span class="tt">latexmk</span>.
 </p>
 
@@ -142,9 +142,9 @@ Datei.pdf</p>
 <H3>LaFiC major mode in GNU Emacs</H3>
 
 <p>
-After installing and activation <span class="tt">lafic-mode.el</span> (see
+After installing and activation <span class="tt">LaFiC-mode.el</span> (see
 <a href="#installation">Installation</a>), the LaFiC major mode is activated on opening
-any file with a <span class="tt">*.lafic</span> extension.
+any file with a <span class="tt">*.LaFiC</span> extension.
 </p>
 
 <p>
@@ -392,7 +392,7 @@ the value:
 becomes:
 </p>
 
-<div style="padding: 1em; color: red; text-align: right; background-color: #00FFFF">
+<div style="padding: 1em; color: red; background-color: #00FFFF; text-align: right">
 <p>
 This paragraph has a red on blue text and is aligned to the
 right.
@@ -480,10 +480,10 @@ beginning of a single line.
 <p>
   * Top 1.
   * Top 2.
-  >
+  &gt;
     * Top 2a.
     * Top 2b.
-  <
+  &lt;
   * Top 3</p>
 </pre>
 
@@ -543,7 +543,7 @@ line.
 <p>  %image
   Image.png
   % width = 40%
-  % caption = "Moon and Mars"</p>
+  % caption = “Moon and Mars”</p>
 </pre>
 
 
@@ -580,7 +580,126 @@ for color or background:
 <li> <span style="color: #00FFFF">blue</span></li>
 <li> <span style="color: red">red</span></li>
 <li> <span style="color: white">white</span>
+</li>
+</ul>
+
 </div>
+
+<H2>Customization</H2>
+
+<p>
+It is possible to customize LaFiC in various ways.
+</p>
+
+<H3>Templates</H3>
+
+<p>
+LaFiC uses templates for LaTeX and HTML output. These
+templates are locates in the <span class="tt">/templates</span> subdirectory of the
+<span class="tt">/lafic</span> directory. The suffix of these files is .tmp.tex for
+LaTeX and .tmp.html for HTML output.
+</p>
+
+<p>
+You can create your own templates an place them there. LaFiC
+requires for LaTeX templates at least the <span class="tt">graphicx</span> package
+for images, <span class="tt">hyperref</span> for links and <span class="tt">xcolor</span> with <span class="tt">x11names, dvipsnames</span>*
+and <span class="tt">svgnames</span> option for color support:
+</p>
+
+<pre>
+<p>	\usepackage{graphicx}
+	\usepackage[x11names, dvipsnames*, svgnames]{xcolor}
+	\usepackage[hyperindex=false, pdfpagelabels,
+                    pageanchor, hyperfootnotes=false, bookmarksopen,
+	    	    pdfpagemode=UseOutlines]{hyperref}</p>
+</pre>
+
+
+<p>
+The templates are called by putting it's name without suffix
+in the very first line of a document with a leading % char:
+</p>
+
+<pre>
+<p>       % template</p>
+</pre>
+
+
+<p>
+It is also possible to create a template for a specific
+document. Such templates must be placed in the same
+directory as the document and have the same basename:
+</p>
+
+<pre>
+<p>	$ ls -1
+  	.
+  	..
+  	Beispiel.lafic
+  	Beispiel.tmp.tex
+  	Beispiel.tmp.html</p>
+</pre>
+
+
+<p>
+The templates must contain placeholders for metadata like
+title and author and for the content of the document.
+</p>
+
+<p>
+For LaTeX that would be %TITLE% and %TEXT%:
+</p>
+
+<pre>
+<p>	\documentclass{article}
+	&nbsp;…
+	%TITLE%
+	\begin{document}
+	%TEXT%
+	\end{document}</p>
+</pre>
+
+
+<p>
+For Html it's &lt;!-- TITLE --&gt; and &lt;!-- TEXT --&gt;:
+</p>
+
+<p>
+In Html-Vorlagen heißen die Platzhalter &lt;!-- TITLE --&gt; und
+&lt;!-- TEXT --&gt;:
+</p>
+
+<pre>
+<p>	&lt;html&gt;
+       	&lt;head&gt;
+		&lt;!-- TITLE --&gt;
+       	&lt;/head&gt;
+       	&lt;body&gt;
+		&lt;!-- TEXT --&gt;
+       	&lt;/body&gt;
+	&lt;/html&gt;</p>
+</pre>
+
+
+<H3>Advanced: Custom keywords</H3>
+
+<p>
+By creating custom LaTeX environment and macros as well as
+the corresponding css classes, you can use your own
+keywords.
+</p>
+
+<H3>Stylesheets</H3>
+
+<p>
+In the <span class="tt">/styles</span> subdirectory there is a <span class="tt">standard.css</span> file,
+which contains the CSS stylesheet used by the standard HTML
+templates for LaFiC. You can place your own stylesheets here
+to refer to them from custom templates. For now you have to
+manually copy or link the <span class="tt">/styles</span> directory to your working directory.
+</p>
+
 
 <div id="footnotes">
 <ol>
