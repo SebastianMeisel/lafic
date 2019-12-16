@@ -475,3 +475,59 @@ Parameter Farbe und Hintergrund unterstützt:
 % rot: 	Farbe: rot
 % weiß: Farbe: weiß
 % Hintergrund = grau
+
+% Überschrift2
+Anpassung
+
+LaFiC lässt sich auf verschiedene Weise anpassen.
+
+Vorlagen
+
+LaFiC nutzt Vorlagen. Diese liegen im Unterverzeichnis
+/templates des LaFiC-Verzeichnisses und tragen die
+Dateiendung .tmp.tex für LaTeX-, bzw. .tmp.html für
+Html-Dokumenten. Für deutschsprachige Projekte sollten die
+Dateinamen auf _de_DE enden.
+% /templates: nicht proportional
+% .tmp.tex: nicht proportional
+% .tmp.html: nicht proportional
+% _de_DE: nicht proportional
+
+Sie können eigene Vorlagen erstellen und in diesem
+Verzeichnis ablegen. LaFiC erwartet in (Xe)LaTeX-Vorlagen
+dabei zumindest graphicx für das Einbinden von Bildern,
+hyperref für die Nutzung von Links und xcolor mit den
+optionen x11names, dvipsnames* und svgnames:
+% graphicx: nicht proportional
+% hyperref: nicht proportional
+% xcolor: nicht proportional
+% x11names…svgnames: nicht proportional
+
+% Verbatim
+\usepackage{graphicx}
+\usepackage[x11names, dvipsnames*, svgnames]{xcolor}
+\usepackage[hyperindex=false, pdfpagelabels,
+            pageanchor, hyperfootnotes=false, bookmarksopen,
+	    pdfpagemode=UseOutlines]{hyperref}
+
+Die Vorlage wird aufgerufen, indem der Dateiname ohne
+Dateiendung nach einem Prozentzeichen in die erste Zeile
+eines Dokumentes eingefügt wird:
+
+% Verbatim
+	% Vorlage_de_DE
+
+Außerdem ist es möglich Vorlagen für eine konkretes
+Dokument zu erstellen, oder anzupassen. Solche Vorlagen
+müssen im selben Verzeichnis wie das Dokument liegen und
+denselben Dateinamen tragen:
+
+% Verbatim
+	$ ls -1
+  	.
+  	..
+  	Beispiel.lafic
+  	Beispiel.tmp.tex
+  	Beispiel.tmp.html
+
+Wenn diese Dateien existieren, werden sie bevorzugt verwendet.

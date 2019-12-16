@@ -434,7 +434,7 @@ statt des Doppelpunktes gesetzt wird:
 wird zu:
 </p>
 
-<div style="padding: 1em; background-color: #00FFFF; color: red; text-align: right">
+<div style="padding: 1em; background-color: #00FFFF; text-align: right; color: red">
 <p>
 Dieser Text ist rot auf blauem Untergrund und
 rechtsbündig.
@@ -612,29 +612,88 @@ Damit stehen dann zwei weitere Parameter zur Verfügung:
 
 <H3>Farben</H3>
 
-<div style="padding: 1em; text-align: right; color: white; background-color: red">
 <p>
-Die Hintergrundfarbe eines Absatzes kann über den Parameter
-<span style="color: lawngreen">Hintergrund</span> gesetzt werden; die Textfarbe über <span style="color: lawngreen">Farbe</span>. Um in
-einem Absatz einzelne Wörter oder einen Bereich farbig zu
-gestalten, können analog die Schlüsselwörter <span style="color: lawngreen">Farbe</span> und
-<span style="color: lawngreen">Hintergrund</span> verwendet werden.
+Folgende Farben werden zur Zeit als Argument für die
+Parameter Farbe und Hintergrund unterstützt:
 </p>
+
+<div style="padding: 1em; background-color: lightgray">
+<ul>
+<li> grau</li>
+<li> <span style="color: lawngreen">grün</span></li>
+<li> <span style="color: #FFF8C6">gelb</span></li>
+<li> <span style="color: #00FFFF">blau</span></li>
+<li> <span style="color: red">rot</span></li>
+<li> <span style="color: white">weiß</span>
+</li>
+</ul>
+
 </div>
 
+<h2>Anpassung</h2>
+
+<p>
+LaFiC lässt sich auf verschiedene Weise anpassen.
+</p>
+
+<H3>Vorlagen</H3>
+
+<p>
+LaFiC nutzt Vorlagen. Diese liegen im Unterverzeichnis
+<span class="tt">/templates</span> des LaFiC-Verzeichnisses und tragen die
+Dateiendung .tmp.tex für LaTeX-, bzw. .tmp.html für
+Html-Dokumenten. Für deutschsprachige Projekte sollten die
+Dateinamen auf <span class="tt">_de_DE</span> enden.
+</p>
+
+<p>
+Sie können eigene Vorlagen erstellen und in diesem
+Verzeichnis ablegen. LaFiC erwartet in (Xe)LaTeX-Vorlagen
+dabei zumindest <span class="tt">graphicx</span> für das Einbinden von Bildern,
+<span class="tt">hyperref</span> für die Nutzung von Links und <span class="tt">xcolor</span> mit den
+optionen <span class="tt">x11names, dvipsnames* und svgnames</span>:
+</p>
+
 <pre>
-<p>  Die Hintergrundfarbe eines Absatzes kann über den Parameter
-  Hintergrund gesetzt werden; die Textfarbe über Farbe. Um in
-  einem Absatz einzelne Wörter oder einen Bereich farbig zu
-  gestalten, können analog die Schlüsselwörter Farbe und
-  Hintergrund verwendet werden.
-  % Hintergrund = rot
-  % Ausrichtung = right
-  % Farbe = weiß
-  % Hintergrund( ): Farbe: grün
-  % Farbe: Farbe: grün</p>
+<p>\usepackage{graphicx}
+\usepackage[x11names, dvipsnames*, svgnames]{xcolor}
+\usepackage[hyperindex=false, pdfpagelabels,
+            pageanchor, hyperfootnotes=false, bookmarksopen,
+	    pdfpagemode=UseOutlines]{hyperref}</p>
 </pre>
 
+
+<p>
+Die Vorlage wird aufgerufen, indem der Dateiname ohne
+Dateiendung nach einem Prozentzeichen in die erste Zeile
+eines Dokumentes eingefügt wird:
+</p>
+
+<pre>
+<p>	% Vorlage_de_DE</p>
+</pre>
+
+
+<p>
+Außerdem ist es möglich Vorlagen für eine konkretes
+Dokument zu erstellen, oder anzupassen. Solche Vorlagen
+müssen im selben Verzeichnis wie das Dokument liegen und
+denselben Dateinamen tragen:
+</p>
+
+<pre>
+<p>	$ ls -1
+  	.
+  	..
+  	Beispiel.lafic
+  	Beispiel.tmp.tex
+  	Beispiel.tmp.html</p>
+</pre>
+
+
+<p>
+Wenn diese Dateien existieren, werden sie bevorzugt verwendet.
+</p>
 
 <div id="footnotes">
 <ol>
