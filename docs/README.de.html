@@ -129,7 +129,7 @@ verlinken) die Dateien <span class="tt">lafic-mode.el</span> und
 
 <pre>
 <p>(setq lafic-use-german t)
-(require 'lafic-mode)</p>
+(require ‚lafic-mode)</p>
 </pre>
 
 
@@ -277,7 +277,7 @@ zusammengefasst.
 Wird zu:
 </p>
 
-<div style="padding: 1em; text-align: center; background-color: lightgray">
+<div style="padding: 1em; background-color: lightgray; text-align: center">
 <blockquote>
 <p>Dies ist ein Zitat.</p>
 
@@ -522,10 +522,10 @@ bzw. <span class="tt">Kleiner-als-Zeichen</span> in einer ansonsten leeren Zeile
 <p>
   * Top 1.
   * Top 2.
-  >
+  &gt;
     * Top 2a.
     * Top 2b.
-  <
+  &lt;
   * Top 3</p>
 </pre>
 
@@ -692,8 +692,66 @@ denselben Dateinamen tragen:
 
 
 <p>
-Wenn diese Dateien existieren, werden sie bevorzugt verwendet.
+Wenn diese Dateien existieren, werden sie bevorzugt
+verwendet.
 </p>
+
+<p>
+In den Vorlagen müssen Platzhalter für die Metadaten und den
+eigentlichen Dokumenttext enthalten sein.
+</p>
+
+<p>
+In LaTeX-Vorlagen sind das %TITLE% und %TEXT%:
+</p>
+
+<pre>
+<p>	\documentclass{article}
+	&nbsp;…
+	%TITLE%
+	\begin{document}
+	%TEXT%
+	\end{document}</p>
+</pre>
+
+
+<p>
+In Html-Vorlagen heißen die Platzhalter &lt;!-- TITLE --&gt; und
+&lt;!-- TEXT --&gt;:
+</p>
+
+<pre>
+<p>	&lt;html&gt;
+       	&lt;head&gt;
+		&lt;!-- TITLE --&gt;
+       	&lt;/head&gt;
+       	&lt;body&gt;
+		&lt;!-- TEXT --&gt;
+       	&lt;/body&gt;
+	&lt;/html&gt;</p>
+</pre>
+
+
+<h3>Für Fortgeschrittene: Eigene Schlüsselwörter</h3>
+
+<p>
+Wenn sie eigene LaTeX-Umgebungen und Makros, sowie die dazu
+passenden CSS-Klassen definieren, können Sie eigene
+Schlüsselwörter benutzen.
+</p>
+
+
+<H3>Stylesheets</H3>
+
+<p>
+Im Unterverzeichnis <span class="tt">/styles</span> befindet sich die Datei
+<span class="tt">standard.css</span>. Sie enthält das Stylesheet für die
+Standard-Html-Vorlagen von LaFiC. Sie können hier eigene
+Stylesheets ablegen und Ihren Vorlagen verlinken. Zur Zeit
+muss das Verzeichnis von Hand in das Arbeitsverzeichnis
+kopiert oder dort verlinkt werden.
+</p>
+
 
 <div id="footnotes">
 <ol>

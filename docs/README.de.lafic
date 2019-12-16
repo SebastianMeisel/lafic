@@ -533,6 +533,43 @@ denselben Dateinamen tragen:
 Wenn diese Dateien existieren, werden sie bevorzugt
 verwendet.
 
+In den Vorlagen müssen Platzhalter für die Metadaten und den
+eigentlichen Dokumenttext enthalten sein.
+
+In LaTeX-Vorlagen sind das %TITLE% und %TEXT%:
+
+% Verbatim
+	\documentclass{article}
+	 …
+	%TITLE%
+	\begin{document}
+	%TEXT%
+	\end{document}
+
+In Html-Vorlagen heißen die Platzhalter <!-- TITLE --> und
+<!-- TEXT -->:
+
+% Verbatim
+	<html>
+       	<head>
+		<!-- TITLE -->
+       	</head>
+       	<body>
+		<!-- TEXT -->
+       	</body>
+	</html>
+
+
+% Überschrift3
+Für Fortgeschrittene: Eigene Schlüsselwörter
+
+Wenn sie eigene LaTeX-Umgebungen und Makros, sowie die dazu
+passenden CSS-Klassen definieren, können Sie eigene
+Schlüsselwörter benutzen.
+
+%% Im Unterordner examples können Sie sich inspirieren lassen.
+% examples: nicht proportional
+
 Stylesheets
 
 Im Unterverzeichnis /styles befindet sich die Datei
