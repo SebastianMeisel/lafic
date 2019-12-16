@@ -364,7 +364,7 @@ sub LaTeX {
 	
     # special chars
     $par =~ s/(?<!\\)\\(?!\\)/\\textbackslash /g;
-    $par =~ s/([%{}#\$])/\\$1/g;
+    $par =~ s/([_%{}#\$])/\\$1/g;
     $par =~ s/\[/\{\[/g;
     $par =~ s/\]/\]\}/g;
     $par =~ s/~/\\textasciitilde /g;
