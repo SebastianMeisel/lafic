@@ -463,7 +463,7 @@ sub outputLines {
 	    if ($prev_env =~ /^[ou]l$/){
 		print OUTPUT "</li>\n";}
 	    print OUTPUT "</$prev_env>\n\n";
-	    # close open nested lists
+ 	    # close open nested lists
 	    for (my $i=1; $i <= $list_level; $i++){
 		print OUTPUT "</$prev_env>\n";
 	    }
@@ -1193,13 +1193,21 @@ sub parseFile {
     $parstyle = 0;
     $formbl = 0;
     undef %parameter;
+    
+    # close open nested divs
+    for (my $i=1; $i <= $div_level; $i++){
+	print OUTPUT "</div>\n";
+    }
+    # reset div level counter
+    $div_level=0;
 
+    
     # set newpar to 1 (true)
     $newpar = 1;
 
     # print footnotes
     if (@footnotes) {
-	print OUTPUT "<div id=\"footnotes\">\n";
+	print OUTPUT "\n<div id=\"footnotes\">\n";
 	print OUTPUT "<ol>\n";
 	my $fn_counter = 0;
 	
@@ -1215,6 +1223,8 @@ sub parseFile {
 	print OUTPUT "</ol>\n";
 	print OUTPUT "</div>\n";
     }
+    
+
 }
 
 close (INPUT);
