@@ -530,4 +530,18 @@ denselben Dateinamen tragen:
   	Beispiel.tmp.tex
   	Beispiel.tmp.html
 
-Wenn diese Dateien existieren, werden sie bevorzugt verwendet.
+Wenn diese Dateien existieren, werden sie bevorzugt
+verwendet.
+
+Stylesheets
+
+Im Unterverzeichnis /styles befindet sich die Datei
+standard.css. Sie enthält das Stylesheet für die
+Standard-Html-Vorlagen von LaFiC. Sie können hier eigene
+Stylesheets ablegen und Ihren Vorlagen verlinken. Zur Zeit
+muss das Verzeichnis von Hand in das Arbeitsverzeichnis
+kopiert oder dort verlinkt werden.
+% /styles: nicht proportional
+% standard…css: nicht proportional
+
+
