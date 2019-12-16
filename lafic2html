@@ -949,10 +949,11 @@ sub parseFile {
 		#######
 		if ($formbl == 0) {
 		    # first make proper Html  code
-		    unless ($environment && 
+		    if ($environment && 
 			    $environment =~ /^pre$/){
-			$par = Html ($par);
+			$par = Html ($par, '<>&"');
 		    }
+		    else { $par = Html ($par);}
 		    # mark as formatbl
 		    $formbl = 1;
 		}
@@ -1141,10 +1142,11 @@ sub parseFile {
 	    # If not done jet
 	    if ($formbl == 0){
 		# make proper Html  code
-		unless ($environment && 
+		if ($environment && 
 			$environment =~ /^pre$/){
-		$par = Html ($par);
+		$par = Html ($par, '<>&"');
 		}
+		else {$par = Html ($par);}
 	    }
 
 
@@ -1175,8 +1177,11 @@ sub parseFile {
     # If not done jet
     if ($formbl == 0){
 	# make proper Html  code
-	unless ($environment && 
+	if ($environment && 
 		$environment =~ /^pre$/){
+	    $par = Html ($par, '<>&"');
+	}
+	else {
 	    $par = Html ($par);
 	}
     }
