@@ -353,7 +353,7 @@ statt des Doppelpunktes gesetzt wird:\\}
   rechtsbündig.
   % Hintergrundfarbe = blau
   % Farbe = weiß
-  % Ausrichtung = rechts
+  % Ausrichtung = right
 \end{verbatim}
 
 
@@ -367,54 +367,163 @@ rechtsbündig.}\\}
 }
 }
 
-\section{Images}
+{Folgende Parameter werden derzeit unterstützt:\\}
 
-{The simplest way to put an image into a lafic file is a
-line with the image name, with a know extention: png, jpg,
-jpeg, gif.\\}
+\begin{itemize}
+\item „Name“, „Bezeichnung“ oder  „Label“ für \textbackslash label / <?? id=„{[id]}“> that is
+  referred to by the „see“ keyword.
+\item „Hintergrund“ für \textbackslash colorbox / <div style=‚background: {[color]}‘>.
+\item „Farbe“ für \textbackslash textcolor / <div style=‚color: {[color]}‘>.
+\item „Ausrichtung“\footnote{Die eigenlich Ausrichtung muss derzeit noch auf Englisch angegeben werden.}\xspace  für \textbackslash raggedleft, \textbackslash centering or \textbackslash raggedright / <div
+  style=‚text-align: {[align]}‘>.
+\end{itemize}
 
-{\centering\includegraphics[width=.50\linewidth]{Image.png}}
 
-{Note that this will not put an figure environment in \LaTeX\ 
-files, so the image won't float this way. For this to
-achieve to have to put \%image, \%img or \%figure before the
-line. You don't need the extention then.\\}
+\section{Listen}
+
+{List sind das Einzige, das eine Art Auszeichnung benötigt:
+Sie müssen jeden Punkt in der List mit einem der folgenden
+Zeichen beginnen: \texttt{–, *, +, -}. Dabei spielt es keine Rolle,
+welches Sie wählen. Sie können Zeilen einrücken, aber das
+beeinflusst das Layout nicht.\\}
+
+\begin{verbatim}
+
+* Top 1.
+- Top 2.
+\end{verbatim}
+
+
+\begin{itemize}
+\item Top 1.
+\item Top 2.
+\end{itemize}
+
+
+{Für Listen mit mehreren Ebenen haben Sie zwei Möglichkeiten,
+die Ebene zu wechseln: Die reine LaFiC-Stil wäre, einen
+neuen Abschnitt einzufügen und dahinter eines der
+Schlüsselworte \texttt{»\% Level+«} oder \texttt{»\% Level-«} anzuhängen.\\}
+
+\begin{verbatim}
+
+  * Top 1.
+  * Top 2.
+
+
+  * Top 2a.
+  * Top 2b.
+  % level+
+\end{verbatim}
+
+
+\begin{itemize}
+\item Top 1.
+\item Top 2.
+
+\begin{itemize}
+\item Top 2a.
+\item Top 2b.
+\end{itemize}
+
+\end{itemize}
+
+
+{Die andere Möglichkeit ist die Liste in \emph{einem} Abschnitt zu
+setzen und die Ebenenwechsel mit einem \texttt{Größer-}
+bzw. \texttt{Kleiner-als-Zeichen} in einer ansonsten leeren Zeile anzuzeigen:\\}
+
+\begin{verbatim}
+
+  * Top 1.
+  * Top 2.
+  >
+    * Top 2a.
+    * Top 2b.
+  <
+  * Top 3
+\end{verbatim}
+
+
+\begin{itemize}
+\item Top 1.
+\item Top 2.
+\begin{itemize}
+\item Top 2a.
+\item Top 2b.
+\end{itemize}
+\item Top 3
+\end{itemize}
+
+
+\section{Bilder}
+
+{Die einfachste Möglichkeit ein Bild in eine LaFiC-Datei
+einzubinden ist es, eine Zeile mit dem Namen des Bildes mit
+einer der Dateiendungen png, jpg, jpeg oder gif einfügt:\\}
+
+\begin{verbatim}
+  Image.png
+  % Breite = 50%
+  % Ausrichtung = center
+\end{verbatim}
+
+
+{\centering\includegraphics[width=.50\linewidth]{Image.png}\\}
+
+{Zur Formatierung stehen folgende Parameter zur Verfügung:\\}
+
+\begin{itemize}
+\item Höhe
+\item Breite
+\item Ausrichtung
+\end{itemize}
+
+
+{Auf diese Art wird das Bild aber nicht als Flußelement
+eingefügt. Dafür muss das Bild mit  \%Bild formatiert
+werden.\\}
+
+\begin{verbatim}
+  % Bild
+  Image.png
+  % Höhe = 40%
+  % Beschriftung = Mars and Moon
+  % Name = bild1
+  % Ausrichtung = right
+\end{verbatim}
+
 
 \begin{figure}[hbt]
 \raggedleft%%
 \includegraphics[height=.40\textheight]{Image.png}
-\caption{Mars and Moon}
+\caption{Mars und Mond}
 \label{bild1}
 \end{figure}
 
 
+{Damit stehen dann zwei weitere Parameter zur Verfügung:\\}
+
+\begin{itemize}
+\item Name
+\item Beschriftung
+\end{itemize}
+
+
 \section{Farben}
 
-\colorbox{red}{\parbox{\linewidth}{%%
-{\raggedleft%%
-\textcolor{white}{%%
-Die Hintergrundfarbe eines Absatzes kann über den Parameter
-\textcolor{green}{Hintergrund} gesetzt werden; die Textfarbe über \textcolor{green}{Farbe}. Um in
-einem Absatz einzelne Wörter oder einen Bereich farbig zu
-gestalten, können analog die Schlüsselwörter \textcolor{green}{Farbe} und
-\textcolor{green}{Hintergrund} verwendet werden.}\\}
-}
-}
+{Folgende Farben werden zur Zeit als Argument für die
+Parameter Farbe und Hintergrund unterstützt:\\}
 
-\begin{verbatim}
-  Die Hintergrundfarbe eines Absatzes kann über den Parameter
-  Hintergrund gesetzt werden; die Textfarbe über Farbe. Um in
-  einem Absatz einzelne Wörter oder einen Bereich farbig zu
-  gestalten, können analog die Schlüsselwörter Farbe und
-  Hintergrund verwendet werden.
-  % Hintergrund = rot
-  % Ausrichtung = right
-  % Farbe = weiß
-  % Hintergrund( ): Farbe: grün
-  % Farbe: Farbe: grün
-\end{verbatim}
-
-
+\colorbox{gray!75}{\parbox{\linewidth}{%%
+\begin{itemize}
+\item grau
+\item \textcolor{green}{grün}
+\item \textcolor{LightYellow1}{gelb}
+\item \textcolor{PaleTurquoise1}{blau}
+\item \textcolor{red}{rot}
+\item \textcolor{white}{weiß}
+\end{itemize}}}
 
 \end{document}
 

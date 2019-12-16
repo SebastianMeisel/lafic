@@ -410,53 +410,68 @@ bzw. Kleiner-als-Zeichen in einer ansonsten leeren Zeile anzuzeigen:
 * Top 3
 
 
-Images
+Bilder
 
-The simplest way to put an image into a lafic file is a
-line with the image name, with a know extention: png, jpg,
-jpeg, gif.
+Die einfachste Möglichkeit ein Bild in eine LaFiC-Datei
+einzubinden ist es, eine Zeile mit dem Namen des Bildes mit
+einer der Dateiendungen png, jpg, jpeg oder gif einfügt:
 
+
+% verbatim
+  Image.png
+  % Breite = 50%
+  % Ausrichtung = center
 
 Image.png
-% width = 50%
-% align = center
+% Breite = 50%
+% Ausrichtung = center
 
-Note that this will not put an figure environment in LaTeX
-files, so the image won't float this way. For this to
-achieve to have to put %image, %img or %figure before the
-line. You don't need the extention then.
+Zur Formatierung stehen folgende Parameter zur Verfügung:
+
+* Höhe
+* Breite
+* Ausrichtung
+
+Auf diese Art wird das Bild aber nicht als Flußelement
+eingefügt. Dafür muss das Bild mit  %Bild formatiert
+werden.
+
+% verbatim
+  % Bild
+  Image.png
+  % Höhe = 40%
+  % Beschriftung = Mars and Moon
+  % Name = bild1
+  % Ausrichtung = right
 
 % Bild
 Image.png
-% height = 40%
-% caption = Mars and Moon
-% name = bild1
+% Höhe = 40%
+% Beschriftung = Mars und Mond
+% Name = bild1
 % Ausrichtung = right
+
+
+Damit stehen dann zwei weitere Parameter zur Verfügung:
+
+* Name
+* Beschriftung 
 
 
 Farben
 
-Die Hintergrundfarbe eines Absatzes kann über den Parameter
-Hintergrund gesetzt werden; die Textfarbe über Farbe. Um in
-einem Absatz einzelne Wörter oder einen Bereich farbig zu
-gestalten, können analog die Schlüsselwörter Farbe und
-Hintergrund verwendet werden.
-% Hintergrund = rot
-% Ausrichtung = right
-% Farbe = weiß
-% Hintergrund( ): Farbe: grün
-% Farbe: Farbe: grün
+Folgende Farben werden zur Zeit als Argument für die
+Parameter Farbe und Hintergrund unterstützt:
 
-
-% verbatim
-  Die Hintergrundfarbe eines Absatzes kann über den Parameter
-  Hintergrund gesetzt werden; die Textfarbe über Farbe. Um in
-  einem Absatz einzelne Wörter oder einen Bereich farbig zu
-  gestalten, können analog die Schlüsselwörter Farbe und
-  Hintergrund verwendet werden.
-  % Hintergrund = rot
-  % Ausrichtung = right
-  % Farbe = weiß
-  % Hintergrund( ): Farbe: grün
-  % Farbe: Farbe: grün
-
+* grau
+* grün
+* gelb
+* blau
+* rot
+* weiß
+% grün: Farbe: grün
+% gelb: Farbe: gelb
+% blau: Farbe: blau
+% rot: 	Farbe: rot
+% weiß: Farbe: weiß
+% Hintergrund = grau

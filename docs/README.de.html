@@ -277,7 +277,7 @@ zusammengefasst.
 Wird zu:
 </p>
 
-<div style="padding: 1em; background-color: lightgray; text-align: center">
+<div style="padding: 1em; text-align: center; background-color: lightgray">
 <blockquote>
 <p>Dies ist ein Zitat.</p>
 
@@ -544,33 +544,71 @@ bzw. <span class="tt">Kleiner-als-Zeichen</span> in einer ansonsten leeren Zeile
 </ul>
 
 
-<H3>Images</H3>
+<H3>Bilder</H3>
 
 <p>
-The simplest way to put an image into a lafic file is a
-line with the image name, with a know extention: png, jpg,
-jpeg, gif.
+Die einfachste Möglichkeit ein Bild in eine LaFiC-Datei
+einzubinden ist es, eine Zeile mit dem Namen des Bildes mit
+einer der Dateiendungen png, jpg, jpeg oder gif einfügt:
 </p>
+
+<pre>
+<p>  Image.png
+  % Breite = 50%
+  % Ausrichtung = center</p>
+</pre>
+
 
 <div style="padding: 1em; text-align: center">
 <img style="width: 50%;" src="./Image.png">
 </div>
 
 <p>
-Note that this will not put an figure environment in LaTeX
-files, so the image won't float this way. For this to
-achieve to have to put %image, %img or %figure before the
-line. You don't need the extention then.
+Zur Formatierung stehen folgende Parameter zur Verfügung:
 </p>
 
+<ul>
+<li> Höhe</li>
+<li> Breite</li>
+<li> Ausrichtung
+</li>
+</ul>
+
+
+<p>
+Auf diese Art wird das Bild aber nicht als Flußelement
+eingefügt. Dafür muss das Bild mit  %Bild formatiert
+werden.
+</p>
+
+<pre>
+<p>  % Bild
+  Image.png
+  % Höhe = 40%
+  % Beschriftung = Mars and Moon
+  % Name = bild1
+  % Ausrichtung = right</p>
+</pre>
+
+
 <div style="padding: 1em; text-align: right">
-<figure  id="bild1" role="group">
+<figure  role="group">
 <img style="height: 40%;" src="./Image.png">
-<figcaption>Mars and Moon</figcaption>
 </figure>
 </figure>
 
 </div>
+
+<p>
+Damit stehen dann zwei weitere Parameter zur Verfügung:
+</p>
+
+<ul>
+<li> Name</li>
+<li> Beschriftung
+</li>
+</ul>
+
 
 <H3>Farben</H3>
 
