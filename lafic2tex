@@ -677,7 +677,7 @@ sub outputLines {
 		      {no warnings 'uninitialized';
 		       if ($par =~ /^$/){$par = $pre; $pre=""}}
 
-		      print OUTPUT "\{$pre\\$macro$optional\{$par\}\}\n";
+		      print OUTPUT "\{$pre\\$macro$optional\{$par\}\\\\\}\n";
 		  }
 		  else {print OUTPUT "\{$par\\\\\}\n";}
 		  last SELECT}
