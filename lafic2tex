@@ -195,7 +195,7 @@ my @il_after_macros = (
     "footnote",
     );
 
-# hash for label prefixes (not all supported jet)
+# hash for label prefixes (not supported jet)
 my %label_pre = (
     "part" => "part:",
     "chapter" => "ch:",
@@ -216,7 +216,7 @@ my %label_pre = (
 #  Color names
 my %colors = (
     "gray" => "gray!75",
-    "green" => "lawngreen",
+    "green" => "green",
     "yellow" => "LightYellow1",
     "blue" => "PaleTurquoise1",
     "red" => "red",
