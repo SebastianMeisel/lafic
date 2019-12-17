@@ -578,4 +578,28 @@ kopiert oder dort verlinkt werden.
 % /styles: nicht proportional
 % standard…css: nicht proportional
 
+% Überschrift3
+lafic.config.pl 
+% lafic…pl: nicht proportional
+
+In dieser Datei im LaFiC-Verzeichnis können Voreinstellungen
+vorgenommen werden. Momentan gibt es nur zwei (mögliche)
+Einträge:
+
+* lang für die Standardsprache. Statt dem Englisch wird hier
+  zur Zeit nur de_DE als Eintrag für die Deutsche Sprache
+  unterstützt.
+* author ist Momentan die einzige Möglichkeit den Autor für
+  ihre Dokumente zu setzen.
+% lang: nicht proportional
+% de…DE: nicht proportional
+% author: nicht proportional
+
+Die Eintäge in dieser Datei sind Perlkonstrukte und müssen
+in der Form:
+
+% Verbatim
+	Schlüssel => "Wert",
+
+geschrieben werden. Bitte beachten sie das Komma am Ende der Zeile.
 

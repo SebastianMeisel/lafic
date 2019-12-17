@@ -392,7 +392,7 @@ the value:
 becomes:
 </p>
 
-<div style="padding: 1em; color: red; background-color: #00FFFF; text-align: right">
+<div style="padding: 1em; color: red; text-align: right; background-color: #00FFFF">
 <p>
 This paragraph has a red on blue text and is aligned to the
 right.
@@ -596,7 +596,7 @@ It is possible to customize LaFiC in various ways.
 <p>
 LaFiC uses templates for LaTeX and HTML output. These
 templates are locates in the <span class="tt">/templates</span> subdirectory of the
-<span class="tt">/lafic</span> directory. The suffix of these files is .tmp.tex for
+<span class="tt">/LaFiC</span> directory. The suffix of these files is .tmp.tex for
 LaTeX and .tmp.html for HTML output.
 </p>
 
@@ -636,7 +636,7 @@ directory as the document and have the same basename:
 <p>	$ ls -1
   	.
   	..
-  	Beispiel.lafic
+  	Beispiel.LaFiC
   	Beispiel.tmp.tex
   	Beispiel.tmp.html</p>
 </pre>
@@ -700,6 +700,38 @@ to refer to them from custom templates. For now you have to
 manually copy or link the <span class="tt">/styles</span> directory to your working directory.
 </p>
 
+<H3><span class="tt">LaFiC.config.pl</span></H3>
+
+<p>
+In this file in the LaFiC directory you set some
+preferences. At the moment this are just two:
+</p>
+
+<ul>
+<li> <span class="tt">lang</span> where you have the option to set another <span class="tt">lang</span>uage
+then English as your preferred <span class="tt">lang</span>uage. At the moment the
+only option here is <span class="tt">de_DE</span> for German, as this is my first
+<span class="tt">lang</span>uage.</li>
+<li> <span class="tt">author</span> is for now the only way to specify the
+<span class="tt">author</span>'s name for your LaFiC documents. I hope to provide an
+in-document option soon.
+</li>
+</ul>
+
+
+<p>
+The content of this document is actually a perl construct an
+must be written in the form:
+</p>
+
+<pre>
+<p>     	key =&gt; “value”,</p>
+</pre>
+
+
+<p>
+Please observe the comma at the end of each line.
+</p>
 
 <div id="footnotes">
 <ol>

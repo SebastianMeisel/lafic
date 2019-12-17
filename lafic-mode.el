@@ -378,7 +378,7 @@
 
 
 (defun lafic-format-word (&optional format)
-  "Formate word at point." ;;or region."
+  "Formate word or region at point." ;;or region."
   (interactive)
   (save-excursion
     (let ((word (if (and transient-mark-mode mark-active)

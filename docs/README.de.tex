@@ -625,6 +625,31 @@ Stylesheets ablegen und Ihren Vorlagen verlinken. Zur Zeit
 muss das Verzeichnis von Hand in das Arbeitsverzeichnis
 kopiert oder dort verlinkt werden.\\}
 
+\section{\texttt{lafic.config.pl}}
+
+{In dieser Datei im LaFiC-Verzeichnis können Voreinstellungen
+vorgenommen werden. Momentan gibt es nur zwei (mögliche)
+Einträge:\\}
+
+\begin{itemize}
+\item \texttt{lang} für die Standardsprache. Statt dem Englisch wird hier
+  zur Zeit nur \texttt{de\_DE} als Eintrag für die Deutsche Sprache
+  unterstützt.
+\item \texttt{author} ist Momentan die einzige Möglichkeit den Autor für
+  ihre Dokumente zu setzen.
+\end{itemize}
+
+
+{Die Eintäge in dieser Datei sind Perlkonstrukte und müssen
+in der Form:\\}
+
+\begin{verbatim}
+	Schlüssel => "Wert",
+\end{verbatim}
+
+
+{geschrieben werden. Bitte beachten sie das Komma am Ende der Zeile.\\}
+
 
 \end{document}
 

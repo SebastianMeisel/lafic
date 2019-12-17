@@ -434,7 +434,7 @@ statt des Doppelpunktes gesetzt wird:
 wird zu:
 </p>
 
-<div style="padding: 1em; background-color: #00FFFF; color: red; text-align: right">
+<div style="padding: 1em; text-align: right; background-color: #00FFFF; color: red">
 <p>
 Dieser Text ist rot auf blauem Untergrund und
 rechtsbündig.
@@ -692,11 +692,6 @@ denselben Dateinamen tragen:
 
 
 <p>
-Wenn diese Dateien existieren, werden sie bevorzugt
-verwendet.
-</p>
-
-<p>
 In den Vorlagen müssen Platzhalter für die Metadaten und den
 eigentlichen Dokumenttext enthalten sein.
 </p>
@@ -750,6 +745,38 @@ Standard-Html-Vorlagen von LaFiC. Sie können hier eigene
 Stylesheets ablegen und Ihren Vorlagen verlinken. Zur Zeit
 muss das Verzeichnis von Hand in das Arbeitsverzeichnis
 kopiert oder dort verlinkt werden.
+</p>
+
+<h3><span class="tt">lafic.config.pl</span></h3>
+
+<p>
+In dieser Datei im LaFiC-Verzeichnis können Voreinstellungen
+vorgenommen werden. Momentan gibt es nur zwei (mögliche)
+Einträge:
+</p>
+
+<ul>
+<li> <span class="tt">lang</span> für die Standardsprache. Statt dem Englisch wird hier
+  zur Zeit nur <span class="tt">de_DE</span> als Eintrag für die Deutsche Sprache
+  unterstützt.</li>
+<li> <span class="tt">author</span> ist Momentan die einzige Möglichkeit den Autor für
+  ihre Dokumente zu setzen.
+</li>
+</ul>
+
+
+<p>
+Die Eintäge in dieser Datei sind Perlkonstrukte und müssen
+in der Form:
+</p>
+
+<pre>
+<p>	Schlüssel =&gt; „Wert“,</p>
+</pre>
+
+
+<p>
+geschrieben werden. Bitte beachten sie das Komma am Ende der Zeile.
 </p>
 
 

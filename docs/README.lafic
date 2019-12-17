@@ -442,10 +442,10 @@ Templates
 
 LaFiC uses templates for LaTeX and HTML output. These
 templates are locates in the /templates subdirectory of the
-/lafic directory. The suffix of these files is .tmp.tex for
+/LaFiC directory. The suffix of these files is .tmp.tex for
 LaTeX and .tmp.html for HTML output.
 % /templates: mono
-% /lafic: mono
+% /LaFiC: mono
 % .tmp.tex: mono
 % .tmp.html: mono
 
@@ -480,7 +480,7 @@ directory as the document and have the same basename:
 	$ ls -1
   	.
   	..
-  	Beispiel.lafic
+  	Beispiel.LaFiC
   	Beispiel.tmp.tex
   	Beispiel.tmp.html
 
@@ -529,3 +529,28 @@ manually copy or link the /styles directory to your working directory.
 % /styles: mono
 % standard…css: mono
 
+% heading3
+LaFiC.config.pl 
+% LaFiC…pl: mono
+
+In this file in the LaFiC directory you set some
+preferences. At the moment this are just two:
+
+* lang where you have the option to set another language
+then English as your preferred language. At the moment the
+only option here is de_DE for German, as this is my first
+language.
+* author is for now the only way to specify the
+author's name for your LaFiC documents. I hope to provide an
+in-document option soon.
+% lang: nicht proportional
+% de…DE: nicht proportional
+% author: nicht proportional
+
+The content of this document is actually a perl construct an
+must be written in the form:
+
+% verbatim
+     	key => "value",
+
+Please observe the comma at the end of each line.
