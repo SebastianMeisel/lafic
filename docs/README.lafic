@@ -61,7 +61,7 @@ Installation
 % label = installation 
 
 Get source from github using:
-% github: link: https://github.com
+% github: link: https://github.com/SebastianMeisel/lafics
 
 % verbatim
 git clone https://github.com/SebastianMeisel/LaFiC.git

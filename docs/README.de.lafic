@@ -69,7 +69,7 @@ Installation
 % Name = Installation
 
 Holen Sie den Quelltext von github: 
-% github: link: https://github.com
+% github: link: https://github.com/SebastianMeisel/lafic
 
 % Verbatim
 git clone https://github.com/SebastianMeisel/lafic.git
