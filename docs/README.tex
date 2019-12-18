@@ -82,26 +82,26 @@ with a least graphicx, hyperref, microtype and xspace.\\}
 
 {The Gnu Emacs lisp files where tested with Gnu Emacs 25.2.2.\\}
 
-{\texttt{LaFiC2pdf} also requires latexmk (tested with version 4.41).\\}
+{\texttt{lafic2pdf} also requires latexmk (tested with version 4.41).\\}
 
 \section{Installation}
 \label{installation}
 
-{Get source from \href{https://github.com/SebastianMeisel/lafic}{github} using:\\}
+{Get source from \href{https://github.com/SebastianMeisel/lafics}{github} using:\\}
 
 \begin{verbatim}
-git clone https://github.com/SebastianMeisel/LaFiC.git
+git clone https://github.com/SebastianMeisel/lafic.git
 \end{verbatim}
 
 
 {Add LaFiC directory to \$PATH, e.g.:\\}
 
 \begin{verbatim}
-export PATH=${PATH}:~/LaFiC
+export PATH=${PATH}:~/lafic
 \end{verbatim}
 
 
-{See \texttt{LaFiC-mode.el} for installation instructions, if you want
+{See \texttt{lafic-mode.el} for installation instructions, if you want
 to use in in Gnu Emacs\footnote{GNU Emacs is available as free Software under a GNU General Public License for most modern operating systems (Unix, GNU/Linux, macOS und Windows).}\xspace .\\}
 
 \section{Usage}
@@ -110,13 +110,13 @@ to use in in Gnu Emacs\footnote{GNU Emacs is available as free Software under a 
 that you call with the name of the LaFiC file.\\}
 
 \begin{verbatim}
-# LaFiC2html Datei.LaFiC
-# LaFiC2tex Datei.LaFiC
-# LaFiC2pdf Datei.LaFiC
+# lafic2html file.lafic
+# lafic2tex file.lafic
+# lafic2pdf file.lafic
 \end{verbatim}
 
 
-{The last of these is a bash script, first calling \texttt{LaFiC2tex}
+{The last of these is a bash script, first calling \texttt{lafic2tex}
 and then \texttt{latexmk}.\\}
 
 {Calling these three script would result in the following
@@ -131,9 +131,9 @@ Datei.pdf
 
 \section{LaFiC major mode in GNU Emacs}
 
-{After installing and activation \texttt{LaFiC-mode.el} (see
+{After installing and activation \texttt{lafic-mode.el} (see
 \nameref{installation}\xspace ), the LaFiC major mode is activated on opening
-any file with a \texttt{*.LaFiC} extension.\\}
+any file with a \texttt{*.lafic} extension.\\}
 
 {This gives you basic syntax highlighting and some keyboard
 shortcuts with a \texttt{C-c} prefix. The shortcuts are similar to
@@ -530,7 +530,7 @@ By chance, or nature’s changing course, untrimmed:\\\\}
 
 {LaFiC uses templates for \LaTeX\  and HTML output. These
 templates are locates in the \texttt{/templates} subdirectory of the
-\texttt{/LaFiC} directory. The suffix of these files is .tmp.tex for
+\texttt{/lafic} directory. The suffix of these files is .tmp.tex for
 \LaTeX\  and .tmp.html for HTML output.\\}
 
 {You can create your own templates an place them there. LaFiC
@@ -563,9 +563,9 @@ directory as the document and have the same basename:\\}
 	$ ls -1
   	.
   	..
-  	Beispiel.LaFiC
-  	Beispiel.tmp.tex
-  	Beispiel.tmp.html
+  	example.lafic
+  	example.tmp.tex
+  	example.tmp.html
 \end{verbatim}
 
 
@@ -617,7 +617,7 @@ templates for LaFiC. You can place your own stylesheets here
 to refer to them from custom templates. For now you have to
 manually copy or link the \texttt{/styles} directory to your working directory.\\}
 
-\section{\texttt{LaFiC.config.pl}}
+\section{\texttt{lafic.config.pl}}
 
 {In this file in the LaFiC directory you set some
 preferences. At the moment this are just two:\\}

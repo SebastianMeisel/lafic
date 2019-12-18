@@ -17,7 +17,7 @@
   <link rel="stylesheet" href="styles/standard.css">
 <H3>Introduction to LaFiC</H3>
 
-<div style="padding: 1em; color: white; background-color: red">
+<div style="padding: 1em; background-color: red; color: white">
 <div class="center">
 <p>LaFiC is in alpha state. Don't use for productive work!</p>
 </div>
@@ -87,17 +87,17 @@ The Gnu Emacs lisp files where tested with Gnu Emacs 25.2.2.
 </p>
 
 <p>
-<span class="tt">LaFiC2pdf</span> also requires latexmk (tested with version 4.41).
+<span class="tt">lafic2pdf</span> also requires latexmk (tested with version 4.41).
 </p>
 
 <H3 id="installation">Installation</H3>
 
 <p>
-Get source from <a href="https://github.com/SebastianMeisel/lafic">github</a> using:
+Get source from <a href="https://github.com/SebastianMeisel/lafics">github</a> using:
 </p>
 
 <pre>
-<p>git clone https://github.com/SebastianMeisel/LaFiC.git</p>
+<p>git clone https://github.com/SebastianMeisel/lafic.git</p>
 </pre>
 
 
@@ -106,12 +106,12 @@ Add LaFiC directory to $PATH, e.g.:
 </p>
 
 <pre>
-<p>export PATH=${PATH}:~/LaFiC</p>
+<p>export PATH=${PATH}:~/lafic</p>
 </pre>
 
 
 <p>
-See <span class="tt">LaFiC-mode.el</span> for installation instructions, if you want
+See <span class="tt">lafic-mode.el</span> for installation instructions, if you want
 to use in in <a class="fn" href="#fn2" id="fna2">Gnu Emacs</a>.
 </p>
 
@@ -123,14 +123,14 @@ that you call with the name of the LaFiC file.
 </p>
 
 <pre>
-<p># LaFiC2html Datei.LaFiC
-# LaFiC2tex Datei.LaFiC
-# LaFiC2pdf Datei.LaFiC</p>
+<p># lafic2html file.lafic
+# lafic2tex file.lafic
+# lafic2pdf file.lafic</p>
 </pre>
 
 
 <p>
-The last of these is a bash script, first calling <span class="tt">LaFiC2tex</span>
+The last of these is a bash script, first calling <span class="tt">lafic2tex</span>
 and then <span class="tt">latexmk</span>.
 </p>
 
@@ -149,9 +149,9 @@ Datei.pdf</p>
 <H3>LaFiC major mode in GNU Emacs</H3>
 
 <p>
-After installing and activation <span class="tt">LaFiC-mode.el</span> (see
+After installing and activation <span class="tt">lafic-mode.el</span> (see
 <a href="#installation">Installation</a>), the LaFiC major mode is activated on opening
-any file with a <span class="tt">*.LaFiC</span> extension.
+any file with a <span class="tt">*.lafic</span> extension.
 </p>
 
 <p>
@@ -633,7 +633,7 @@ It is possible to customize LaFiC in various ways.
 <p>
 LaFiC uses templates for LaTeX and HTML output. These
 templates are locates in the <span class="tt">/templates</span> subdirectory of the
-<span class="tt">/LaFiC</span> directory. The suffix of these files is .tmp.tex for
+<span class="tt">/lafic</span> directory. The suffix of these files is .tmp.tex for
 LaTeX and .tmp.html for HTML output.
 </p>
 
@@ -673,9 +673,9 @@ directory as the document and have the same basename:
 <p>	$ ls -1
   	.
   	..
-  	Beispiel.LaFiC
-  	Beispiel.tmp.tex
-  	Beispiel.tmp.html</p>
+  	example.lafic
+  	example.tmp.tex
+  	example.tmp.html</p>
 </pre>
 
 
@@ -741,7 +741,7 @@ to refer to them from custom templates. For now you have to
 manually copy or link the <span class="tt">/styles</span> directory to your working directory.
 </p>
 
-<H3><span class="tt">LaFiC.config.pl</span></H3>
+<H3><span class="tt">lafic.config.pl</span></H3>
 
 <p>
 In this file in the LaFiC directory you set some

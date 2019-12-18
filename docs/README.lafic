@@ -54,8 +54,8 @@ with a least graphicx, hyperref, microtype and xspace.
 
 The Gnu Emacs lisp files where tested with Gnu Emacs 25.2.2.
 
-LaFiC2pdf also requires latexmk (tested with version 4.41).
-% LaFiC2pdf: mono
+lafic2pdf also requires latexmk (tested with version 4.41).
+% lafic2pdf: mono
 
 Installation
 % label = installation 
@@ -64,16 +64,16 @@ Get source from github using:
 % github: link: https://github.com/SebastianMeisel/lafics
 
 % verbatim
-git clone https://github.com/SebastianMeisel/LaFiC.git
+git clone https://github.com/SebastianMeisel/lafic.git
 
 Add LaFiC directory to $PATH, e.g.:
 
 % verbatim
-export PATH=${PATH}:~/LaFiC
+export PATH=${PATH}:~/lafic
 
-See LaFiC-mode.el for installation instructions, if you want
+See lafic-mode.el for installation instructions, if you want
 to use in in Gnu Emacs.
-% LaFiC…el: mono
+% lafic…el: mono
 % Gnu…Emacs: footnote: GNU Emacs is available as free Software under a GNU General Public License for most modern operating systems (Unix, GNU/Linux, macOS und Windows). 
 
 
@@ -83,13 +83,13 @@ For now the LaFiC distribution consists of three scripts
 that you call with the name of the LaFiC file.
 
 % verbatim
-# LaFiC2html Datei.LaFiC
-# LaFiC2tex Datei.LaFiC
-# LaFiC2pdf Datei.LaFiC
+# lafic2html file.lafic
+# lafic2tex file.lafic
+# lafic2pdf file.lafic
 
-The last of these is a bash script, first calling LaFiC2tex
+The last of these is a bash script, first calling lafic2tex
 and then latexmk.
-% LaFiC2tex: mono
+% lafic2tex: mono
 % latexmk: mono
 
 Calling these three script would result in the following
@@ -102,12 +102,12 @@ Datei.pdf
 
 LaFiC major mode in GNU Emacs
 
-After installing and activation LaFiC-mode.el (see
+After installing and activation lafic-mode.el (see
 Installation), the LaFiC major mode is activated on opening
-any file with a *.LaFiC extension. 
-% LaFiC…el: mono
+any file with a *.lafic extension. 
+% lafic…el: mono
 % Installation: see: installation 
-% *…LaFiC: mono
+% *…lafic: mono
 
 This gives you basic syntax highlighting and some keyboard
 shortcuts with a C-c prefix. The shortcuts are similar to
@@ -474,10 +474,10 @@ Templates
 
 LaFiC uses templates for LaTeX and HTML output. These
 templates are locates in the /templates subdirectory of the
-/LaFiC directory. The suffix of these files is .tmp.tex for
+/lafic directory. The suffix of these files is .tmp.tex for
 LaTeX and .tmp.html for HTML output.
 % /templates: mono
-% /LaFiC: mono
+% /lafic: mono
 % .tmp.tex: mono
 % .tmp.html: mono
 
@@ -512,9 +512,9 @@ directory as the document and have the same basename:
 	$ ls -1
   	.
   	..
-  	Beispiel.LaFiC
-  	Beispiel.tmp.tex
-  	Beispiel.tmp.html
+  	example.lafic
+  	example.tmp.tex
+  	example.tmp.html
 
 The templates must contain placeholders for metadata like
 title and author and for the content of the document.
@@ -565,8 +565,8 @@ manually copy or link the /styles directory to your working directory.
 % standard…css: mono
 
 % heading3
-LaFiC.config.pl 
-% LaFiC…pl: mono
+lafic.config.pl 
+% lafic…pl: mono
 
 In this file in the LaFiC directory you set some
 preferences. At the moment this are just two:
