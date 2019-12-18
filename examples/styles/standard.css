@@ -1,0 +1,191 @@
+html {
+    width: 100%;
+    height: 100%
+}
+
+body {
+    width: 90%;
+    height: 100%;
+    margin: 5%;
+    font-family: 'Alegreya', serif;
+    counter-reset: footnote;
+}
+
+ /* small-caps */
+.sc {
+    font-variant-caps: small-caps;
+    font-family: "Alegreya SC";
+}
+
+ /* monospaced */
+.tt {
+    font-family: 'Ubuntu Mono', monospace;
+    font-size: 1em;
+}
+
+pre {
+    font-family: 'Ubuntu Mono', monospace;
+    font-size: 1em;
+}
+
+/* center */
+.center {
+    text-align: center;
+}
+
+/* annotation */
+.annote {
+    display: block;
+    width: 20%;
+    right:0px;
+    float: right;
+    border: 1px;
+    border-style: solid;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+/* footnotes */
+a.fn {
+    color: black;
+    text-decoration: none;
+}
+
+a.fn::after{
+    counter-increment: footnote;
+    content:  " " counter(footnote) ;
+    vertical-align: super;
+    font-size: .9em;
+    text-decoration: underline;
+    color: blue;
+}
+
+#footnotes {
+    border-top: 1px solid blue;
+    font-size : 1em;
+    position: static;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    background: white;
+    height: 10%;
+    overflow-y: scroll;
+    padding: 25px;
+    /* display: none; */
+}
+
+a.fn:hover + #footnotes {
+    display: block;
+}
+
+#footnotes a {
+    color: black;
+    text-decoration: none;
+    vertical-align: baseline;
+    font-size: 1em;
+}
+
+#footnotes ol{
+    list-style: none;
+    counter-reset: item; 
+}
+
+#footnotes ol li{
+    counter-increment: item;
+}
+
+#footnotes ol li::before {
+    content: counter(item);
+    vertical-align: super;
+    font-size: .9em;
+    margin-right: .5em;
+}
+
+.frage {
+    font-style: italic;
+}
+
+.antworta {
+    display: block;
+    margin: 0 3% 0 3%;
+}
+
+.antwortb {
+    display: block;
+    margin: 0 3% 0 3%;
+}
+
+.name {
+    font-weight: bold;
+}
+
+.infobox {
+    border-width: 2px;
+    border-color: black;
+    border-style: solid;
+    padding: 2%;
+    border-radius: 10px;
+    float: inherit;
+}
+
+.infobox::before {
+    background-color: #d1d1e0;
+    content: "Zu den Personen:";
+    width: 100%;
+    display: block;
+    text-align: center;
+    padding: 2px;
+    border-radius: 5px;
+    font-weight: bold;
+} 
+
+@font-face {
+    src: url(./fonts/Alegreya-Regular.ttf);
+    panose-1: 2 0 5 3 5 0 0 2 0 4;e
+    font-family: "Alegreya"
+    }
+@font-face {
+    src: url(./fonts/Alegreya-Italic.ttf);
+    panose-1: 2 0 5 3 5 0 0 2 0 4;
+    font-family: "Alegreya";
+    font-style: italic
+    }
+@font-face {
+    src: url(./fonts/Alegreya-Bold.ttf);
+    panose-1: 2 0 5 3 5 0 0 2 0 4;
+    font-family: "Alegreya";
+    font-weight: bold;
+    }
+@font-face {
+    src: url(./fonts/AlegreyaSC-Regular.ttf);
+    panose-1: 2 0 5 3 5 0 0 2 0 4;
+    font-family: "Alegreya SC";
+    font-variant: small-caps;
+    }
+@font-face {
+    src: url(./fonts/UbuntuMono-Regular.ttf);
+    panose-1: 2 0 5 3 5 0 0 2 0 4;
+    font-family: "Ubuntu Mono";
+    }
+@font-face {
+    src: url(./fonts/UbuntuMono-Bold.ttf);
+    panose-1: 2 0 5 3 5 0 0 2 0 4;
+    font-family: "Ubuntu Mono";
+    font-weight: bold;
+    }
+@font-face {
+    src: url(./fonts/UbuntuMono-Italic.ttf);
+    panose-1: 2 0 5 3 5 0 0 2 0 4;
+    font-family: "Ubuntu Mono";
+    font-style: italic;
+    }
+@font-face {
+    src: url(./fonts/UbuntuMono-BoldItalic.ttf);
+    panose-1: 2 0 5 3 5 0 0 2 0 4;
+    font-family: "Ubuntu Mono";
+    font-style: italic;
+    font-weight: bold;
+    }
+
+
+

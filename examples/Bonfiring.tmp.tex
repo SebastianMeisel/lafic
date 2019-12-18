@@ -1,0 +1,71 @@
+\documentclass{scrartcl}
+
+\usepackage{graphicx}
+\usepackage[x11names, dvipsnames*, svgnames]{xcolor}
+\setlength{\fboxsep}{.05\linewidth}
+\usepackage[hyperindex=false, pdfpagelabels,
+pageanchor, hyperfootnotes=false, bookmarksopen,
+pdfpagemode=UseOutlines]{hyperref}
+
+\usepackage{mathspec}
+\usepackage{fontspec}
+\usepackage{xunicode}
+\usepackage[no-sscript]{xltxtra}
+
+\setmainfont[Mapping=tex-text,  Scale=1.03, ItalicFeatures={SmallCapsFont=AlegreyaSC-Italic}]{Alegreya}
+\setsansfont[Mapping=tex-text, Scale=1.03]{Alegreya Sans}
+
+\usepackage{polyglossia}
+\setdefaultlanguage{english}
+
+\usepackage{microtype}
+\usepackage{xspace}
+
+\setlength{\parindent}{0pt}
+\sloppy
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Custom macros and environments
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newenvironment{frage}{\itshape}{}
+\newenvironment{antworta}{
+  \begin{quotation}
+  }{
+  \end{quotation}
+}
+\newenvironment{antwortb}{
+  \begin{quotation}
+  }{
+  \end{quotation}
+}
+
+\newcommand{\name}[1]{\textbf{#1}}
+
+\usepackage{tcolorbox}
+
+\newenvironment{infobox}{%%
+  \begin{tcolorbox}[width=\linewidth,
+     boxsep=10pt,
+     left=0pt,
+     right=0pt,
+     top=10pt,
+     title=Zu den Personen,
+     ]%%
+   }{%%
+   \end{tcolorbox}%%
+}
+
+%TITLE%
+
+\begin{document}
+
+\maketitle
+
+%TEXT%
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

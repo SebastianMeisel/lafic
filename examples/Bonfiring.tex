@@ -1,0 +1,176 @@
+
+\documentclass{scrartcl}
+
+\usepackage{graphicx}
+\usepackage[x11names, dvipsnames*, svgnames]{xcolor}
+\setlength{\fboxsep}{.05\linewidth}
+\usepackage[hyperindex=false, pdfpagelabels,
+pageanchor, hyperfootnotes=false, bookmarksopen,
+pdfpagemode=UseOutlines]{hyperref}
+
+\usepackage{mathspec}
+\usepackage{fontspec}
+\usepackage{xunicode}
+\usepackage[no-sscript]{xltxtra}
+
+\setmainfont[Mapping=tex-text,  Scale=1.03, ItalicFeatures={SmallCapsFont=AlegreyaSC-Italic}]{Alegreya}
+\setsansfont[Mapping=tex-text, Scale=1.03]{Alegreya Sans}
+
+\usepackage{polyglossia}
+\setdefaultlanguage{english}
+
+\usepackage{microtype}
+\usepackage{xspace}
+
+\setlength{\parindent}{0pt}
+\sloppy
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Custom macros and environments
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newenvironment{frage}{\itshape}{}
+\newenvironment{antworta}{
+  \begin{quotation}
+  }{
+  \end{quotation}
+}
+\newenvironment{antwortb}{
+  \begin{quotation}
+  }{
+  \end{quotation}
+}
+
+\newcommand{\name}[1]{\textbf{#1}}
+
+\usepackage{tcolorbox}
+
+\newenvironment{infobox}{%%
+  \begin{tcolorbox}[width=\linewidth,
+     boxsep=10pt,
+     left=0pt,
+     right=0pt,
+     top=10pt,
+     title=Zu den Personen,
+     ]%%
+   }{%%
+   \end{tcolorbox}%%
+}
+
+\title{Vereinsamt unsere Jugend\\
+\emph{Kontroverses Interview zum Bonfiring} \\}
+\author{Sebastian Meisel}
+
+\begin{document}
+
+\maketitle
+
+
+{Der wachsende Trend zum sogenannten \emph{Bonfiring}, löst bei
+vielen Älteren in der Gesellschaft Sorgen aus. Wir wollen
+mit drei Experten zu diesem Thema ergründen, inwieweit diese
+Sorgen begründet, oder ob sie möglicherweise übertrieben sind.\\}
+
+\begin{frage}
+Herr~Müller, Bonfiring ist ein ziemlich neues
+Phänomen. Könnten Sie kurz zusammenfassen wie genau das
+funktioniert?
+\end{frage}
+
+
+\begin{antworta}
+\name{Müller}: Nun, Menschen treffen sich an Orten mit schwacher
+\emph{Linked Mind} Abdeckung. Das sind ausschließlich
+abgelegene Gebiete, sodass man dort in der Regel campt
+und sich am Lagerfeuer zusammensetzt. Daher der Begriff
+„Bonfiring“, vom englischen „bonfire“ für Lagerfeuer.
+
+Dort setzten sie ein \emph{Scammer} genanntes Gerät ein, um sich
+für eine begrenzte Zeit ganz vom Netz zu trennen. Sie sich
+dann über Themen aus, ohne dass dies von außen überwacht
+werden kann.
+\end{antworta}
+
+
+\begin{antwortb}
+\name{Scott}: Und ohne, dass die implementierten Schutzmechanismen
+des Linked Mind wirken, mit denen wir seit Jahrzehnten
+unsere Jugend vor negativen Einflüssen schützen.
+\end{antwortb}
+
+
+\begin{antworta}
+\name{Cobina}: Sie meinen: „vor dem Leben, vor Erfahrungen,
+vor dem Erwachsenwerden“.
+\end{antworta}
+
+
+\begin{antwortb}
+\name{Scott}: Ich meine vor Einflüssen, die nachweislich einen
+negativen Einfluss auf die soziale Prognose
+Heranwachsender haben – wie ich in meiner Studie
+nachgewiesen habe und wie es von einer Unzahl anderer –
+wenn auch kleinerer Studien bestätigt wurde. Es wundert
+mich im Übrigen, dass ausgerechnet Sie, ihre eigene
+Erfindung nicht zu würdigen wissen~…
+\end{antwortb}
+
+
+\begin{antworta}
+\name{Cobina}: An der Implementierung dieser
+„Schutzmechanismen“ war ich nicht beteiligt, aber ich
+glaube durchaus, dass sie ihre Berechtigung haben. Ich
+glaube aber auch, dass es inzwischen an Freiräumen für
+unsere Jugend fehlt. Zu einer gesunden Entwicklung
+gehören die eben auch. Wir ziehen Kinder groß, statt sie
+erwachsen werden zu~…
+\end{antworta}
+
+
+\begin{frage}
+Hier muss ich kurz dazwischen gehen. Wir sind schon mitten
+  in der Diskussion und das ist einerseits gut so, aber wir
+  wollen unsere Leser doch auch mitnehmen. Deswegen bitte
+  ich nun zunächst Sie Herr~Scott: Sie sehen das Bonfiring
+  als Gefahr für unsere Jugend an – könnten Sie bitte kurz
+  die wesentlichen Gefahren aus Ihrer Sicht darstellen?
+\end{frage}
+
+
+\begin{antworta}
+Scott: Das tue ich sehr gerne. Wir alle sind uns sicher
+    einig, dass das Linked Mind die größte Errungenschaft
+    der Menschheit ist. Es verbindet uns zu einer Einheit
+    und schenkt zugleich jedem Menschen die Freiheit, so zu
+    leben, wie es gut für sie oder ihn ist, weil wir
+    einander nun ganz anders verstehen können. Wenn junge
+    Menschen sich nun aus dem Linked Mind ausklinken, so
+    birgt das viele Gefahren – auch deshalb, weil sie sich
+    so zugleich aus dem Schutzbereich begeben, den das
+    Linked Mind darstellt. Sie können so mit Ideen
+    konfrontiert werden, die ihnen und ihrer sozialen
+    Entwicklung schaden.
+\end{antworta}
+
+
+\begin{infobox}
+\name{Amma Cobina} ist 118~Jahre alt. Sie lebt als Ashanti im
+Gebiet des Freien Afrika. Bis zu ihrem 73-sten Lebensjahr
+arbeitete sie als IT-Spezialistin im Bereich
+Neuro-Interface-Forschung und gilt als eine der Mütter des
+Linked Mind.
+
+\name{George Scott} ist 98~Jahr alt und forscht und lehrt im
+Bereich Soziologie in Oxford, GB. Er leitete die
+umfassendste internationale Langzeitstudie zu den positiven
+Auswirkungen des Linked Mind auf die Gesellschaft.
+
+\name{Harald Müller} ist ein deutscher Aktivist der den
+Widerstand in den deutschen Gebieten der Abendländischen
+Allianz stärkt. Dafür setzt er unter anderem auf Bonfiring.
+\end{infobox}
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
