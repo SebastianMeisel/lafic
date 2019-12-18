@@ -490,6 +490,29 @@ for color or background:\\}
 }
 }
 
+\section{Line breaks}
+
+{Line breaks within paragraphs are normally removed, if the
+paragraph is not marked to be verbatim. To keep the line
+breaks, just add \texttt{\% breaks lines} or \texttt{\% br} after the paragraph.\\}
+
+\begin{verbatim}
+       Shall I compare thee to a summer’s day?
+       Thou art more lovely and more temperate:
+       Rough winds do shake the darling buds of May,
+       And summer’s lease hath all too short a date:
+       % break lines
+\end{verbatim}
+
+
+{Sometime too hot the eye of heaven shines,\\
+And often is his gold complexion dimmed;\\
+And every fair from fair sometime declines,\\
+By chance, or nature’s changing course, untrimmed:\\\\}
+
+{\raggedleft%%
+(\emph{William Shakespeare})\\}
+
 \part{Customization}
 
 {It is possible to customize LaFiC in various ways.\\}
@@ -574,6 +597,8 @@ title and author and for the content of the document.\\}
 {By creating custom \LaTeX\  environment and macros as well as
 the corresponding css classes, you can use your own
 keywords.\\}
+
+{Look in the \texttt{/examples} subdirectory for inspiration.\\}
 
 \section{Stylesheets}
 

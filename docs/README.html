@@ -392,7 +392,7 @@ the value:
 becomes:
 </p>
 
-<div style="padding: 1em; color: red; text-align: right; background-color: #00FFFF">
+<div style="padding: 1em; background-color: #00FFFF; text-align: right; color: red">
 <p>
 This paragraph has a red on blue text and is aligned to the
 right.
@@ -585,6 +585,36 @@ for color or background:
 
 </div>
 
+<H3>Line breaks</H3>
+
+<p>
+Line breaks within paragraphs are normally removed, if the
+paragraph is not marked to be verbatim. To keep the line
+breaks, just add <span class="tt">% breaks lines</span> or <span class="tt">% br</span> after the paragraph.
+</p>
+
+<pre>
+<p>       Shall I compare thee to a summer’s day?
+       Thou art more lovely and more temperate:
+       Rough winds do shake the darling buds of May,
+       And summer’s lease hath all too short a date:
+       % break lines</p>
+</pre>
+
+
+<p>
+Sometime too hot the eye of heaven shines,<br />
+And often is his gold complexion dimmed;<br />
+And every fair from fair sometime declines,<br />
+By chance, or nature’s changing course, untrimmed:<br />
+</p>
+
+<div style="padding: 1em; text-align: right">
+<p>
+(<em>William Shakespeare</em>)
+</p>
+</div>
+
 <H2>Customization</H2>
 
 <p>
@@ -688,6 +718,10 @@ In Html-Vorlagen heißen die Platzhalter &lt;!-- TITLE --&gt; und
 By creating custom LaTeX environment and macros as well as
 the corresponding css classes, you can use your own
 keywords.
+</p>
+
+<p>
+Look in the <span class="tt">/examples</span> subdirectory for inspiration.
 </p>
 
 <H3>Stylesheets</H3>

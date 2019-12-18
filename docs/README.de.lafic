@@ -476,6 +476,27 @@ Parameter Farbe und Hintergrund unterstützt:
 % weiß: Farbe: weiß
 % Hintergrund = grau
 
+Zeilenumbrüche
+
+Zeilenumbrüche  innerhalb von Absätzen werden von LaFiC normalerweise entfernt. Um sie zu erhalten füge einfach % Zeilen umbrechen hinter dem Absatz ein:
+% %…umbrechen: nicht proportional
+
+% verbatim
+  	     Geh mit mir.
+	       Geh mir nah.
+	       Geh mir zu Herzen und unter die Haut
+	       % Geh: hervorheben
+	       % Zeilen umbrechen
+
+Geh mit mir.
+Geh mich an.
+Geh mir auf die Nerven und hintergeh mich – wenn's sein muss!
+Nur,
+Geh nicht!
+% Geh: hervorheben
+% geh: hervorheben
+% Zeilen umbrechen
+
 % Überschrift2
 Anpassung
 
@@ -564,7 +585,7 @@ Wenn sie eigene LaTeX-Umgebungen und Makros, sowie die dazu
 passenden CSS-Klassen definieren, können Sie eigene
 Schlüsselwörter benutzen.
 
-%% Im Unterordner examples können Sie sich inspirieren lassen.
+Im Unterordner examples können Sie sich inspirieren lassen.
 % examples: nicht proportional
 
 Stylesheets

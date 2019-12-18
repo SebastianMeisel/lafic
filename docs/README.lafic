@@ -433,6 +433,33 @@ for color or background:
 % white: color: white
 % background = gray
 
+Line breaks
+
+Line breaks within paragraphs are normally removed, if the
+paragraph is not marked to be verbatim. To keep the line
+breaks, just add % breaks lines or % br after the paragraph.
+% %…lines (or): mono
+% (or) %…br: mono
+
+% verbatim
+       Shall I compare thee to a summer’s day?
+       Thou art more lovely and more temperate:
+       Rough winds do shake the darling buds of May,
+       And summer’s lease hath all too short a date:
+       % break lines
+
+Sometime too hot the eye of heaven shines,
+And often is his gold complexion dimmed;
+And every fair from fair sometime declines,
+By chance, or nature’s changing course, untrimmed:
+% break lines
+
+%
+(William Shakespeare)
+% William…Shakespeare: emphasize
+% align = right
+
+
 % heading2
 Customization
 
@@ -519,6 +546,9 @@ By creating custom LaTeX environment and macros as well as
 the corresponding css classes, you can use your own
 keywords.
 
+Look in the /examples subdirectory for inspiration.
+% /examples: mono
+
 Stylesheets
 
 In the /styles subdirectory there is a standard.css file,
@@ -543,9 +573,9 @@ language.
 * author is for now the only way to specify the
 author's name for your LaFiC documents. I hope to provide an
 in-document option soon.
-% lang: nicht proportional
-% de…DE: nicht proportional
-% author: nicht proportional
+% lang: mono
+% de…DE: mono
+% author: mono
 
 The content of this document is actually a perl construct an
 must be written in the form:
