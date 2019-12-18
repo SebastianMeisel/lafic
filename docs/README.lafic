@@ -2,6 +2,11 @@
 
 Introduction to LaFiC
 
+% center
+LaFiC is in alpha state. Don't use for productive work!
+% background = red
+% color = white
+
 LaFiC means layout and format in comments, as all layout and
 format information is put into comment lines. So layout and
 content are fully separated. For details see Writing Text in LaFiC.

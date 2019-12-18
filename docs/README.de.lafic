@@ -1,5 +1,11 @@
 Einführung in LaFiC
 
+% center
+LaFiC ist im Alpha-Status und ist nicht für produktives Arbeiten geeignet!
+% Hintergrund = rot
+% Farbe=weiß
+
+
 LaFiC bedeutet layout and format in comments, also "Layout
 und Format in Kommentaren", denn sämtliche Formatierungen
 werden in LAFIC in Kommentarzeilen ausgeführt. Das
