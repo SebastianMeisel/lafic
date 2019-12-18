@@ -788,6 +788,9 @@ sub parseFile {
 		    if ($newfile == 1 and $i == 1){
 			$template = "empty";
 		    } 
+		    else { # hardcoded paragraph
+			  $parstyle=1 ;
+		    }
 		}
     		# layout line or comment?
     		elsif ($lc =~ /^(\s*)([0-9a-zA-Z_À-ÿ\.]+?)(\s*)([%].*)?$/) {
