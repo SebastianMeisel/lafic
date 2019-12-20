@@ -464,6 +464,19 @@ By chance, or nature’s changing course, untrimmed:
 % William…Shakespeare: emphasize
 % align = right
 
+LaTeX-Code
+
+It is possible to add a paragraph with pure LaTeX-Code like
+this:
+
+% verbatim
+	% LaTeX
+  	  $\left(\frac{1}{\sqrt{x}}\right)$  
+	% align = center
+
+% LaTeX
+  $\left(\frac{1}{\sqrt{x}}\right)$  
+% align =center
 
 % heading2
 Customization

@@ -129,6 +129,10 @@ my %environments = (
     # verbatim
     "verbatim" => "verbatim",
     "verb" => "verbatim",
+    ##########
+    # LaTeX
+    "latex" => "latex",
+    "tex" => "tex"
     );
 
 
@@ -529,7 +533,7 @@ sub outputLines {
 
     
     # check if continious environment needs to be closed
-    unless ($environment eq $prev_env or $prev_env eq "") {
+    unless ($environment eq $prev_env or $prev_env eq "" or $prev_env =~ /latex/) {
 	print OUTPUT "\\end\{$prev_env\}\n\n";
 	# close open nested lists
 	for (my $i=1; $i <= $list_level; $i++){
@@ -702,8 +706,14 @@ sub outputLines {
 		      startTemplate("TEXT");
 		      $newfile = 0;
 		  };
+		  # Leave pure LaTeX Code alone
+		  if ($environment && 
+		      $environment =~ /^latex$/){
+		      print OUTPUT $par;
+		      last SELECT;
+		  }
 		  # figures are special
-		  if ($environment =~ /^figure$/) {
+		  elsif ($environment =~ /^figure$/) {
 		      # optional parameters
 		      my $optional = "";
 		      my $caption = "";
@@ -1170,11 +1180,12 @@ sub parseFile {
 	    if ($formbl == 0){
 		# make proper LaTeX code
 		unless ($environment && 
-			$environment =~ /^verbatim$/){
+			$environment =~ /^verbatim$/ ||
+			$environment =~ /^latex$/){
 		    $par = LaTeX($par);
 		}
 	    }
-	    
+
 	    # output lines / paragraphs
 	    ($newfile, $list_level, $open_brackets) = outputLines ($par , $parstyle, $macro, $title, $environment, $prev_env, $list_level, $newfile, $newpar, $open_brackets, %parameter);
 
@@ -1210,7 +1221,7 @@ sub parseFile {
     # output lines / paragraphs
     ($newfile, $list_level, $open_brackets) = outputLines ($par , $parstyle, $macro, $title, $environment, $prev_env, $list_level, $newfile, $newpar, $open_brackets, %parameter);
 
-    if ($environment){
+    if ($environment &! $environment =~ /latex/){
 	print OUTPUT "\\end\{$environment\}";
     }
     
