@@ -245,3 +245,6 @@ TSWLatexianTemp*
 docs/.#README.lafic
 docs/.#README.de.tex
 templates/Standard_de_DE.tmp.pdf
+docs/latex_snippet.pdf
+docs/latex_snippet.svg
+docs/latex_snippet.tex

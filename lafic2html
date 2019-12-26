@@ -123,7 +123,10 @@ my %environments = (
     "figure" => "figure",
     ######
     "verbatim" => "pre",
-    "verb" => "pre",    
+    "verb" => "pre",
+    ######
+    "latex" => "latex",
+    "tex" => "tex",
 );
 
 
@@ -305,6 +308,80 @@ sub startTemplate {
     }
 }
 
+### Create Standalon LaTeX file
+sub LaTeX_Code {
+    # If template isn't allready open for input
+    # open Standard template.
+    #####
+    # TODO add path
+    #####
+
+    my $par = shift;
+    my $ltx_temp = ""; # standalone template
+
+    # temporary output latex file		      
+    my $out_temp="$path/latex_snippet";
+		      
+    # project standalone template
+    if (-e "$path/standalone.tmp.tex"){
+	    $ltx_temp = "$path/standalone.tmp.tex";
+    }
+    # # german ltxndard template 
+    # elsif ($config{"lang"} =~ /^de_DE$/ ) {
+    #     $ltx_temp = "$lafic_dir/templates/Standard_de_DE.tmp.html";
+    # }
+    #english ltxndard template
+    else {
+	$ltx_temp = "$lafic_dir/templates/standalone.tmp.tex";
+    }
+    open(LTXTMP, "<$ltx_temp") or
+	die "Could not open $ltx_temp";
+    print "use $ltx_temp\n";
+    local $/;
+    $ltx_temp = <LTXTMP>;
+				      
+    open(OUTTMP, ">$out_temp.tex")	or
+	die "Could not open $out_temp.tex";
+    print "Temporarily created latex_snippet\n";			      
+				      
+    # Print template 
+    while ($ltx_temp =~ /^(.*?)$/mg) {
+	my $line = $1;
+
+	# stop at marker
+	if ($line =~ /\%TEXT\%/){
+	    print OUTTMP "\t$par\n";
+	    next;
+	}
+
+	print OUTTMP "$line\n";
+    }
+
+    close(OUTTMP);				      
+    close(LTXTMP);
+
+    # Create PDF
+    system ('/usr/bin/latexmk -xelatex ' . "$out_temp.tex");
+    system ('/usr/bin/latexmk -c');
+    print "Temorarily created $out_temp.pdf\n";
+
+    # Create Svg
+    system ('/usr/bin/pdf2svg ' . "$out_temp.pdf " . " $out_temp.svg");
+    print "Temorarily created $out_temp.svg\n";
+
+    # import SVG
+    open (SVGTMP, "<$out_temp.svg");
+    my $svg_temp = <SVGTMP>;
+    while ($svg_temp =~ /^(.*?)$/mg) {
+	my $line = $1;
+	# skip header
+	if ($line =~ /\?xml/) {next};
+	print OUTPUT "$line\n";
+    }
+    close (SVGTMP);
+}
+
+				      
 # make proper Html code
 sub Html {
     my $par = shift;
@@ -490,7 +567,7 @@ sub outputLines {
     print OUTPUT "\n";
 
 
-    unless ($environment =~ /^pre$/){
+    unless ($environment =~ /^(pre|latex)$/){
 	# list level+
 	$par =~ s/^[[:blank:]]*(&gt;|>)\n+/<\/li>\n<$environment>\n/mg;
 	$par =~ s/^[[:blank:]]*(&lt;|<)\n+/<\/li>\n<\/$environment>\n/mg;
@@ -669,6 +746,10 @@ sub outputLines {
 		      }
 		      print OUTPUT "</figure>\n";
 		  }
+		  # latex code
+		  elsif ($environment =~ /^latex$/) {
+		      LaTeX_Code($par);
+		  }
 		  # list environment
 		  elsif ($environment =~ /^[ou]l$/) {
 		      unless ($environment eq $prev_env) {
@@ -702,13 +783,6 @@ sub outputLines {
 		  last SELECT}
     }
 
-
-    # # close colorbox
-    # if ($parameter{"background-color"} or $parameter{"text-align"} or $parameter{"color"}) {
-    # 	print OUTPUT "</div>\n";
-    # }
-
-    
 
     return ($newfile, $list_level, $div_level);
 }
@@ -953,7 +1027,9 @@ sub parseFile {
 		if ($formbl == 0) {
 		    # first make proper Html  code
 		    if ($environment && 
-			    $environment =~ /^pre$/){
+			  $environment =~ /^pre$/ ||
+			  $environment =~ /^latex$/ 
+			  ){
 			$par = Html ($par, '<>&"');
 		    }
 		    else { $par = Html ($par);}
@@ -1146,7 +1222,8 @@ sub parseFile {
 	    if ($formbl == 0){
 		# make proper Html  code
 		if ($environment && 
-			$environment =~ /^pre$/){
+		    $environment =~ /^pre$/ ||
+		    $environment =~ /^latex$/){
 		$par = Html ($par, '<>&"');
 		}
 		else {$par = Html ($par);}
@@ -1181,7 +1258,9 @@ sub parseFile {
     if ($formbl == 0){
 	# make proper Html  code
 	if ($environment && 
-		$environment =~ /^pre$/){
+	    $environment =~ /^pre$/ ||
+	    $environment =~ /^latex$/
+	    ){
 	    $par = Html ($par, '<>&"');
 	}
 	else {
