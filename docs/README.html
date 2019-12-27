@@ -399,7 +399,7 @@ the value:
 becomes:
 </p>
 
-<div style="padding: 1em; text-align: right; color: red; background-color: #00FFFF">
+<div style="padding: 1em; background-color: #00FFFF; color: red; text-align: right">
 <p>
 This paragraph has a red on blue text and is aligned to the
 right.
@@ -697,6 +697,15 @@ this:
 </latex>
 
 </div>
+
+<p>
+This is done by pasting the paragraph into the
+<span class="tt">templates/</span><span class="tt">standalone.tmp.tex</span> files. You can create a custom
+<span class="tt">standalone.tmp.tex</span> file in your working directory.
+The (Xe)LaTeX file is compiled to a PDF file and then to a
+SVG file by pdf2svg. The SVG is than pasted to the html
+output file.
+</p>
 
 <H2>Customization</H2>
 

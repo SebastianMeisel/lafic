@@ -478,6 +478,15 @@ this:
   $\left(\frac{1}{\sqrt{x}}\right)$  
 % align =center
 
+This is done by pasting the paragraph into the
+templates/standalone.tmp.tex files. You can create a custom
+standalone.tmp.tex file in your working directory.
+The (Xe)LaTeX file is compiled to a PDF file and then to a
+SVG file by pdf2svg. The SVG is than pasted to the html
+output file.  
+% templates/: mono
+% stand…tex: mono
+
 % heading2
 Customization
 

@@ -379,7 +379,10 @@ sub LaTeX_Code {
 	print OUTPUT "$line\n";
     }
     close (SVGTMP);
-}
+
+    #
+    system ('/bin/rm ' . "$out_temp.* ");
+    print "Delete temorarily created files.\n";}
 
 				      
 # make proper Html code
