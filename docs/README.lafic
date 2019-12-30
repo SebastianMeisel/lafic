@@ -60,8 +60,8 @@ lafic2pdf also requires latexmk (tested with version 4.41).
 
 To use LaTeX-Code in HTML output latexmk and pdf2svg (tested
 with version 0.2.3-1) are required.
-% latexmk: nicht proportional
-% pdf2svg: nicht proportional
+% latexmk: mono
+% pdf2svg: mono
 
 Installation
 % label = installation 

@@ -65,6 +65,12 @@ Die Gnu-Emacs-Einbindung wurde unter Gnu Emacs 25.2.2 getestet.
 lafic2pdf setzt zudem latexmk (getestet mit Version 4.41) vorraus.
 % lafic2pdf: nicht proportional
 
+lafic2html benötigt latexmk und pdf2svg (getestet mit
+Version 0.2.3-1).
+% lafic2html: nicht proportional
+% latexmk: nicht proportional
+% pdf2svg: nicht proportional
+
 Installation
 % Name = Installation
 
@@ -502,6 +508,22 @@ Geh nicht!
 % Geh: hervorheben
 % geh: hervorheben
 % Zeilen umbrechen
+
+
+LaTeX-Code
+
+Es besteht die Möglichkeit reinen LaTeX-Code wie folgt zu
+nutzen:
+
+% Verbatim
+	% LaTeX
+  	  $\left(\frac{1}{\sqrt{x}}\right)$  
+	% Ausrichtung = center
+
+% LaTeX
+  $\left(\frac{1}{\sqrt{x}}\right)$  
+% Ausrichtung =center
+
 
 % Überschrift2
 Anpassung

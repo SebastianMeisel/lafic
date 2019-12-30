@@ -97,6 +97,9 @@ xspace voraus.\\}
 
 {\texttt{lafic2pdf} setzt zudem latexmk (getestet mit Version 4.41) vorraus.\\}
 
+{\texttt{lafic2html} benötigt \texttt{latexmk} und \texttt{pdf2svg} (getestet mit
+Version 0.2.3-1).\\}
+
 \section{Installation}
 \label{Installation}
 
@@ -556,6 +559,20 @@ Parameter Farbe und Hintergrund unterstützt:\\}
 Nur,\\
 \emph{Geh} nicht!\\\\}
 
+\section{LaTeX-Code}
+
+{Es besteht die Möglichkeit reinen \LaTeX\ -Code wie folgt zu
+nutzen:\\}
+
+\begin{verbatim}
+	% LaTeX
+  	  $\left(\frac{1}{\sqrt{x}}\right)$  
+	% Ausrichtung = center
+\end{verbatim}
+
+
+\centering%%
+  $\left(\frac{1}{\sqrt{x}}\right)$
 \part{Anpassung}
 
 {LaFiC lässt sich auf verschiedene Weise anpassen.\\}
