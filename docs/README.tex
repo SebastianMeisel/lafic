@@ -82,7 +82,10 @@ with a least graphicx, hyperref, microtype and xspace.\\}
 
 {The Gnu Emacs lisp files where tested with Gnu Emacs 25.2.2.\\}
 
-{\texttt{lafic2pdf} also requires latexmk (tested with version 4.41).\\}
+{\texttt{lafic2pdf} also requires \texttt{latexmk} (tested with version 4.41).\\}
+
+{To use \LaTeX\ -Code in HTML output \texttt{latexmk} and \texttt{pdf2svg} (tested
+with version 0.2.3-1) are required.\\}
 
 \section{Installation}
 \label{installation}
@@ -536,6 +539,13 @@ this:\\}
 
 \centering%%
   $\left(\frac{1}{\sqrt{x}}\right)$
+{This is done by pasting the paragraph into the
+\texttt{templates/}\texttt{standalone.tmp.tex} files. You can create a custom
+\texttt{standalone.tmp.tex} file in your working directory.
+The (Xe)LaTeX file is compiled to a PDF file and then to a
+SVG file by pdf2svg. The SVG is than pasted to the html
+output file.\\}
+
 \part{Customization}
 
 {It is possible to customize LaFiC in various ways.\\}

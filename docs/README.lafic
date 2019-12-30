@@ -56,6 +56,12 @@ The Gnu Emacs lisp files where tested with Gnu Emacs 25.2.2.
 
 lafic2pdf also requires latexmk (tested with version 4.41).
 % lafic2pdf: mono
+% latexmk: mono
+
+To use LaTeX-Code in HTML output latexmk and pdf2svg (tested
+with version 0.2.3-1) are required.
+% latexmk: nicht proportional
+% pdf2svg: nicht proportional
 
 Installation
 % label = installation 

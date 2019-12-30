@@ -320,11 +320,11 @@ sub LaTeX_Code {
     my $ltx_temp = ""; # standalone template
 
     # temporary output latex file		      
-    my $out_temp="$path/latex_snippet";
+    my $out_temp=$path."latex_snippet";
 		      
     # project standalone template
-    if (-e "$path/standalone.tmp.tex"){
-	    $ltx_temp = "$path/standalone.tmp.tex";
+    if (-e "$path.standalone.tmp.tex"){
+	    $ltx_temp = $path."standalone.tmp.tex";
     }
     # # german ltxndard template 
     # elsif ($config{"lang"} =~ /^de_DE$/ ) {
@@ -361,12 +361,16 @@ sub LaTeX_Code {
     close(LTXTMP);
 
     # Create PDF
-    system ('/usr/bin/latexmk -xelatex ' . "$out_temp.tex");
-    system ('/usr/bin/latexmk -c');
+    my $return = system ('/usr/bin/latexmk -f -xelatex ' . "$out_temp.tex");
+    if ( $return != 0) { die "Couldn't compile $out_temp.tex ." ; }
+    # Clean up
+    $return = system ('/usr/bin/latexmk -c');
+    if ( $return != 0) { die "Couldn't compile $out_temp.tex ." ; }
     print "Temorarily created $out_temp.pdf\n";
 
     # Create Svg
-    system ('/usr/bin/pdf2svg ' . "$out_temp.pdf " . " $out_temp.svg");
+    my $return = system ('/usr/bin/pdf2svg ' . "$out_temp.pdf " . " $out_temp.svg");
+    if ( $return != 0) { die "Couldn't compile $out_temp.tex." ; }
     print "Temorarily created $out_temp.svg\n";
 
     # import SVG
@@ -381,8 +385,10 @@ sub LaTeX_Code {
     close (SVGTMP);
 
     #
-    system ('/bin/rm ' . "$out_temp.* ");
-    print "Delete temorarily created files.\n";}
+    my $return = system ('/bin/rm ' . "$out_temp.* ");
+    if ( $return != 0) { die "Couldn't compile $out_temp.tex." ; }
+    print "Delete temorarily created files.\n";
+}
 
 				      
 # make proper Html code
