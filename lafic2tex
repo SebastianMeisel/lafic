@@ -103,6 +103,11 @@ my %macros = (
     # marginpar
     "marginpar" => "marginpar",
     "annote" => "marginpar",
+    # preamble
+    "author" => "author",
+    "by" => "author",
+    "date" => "date",
+    "thanks" => "thanks",
     );
 
 
@@ -186,17 +191,25 @@ my %keywords = (
 # list of list environments
 my @list_environments = (
     "enumerate", 
-    "itemize"
+    "itemize",
     );
 
 # list of macros, that replace the searchstring
 my @il_replace_macros = (
     "nameref",
-    "ref"
+    "ref",
     );
 
 my @il_after_macros = (
     "footnote",
+    );
+
+###############
+# list of preamble macros
+my  @preamble_macros = (
+    "author",
+    "date",
+    "thanks",
     );
 
 # hash for label prefixes (not supported jet)
@@ -339,7 +352,7 @@ sub startTemplate {
 	
 	# stop at %TITLE%
 	if ($line =~ /\%$marker\%/){last}
-
+	print "*";
 	print OUTPUT "$line\n";
     }
 }
@@ -529,7 +542,7 @@ sub handleParameter {
 ########################
 sub outputLines {
     # get parameters
-    my ($par , $parstyle, $macro, $title, $environment, $prev_env,         $list_level,	$newfile, $newpar, $open_brackets,  %parameter) = @_;
+    my ($par , $parstyle, $macro, $title, $environment, $prev_env,  $list_level, $newfile, $newpar, $open_brackets,  %parameter) = @_;
 
     
     # check if continious environment needs to be closed
@@ -621,20 +634,21 @@ sub outputLines {
 		  # check if it is first line / paragraph
 		  if ($newfile == 1) {
 		      startTemplate("TITLE");
-		      $newfile = 0;
+		      $newfile = 2;
 		  }
 		  
 		  print OUTPUT "\\$macro\{$par\}\n";
 
-		  # check if heading
-		  if ($macro =~ /^part|(sub)?section/) {
-		      my ($label) = handleParameter($macro, %parameter);
-		      unless (! defined $label) {
-			  print OUTPUT "\\label{$label}\n";
-			  # mark in stdout
-			  print "\n$par\n";
+		  # does that belong to preamble?
+		  if  ($macro ~~ @preamble_macros) {
+		      # make sure author isn't writen over
+		      if ($macro =~ /author/) {
+			  delete $config{"author"}
 		      }
+		      print "|$macro|";
+		      last SELECT;
 		  }
+
 		  # save title and run startTemplate
 		  if ($macro =~ /title/) {
 		      $title = $par;
@@ -644,9 +658,17 @@ sub outputLines {
 		      # mark in stdout
 		      print "\n$par\n";
 
-
 		      startTemplate("TEXT");
-		      # }		
+		      $newfile =   0;
+		  }		
+		  # check if heading
+		  elsif ($macro =~ /^part|(sub)?section/) {
+		      my ($label) = handleParameter($macro, %parameter);
+		      unless (! defined $label) {
+			  print OUTPUT "\\label{$label}\n";
+			  # mark in stdout
+			  print "\n$par\n";
+		      }
 		  }
 		  last SELECT}
 	      # paragraph
@@ -654,6 +676,21 @@ sub outputLines {
 		  # check if it is first line / paragraph
 		  if ($newfile == 1 and not $template =~ /^empty$/) {
 		      startTemplate("TITLE");
+		  }
+		  # does that belong to preamble?
+		  if  ($macro ~~ @preamble_macros) {
+		      print "\[$macro\]";
+		      print OUTPUT "\\$macro\{$par}\n";
+		      # make sure author isn't writen over
+		      if ($macro =~ /author/) {
+			  delete $config{'author'}
+		      }
+		      print "\n Author set to \author $config{'author'}\n";
+		      $newfile = 2;
+		      last SELECT;
+		  }
+		  
+		  if ($newfile > 0) {
 		      # check if title is defined
 		      if ($title =~ /^\s*$/) {
 			  # run startTemplate
@@ -662,6 +699,7 @@ sub outputLines {
 		      if ($config{"author"}){
 			  print OUTPUT "\\author\{$config{'author'}\}\n";
 		      }
+
 		      startTemplate("TEXT");
 		      $newfile = 0;
 		  };
@@ -696,6 +734,9 @@ sub outputLines {
 		  if ($newfile == 1 and not $template =~ /^empty$/) {
 		      # run startTemplate
 		      startTemplate("TITLE");
+		  }
+		  
+		  if ($newfile > 0) {
 		      # check if title is defined
 		      if ($title =~ /^\s*$/) {
 			  print OUTPUT "\\title\{Unbekannt\}\n";
@@ -963,7 +1004,7 @@ sub parseFile {
 		SELECT: {
 		    # section heading    
 		    if ($parstyle == 0) {
-			if ($newfile == 1) {
+			if ($newfile > 1) {
 			    #######
 			    # TODO: put to preamble
 			    #######
@@ -1221,7 +1262,7 @@ sub parseFile {
     # output lines / paragraphs
     ($newfile, $list_level, $open_brackets) = outputLines ($par , $parstyle, $macro, $title, $environment, $prev_env, $list_level, $newfile, $newpar, $open_brackets, %parameter);
 
-    if ($environment &! $environment =~ /latex/){
+    if ($environment && (!($environment =~ /latex/))) {
 	print OUTPUT "\\end\{$environment\}";
     }
     
@@ -1235,6 +1276,7 @@ sub parseFile {
 close (INPUT);
 # print rest of template.
 while ($template =~ /^(.*?)$/mg and not $template =~ /^empty$/) {
+
     my $line = $1;
     print OUTPUT "$line\n";
 }

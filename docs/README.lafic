@@ -1,5 +1,8 @@
 % Standard 
 
+% author
+Sebastian Meisel
+
 Introduction to LaFiC
 
 % center
@@ -229,12 +232,28 @@ are:
 % "…": mono
 
 % verbatim
-  % heading4
-  This is a subsection
+  % heading5
+  This is a subsubsection
 
+
+% heading5
+This is a subsubsection
 
 % heading4
-This is a subsection
+Metadata
+
+Metadata like author and date can be provided as formated
+lines:
+
+% verbatim
+  % author
+  Frank Sample
+
+% verbatim
+  % date
+  nevermas
+
+At the moment these tow are also the only metadata keywords provided.
 
 Inline formation
 
