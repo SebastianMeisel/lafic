@@ -15,8 +15,11 @@
     });
   </script>
   <link rel="stylesheet" href="./styles/standard.css">
-<meta name="title"content="Einführung in LaFiC">
 <meta name="author"content="Sebastian Meisel">
+
+<meta name="date"content="27. Januar 2020">
+
+<meta name="title"content="Einführung in LaFiC">
 </head>
 
 <body>
@@ -318,12 +321,13 @@ Zeilen werden auf die gleiche Weise formatiert, nur werden sie in Makros (LaTeX)
 </p>
 
 <pre>
-<p>    % Unterabschnitt
-    Das ist ein Unterabschnitt</p>
+<p>    % Unterunterabschnitt
+    Das ist ein Unterunterabschnitt</p>
 </pre>
 
 
-<h4>Dies ist ein Unterabschnitt</h4>
+<span class="unterunterabschnitt">Dies ist ein Unterunterabschnitt</span>
+<unterunterabschnitt>Dies ist ein Unterunterabschnitt</unterunterabschnitt>
 
 <p>
 Folgende Schlüsselwörter werden zur Zeit unterstützt:
@@ -341,6 +345,26 @@ Folgende Schlüsselwörter werden zur Zeit unterstützt:
 </li>
 </ul>
 
+
+<h4>Metadaten</h4>
+
+<p>
+Metadaten können als formatierte Zeilen angegeben werden:
+</p>
+
+<pre>
+<p>  % Autor
+  Max Mustermann</p>
+
+<p>  % Datum
+  Sankt-Nimmerleins-Tag</p>
+</pre>
+
+
+<p>
+Dies sind zur Zeit auch die beiden einzigen Schlüsselwörter,
+wobei alternativ „<span class="tt">von</span>“ und „<span class="tt">am</span>“ zur Verfügung stehen.
+</p>
 
 <H3>Textformatierung im Absatz</H3>
 
@@ -446,7 +470,7 @@ statt des Doppelpunktes gesetzt wird:
 wird zu:
 </p>
 
-<div style="padding: 1em; text-align: right; background-color: #00FFFF; color: red">
+<div style="padding: 1em; color: red; text-align: right; background-color: #00FFFF">
 <p>
 Dieser Text ist rot auf blauem Untergrund und
 rechtsbündig.
@@ -572,7 +596,7 @@ einer der Dateiendungen png, jpg, jpeg oder gif einfügt:
 
 
 <div style="padding: 1em; text-align: center">
-<img style="width: 50%;" src="./Image.png">
+<img style="" src="./Image.png">
 </div>
 
 <p>
@@ -605,7 +629,7 @@ werden.
 
 <div style="padding: 1em; text-align: right">
 <figure  role="group">
-<img style="height: 40%;" src="./Image.png">
+<img style="" src="./Image.png">
 </figure>
 </figure>
 
@@ -675,7 +699,7 @@ nutzen:
 <pre>
 <p>	% LaTeX
   	  $\left(\frac{1}{\sqrt{x}}\right)$  
-	% align = center</p>
+	% Ausrichtung = center</p>
 </pre>
 
 

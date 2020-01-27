@@ -20,5 +20,12 @@
     "absatz" => "h6",
     "Ü" => "h3",
     "Überschrift" => "h3",
+    # Anmerkungen
+    "anmerkung" => "marginpar",
+    # Metadaten
+    "autor" => "author",
+    "von" => "author",
+    "datum" => "date",
+    "am" => "date",
 
 

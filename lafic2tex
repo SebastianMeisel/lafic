@@ -107,7 +107,6 @@ my %macros = (
     "author" => "author",
     "by" => "author",
     "date" => "date",
-    "thanks" => "thanks",
     );
 
 
@@ -209,7 +208,6 @@ my @il_after_macros = (
 my  @preamble_macros = (
     "author",
     "date",
-    "thanks",
     );
 
 # hash for label prefixes (not supported jet)
@@ -648,7 +646,6 @@ sub outputLines {
 		      print "|$macro|";
 		      last SELECT;
 		  }
-
 		  # save title and run startTemplate
 		  if ($macro =~ /title/) {
 		      $title = $par;

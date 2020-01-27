@@ -22,7 +22,7 @@
     "Überschrift" => "addsec",
     # Anmerkungen
     "anmerkung" => "marginpar",
-    # Preamble
+    # Metadaten
     "autor" => "author",
     "von" => "author",
     "datum" => "date",

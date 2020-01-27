@@ -97,8 +97,13 @@ my %macros = (
     "" => "H6",
     "h" => "H3",
     "heading" => "H3",
+    # marginpar
     "marginpar" => ".annote",
     "annote" => ".annote",
+    # preamble
+    "author" => "author",
+    "by" => "author",
+    "date" => "date",
     );
 
 
@@ -187,6 +192,14 @@ my %colors = (
     "red" => "red",
     "white" => "white",
     );
+
+#####################
+# list of meta keys
+my @meta_keys = (
+    "author",
+    "date",
+    );
+
 
 ######
 # Language specific
@@ -304,6 +317,7 @@ sub startTemplate {
 	# stop at marker
 	if ($line =~ /\<!-- $marker --\>/){last}
 
+	print "*";
 	print OUTPUT "$line\n";
     }
 }
@@ -473,8 +487,8 @@ sub handleParameter {
     
     # get standard keywords for parameter   
     foreach $key (keys %parameter) {
-	if ($parameters{$key}){
-	    $parameter{$parameters{$key}} = delete($parameter{$key});
+	if ($parameters{lc($key)}){
+	    $parameter{$parameters{lc($key)}} = delete($parameter{lc($key)});
 	}
     }
 
@@ -617,19 +631,37 @@ sub outputLines {
       if ($parstyle == 0 || $parstyle == 3) {
 		  # check if it is first line / paragraph
 	  if ($newfile == 1 and not $template =~ /^empty$/) {
-		      startTemplate("TITLE");
-		      $newfile = 0;
-		  }
-
-		  # check if span
-		  if ($macro =~ /^\./) {
-		      $macro =~ s/^\.//;
-		      print OUTPUT "<span class=\"$macro\">$par</span>\n";
-		  }
-		  # save title and run startTemplate
+	      startTemplate("TITLE");
+	      $newfile = 2;
+	  }
+	  
+	  # check if span
+	  if ($macro =~ /^\./) {
+	      $macro =~ s/^\.//;
+	      print OUTPUT "<span class=\"$macro\">$par</span>\n";
+	  }
+	  # Is this metadata
+	  if ($macro ~~ @meta_keys){
+	      # make sure author isn't writen over
+	      if ($macro =~ /author/) {
+		  delete $config{"author"}
+	      }
+	      print "|$macro|";
+	      # unless this is a snippet
+	      unless ($template =~ /^empty$/) {
+		  print OUTPUT "<meta name=\"$macro\"";
+		  print OUTPUT "content=\"";
+		  print OUTPUT $par;
+		  print OUTPUT "\">\n";
+	      }
+	      last SELECT;
+	  }
+	  # save title and run startTemplate
 	  elsif ($macro =~ /^(title|h1)$/i) {
 	      # unless this is a snippet
 	      unless ($template =~ /^empty$/) {
+		  print "|title|";
+		  
 		  $title = $par;
 		  print OUTPUT "<meta name=\"title\"";
 		  print OUTPUT "content=\"";
@@ -678,25 +710,46 @@ sub outputLines {
 		      # unless this is a snippet
 		      unless ($template =~ /^empty$/){
 			  startTemplate("TITLE");
-			  if ($title =~ /^\s*$/) {
-			      $title = "Ein Text";
-			      print OUTPUT "<meta name=\"title\"";
-			      print OUTPUT "content=\"";
-			      print OUTPUT $title;
-			      print OUTPUT "\">\n";
-			      if ($config{"author"}){
-				  print OUTPUT "<meta name=\"author\"";
-				  print OUTPUT "content=\"";
-				  print OUTPUT $config{"author"};
-				  print OUTPUT "\">\n";
-			      }
-			  
-			      startTemplate("TEXT");
-			  }
-			  $macro = "H1";
-			  
-			  print OUTPUT "<$macro>$title</$macro>\n";
+		      }
+		      $newfile = 2;
+		  }
 
+		  if ($newfile > 0 ) {
+		      # Is this metadata
+		      if ($macro ~~ @meta_keys){
+			  # make sure author isn't writen over
+			  if ($macro =~ /author/) {
+			      delete $config{"author"}
+			  }
+			  print "|$macro|";
+			  # unless this is a snippet
+			  unless ($template =~ /^empty$/) {
+			      print OUTPUT "<meta name=\"$macro\"";
+			      print OUTPUT "content=\"";
+			      print OUTPUT $par;
+			      print OUTPUT "\">\n";
+			  }
+			  last SELECT;
+		      }
+		      # or the tile?
+		      elsif ($title =~ /^\s*$/) {
+			  print "|title|";
+			      
+			  $title = "Ein Text";
+			  print OUTPUT "<meta name=\"title\"";
+			  print OUTPUT "content=\"";
+			  print OUTPUT $title;
+			  print OUTPUT "\">\n";
+			  if ($config{"author"}){
+			      print OUTPUT "<meta name=\"author\"";
+			      print OUTPUT "content=\"";
+			      print OUTPUT $config{"author"};
+			      print OUTPUT "\">\n";
+			  }
+			  startTemplate("TEXT");			  
+
+			  $macro = "H1";
+			  print OUTPUT "<$macro>$title</$macro>\n";
 			  $newfile = 0;
 		      };
 		  };
@@ -728,17 +781,38 @@ sub outputLines {
 		      # unless this is a snippet
 		      unless ($template =~ /^empty$/){
 			  startTemplate("TITLE");
+		      }
+		      $newfile = 2;
+		  }
+		  if ($newfile > 0) {
+		      	  # Is this metadata
+		      if ($macro ~~ @meta_keys){
+			  # make sure author isn't writen over
+			  if ($macro =~ /author/) {
+			      delete $config{"author"}
+			  }
+			  print "|$macro|";
+			  # unless this is a snippet
+			  unless ($template =~ /^empty$/) {
+			      print OUTPUT "<meta name=\"$macro\"";
+			      print OUTPUT "content=\"";
+			      print OUTPUT $par;
+			      print OUTPUT "\">\n";
+			  }
+			  last SELECT;
+		      }
+		      else {
 			  # check if title is defined
 			  unless (defined $title) {
 			      # run startTemplate
 			      print OUTPUT "<title>Unbekannt</title>\n";
 			  }
 			  startTemplate("TEXT");
+			  # print title as heading
+			  $macro = "H1";
+			  print OUTPUT "<$macro>$par</$macro>\n";
+			  $newfile = 0;
 		      }
-		      # print title as heading
-		      $macro = "H1";
-		      print OUTPUT "<$macro>$par</$macro>\n";
-		      $newfile = 0;
 		  }
 		  # figures are special
 		  if ($environment =~ /^figure$/) {
@@ -977,7 +1051,7 @@ sub parseFile {
 		    last SELECT}
 		}
 		$newpar = 0;
-#		$newfile = 0;
+
 	    }
 	    # else line
 	    else {
@@ -990,7 +1064,7 @@ sub parseFile {
 		SELECT: {
 		    # section heading    
 		    if ($parstyle == 0) {
-			if ($newfile == 1  and $i == 1) {
+			if ($newfile > 0 ) { # ?  and $i == 1
 			    $macro = "title";
 			}
 			else{
