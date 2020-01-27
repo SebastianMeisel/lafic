@@ -14,7 +14,7 @@
     "unterabschnitt" => "subsection",
     "Ü5" => "subsubsection",
     "Überschrift5" => "subsubsection",
-    "subsubsection" => "subsubsection",
+    "unterunterabschnitt" => "subsubsection",
     "Ü6" => "paragraph",
     "Überschrift6" => "paragraph",
     "absatz" => "paragraph",
@@ -22,5 +22,10 @@
     "Überschrift" => "addsec",
     # Anmerkungen
     "anmerkung" => "marginpar",
+    # Preamble
+    "autor" => "author",
+    "von" => "author",
+    "datum" => "date",
+    "am" => "date",
 
 

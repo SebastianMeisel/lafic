@@ -1,3 +1,9 @@
+% von
+Sebastian Meisel
+
+% am
+27. Januar 2020
+
 Einführung in LaFiC
 
 % center
@@ -249,11 +255,11 @@ Formatierte Zeilen
 Zeilen werden auf die gleiche Weise formatiert, nur werden sie in Makros (LaTeX) oder <span>-Ids (Html) umgewandelt. Zeilen sind in der Regel Überschriften.
 
 % Verbatim
-    % Unterabschnitt
-    Das ist ein Unterabschnitt
+    % Unterunterabschnitt
+    Das ist ein Unterunterabschnitt
 
-% Unterabschnitt
-Dies ist ein Unterabschnitt
+% Unterunterabschnitt
+Dies ist ein Unterunterabschnitt
 
 
 Folgende Schlüsselwörter werden zur Zeit unterstützt:
@@ -268,6 +274,24 @@ Folgende Schlüsselwörter werden zur Zeit unterstützt:
 * "Absatz" / "Überschrift6" für \paragraph / <h6>
 % "…": nicht proportional
 % Kapitel…h2>: Fußnote: Wird nicht von der Standard-Vorlage unterstützt. Es muss eine LaTeX-Klasse verwendet werden, die \chapter unterstützt. 
+
+% Unterabschnitt
+Metadaten
+
+Metadaten können als formatierte Zeilen angegeben werden:
+
+% Verbatim
+  % Autor
+  Max Mustermann
+
+% Verbatim
+  % Datum
+  Sankt-Nimmerleins-Tag
+
+Dies sind zur Zeit auch die beiden einzigen Schlüsselwörter,
+wobei alternativ "von" und "am" zur Verfügung stehen.
+% von: nicht proportional
+% am: nicht proportional
 
 Textformatierung im Absatz
 

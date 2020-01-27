@@ -26,8 +26,11 @@ pdfpagemode=UseOutlines]{hyperref}
 \sloppy
 
 
-\title{Einführung in LaFiC}
 \author{Sebastian Meisel}
+
+\date{27. Januar 2020}
+
+\title{Einführung in LaFiC}
 
 \begin{document}
 
@@ -269,12 +272,12 @@ Hier geht das Zitat weiter.
 {Zeilen werden auf die gleiche Weise formatiert, nur werden sie in Makros (LaTeX) oder <span>-Ids (Html) umgewandelt. Zeilen sind in der Regel Überschriften.\\}
 
 \begin{verbatim}
-    % Unterabschnitt
-    Das ist ein Unterabschnitt
+    % Unterunterabschnitt
+    Das ist ein Unterunterabschnitt
 \end{verbatim}
 
 
-\subsection{Dies ist ein Unterabschnitt}
+\subsubsection{Dies ist ein Unterunterabschnitt}
 
 {Folgende Schlüsselwörter werden zur Zeit unterstützt:\\}
 
@@ -289,6 +292,22 @@ Hier geht das Zitat weiter.
 \item \texttt{„Absatz“} / „Überschrift6“ für \textbackslash paragraph / <h6>
 \end{itemize}
 
+
+\subsection{Metadaten}
+
+{Metadaten können als formatierte Zeilen angegeben werden:\\}
+
+\begin{verbatim}
+  % Autor
+  Max Mustermann
+
+  % Datum
+  Sankt-Nimmerleins-Tag
+\end{verbatim}
+
+
+{Dies sind zur Zeit auch die beiden einzigen Schlüsselwörter,
+wobei alternativ „\texttt{von}“ und „\texttt{am}“ zur Verfügung stehen.\\}
 
 \section{Textformatierung im Absatz}
 

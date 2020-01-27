@@ -43,7 +43,9 @@
     "Ü4" "Überschrift4" "Unterabschnitt" 
     "Ü5" "Überschrift5" "Unterunterabschnitt"
     "Ü6" "Überschrift6" "Absatz" 
-    "Ü"  "Überschrift" 
+    "Ü"  "Überschrift"
+    "Autor" "von"
+    "Datum" "am"
     )
   "German Keywords for line styles."
   )
