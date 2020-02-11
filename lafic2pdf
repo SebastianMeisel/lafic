@@ -17,4 +17,13 @@
 # Software Foundation, Inc., 51 Franklin Street, Fifth
 # Floor, Boston, MA  02110-1301, USA.  
 
+echo "    –––––––––––––––––––––––––––
+    lafic2pdf [version 0.3] Copyright (C) 2020 by Sebastian Meisel
+    This program comes with ABSOLUTELY NO WARRANTY; 
+    This is free software, and you are welcome to redistribute it
+    under certain conditions; read LICENCE for details.
+    –––––––––––––––––––––––––––––––\n\n"; >&2
+
 lafic2tex $1 && latexmk -xelatex $(basename $1 .lafic).tex && latexmk -c
+
+exit 0

@@ -36,7 +36,7 @@ use HTML::Entities;
 #########
 
 print "    –––––––––––––––––––––––––––
-    lafic2html [version 0.1] Copyright (C) 2019 by Sebastian Meisel
+    lafic2html [version 0.3] Copyright (C) 2020 by Sebastian Meisel
     This program comes with ABSOLUTELY NO WARRANTY; 
     This is free software, and you are welcome to redistribute it
     under certain conditions; read LICENCE for details.
