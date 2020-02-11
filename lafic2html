@@ -248,7 +248,7 @@ my @meta_keys = (
     
 
 # declare $template variable for template filehandler
-my $template;
+my $template = "";
 
 
 ###############################
@@ -287,8 +287,7 @@ sub startTemplate {
 
     my $marker = shift;
 
-    
-    unless (defined $template) {
+    if ($template =~ /^$/) {
 	my $temp_file;
 	# project template
 	if (-e "$path$basename.tmp.html"){
@@ -383,7 +382,7 @@ sub LaTeX_Code {
     print "Temorarily created $out_temp.pdf\n";
 
     # Create Svg
-    my $return = system ('/usr/bin/pdf2svg ' . "$out_temp.pdf " . " $out_temp.svg");
+    $return = system ('/usr/bin/pdf2svg ' . "$out_temp.pdf " . " $out_temp.svg");
     if ( $return != 0) { die "Couldn't compile $out_temp.tex." ; }
     print "Temorarily created $out_temp.svg\n";
 
@@ -399,8 +398,8 @@ sub LaTeX_Code {
     close (SVGTMP);
 
     #
-    my $return = system ('/bin/rm ' . "$out_temp.* ");
-    if ( $return != 0) { die "Couldn't compile $out_temp.tex." ; }
+    $return = system ('/bin/rm ' . "$out_temp.* ");
+    if ( $return != 0) { die "Couldn't delete temp files." ; }
     print "Delete temorarily created files.\n";
 }
 
@@ -805,6 +804,7 @@ sub outputLines {
 			  # check if title is defined
 			  unless (defined $title) {
 			      # run startTemplate
+			      startTemplate("TITLE");
 			      print OUTPUT "<title>Unbekannt</title>\n";
 			  }
 			  startTemplate("TEXT");
