@@ -391,7 +391,7 @@ sub LaTeX {
     $par =~ s/\.{3,3}/…/g;
     
     # Non breaking space befor -- and ... 
-    $par =~ s/\s(--|\{\\ldots|…)/~$1/mg;
+    $par =~ s/\s(–|--|\{\\ldots|…)/~$1/mg;
   
     # And between ?|! and quotation marks
     $par =~ s/(\?|!)``/$1\\,``/mg;
