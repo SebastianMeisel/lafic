@@ -325,29 +325,30 @@
   "Run a command to convert the lafic file."
   (interactive)
   (save-buffer)
-  (let ((format (completing-read "Output format: "
-	      (mapcar 'list (hash-table-keys lafic-command-hash))
-	      nil t (or (car lafic-command-history) "") 'lafic-command-history t)))
-    (let ((program (gethash format lafic-command-hash))) 
-      (async-shell-command (concat 
-	   program
-	   " "
-	   (file-name-sans-extension (buffer-name))
-	   "."
-	   (cdr (assoc program lafic-command-file-association-list))
-	)
-	(concat 
-	 "*"
-	 (file-name-sans-extension (buffer-name))
-	 ".output*"
-	 )
-	(concat 
-	 "*"
-	 (file-name-sans-extension (buffer-name))
-	 ".error*"
-	 )
-	))
-    ))
+  (save-excursion
+    (let ((format (completing-read "Output format: "
+				   (mapcar 'list (hash-table-keys lafic-command-hash))
+				   nil t nil 'lafic-command-history (or (car lafic-command-history) "") t)))
+      (let ((program (gethash format lafic-command-hash))) 
+	(async-shell-command (concat 
+			      program
+			      " "
+			      (file-name-sans-extension (buffer-name))
+			      "."
+			      (cdr (assoc program lafic-command-file-association-list))
+			      )
+			     (concat 
+			      "*"
+			      (file-name-sans-extension (buffer-name))
+			      ".output*"
+			      )
+			     (concat 
+			      "*"
+			      (file-name-sans-extension (buffer-name))
+			      ".error*"
+			      )
+			     ))
+      )))
 
 ;; formation
 (defun lafic-format-par ()
