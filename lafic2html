@@ -193,6 +193,14 @@ my %colors = (
     "white" => "white",
     );
 
+#  Alignement
+my %align=(
+    "right" => "right",
+    "left" => "left",
+    "center" => "center",
+    );
+
+
 #####################
 # list of meta keys
 my @meta_keys = (
@@ -242,6 +250,11 @@ my @meta_keys = (
 	 if (-e $lang_macro_file) {
 	     print "load $lang_macro_file.\n";
 	     %colors = (%colors, do $lang_macro_file);
+	 }
+	 $lang_macro_file = "$lafic_dir/de_DE/Html.align.pl";
+	 if (-e $lang_macro_file) {
+	     print "load $lang_macro_file.\n";
+	     %align = (%align, do $lang_macro_file);
 	 }
 	 last SELECT}
 }
@@ -605,11 +618,13 @@ sub outputLines {
     		$parameter{$1} = delete($parameter{$key});
     		if ($colors{$parameter{$1}}){
     		    $value{$1} = $colors{$parameter{$1}};
-    		}
-    		#elsif($align{$parameter{$1}}) … 
+		  }
+    		elsif($align{$parameter{$1}}){
+		    $value{$1} = $align{$parameter{$1}};
+		  }  
     		else {$value{$1} = $parameter{$1};}
-    	    }
-    	}}
+	      }
+	  }}
     if(%value) {
     	print OUTPUT "<div style=\"padding: 1em";
     	foreach $key (keys %value){

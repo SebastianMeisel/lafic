@@ -458,11 +458,11 @@ statt des Doppelpunktes gesetzt wird:
 </p>
 
 <pre>
-<p>  Dieser Text ist weiß auf blauem Untergrund und
+<p>  Dieser Text ist rot auf blauem Untergrund und
   rechtsbündig.
   % Hintergrundfarbe = blau
-  % Farbe = weiß
-  % Ausrichtung = right</p>
+  % Farbe = rot
+  % Ausrichtung = rechtsbündig</p>
 </pre>
 
 
@@ -470,7 +470,7 @@ statt des Doppelpunktes gesetzt wird:
 wird zu:
 </p>
 
-<div style="padding: 1em; color: red; text-align: right; background-color: #00FFFF">
+<div style="padding: 1em; background-color: #00FFFF; color: red; text-align: right">
 <p>
 Dieser Text ist rot auf blauem Untergrund und
 rechtsbündig.
@@ -486,8 +486,8 @@ Folgende Parameter werden derzeit unterstützt:
   referred to by the „see“ keyword.</li>
 <li> „Hintergrund“ für \colorbox / &lt;div style=‚background: [color]'&gt;.</li>
 <li> „Farbe“ für \textcolor / &lt;div style=‚color: [color]'&gt;.</li>
-<li> <a class="fn" href="#fn5" id="fna5">„Ausrichtung“</a> für \raggedleft, \centering or \raggedright / &lt;div
-  style=‚text-align: [align]'&gt;.
+<li> „Ausrichtung“ :  „rechtsbündig“ für \raggedleft,  „zentriert“ für \centering oder „linksbündig“ für
+  \raggedright / &lt;div style=‚text-align: [align]'&gt;.
 </li>
 </ul>
 
@@ -591,7 +591,7 @@ einer der Dateiendungen png, jpg, jpeg oder gif einfügt:
 <pre>
 <p>  Image.png
   % Breite = 50%
-  % Ausrichtung = center</p>
+  % Ausrichtung = zentriert</p>
 </pre>
 
 
@@ -623,7 +623,7 @@ werden.
   % Höhe = 40%
   % Beschriftung = Mars and Moon
   % Name = bild1
-  % Ausrichtung = right</p>
+  % Ausrichtung = rechtsbündig</p>
 </pre>
 
 
@@ -925,8 +925,6 @@ geschrieben werden. Bitte beachten sie das Komma am Ende der Zeile.
 <li id="fn2"><a href="#fna2">Wird nicht von der Standard-Vorlage unterstützt. Es muss eine LaTeX-Klasse verwendet werden, die \chapter unterstützt.</a>
 </li>
 <li id="fn3"><a href="#fna3">In Html-Dokumenten werden Fußnoten in einer &lt;ol&gt;-Liste in einem &lt;div id=„footnote“&gt;-Container am Ende des Dokumentes dargestellt. Die einzelnen Fußnoten stehen in einem &lt;li id=„fn[x]"&gt;-Element.</a>
-</li>
-<li id="fn4"><a href="#fna4">Die eigenlich Ausrichtung muss derzeit noch auf Englisch angegeben werden.</a>
 </li>
 </ol>
 </div>

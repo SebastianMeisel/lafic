@@ -610,7 +610,6 @@ sub outputLines {
 		    $value{$1} = $colors{$parameter{$1}};
 		}
 		elsif($align{$parameter{$1}}){
-		    print "Alignement= $align{$parameter{$1}}\n";
 		    $value{$1} = $align{$parameter{$1}};
 		}  
 		else {$value{$1} = $parameter{$1};}

@@ -1,0 +1,5 @@
+"rechts"=>"right",
+    "rechtsbündig"=>"right",
+    "links"=>"left",
+    "linksbündig"=>"left",
+    "zentriert"=>"center",
