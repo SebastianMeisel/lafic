@@ -358,11 +358,11 @@ zu Formatierung im Absatz, nur dass ein Ist-gleich-Zeichen
 statt des Doppelpunktes gesetzt wird:
 
 % verbatim
-  Dieser Text ist weiß auf blauem Untergrund und
+  Dieser Text ist rot auf blauem Untergrund und
   rechtsbündig.
   % Hintergrundfarbe = blau
-  % Farbe = weiß
-  % Ausrichtung = right
+  % Farbe = rot
+  % Ausrichtung = rechtsbündig
 
 wird zu:
 
@@ -370,7 +370,7 @@ Dieser Text ist rot auf blauem Untergrund und
 rechtsbündig.
 % Hintergrund = blau
 % Farbe = rot
-% Ausrichtung = right
+% Ausrichtung = rechtsbündig
 
 Folgende Parameter werden derzeit unterstützt:
 
@@ -378,9 +378,8 @@ Folgende Parameter werden derzeit unterstützt:
   referred to by the "see" keyword.
 * "Hintergrund" für \colorbox / <div style='background: [color]'>.
 * "Farbe" für \textcolor / <div style='color: [color]'>.
-* "Ausrichtung" für \raggedleft, \centering or \raggedright / <div
-  style='text-align: [align]'>.
-% "Ausrichtung": footnote: Die eigenlich Ausrichtung muss derzeit noch auf Englisch angegeben werden.
+* "Ausrichtung" :  "rechtsbündig" für \raggedleft,  "zentriert" für \centering oder "linksbündig" für
+  \raggedright / <div style='text-align: [align]'>.
 
 Listen
 
@@ -456,11 +455,11 @@ einer der Dateiendungen png, jpg, jpeg oder gif einfügt:
 % verbatim
   Image.png
   % Breite = 50%
-  % Ausrichtung = center
+  % Ausrichtung = zentriert
 
 Image.png
 % Breite = 50%
-% Ausrichtung = center
+% Ausrichtung = zentriert
 
 Zur Formatierung stehen folgende Parameter zur Verfügung:
 
@@ -478,14 +477,14 @@ werden.
   % Höhe = 40%
   % Beschriftung = Mars and Moon
   % Name = bild1
-  % Ausrichtung = right
+  % Ausrichtung = rechtsbündig
 
 % Bild
 Image.png
 % Höhe = 40%
 % Beschriftung = Mars und Mond
 % Name = bild1
-% Ausrichtung = right
+% Ausrichtung = rechtsbündig
 
 
 Damit stehen dann zwei weitere Parameter zur Verfügung:

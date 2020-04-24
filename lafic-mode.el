@@ -86,7 +86,7 @@
   "Association list of command and file extentions."
   )
 
-(if 'lafic-command-history () (defvar lafic-command-history '((""))))
+(defvar lafic-command-history '(("pdf")))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; keyword hash
@@ -328,7 +328,7 @@
   (save-excursion
     (let ((format (completing-read "Output format: "
 				   (mapcar 'list (hash-table-keys lafic-command-hash))
-				   nil t nil 'lafic-command-history (or (car lafic-command-history) "") t)))
+				   nil t nil 'lafic-command-history (car lafic-command-history)  t)))
       (let ((program (gethash format lafic-command-hash))) 
 	(async-shell-command (concat 
 			      program
